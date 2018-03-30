@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>violent python | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Python" />
+  
+  
+  
+  
+  <meta name="description" content="Violent Python 2017-04-07 用pyhon进行渗透测试2.1 编写端口扫描2.1.1 TCP全连接扫描 TCP 全连接扫描：socket 和 optpares  1234socket.gethostbyname(hostname) \\socket.gethostbyaddr(ip addreess) \\socket.socket(\[family\[,type\[,pro">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Violent Python">
+<meta property="og:url" content="http://yoursite.com/2017/04/07/Violent Python/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="Violent Python 2017-04-07 用pyhon进行渗透测试2.1 编写端口扫描2.1.1 TCP全连接扫描 TCP 全连接扫描：socket 和 optpares  1234socket.gethostbyname(hostname) \\socket.gethostbyaddr(ip addreess) \\socket.socket(\[family\[,type\[,pro">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-29T23:23:10.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Violent Python">
+<meta name="twitter:description" content="Violent Python 2017-04-07 用pyhon进行渗透测试2.1 编写端口扫描2.1.1 TCP全连接扫描 TCP 全连接扫描：socket 和 optpares  1234socket.gethostbyname(hostname) \\socket.gethostbyaddr(ip addreess) \\socket.socket(\[family\[,type\[,pro">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Violent Python" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Violent Python
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/07/Violent Python/" class="article-date">
+	  <time datetime="2017-04-07T15:53:56.000Z" itemprop="datePublished">2017-04-07</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Violent-Python"><a href="#Violent-Python" class="headerlink" title="Violent Python"></a>Violent Python</h1><p><a href="http://shackles.top/2017/04/07/violent%20python%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%8C%E7%AB%A0/" target="_blank" rel="noopener"> 2017-04-07</a></p>
+<h1 id="用pyhon进行渗透测试"><a href="#用pyhon进行渗透测试" class="headerlink" title="用pyhon进行渗透测试"></a>用pyhon进行渗透测试</h1><h2 id="2-1-编写端口扫描"><a href="#2-1-编写端口扫描" class="headerlink" title="2.1 编写端口扫描"></a>2.1 编写端口扫描</h2><h3 id="2-1-1-TCP全连接扫描"><a href="#2-1-1-TCP全连接扫描" class="headerlink" title="2.1.1 TCP全连接扫描"></a>2.1.1 TCP全连接扫描</h3><ol>
+<li>TCP 全连接扫描：socket 和 optpares</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.gethostbyname(hostname) \\</span><br><span class="line">socket.gethostbyaddr(ip addreess) \\</span><br><span class="line">socket.socket(\[family\[,type\[,proto]]])\\</span><br><span class="line">socket.create_connection(addrees\[,timeout\[,surece_address]])</span><br></pre></td></tr></table></figure>
+<ol>
+<li>​</li>
+</ol>
+<p>optparse 模块是python的内建模块应用于处理命令行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from optparse import OptionParser  </span><br><span class="line">[...]  </span><br><span class="line"></span><br><span class="line">parser = OptionParser()  </span><br><span class="line"></span><br><span class="line">parser.add_option(&quot;-f&quot;, &quot;--file&quot;, dest=&quot;filename&quot;,  </span><br><span class="line">                  help=&quot;write report to FILE&quot;, metavar=&quot;FILE&quot;)  </span><br><span class="line">parser.add_option(&quot;-q&quot;, &quot;--quiet&quot;,  </span><br><span class="line">                  action=&quot;store_false&quot;, dest=&quot;verbose&quot;, default=True,  </span><br><span class="line">                  help=&quot;don&apos;t print status messages to stdout&quot;)  </span><br><span class="line">  </span><br><span class="line">(options, args) = parser.parse_args()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">故命令行可以使用：</span><br><span class="line"></span><br><span class="line">usage: &lt;yourscript&gt; [options]  </span><br><span class="line">  </span><br><span class="line">options:  </span><br><span class="line">  -h, --help            show this help message and exit  </span><br><span class="line">  -f FILE, --file=FILE  write report to FILE  </span><br><span class="line">  -q, --quiet           don&apos;t print status messages to stdout</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-2-抓取应用的Banner"><a href="#2-2-2-抓取应用的Banner" class="headerlink" title="2.2.2 抓取应用的Banner"></a>2.2.2 抓取应用的Banner</h3><h3 id="2-2-3-线程扫描"><a href="#2-2-3-线程扫描" class="headerlink" title="2.2.3 线程扫描"></a>2.2.3 线程扫描</h3><p>python-nmap 利用python 调用nmap</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TCP SYN 扫描 ：又称为半开放扫描，这种类型的扫描发送一个SYN的TCP连接数包等待响应，当返回RST数据包表示端口关闭，返回ACK数据包表示端口开放。</span><br><span class="line"></span><br><span class="line">TCP NULL 扫描 ：TCP空扫描设置TCP的标志头为零。如果返回一个RST数据包则表示这个端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP FIN 扫描 : TCP FIN扫描发送一个FIN数据包，主动关闭连接，等待一个圆满的终止，如果返回RST数据包则表示端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP XMAS 扫描 ：TCP XMAS扫描设置 PSH, FIN,和URG TCP标志位，如返回RST数据包则表示这个端口是关闭的。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-</span><br><span class="line">#  输入主机名与端口-&gt;主机名变为IPV4地址-&gt;</span><br><span class="line">import optparse</span><br><span class="line">import socket</span><br><span class="line">import  threading</span><br><span class="line"></span><br><span class="line">###</span><br><span class="line"># 建立socket连接</span><br><span class="line">def connScan(tgtHost,tgtPort):</span><br><span class="line">    try:</span><br><span class="line">        connSkt = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        connSkt.connect((tgtHost,tgtPort))</span><br><span class="line">        print &apos;[+]%d/tcp open&apos;%tgtPort</span><br><span class="line">        connSkt.close()</span><br><span class="line">    except:</span><br><span class="line">        print &apos;[-]%d/tcp closed &apos;% tgtPort</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 定义端口扫描函数</span><br><span class="line">def portScan(tgtHost, tgtPorts):</span><br><span class="line">    try:</span><br><span class="line">        tgtIP = socket.gethostbyname(tgtHost)</span><br><span class="line"></span><br><span class="line">    except: </span><br><span class="line">        print &quot;[-] Cannot resolve &apos;%s&apos;: Unknown host&quot; % tgtHost</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        tgtName = socket.gethostbyaddr(tgtIP)</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtName[0]</span><br><span class="line">    except:</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtIP</span><br><span class="line">    socket.setdefaulttimeout(1)</span><br><span class="line">    ### 多线程，多端口</span><br><span class="line">    for tgtPort in tgtPorts:</span><br><span class="line">        print(&apos;Scanning port &apos; + str(tgtPort))</span><br><span class="line">        t = threading.Thread(target=connScan, args=(tgtHost, int(tgtPort)))</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;use:  –H &lt;target host&gt; -P &lt;target port&gt;&apos;)  # 新建paser对象</span><br><span class="line">    parser.add_option(&apos;-H&apos;, &apos;--host&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;taget host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, &apos;--port&apos;, dest=&apos;tgtPort&apos;, type=&apos;int&apos;, help=&apos;taget port&apos;)</span><br><span class="line"></span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    # 已经定义好了所有的命令行参数，调用 parse_args() 来解析程序的命令行：</span><br><span class="line">    # options，它是一个对象（optpars.Values），保存有命令行参数值。只要知道命令行参数名，如 file，就可以访问其对应的值： options.file 。</span><br><span class="line">    # args，它是一个由 positional arguments 组成的列表。</span><br><span class="line"></span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)  # 设置端口列表</span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print parser.usage</span><br><span class="line">        exit(0)</span><br><span class="line">    portScan(tgtHost,args)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-4-利用NMAP"><a href="#2-2-4-利用NMAP" class="headerlink" title="2.2.4 利用NMAP"></a>2.2.4 利用NMAP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-\</span><br><span class="line">#  调用 nmap</span><br><span class="line"></span><br><span class="line">import optparse</span><br><span class="line">import nmap</span><br><span class="line"></span><br><span class="line">def nmapScan(tgtHost, tgtPort):</span><br><span class="line">    nmScan = nmap.PortScanner()</span><br><span class="line">    results = nmScan.scan(tgtHost, tgtPort)</span><br><span class="line">    state = results[&apos;scan&apos;][tgtHost][&apos;tcp&apos;][int(tgtPort)][&apos;state&apos;]</span><br><span class="line">    print(&quot; [*] &quot; + tgtHost + &quot; tcp/&quot; + tgtPort + &quot; &quot; + state)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;usage %prog –H &lt;target host&gt; -P &lt;target port&gt;&apos;)</span><br><span class="line">    parser.add_option(&apos;-H&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;specify target host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, dest=&apos;tgtPort&apos;, type=&apos;string&apos;, help=&apos;specify target port&apos;)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)    </span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print(&apos;[-] You must specify a target host and port[s]!&apos;)</span><br><span class="line">        exit(0)</span><br><span class="line">    for tgport in args:</span><br><span class="line">        nmapScan(tgtHost, tgport)</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/29/Web 服务端安全/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Web 服务端安全
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/02/CTF-密码学总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">CTF-密码学总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Violent-Python"><span class="nav-number">1.</span> <span class="nav-text">Violent Python</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用pyhon进行渗透测试"><span class="nav-number">2.</span> <span class="nav-text">用pyhon进行渗透测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-编写端口扫描"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 编写端口扫描</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-TCP全连接扫描"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 TCP全连接扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-抓取应用的Banner"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.2.2 抓取应用的Banner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-线程扫描"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.2.3 线程扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-利用NMAP"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.2.4 利用NMAP</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

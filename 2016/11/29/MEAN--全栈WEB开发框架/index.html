@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mean--全栈web开发框架 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="MEAN–全栈WEB开发框架 2016-12-01 MEAN Mongode + Express + Angular + Node.js ##全Javascript的开发架构MEAN。js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。   (M)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MEAN--全栈WEB开发框架">
+<meta property="og:url" content="http://yoursite.com/2016/11/29/MEAN--全栈WEB开发框架/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="MEAN–全栈WEB开发框架 2016-12-01 MEAN Mongode + Express + Angular + Node.js ##全Javascript的开发架构MEAN。js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。   (M)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://meanjs.org/img/logo.png">
+<meta property="og:image" content="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png">
+<meta property="og:image" content="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png">
+<meta property="og:image" content="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png">
+<meta property="og:image" content="https://raohuaming.github.io/images/mean-stack.png">
+<meta property="og:image" content="http://simage.jdon.com/idea/meanarchitecture.png">
+<meta property="og:updated_time" content="2018-03-29T23:25:48.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MEAN--全栈WEB开发框架">
+<meta name="twitter:description" content="MEAN–全栈WEB开发框架 2016-12-01 MEAN Mongode + Express + Angular + Node.js ##全Javascript的开发架构MEAN。js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。   (M)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是">
+<meta name="twitter:image" content="https://meanjs.org/img/logo.png">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-MEAN--全栈WEB开发框架" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      MEAN--全栈WEB开发框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/11/29/MEAN--全栈WEB开发框架/" class="article-date">
+	  <time datetime="2016-11-29T15:53:56.000Z" itemprop="datePublished">2016-11-29</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MEAN–全栈WEB开发框架"><a href="#MEAN–全栈WEB开发框架" class="headerlink" title="MEAN–全栈WEB开发框架"></a>MEAN–全栈WEB开发框架</h1><p><a href="http://shackles.top/2016/12/01/tags-%20%20Web%20%E6%A1%86%E6%9E%B6/" target="_blank" rel="noopener"> 2016-12-01</a></p>
+<h1 id="MEAN-Mongode-Express-Angular-Node-js"><a href="#MEAN-Mongode-Express-Angular-Node-js" class="headerlink" title="MEAN Mongode + Express + Angular + Node.js"></a>MEAN Mongode + Express + Angular + Node.js</h1><blockquote>
+<p>##全Javascript的开发架构<strong>MEAN</strong>。<br><a href="https://meanjs.org/img/logo.png" target="_blank" rel="noopener"><img src="https://meanjs.org/img/logo.png" alt="img"></a><br>js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。</p>
+</blockquote>
+<ol>
+<li><strong>(M</strong>)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是使用JS来进行sql查询；<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" alt="m"></a>m</li>
+<li>(<strong>E</strong>)Express——较好的基于Node的Web开发框架，是一个最小的，灵活的Node.js Web应用程序框架，构建单页和多页，和混合Web应用程序提供了一套强大的功能；</li>
+<li>(<strong>A</strong>)Aagular——JS的前端开发框架，提供了声明式的双向数据绑定；<a href="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" alt="A"></a>A</li>
+<li>(<strong>N</strong>)Node——跑在服务器的js，并发 异步 事件驱动，基于V8的运行时环境（JS语言开发），可以构建快速响应、可扩展的网络应用。<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" alt="n"></a>n</li>
+</ol>
+<p><a href="https://raohuaming.github.io/images/mean-stack.png" target="_blank" rel="noopener"><img src="https://raohuaming.github.io/images/mean-stack.png" alt="img"></a><br><em>1.架构框图</em><br>采用MVC架构。模型-视图-控制器 (MVC)</p>
+<p><a href="http://simage.jdon.com/idea/meanarchitecture.png" target="_blank" rel="noopener"><img src="http://simage.jdon.com/idea/meanarchitecture.png" alt="img"></a><br>可以直接存储JSON格式的mongoDB数据库，</p>
+<h3 id="1-从-LAMP-到-MEAN"><a href="#1-从-LAMP-到-MEAN" class="headerlink" title="1. 从 LAMP 到 MEAN"></a>1. 从 <a href="http://baike.baidu.com/link?url=xxWtinT946K5F6Ur9Vzt0st7GyosP3TlaybV1fNkN7BFlDF9TFN0xaTePZbcMTPQHKL2mC_2w6igSGtTQeqIda" target="_blank" rel="noopener">LAMP</a> 到 MEAN</h3><p>MEAN 不仅仅是一次首字母缩写的简单重新安排与技术升级。将基础平台从操作系统 (Linux) 转变为 JavaScript 运行时 (Node.js) 让操作系统变得独立：Node.js 在 Windows® 与 OS X 上的运行情况和在 Linux 上一样优秀。跨平台强。</p>
+<h3 id="1-1"><a href="#1-1" class="headerlink" title="- 1.1"></a>- 1.1</h3><p>Node.js 同样取代了 LAMP 堆栈中的 Apache。但 Node.js 远远不止是一种简单的 Web 服务器。事实上，用户不会将完成后的应用程序部署到单机的 Web 服务器上；相反，Web 服务器已经包含在应用程序中，并已在 MEAN 堆栈中自动安装。结果，部署过程得到了极大简化，因为所需的 Web 服务器版本已经与余下的运行时依赖关系一起得到了明确定义。</p>
+<h3 id="1-2"><a href="#1-2" class="headerlink" title="- 1.2"></a>- 1.2</h3><p>从传统数据库（如 MySQL）–&gt;非关系数据库 (如NoSQL）–&gt;无架构的、以文档为导向的持久存储（如 MongoDB），这些代表着持久化策略发生了根本性的转变。用户花费在编写 SQL 上的时间将会减少，将会有更多的时间编写 JavaScript 中的映射/化简功能。用户还能省掉大量的转换逻辑，因为 MongoDB 可以在本地运行 JavaScript Object Notation (JSON)。因此，编写 RESTful Web 服务变得前所未有的容易。 从 LAMP 到MEAN的最大转变在于从传统的服务器端页面生成变为客户端 单页面应用程序 (SPA)。借助 Express仍然可以处理服务器端的路由与页面生成，但目前的重点在客户端视图上，而 AngularJS 可以实</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/19/简单强大的Markdown/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          简单强大的Markdown
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/05/实验吧Misc题目/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">实验吧Misc题目</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MEAN–全栈WEB开发框架"><span class="nav-number">1.</span> <span class="nav-text">MEAN–全栈WEB开发框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MEAN-Mongode-Express-Angular-Node-js"><span class="nav-number">2.</span> <span class="nav-text">MEAN Mongode + Express + Angular + Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-从-LAMP-到-MEAN"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 从 LAMP 到 MEAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">- 1.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2"><span class="nav-number">2.0.3.</span> <span class="nav-text">- 1.2</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

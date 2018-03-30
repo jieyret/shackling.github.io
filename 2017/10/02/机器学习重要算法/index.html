@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习重要算法 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="机器学习重要算法监督学习和非监督学习。 监督学习： 分类和回归； 监督学习： 聚类算法，密度估计算法。 分类 :需已知样本特征 Classification (分类)，一个 classifier 会从它得到的训练集中进行“学习”，从而具备对未知数据进行分类的能力，这种提供训练数据的过程通常叫做 supervised learning (监督学习)（样本有标签）， 所谓分类，简单来说，就是根据文本的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习重要算法">
+<meta property="og:url" content="http://yoursite.com/2017/10/02/机器学习重要算法/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="机器学习重要算法监督学习和非监督学习。 监督学习： 分类和回归； 监督学习： 聚类算法，密度估计算法。 分类 :需已知样本特征 Classification (分类)，一个 classifier 会从它得到的训练集中进行“学习”，从而具备对未知数据进行分类的能力，这种提供训练数据的过程通常叫做 supervised learning (监督学习)（样本有标签）， 所谓分类，简单来说，就是根据文本的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201205/19/1337433786_7958.jpg">
+<meta property="og:updated_time" content="2018-03-29T23:20:55.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习重要算法">
+<meta name="twitter:description" content="机器学习重要算法监督学习和非监督学习。 监督学习： 分类和回归； 监督学习： 聚类算法，密度估计算法。 分类 :需已知样本特征 Classification (分类)，一个 classifier 会从它得到的训练集中进行“学习”，从而具备对未知数据进行分类的能力，这种提供训练数据的过程通常叫做 supervised learning (监督学习)（样本有标签）， 所谓分类，简单来说，就是根据文本的">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201205/19/1337433786_7958.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-机器学习重要算法" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习重要算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/02/机器学习重要算法/" class="article-date">
+	  <time datetime="2017-10-02T15:53:56.000Z" itemprop="datePublished">2017-10-02</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="机器学习重要算法"><a href="#机器学习重要算法" class="headerlink" title="机器学习重要算法"></a>机器学习重要算法</h1><p>监督学习和非监督学习。</p>
+<p>监督学习： 分类和回归；</p>
+<p>监督学习： 聚类算法，密度估计算法。</p>
+<h2 id="分类-需已知样本特征"><a href="#分类-需已知样本特征" class="headerlink" title="分类 :需已知样本特征"></a>分类 :需已知样本特征</h2><ul>
+<li><strong>Classification (分类)</strong>，一个 classifier 会从它得到的训练集中进行“学习”，从而具备对未知数据进行分类的能力，这种提供训练数据的过程通常叫做 supervised learning (监督学习)（样本有标签），</li>
+<li>所谓分类，简单来说，就是根据文本的特征或属性，划分到已有的类别中。如在自然语言处理NLP中，我们经常提到的文本分类便就是一个分类问题，一般的模式分类方法都可用于文本分类研究。<ul>
+<li>常用的分类算法包括：<ul>
+<li>k-最近邻法(k-nearest neighbor，kNN)，</li>
+<li>决策树分类法，</li>
+<li>朴素的贝叶斯分类算法(native Bayesian classifier)(NBC)、</li>
+<li>基于支持向量机(SVM)的分类器，</li>
+<li>神经网络法(SNN)，</li>
+<li>模糊分类法等等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>分类作为一种监督学习方法，要求必须事先明确知道各个类别的信息，并且断言所有待分类项都有一个类别与之对应。但是很多时候上述条件得不到满足，尤其是在处理海量数据的时候，如果通过预处理使得数据满足分类算法的要求，则代价非常大，这时候可以考虑使用聚类算法。</p>
+<h2 id="聚类：把相似的对象聚合"><a href="#聚类：把相似的对象聚合" class="headerlink" title="聚类：把相似的对象聚合"></a>聚类：把相似的对象聚合</h2><ul>
+<li><strong>Clustering(聚类)</strong>，简单地说就是把<strong>相似</strong>的东西分到一组，聚类的时候，我们并不关心某一类是什么，我们需要实现的目标只是把相似的东西聚到一起，因此，一个聚类算法通常只需要知道如何计算相似 度就可以开始工作了，因此 clustering 通常并不需要使用训练数据进行学习，这在 Machine Learning 中被称作 unsupervised learning (无监督学习).</li>
+</ul>
+<p>聚类分析指将物理或抽象对象的集合分组为由类似的对象组成的多个类的分析过程。</p>
+<ul>
+<li>常用的分类算法包括：<ul>
+<li>而<strong>K均值</strong>(K-meansclustering)聚类则是最典型的聚类算法</li>
+<li>除此之外，还有很多诸如 属于划分法K-MEDOIDS算法、CLARANS算法；属于层次法的BIRCH算法、CURE算法、CHAMELEON算法等；基于密度的方法：DBSCAN算法、OPTICS算法、DENCLUE算法等；基于网格的方法：STING算法、CLIQUE算法、WAVE-CLUSTER算法；基于模型的方法，本系列后续会介绍其中几种。</li>
+</ul>
+</li>
+</ul>
+<p>参考大神博客：<a href="http://blog.csdn.net/v_july_v/article/details/7577684" target="_blank" rel="noopener">http://blog.csdn.net/v_july_v/article/details/7577684</a></p>
+<h1 id="分类算法"><a href="#分类算法" class="headerlink" title="分类算法"></a>分类算法</h1><h2 id="kNN-K-邻近算法"><a href="#kNN-K-邻近算法" class="headerlink" title="kNN K-邻近算法"></a>kNN K-邻近算法</h2><p>采用测量不同特征值之间的距离方法。进行分类。<br><strong>目标样本</strong>与<strong>存在标签的样本集</strong>作<strong>对比</strong>。 取前K个最为相似的数据，选择K最多的目标的新分类。</p>
+<p>给定训练数据样本和标签，对于某测试的一个样本数据，选择距离其最近的k个训练样本，这k个训练样本中所属类别最多的类即为该测试样本的预测标签。简称kNN。</p>
+<p>通常k是不大于20的整数，这里的距离一般是欧式距离。</p>
+<h3 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据（距离计算所需要的数值，最好是结构化的数据格式）</li>
+<li>分析数据：可以使用任何方法</li>
+<li>训练算法：此步骤不适合K-邻近算法</li>
+<li>测试算法：计算错误率</li>
+<li>使用算法：输入样本数据+结构化输出结果 —》然后运行k-近邻算法判定输入数据属于哪个分类-=-》最后应用对计算出的分类执行后续操作。</li>
+</ol>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树学习采用的是自顶向下的递归方法，其基本思想是以信息熵为度量构造一棵熵值下降最快的树，到叶子节点处的熵值为零，此时每个叶节点中的实例都属于同一类。<br>以树的形式划分数据集(ID3算法)。</p>
+<h3 id="一般流程-1"><a href="#一般流程-1" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据(树构造算法只适用于标称型数据、数据必须离散化)</li>
+<li>分析数据：检查图形是否符合规范</li>
+<li>训练算法:构造<strong>树</strong>的<strong>数据结构</strong>(ID3算法等等)</li>
+<li>测试算法：使用经验树计算错误率</li>
+<li>使用算法:此步骤可以适用于任何监督学习算法，而使用决策树可以更好的理解数据的内在含义。</li>
+</ol>
+<h2 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h2><p>在给定目标值时属性之间相互条件独立的前提下，贝叶斯决策理论的核心思想：即选择具有最高概率的决策。 （基于条件概率）</p>
+<h3 id="一般流程-2"><a href="#一般流程-2" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据（需要数值型或者布尔型）</li>
+<li>分析数据</li>
+<li>训练算法：计算不同的独立特征的<strong>条件概率</strong></li>
+<li>测试算法：计算错误率</li>
+<li>使用算法：文档分类居多</li>
+</ol>
+<h1 id="回归（预测）"><a href="#回归（预测）" class="headerlink" title="回归（预测）"></a>回归（预测）</h1><h2 id="Logistic-回归"><a href="#Logistic-回归" class="headerlink" title="Logistic 回归"></a>Logistic 回归</h2><p>最优化算法。 logistic函数<br>根据现有的数据对于分类边界线建立回归公式。<br>参考：<a href="https://www.zhihu.com/question/36714044?sort=created" target="_blank" rel="noopener">https://www.zhihu.com/question/36714044?sort=created</a></p>
+<h3 id="一般流程-3"><a href="#一般流程-3" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据（需要进行距离计算，数值型，结构化数据最佳）</li>
+<li>训练数据：大部分时间进行训练，训练的目的是为了找到最佳的分类回归系数。</li>
+<li>测试数据</li>
+<li>使用数据：输入数据–》结构化处理–》分类判定–》基于已经训练好的回归系数就可以对于这些数值进行简单的回归计算，判定它们属于哪个分类–》进一步处理</li>
+<li>​</li>
+</ol>
+<h2 id="support-vector-machine-SVM"><a href="#support-vector-machine-SVM" class="headerlink" title="support vector machine (SVM)"></a>support vector machine (SVM)</h2><p>支持向量机，因其英文名为support vector machine，故一般简称SVM，通俗来讲，它是一种<strong>二类分类</strong>模型，其基本模型定义为特征空间上的间隔最大的线性分类器，其学习策略便是间隔最大化，最终可转化为一个凸二次规划问题的求解。</p>
+<p>参考：<a href="http://blog.csdn.net/v_july_v/article/details/7624837" target="_blank" rel="noopener">http://blog.csdn.net/v_july_v/article/details/7624837</a></p>
+<p><a href="https://www.zhihu.com/question/21094489" target="_blank" rel="noopener">https://www.zhihu.com/question/21094489</a><br><a href="https://zhuanlan.zhihu.com/p/21932911?refer=baina" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21932911?refer=baina</a></p>
+<ul>
+<li>SVM通过核函数视图非线性的问题的数据集转变为核空间中一个<strong>线性</strong>可分的数据集。</li>
+<li>神经网络是通过多个感知器(Perceptron)的组合叠加来解决<strong>非线性</strong>的分类问题。</li>
+</ul>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>CNN(卷积神经网络)<br>CNN：<a href="https://www.zhihu.com/question/52668301" target="_blank" rel="noopener">https://www.zhihu.com/question/52668301</a></p>
+<h3 id="一般流程-4"><a href="#一般流程-4" class="headerlink" title="一般流程"></a>一般流程</h3><h1 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h1><p>#</p>
+<h2 id="隐马可夫模型-HMM"><a href="#隐马可夫模型-HMM" class="headerlink" title="隐马可夫模型(HMM)"></a>隐马可夫模型(HMM)</h2><h3 id="马可夫模型"><a href="#马可夫模型" class="headerlink" title="马可夫模型"></a>马可夫模型</h3><p>参考：<a href="https://www.zhihu.com/question/20962240" target="_blank" rel="noopener">https://www.zhihu.com/question/20962240</a></p>
+<p>马尔可夫模型可以看做是一个转移弧上有概率的非确定的有限状态自动机。<br><a href="http://img.my.csdn.net/uploads/201205/19/1337433786_7958.jpg" target="_blank" rel="noopener"><img src="http://img.my.csdn.net/uploads/201205/19/1337433786_7958.jpg" alt="image"></a>image</p>
+<p>在上图中，圆圈表示状态，状态之间的转移用带箭头的弧表示，弧上的数字为状态转移的概率，初始状态用标记为start的输入箭头表示，假设任何状态都可作为终止状态。图中零概率的转移弧省略，且每个节点上所有发出弧的概率之和等于1。</p>
+<h3 id="隐马可夫模型-HMM-1"><a href="#隐马可夫模型-HMM-1" class="headerlink" title="隐马可夫模型(HMM)"></a>隐马可夫模型(HMM)</h3><p>每个状态代表了一个可观察的事件，所以，马可夫模型有时又称作视马可夫模型(VMM)，这在某种程度上限制了模型的适应性。而在我们的隐马可夫模型(HMM)中，我们不知道模型所经过的状态序列，只知道状态的概率函数，也就是说，观察到的事件是状态的随机函数，因此改模型是一个双重的随机过程。其中，模型的状态转换是不可观察的，即隐蔽的，可观察事件的随机过程是隐蔽的状态过程的随机函数。</p>
+<h2 id="k-均值"><a href="#k-均值" class="headerlink" title="k-均值"></a>k-均值</h2><p>算法过程：Kmeans中文称为k-均值，步骤为：</p>
+<p>(1)它事先选定k个聚类中心，<br>(2)然后看每个样本点距离那个聚类中心最近，则该样本就属于该聚类中心。<br>(3)求每个聚类中心的样本的均值来替换该聚类中心(更新聚类中心)。<br>(4)不断迭代(2)和(3), 直到收敛。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/29/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/19/沙盒靶机渗透一/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">靶机渗透一</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习重要算法"><span class="nav-number">1.</span> <span class="nav-text">机器学习重要算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类-需已知样本特征"><span class="nav-number">1.1.</span> <span class="nav-text">分类 :需已知样本特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类：把相似的对象聚合"><span class="nav-number">1.2.</span> <span class="nav-text">聚类：把相似的对象聚合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分类算法"><span class="nav-number">2.</span> <span class="nav-text">分类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#kNN-K-邻近算法"><span class="nav-number">2.1.</span> <span class="nav-text">kNN K-邻近算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般流程"><span class="nav-number">2.1.1.</span> <span class="nav-text">一般流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树"><span class="nav-number">2.2.</span> <span class="nav-text">决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般流程-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">一般流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#朴素贝叶斯"><span class="nav-number">2.3.</span> <span class="nav-text">朴素贝叶斯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般流程-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">一般流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回归（预测）"><span class="nav-number">3.</span> <span class="nav-text">回归（预测）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Logistic-回归"><span class="nav-number">3.1.</span> <span class="nav-text">Logistic 回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般流程-3"><span class="nav-number">3.1.1.</span> <span class="nav-text">一般流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#support-vector-machine-SVM"><span class="nav-number">3.2.</span> <span class="nav-text">support vector machine (SVM)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络"><span class="nav-number">3.3.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般流程-4"><span class="nav-number">3.3.1.</span> <span class="nav-text">一般流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#聚类算法"><span class="nav-number">4.</span> <span class="nav-text">聚类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马可夫模型-HMM"><span class="nav-number">4.1.</span> <span class="nav-text">隐马可夫模型(HMM)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#马可夫模型"><span class="nav-number">4.1.1.</span> <span class="nav-text">马可夫模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马可夫模型-HMM-1"><span class="nav-number">4.1.2.</span> <span class="nav-text">隐马可夫模型(HMM)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k-均值"><span class="nav-number">4.2.</span> <span class="nav-text">k-均值</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

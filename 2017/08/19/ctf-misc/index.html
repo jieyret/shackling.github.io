@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ctf-misc | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="CTF" />
+  
+  
+  
+  
+  <meta name="description" content="CTF-Misc 2017-08-06 misc先上一些常用命令strings // 查找字符 foremost // 自动分离 binwalk // binwalk -e 自动提取 diff // 对比文件 pacpfix // pcap文件修复工具 DShell tshark // 命令行提取数据包 或者tcpdump Recon(信息收集)很少出现 Encode编码  各种进制 ​ 二进制转">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF-Misc">
+<meta property="og:url" content="http://yoursite.com/2017/08/19/ctf-misc/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="CTF-Misc 2017-08-06 misc先上一些常用命令strings // 查找字符 foremost // 自动分离 binwalk // binwalk -e 自动提取 diff // 对比文件 pacpfix // pcap文件修复工具 DShell tshark // 命令行提取数据包 或者tcpdump Recon(信息收集)很少出现 Encode编码  各种进制 ​ 二进制转">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-29T23:24:11.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF-Misc">
+<meta name="twitter:description" content="CTF-Misc 2017-08-06 misc先上一些常用命令strings // 查找字符 foremost // 自动分离 binwalk // binwalk -e 自动提取 diff // 对比文件 pacpfix // pcap文件修复工具 DShell tshark // 命令行提取数据包 或者tcpdump Recon(信息收集)很少出现 Encode编码  各种进制 ​ 二进制转">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ctf-misc" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      CTF-Misc
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/08/19/ctf-misc/" class="article-date">
+	  <time datetime="2017-08-19T15:53:56.000Z" itemprop="datePublished">2017-08-19</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CTF-Misc"><a href="#CTF-Misc" class="headerlink" title="CTF-Misc"></a>CTF-Misc</h1><p><a href="http://shackles.top/2017/08/06/misc/" target="_blank" rel="noopener"> 2017-08-06</a></p>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="先上一些常用命令"><a href="#先上一些常用命令" class="headerlink" title="先上一些常用命令"></a>先上一些常用命令</h2><p>strings // 查找字符</p>
+<p>foremost // 自动分离</p>
+<p>binwalk // binwalk -e 自动提取</p>
+<p>diff // 对比文件</p>
+<p>pacpfix // pcap文件修复工具</p>
+<p>DShell</p>
+<p>tshark // 命令行提取数据包 或者tcpdump</p>
+<h3 id="Recon-信息收集"><a href="#Recon-信息收集" class="headerlink" title="Recon(信息收集)"></a>Recon(信息收集)</h3><p>很少出现</p>
+<h3 id="Encode"><a href="#Encode" class="headerlink" title="Encode"></a>Encode</h3><p>编码</p>
+<ul>
+<li><p>各种进制</p>
+<p>​</p>
+<p>二进制转化为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ASCII</span><br><span class="line">二维码</span><br><span class="line">图片</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>base家族 base64 32 16</p>
+</li>
+<li><p>曼彻斯特编码/差分曼彻斯特编码</p>
+</li>
+</ul>
+<h4 id="二进制编码"><a href="#二进制编码" class="headerlink" title="二进制编码"></a>二进制编码</h4><p>工具：JpocketKnife<br>1.得到的二进制有可能7位一组，正常八位一组<br>2.二维码：二进制串的长度是一个平方数<br>3.因式分解其长度</p>
+<h4 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h4><p>编码方式：</p>
+<ul>
+<li>字符对应ASCII转换成八位二进制</li>
+<li>base64的基础单位是 3<em>8bit的二进制，若是不够3</em>8bit则在后面添加0字节（padding）直至满足</li>
+<li>3<em>8bit的二进制转换成4</em>6bit的二进制</li>
+<li>4*6bit的二进制转换成十进制</li>
+<li>对照base64表把十进制转换成字符</li>
+</ul>
+<p>解码方式:</p>
+<ul>
+<li>检查base64编码后面有几个等于号</li>
+<li>把字符串按照base64表转换成4*6的倍数位数二进制</li>
+<li>删除等于号的个数*8的bit</li>
+<li>按照6个bit一组转成字符</li>
+<li>可以发现，编码和解码的方式并非完全对称的，解码的时候直接根据等号的数量删除bit,如果我们把数据写到填充的0的前两位，那么就可以实现隐写的功能。</li>
+</ul>
+<p>判断方法: 先解码在编码，和原字符串对比，若不一样就是有隐写</p>
+<ul>
+<li><a href="http://www.atool.org(编码工具集)" target="_blank" rel="noopener">www.atool.org(编码工具集)</a></li>
+<li><a href="http://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html(介绍CTF编码的文章)" target="_blank" rel="noopener">www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html(介绍CTF编码的文章)</a></li>
+</ul>
+<h4 id="图形码"><a href="#图形码" class="headerlink" title="图形码"></a>图形码</h4><p>条形码,二维码。</p>
+<h4 id="Quoted-printable"><a href="#Quoted-printable" class="headerlink" title="Quoted printable"></a>Quoted printable</h4><p>用等号隔开</p>
+<h4 id="Brainfuck"><a href="#Brainfuck" class="headerlink" title="Brainfuck"></a>Brainfuck</h4><p><a href="https://www.splitbrain.org/services/ook" target="_blank" rel="noopener">https://www.splitbrain.org/services/ook</a></p>
+<h4 id="JSfuck"><a href="#JSfuck" class="headerlink" title="JSfuck"></a>JSfuck</h4><p><a href="http://www.jsfuck.com/" target="_blank" rel="noopener">http://www.jsfuck.com/</a><br>可以直接扔到浏览器里运行</p>
+<p>####代码混淆<br>明显，在线解码</p>
+<h4 id="工具小结"><a href="#工具小结" class="headerlink" title="工具小结"></a>工具小结</h4><p><a href="http://tool.ph0en1x.com/hashtool/tools.html#conv" target="_blank" rel="noopener">http://tool.ph0en1x.com/hashtool/tools.html#conv</a><br>JPK<br>CTFCrack</p>
+<h2 id="Forensic-amp-Stego"><a href="#Forensic-amp-Stego" class="headerlink" title="Forensic &amp; Stego"></a>Forensic &amp; Stego</h2><ul>
+<li>取证对象：各种数据包PCAP,图像，音频，压缩包，磁盘，内存镜像，PDF,word</li>
+<li>目的：发现文件隐藏的字符串，通常有文件的修复,字符串常常又与隐写加密结合在一起</li>
+<li>&lt;&lt;黑客大追踪&gt;&gt;</li>
+<li>熟悉常用文件的文件头。</li>
+</ul>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
+<li>file</li>
+<li>strings</li>
+<li>diff</li>
+<li>binwalk,foremost<ul>
+<li>binwalk -e<br>拓展提高：<a href="http://www.freebuf.com/sectool/15266.html" target="_blank" rel="noopener">http://www.freebuf.com/sectool/15266.html</a></li>
+</ul>
+</li>
+<li>010ditor<br>分析文件16进制,强大的模板功能</li>
+</ul>
+<h3 id="图片："><a href="#图片：" class="headerlink" title="图片："></a>图片：</h3><h4 id="JPG"><a href="#JPG" class="headerlink" title="JPG"></a>JPG</h4><p>特征：以 FF D8 开头，以 FF D9 结尾。<br>格式：标记码+压缩数据<br>标记码： 由两个字节构成，第一个字节是固定值0xFF，后一个字节则根据不同意义有不同数值<br>压缩数据：前两个字节保存整个段的长度，包括这两个字节<br>隐写方式：利用文件格式隐藏信息，插入法</p>
+<ul>
+<li>文件尾部插入<br>储存在APP1数据区中<br>工具：MagicEXIF</li>
+<li>每段开始前<br>COM注释：<br>FF 开始标记<br>FE COM注释标记符<br>00 02 总长度 11 内容<br>工具:stegdetect 检测隐写工具</li>
+</ul>
+<h4 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h4><p>特征：以89 50 4E 47 开头。<br>格式:PNG文件署名域+标准数据块(+辅助数据块)<br>隐写方式:</p>
+<ul>
+<li><p>IDAT 隐藏数据:PNG图片中可以存在多个IDAT块 因此这也成了一个隐写的途径</p>
+</li>
+<li><p>修改PNG图片的高度,隐藏数据</p>
+</li>
+<li><p>双图</p>
+<p>​</p>
+<p>工具:pngcheck</p>
+<p>​</p>
+<p>#####pngcheck</p>
+<h5 id="LSB隐写"><a href="#LSB隐写" class="headerlink" title="LSB隐写"></a>LSB隐写</h5><p>stegsolve:必备</p>
+<p>​</p>
+<p>位平面对图像的影响不一样，可以隐写到不是很重要的位平面。</p>
+</li>
+</ul>
+<h4 id="BMP-文件格式"><a href="#BMP-文件格式" class="headerlink" title="BMP 文件格式"></a>BMP 文件格式</h4><p>特征是以 50 4B 03 04 开头，有时也会出现 50 4B 05 06 和 50 4B 07 08 的情况。</p>
+<h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>特征：以 GIF89a 或 GIF87a 开头。</p>
+<ul>
+<li>文件格式</li>
+<li>空间</li>
+<li>时间轴 identity命令 //、linux上的identify命令主要用于获取一个或多个图像文件的格式和特性。</li>
+<li>思路：</li>
+</ul>
+<h3 id="压缩文件："><a href="#压缩文件：" class="headerlink" title="压缩文件："></a>压缩文件：</h3><h4 id="zip文件格式"><a href="#zip文件格式" class="headerlink" title="zip文件格式"></a>zip文件格式</h4><ul>
+<li>压缩源文件数据区<br>• 文件头 ： PK开头<br>• 文件数据<br>• （数据描述符）</li>
+<li>思路：<ul>
+<li>文件格式</li>
+<li>CRC32爆破：有时候加密的文件很小，直接枚举数据的CRC32值，如果相同，就相当于知道了文件的内容</li>
+<li>伪加密</li>
+<li>已知明文攻击</li>
+</ul>
+</li>
+<li>目录结束标识</li>
+</ul>
+<h4 id="RAR-文件"><a href="#RAR-文件" class="headerlink" title="RAR 文件"></a>RAR 文件</h4><p>特征：以以 Rar! 开头。</p>
+<h3 id="流量分析-重要"><a href="#流量分析-重要" class="headerlink" title="流量分析(重要)"></a>流量分析(重要)</h3><ul>
+<li><p>文件修复</p>
+</li>
+<li><p>协议分析<br>• 总体把握（整体分析）</p>
+<ul>
+<li><p>协议分级</p>
+</li>
+<li><p>端点统计</p>
+<p>• 过滤赛选</p>
+</li>
+<li><p>过滤语法</p>
+</li>
+<li><p>Host，Protocol，contains，特征值</p>
+<p>• 发现异常</p>
+</li>
+<li><p>特殊字符串</p>
+</li>
+<li><p>协议某字段</p>
+<p>• 数据提取</p>
+</li>
+<li><p>字符串取</p>
+</li>
+<li><p>文件提取</p>
+</li>
+</ul>
+</li>
+<li><p>数据提取</p>
+<ul>
+<li>Wireshark</li>
+<li>Pcapfix //修复数据包</li>
+<li>Dshell(强大)</li>
+<li>tshark（wireshark命令行版本）<br>命令:1. tr，2.xxd</li>
+</ul>
+</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="音频文件"><a href="#音频文件" class="headerlink" title="音频文件"></a>音频文件</h4><ul>
+<li>频谱<br>有可能是在高频上，需要进行拉伸。(Rctf 2017)</li>
+<li>波形</li>
+<li>隐写软件：MP3Stego,Slienteye</li>
+</ul>
+<h4 id="视频类"><a href="#视频类" class="headerlink" title="视频类"></a>视频类</h4><p>AVI，MP4较为常见</p>
+<ul>
+<li>工具：<ul>
+<li>Ffmpeg：BCTF2016-catvideo</li>
+<li>Ourstrect</li>
+</ul>
+</li>
+</ul>
+<h4 id="HTML隐写"><a href="#HTML隐写" class="headerlink" title="HTML隐写"></a>HTML隐写</h4><p>Snow.exe：通过插入制表位与空格使得嵌入的数据在浏览器中不可见<br><a href="http://fog.misty.com/perry/ccs/snow/snow/" target="_blank" rel="noopener">http://fog.misty.com/perry/ccs/snow/snow/</a></p>
+<h4 id="PYC文件类"><a href="#PYC文件类" class="headerlink" title="PYC文件类"></a>PYC文件类</h4><p>字节码修复,隐写，逆向分析。</p>
+<ul>
+<li>Tools<ul>
+<li>pycdc</li>
+<li>uncompyle</li>
+<li><a href="http://unpyc.sourceforge.net/Opcodes.html/" target="_blank" rel="noopener">http://unpyc.sourceforge.net/Opcodes.html\</a></li>
+<li>Stegosaurus 隐写</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3.6 stegosaurus.py  5061c764-2ac4-4386-afd0-2f7a69139efa.pyc -x</span><br><span class="line">Extracted payload: Flag&#123;HiD3_Pal0ad_1n_Python&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.freebuf.com/sectool/129357.html</span><br></pre></td></tr></table></figure>
+<h3 id="固件分析类（国内少）"><a href="#固件分析类（国内少）" class="headerlink" title="固件分析类（国内少）"></a>固件分析类（国内少）</h3><h4 id="Pro类"><a href="#Pro类" class="headerlink" title="Pro类"></a>Pro类</h4><ul>
+<li>Python模拟输入</li>
+<li>爆破</li>
+<li>算法</li>
+</ul>
+<h2 id="安卓逆向分析"><a href="#安卓逆向分析" class="headerlink" title="安卓逆向分析"></a>安卓逆向分析</h2><p>调试:</p>
+<ul>
+<li>IDA Pro</li>
+<li>GDB</li>
+</ul>
+<p>-angr<br>Hook:</p>
+<ul>
+<li>Xposed</li>
+<li>Frida（important）</li>
+</ul>
+<p>java层：</p>
+<ul>
+<li>java-&gt;jvm字节码-&gt;dalvik字节码(javac,dx)</li>
+<li>dex-&gt;smali(baksmaili)</li>
+<li>dex-&gt;smali,伪java(jeb)</li>
+<li>dex-&gt;java字节码(dex2jar)</li>
+<li>java字节码-&gt;伪java(jd-gui)</li>
+</ul>
+<p>native层:<br>IDA</p>
+<h3 id="代码混淆"><a href="#代码混淆" class="headerlink" title="代码混淆"></a>代码混淆</h3><p>C/C++源码<br>混淆工具</p>
+<ul>
+<li>LLVM-Obfuscator</li>
+<li>CXX-Obfuscator</li>
+</ul>
+<p>混淆技术</p>
+<ul>
+<li>指令替换</li>
+<li>伪造控制流</li>
+<li>扁平化控制流</li>
+</ul>
+<h3 id="隐藏与取证"><a href="#隐藏与取证" class="headerlink" title="隐藏与取证"></a>隐藏与取证</h3><h3 id="Rootkit"><a href="#Rootkit" class="headerlink" title="Rootkit"></a>Rootkit</h3><h3 id="取证技术"><a href="#取证技术" class="headerlink" title="取证技术"></a>取证技术</h3>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/29/CTF-逆向 基础/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          CTF-逆向 基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/29/路由器安全/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">家用路由器安全</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CTF-Misc"><span class="nav-number">1.</span> <span class="nav-text">CTF-Misc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#misc"><span class="nav-number">2.</span> <span class="nav-text">misc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先上一些常用命令"><span class="nav-number">2.1.</span> <span class="nav-text">先上一些常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recon-信息收集"><span class="nav-number">2.1.1.</span> <span class="nav-text">Recon(信息收集)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encode"><span class="nav-number">2.1.2.</span> <span class="nav-text">Encode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二进制编码"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">二进制编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#base64"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">base64</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图形码"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">图形码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Quoted-printable"><span class="nav-number">2.1.2.4.</span> <span class="nav-text">Quoted printable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Brainfuck"><span class="nav-number">2.1.2.5.</span> <span class="nav-text">Brainfuck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSfuck"><span class="nav-number">2.1.2.6.</span> <span class="nav-text">JSfuck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工具小结"><span class="nav-number">2.1.2.7.</span> <span class="nav-text">工具小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Forensic-amp-Stego"><span class="nav-number">2.2.</span> <span class="nav-text">Forensic &amp; Stego</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tools"><span class="nav-number">2.2.1.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片："><span class="nav-number">2.2.2.</span> <span class="nav-text">图片：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JPG"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">JPG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNG"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#LSB隐写"><span class="nav-number">2.2.2.2.1.</span> <span class="nav-text">LSB隐写</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BMP-文件格式"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">BMP 文件格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GIF"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">GIF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩文件："><span class="nav-number">2.2.3.</span> <span class="nav-text">压缩文件：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zip文件格式"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">zip文件格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RAR-文件"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">RAR 文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量分析-重要"><span class="nav-number">2.2.4.</span> <span class="nav-text">流量分析(重要)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.2.5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#音频文件"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">音频文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视频类"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">视频类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML隐写"><span class="nav-number">2.2.5.3.</span> <span class="nav-text">HTML隐写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PYC文件类"><span class="nav-number">2.2.5.4.</span> <span class="nav-text">PYC文件类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#固件分析类（国内少）"><span class="nav-number">2.2.6.</span> <span class="nav-text">固件分析类（国内少）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pro类"><span class="nav-number">2.2.6.1.</span> <span class="nav-text">Pro类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安卓逆向分析"><span class="nav-number">2.3.</span> <span class="nav-text">安卓逆向分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码混淆"><span class="nav-number">2.3.1.</span> <span class="nav-text">代码混淆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏与取证"><span class="nav-number">2.3.2.</span> <span class="nav-text">隐藏与取证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rootkit"><span class="nav-number">2.3.3.</span> <span class="nav-text">Rootkit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取证技术"><span class="nav-number">2.3.4.</span> <span class="nav-text">取证技术</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
