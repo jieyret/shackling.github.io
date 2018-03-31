@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>大数据初探 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="大数据" />
+  
+  
+  
+  
+  <meta name="description" content="大数据初探FrontPage -Hadoop Wiki https://wiki.apache.org/hadoop/ Hadoop简介 | Hadoop Notebook https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html 细细品味Hadoop- 随笔分类 - 虾皮 - 博客园 http://www.cn">
+<meta name="keywords" content="大数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据初探">
+<meta property="og:url" content="https://shackles.top/2016/10/05/大数据/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="大数据初探FrontPage -Hadoop Wiki https://wiki.apache.org/hadoop/ Hadoop简介 | Hadoop Notebook https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html 细细品味Hadoop- 随笔分类 - 虾皮 - 博客园 http://www.cn">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml\awefwafea.png">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml\waefwaf.png">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml\3555555555535.png">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml\533.png">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml\ewafff5.png">
+<meta property="og:updated_time" content="2018-03-31T16:07:20.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据初探">
+<meta name="twitter:description" content="大数据初探FrontPage -Hadoop Wiki https://wiki.apache.org/hadoop/ Hadoop简介 | Hadoop Notebook https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html 细细品味Hadoop- 随笔分类 - 虾皮 - 博客园 http://www.cn">
+<meta name="twitter:image" content="http://oizzgpxb7.bkt.clouddn.com//ml\awefwafea.png">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo1.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo1.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-大数据" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      大数据初探
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/10/05/大数据/" class="article-date">
+	  <time datetime="2016-10-05T15:53:56.000Z" itemprop="datePublished">2016-10-05</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="大数据初探"><a href="#大数据初探" class="headerlink" title="大数据初探"></a>大数据初探</h2><p>FrontPage -Hadoop Wiki</p>
+<p><a href="https://wiki.apache.org/hadoop/" target="_blank" rel="noopener">https://wiki.apache.org/hadoop/</a></p>
+<p>Hadoop简介 | Hadoop Notebook</p>
+<p><a href="https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html" target="_blank" rel="noopener">https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html</a></p>
+<p>细细品味Hadoop- 随笔分类 - 虾皮 - 博客园</p>
+<p><a href="http://www.cnblogs.com/xia520pi/category/346943.html" target="_blank" rel="noopener">http://www.cnblogs.com/xia520pi/category/346943.html</a></p>
+<p>HDFS 原理、架构与特性介绍 - OPEN 开发经验库</p>
+<p><a href="http://www.open-open.com/lib/view/open1376228205209.html" target="_blank" rel="noopener">http://www.open-open.com/lib/view/open1376228205209.html</a></p>
+<p>free-programming-books/free-programming-books-zh.mdat master · vhf/free-programming-books</p>
+<p><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books-zh.md" target="_blank" rel="noopener">https://github.com/vhf/free-programming-books/blob/master/free-programming-books-zh.md</a></p>
+<p>Hadoop家族学习路线图| 粉丝日志</p>
+<p><a href="http://blog.fens.me/hadoop-family-roadmap/" target="_blank" rel="noopener">http://blog.fens.me/hadoop-family-roadmap/</a></p>
+<p>ApacheNutch™ -</p>
+<p><a href="http://nutch.apache.org/" target="_blank" rel="noopener">http://nutch.apache.org/</a>  nutch  开源搜索引擎</p>
+<p><a href="http://wiki.jikexueyuan.com/project/hadoop/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/hadoop/</a></p>
+<p>分布式：一个业务分拆多个子业务，部署在不同的服务器上</p>
+<p>集群：同一个业务，部署在多个服务器上</p>
+<p>集群是个物理形态，分布式是个工作方式。</p>
+<p>《大型网站技术架构》网站的高性能架构及优化 - passionfly</p>
+<p><a href="https://my.oschina.net/u/2260265/blog/501289" target="_blank" rel="noopener">https://my.oschina.net/u/2260265/blog/501289</a></p>
+<p>亿级PV超大型网站集群架构图形化深度揭秘讲解 - CSDN学院 - CSDN</p>
+<p><a href="http://edu.csdn.net/course/detail/2278?ref=blog&amp;loc=0" target="_blank" rel="noopener">http://edu.csdn.net/course/detail/2278?ref=blog&amp;loc=0</a></p>
+<p>负载均衡层次结构：LVS Nginx DNS CDN - 纸上得来终觉浅，绝知此事要躬行。 - 博客频道 - CSDN.NET</p>
+<p><a href="http://blog.csdn.net/boonya/article/details/51064482" target="_blank" rel="noopener">http://blog.csdn.net/boonya/article/details/51064482</a></p>
+<p>大型网站数据库架构演变</p>
+<p><a href="http://www.infoq.com/cn/presentations/large-website-databas-architecture-evolution" target="_blank" rel="noopener">http://www.infoq.com/cn/presentations/large-website-databas-architecture-evolution</a></p>
+<p>大数据</p>
+<p>云计算</p>
+<p>虚拟化</p>
+<p>物联网</p>
+<p>l  <a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Apache Hadoop</a>：是Apache开源组织的一个分布式计算开源框架，提供了一个分布式文件系统子项目（HDFS）和支持MapReduce分布式计算的软件架构。</p>
+<p>l  <a href="http://hive.apache.org/" target="_blank" rel="noopener">Apache Hive</a>：是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，通过类MapReduce统计，不必开发专门的MapReduce应用，十分适合数据仓库的统计分析。</p>
+<p>l  <a href="http://pig.apache.org/" target="_blank" rel="noopener">Apache Pig</a>：是一个基于Hadoop的大规模数据分析工具，它提供的SQL-LIKE语言叫Pig Latin，该语言的编译器会把类SQL的数据分析请求转换为一系列经过优化处理的MapReduce运算。</p>
+<p>l  <a href="http://hbase.apache.org/" target="_blank" rel="noopener">Apache HBase</a>：是一个高可靠性，高性能，面向列，可伸缩的分布式存储系统，利用HBase技术可以在廉价PC服务器上搭建起大规模结构化存储集群。</p>
+<p>l  <a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Apache Sqoop</a>：是一个用来将Hadoop和关系型数据库中的数据相互转移的工具，可以将一个关系型数据库（MySQL，Oracle，Postgres等）中的数据导入到Hadoop的HDFS中，也可以将HDFS的数据导入到关系型数据库中。</p>
+<p>l  <a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Apache Zookeeper</a>：是一个为分布式应用所设计的分布的，开源的协调服务，它主要是用于解决分布式应用中经常遇到的一些数据管理问题，简化分布式应用协调及其管理的难度，提供高性能的分布式服务</p>
+<p>l  <a href="http://mahout.apache.org/" target="_blank" rel="noopener">Apache Mahout</a>：是基于Hadoop的机器学习和数据挖掘的一个分布式框架.Mahout用MapReduce实现了部分数据挖掘算法，解决了并行挖掘的问题。</p>
+<p>l  <a href="http://cassandra.apache.org/" target="_blank" rel="noopener">Apache Cassandra</a>：是一套开源分布式NoSQL数据库系统。它最初由Facebook开发，用于储存简单格式数据，集合Google BigTable的数据模型与Amazon Dynamo的完全分布式的架构于一身</p>
+<p>l  <a href="http://avro.apache.org/" target="_blank" rel="noopener">Apache Avro</a>：是一个数据序列化系统，设计用于支持数据密集型，大批量数据交换的应用.Avro是新的数据序列化格式与传输工具，将逐步取代Hadoop原有的IPC机制</p>
+<p>l  <a href="http://incubator.apache.org/ambari/" target="_blank" rel="noopener">Apache Ambari</a>：是一种基于Web的工具，支持Hadoop集群的供应，管理和监控。</p>
+<p>l  <a href="http://incubator.apache.org/chukwa/" target="_blank" rel="noopener">Apache Chukwa</a>：是一个开源的用于监控大型分布式系统的数据收集系统，它可以将各种各样类型的数据收集成适合Hadoop处理的文件保存在HDFS中供Hadoop进行各种MapReduce操作。</p>
+<p>l  <a href="http://hama.apache.org/" target="_blank" rel="noopener">Apache Hama</a>：是一个基于HDFS的BSP（Bulk Synchronous Parallel）并行计算框架，Hama可用于包括图，矩阵和网络算法在内的大规模，大数据计算。</p>
+<p>l  <a href="http://flume.apache.org/" target="_blank" rel="noopener">Apache Flume</a>：是一个分布的，可靠的，高可用的海量日志聚合的系统，可用于日志数据收集，日志数据处理，日志数据传输。</p>
+<p>l  <a href="http://giraph.apache.org/" target="_blank" rel="noopener">Apache Giraph</a>：是一个可伸缩的分布式迭代图处理系统，基于Hadoop平台，灵感来自BSP（批量同步并行）和Google的Pregel。</p>
+<p>l  <a href="http://oozie.apache.org/" target="_blank" rel="noopener">Apache Oozie</a>：是一个工作流引擎服务器，用于管理和协调运行在Hadoop平台上（HDFS，Pig和MapReduce）的任务。</p>
+<p>l  <a href="http://incubator.apache.org/crunch/" target="_blank" rel="noopener">Apache Crunch</a>：是基于Google的FlumeJava库编写的Java库，用于创建MapReduce程序。与Hive，Pig类似，Crunch提供了用于实现如连接数据，执行聚合和排序记录等常见任务的模式库</p>
+<p>l  <a href="http://whirr.apache.org/" target="_blank" rel="noopener">Apache Whirr</a>：是一套运行于云服务的类库（包括Hadoop），可提供高度的互补性.Whirr学支持Amazon EC2和Rackspace的服务。</p>
+<p>l  <a href="http://bigtop.apache.org/" target="_blank" rel="noopener">Apache Bigtop</a>：是一个对Hadoop及其周边生态进行打包，分发和测试的工具。</p>
+<p>l  <a href="http://incubator.apache.org/hcatalog/" target="_blank" rel="noopener">Apache HCatalog</a>：是基于Hadoop的数据表和存储管理，实现中央的元数据和模式管理，跨越Hadoop和RDBMS，利用Pig和Hive提供关系视图。</p>
+<p>l  <a href="http://cloudera.github.io/hue/" target="_blank" rel="noopener">Cloudera Hue</a>：是一个基于WEB的监控和管理系统，实现对HDFS，MapReduce / YARN，HBase，Hive，Pig的web化操作和管理。</p>
+<h3 id="什么是Apache-Hadoop？"><a href="#什么是Apache-Hadoop？" class="headerlink" title="什么是Apache Hadoop？"></a><strong>什么是Apache Hadoop？</strong></h3><p>Apache™Hadoop®项目开发用于可靠，可扩展，分布式计算的开源软件。</p>
+<p>Apache Hadoop软件库是一个框架，允许使用简单的编程模型跨计算机集群分布式处理大型数据集。它的设计是从单个服务器扩展到数千个机器，每个都提供本地计算和存储。不是依靠硬件来提供高可用性，库本身设计用于检测和处理应用程序层的故障，因此在计算机集群之上提供高可用性服务，每个计算机都可能容易出现故障。</p>
+<p>该项目包括以下模块：</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\awefwafea.png" alt="wefwafe"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\waefwaf.png" alt="aefwa"></p>
+<p>l <strong>Hadoop Common</strong>：支持其他Hadoop模块的常用实用程序。</p>
+<p>l <strong>Hadoop**</strong>分布式文件系统<strong>**（HDFS™）</strong>：提供对应用程序数据的高吞吐量访问的分布式文件系统。  C盘 D盘</p>
+<p>l <strong>Hadoop YARN</strong>：作业调度和集群资源管理的框架。        分布式资源管理                  类似操作系统</p>
+<p>l <strong>Hadoop MapReduce</strong>：一种基于YARN的大数据集并行处理系统。               visual studio</p>
+<p><strong>云计算是一种服务;虚拟化和分布式系统都是用来实现云计算的关键技术之一。</strong></p>
+<p>目前来讲虚拟化主要常用两个核心技术：<strong>服务器虚拟化</strong>，与<strong>应用虚拟化</strong></p>
+<p>目前来讲分布式系统主要用到的两个核心技术：<strong>分布式存储</strong>，与<strong>分布式计算</strong></p>
+<h4 id="Apache的其他Hadoop相关项目包括："><a href="#Apache的其他Hadoop相关项目包括：" class="headerlink" title="Apache的其他Hadoop相关项目包括："></a>Apache的其他Hadoop相关项目包括：</h4><p>l <a href="http://incubator.apache.org/ambari/" target="_blank" rel="noopener"><strong>Ambari™</strong></a>：用于配置，管理和监控Apache Hadoop集群的基于Web的工具，其中包括支持Hadoop HDFS，Hadoop MapReduce，Hive，HCatalog，HBase，ZooKeeper，Oozie，Pig和Sqoop。Ambari还提供了一个用于查看集群健康的仪表板，如热图，以及以视觉方式查看MapReduce，Pig和Hive应用程序的功能，以便以用户友好的方式诊断其性能特征。</p>
+<p>l <a href="http://avro.apache.org/" target="_blank" rel="noopener"><strong>Avro™</strong></a>：数据串行化系统。</p>
+<p>l <a href="http://cassandra.apache.org/" target="_blank" rel="noopener"><strong>Cassandra™</strong></a>：可扩展的多主数据库，无单点故障。</p>
+<p>l <a href="http://incubator.apache.org/chukwa/" target="_blank" rel="noopener"><strong>Chukwa™</strong></a>：用于管理大型分布式系统的数据收集系统。</p>
+<p>l <a href="http://hbase.apache.org/" target="_blank" rel="noopener"><strong>HBase™</strong></a>：一个可扩展的分布式数据库，支持大型表的结构化数据存储。</p>
+<p>l <a href="http://hive.apache.org/" target="_blank" rel="noopener"><strong>Hive™</strong></a>：提供数据摘要和即席查询的数据仓库基础设施。   数据仓库</p>
+<p>l <a href="http://mahout.apache.org/" target="_blank" rel="noopener"><strong>Mahout™</strong></a>：可扩展的机器学习和数据挖掘库。</p>
+<p>l <a href="http://pig.apache.org/" target="_blank" rel="noopener"><strong>Pig™</strong></a>：用于并行计算的高级数据流语言和执行框架。</p>
+<p>l <a href="http://spark.incubator.apache.org/" target="_blank" rel="noopener"><strong>Spark™</strong></a>：用于Hadoop数据的快速和通用的计算引擎。Spark提供了一个简单和表达性的编程模型，支持各种应用程序，包括ETL，机器学习，流处理和图形计算。</p>
+<p>l Tez<a href="http://tez.incubator.apache.org/" target="_blank" rel="noopener"> <strong>™</strong></a>：一个基于Hadoop YARN的通用数据流编程框架，它提供了一个强大而灵活的引擎来执行任务的任意DAG，以便为批处理和交互式用例处理数据。Tez被Hive™，Pig™和Hadoop生态系统中的其他框架以及其他商业软件（如ETL工具）采用，以取代Hadoop™MapReduce作为底层执行引擎。</p>
+<p>l <a href="http://zookeeper.apache.org/" target="_blank" rel="noopener"><strong>ZooKeeper™</strong></a>：用于分布式应用程序的高性能协调服务。</p>
+<p> <img src="http://oizzgpxb7.bkt.clouddn.com//ml\3555555555535.png" alt="55555555553"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\533.png" alt="3"></p>
+<h4 id="HDFS-体系结构"><a href="#HDFS-体系结构" class="headerlink" title="HDFS 体系结构"></a>HDFS 体系结构</h4><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\ewafff5.png" alt="wafff"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/29/MEAN--全栈WEB开发框架/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          MEAN--全栈WEB开发框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/05/实验吧Misc题目/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">实验吧Misc题目</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据初探"><span class="nav-number">1.</span> <span class="nav-text">大数据初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Apache-Hadoop？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Apache Hadoop？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Apache的其他Hadoop相关项目包括："><span class="nav-number">1.1.1.</span> <span class="nav-text">Apache的其他Hadoop相关项目包括：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS-体系结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">HDFS 体系结构</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

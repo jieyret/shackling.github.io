@@ -3,19 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档: 2016/4 | shackle</title>
+  <title>rcnn | shackle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="机器学习" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shackle">
-<meta property="og:url" content="https://shackles.top/archives/2016/04/index.html">
+  
+  <meta name="description" content="RCNNRCNN算法分为4个步骤  - 一张图像生成1K~2K个候选区域  - 对每个候选区域，使用深度网络提取特征  - 特征送入每一类的SVM 分类器，判别是否属于该类  - 使用回归器精细修正候选框位置  a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类  http://blog.csdn.net/hjimce/article/details/50187029 RC">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RCNN">
+<meta property="og:url" content="https://shackles.top/2017/10/12/RCNN/index.html">
 <meta property="og:site_name" content="shackle">
+<meta property="og:description" content="RCNNRCNN算法分为4个步骤  - 一张图像生成1K~2K个候选区域  - 对每个候选区域，使用深度网络提取特征  - 特征送入每一类的SVM 分类器，判别是否属于该类  - 使用回归器精细修正候选框位置  a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类  http://blog.csdn.net/hjimce/article/details/50187029 RC">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif">
+<meta property="og:updated_time" content="2018-03-31T15:35:28.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shackle">
+<meta name="twitter:title" content="RCNN">
+<meta name="twitter:description" content="RCNNRCNN算法分为4个步骤  - 一张图像生成1K~2K个候选区域  - 对每个候选区域，使用深度网络提取特征  - 特征送入每一类的SVM 分类器，判别是否属于该类  - 使用回归器精细修正候选框位置  a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类  http://blog.csdn.net/hjimce/article/details/50187029 RC">
+<meta name="twitter:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -54,8 +65,6 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css" >
-  
   
   
 
@@ -63,7 +72,7 @@
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -86,7 +95,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;"  
-                 >
+                href="#" data-toggle="modal" data-target="#myModal" >
                   <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
               </a>
             
@@ -155,189 +164,130 @@
             
       <div id="content" class="outer">
         
-          <section id="main">
-  <div class="archives-tags-wrap"><blockquote><span>嗯，目前共计28篇文章</span></blockquote>
-
-
-<!-- 分页显示 -->
-
-	
-	
-		
-		
-		  
-		  
-		  <section class="archives-wrap">
-		    <div class="archive-year-wrap">
-		      <h1><a href="/archives/2016" class="archive-year">2016</a></h1>
-		    </div>
-		    <div class="archives">
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2016/04/19/简单强大的Markdown/" class="archive-article-date">
-	  <time datetime="2016-04-19T15:53:56.000Z" itemprop="datePublished">2016-04-19</time>
-	</a>
-
-      
+          <section id="main" style="float:none;"><article id="post-RCNN" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2016/04/19/简单强大的Markdown/">简单强大的Markdown</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      RCNN
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/12/RCNN/" class="article-date">
+	  <time datetime="2017-10-12T15:53:56.000Z" itemprop="datePublished">2017-10-12</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h2><p>RCNN算法分为4个步骤 </p>
+<p>- 一张图像生成1K~2K个候选区域 </p>
+<p>- 对每个候选区域，使用深度网络提取特征 </p>
+<p>- 特征送入每一类的SVM 分类器，判别是否属于该类 </p>
+<p>- 使用回归器精细修正候选框位置 </p>
+<p>a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif" alt="clipboard.png"></p>
+<p><a href="http://blog.csdn.net/hjimce/article/details/50187029" target="_blank" rel="noopener">http://blog.csdn.net/hjimce/article/details/50187029</a></p>
+<p>RCNN 解决的是，“为什么不用CNN做classification呢？”</p>
+<p>（但是这个方法相当于过一遍network出bounding box，再过另一个出label，原文写的很不“elegant”</p>
+<p>Fast-RCNN 解决的是，“为什么不一起输出bounding box和label呢？”</p>
+<p>（但是这个时候用selectivesearch generate regional proposal的时间实在太长了</p>
+<p>Faster-RCNN 解决的是，“为什么还要用selective search呢？”</p>
+<p>于是就达到了real-time。开山之作确实是开山之作，但是也是顺应了“Deep learning 搞一切vision”这一潮流吧。</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
+<p>作者：Oh233</p>
+<p>链接：<a href="https://www.zhihu.com/question/35887527/answer/72884459" target="_blank" rel="noopener">https://www.zhihu.com/question/35887527/answer/72884459</a></p>
+<p>来源：知乎</p>
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>   本篇博文主要讲解2014年CVPR上的经典paper：《Richfeature hierarchies for Accurate Object Detection and Segmentation》，这篇文章的算法思想又被称之为：R-CNN（Regions with Convolutional NeuralNetwork Features），是物体检测领域曾经获得state-of-art精度的经典文献。</p>
+<p>   这篇paper的思想，改变了物体检测的总思路，现在好多文献关于深度学习的物体检测的算法，基本上都是继承了这个思想，比如：《Spatial Pyramid Pooling in Deep Convolutional Networks forVisual Recognition》，所以学习经典算法，有助于我们以后搞物体检测的其它paper。</p>
+<p>fast-rcnn</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
+<p>图1.快速R-CNN架构</p>
+<p>​     输入图像和多个感兴趣区域（RoI）被输入到完全卷积网络。 每个RoI被汇集到一个固定大小的特征映射中然后通过完全连接的层（FC）映射到特征向量。每个RoI网络有两个输出向量：softmax概率和每类边界框回归抵消。 架构是训练端到端的多任务丢失。</p>
+<p>Fast R-CNN输入为一张图像以及诸多的region proposals（RoI）。首先通过CNN提取到整幅图像的feature map  下采样层  （特征层），然后对于每一个RoI根据映射提取到自己的feature vector。然后输入到全连接层，输出为两个分支，一个为softmax层输出，输出的是K+1个类别的概率（包含一个背景类）。另一个输出是对于每类生成一个求精后的boundingbox。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/14/物体识别/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          物体识别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/05/人工神经网络/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">人工神经网络</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-	
-	
-		</div></section>
-	
 
-	<!-- 页数指示器 -->
-	
+<!-- Table of Contents -->
 
-
-
-
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RCNN"><span class="nav-number">1.</span> <span class="nav-text">RCNN</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">关注我</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/shackling" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Flickr"><i class="fa fa-flickr" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:cuimaowei@gmail.com?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渗透/">渗透</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/物联网安全/">物联网安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CTF/" style="font-size: 16.67px;">CTF</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Web安全/" style="font-size: 10px;">Web安全</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/渗透/" style="font-size: 13.33px;">渗透</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/物联网安全/" style="font-size: 13.33px;">物联网安全</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/03/30/ctf-web/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/15/faster -rcnn/">faster-rcnn</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/14/物体识别/">物体识别</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/12/RCNN/">RCNN</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/05/人工神经网络/">人工神经网络</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
       
@@ -433,6 +383,8 @@
 
 
 
+  <script src="/js/dialog.js"></script>
+
 
 
 
@@ -516,6 +468,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>

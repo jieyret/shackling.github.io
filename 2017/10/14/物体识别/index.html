@@ -3,19 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档: 2016/4 | shackle</title>
+  <title>物体识别 | shackle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="机器学习" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shackle">
-<meta property="og:url" content="https://shackles.top/archives/2016/04/index.html">
+  
+  <meta name="description" content="物体识别目标检测中衡量识别精度的指标是: Precision其实就是在识别出来的图片中，True positives所占的比率：   正确率  其中的n代表的是(True positives + False positives)，也就是系统一共识别出来多少照片 。  在这一例子中，True positives为3，False positives为1，所以Precision值是 3/（3+1）=0.">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="物体识别">
+<meta property="og:url" content="https://shackles.top/2017/10/14/物体识别/index.html">
 <meta property="og:site_name" content="shackle">
+<meta property="og:description" content="物体识别目标检测中衡量识别精度的指标是: Precision其实就是在识别出来的图片中，True positives所占的比率：   正确率  其中的n代表的是(True positives + False positives)，也就是系统一共识别出来多少照片 。  在这一例子中，True positives为3，False positives为1，所以Precision值是 3/（3+1）=0.">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0011.gif">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image002.gif">
+<meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0014.gif">
+<meta property="og:updated_time" content="2018-03-31T16:11:41.028Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shackle">
+<meta name="twitter:title" content="物体识别">
+<meta name="twitter:description" content="物体识别目标检测中衡量识别精度的指标是: Precision其实就是在识别出来的图片中，True positives所占的比率：   正确率  其中的n代表的是(True positives + False positives)，也就是系统一共识别出来多少照片 。  在这一例子中，True positives为3，False positives为1，所以Precision值是 3/（3+1）=0.">
+<meta name="twitter:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0011.gif">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -54,8 +65,6 @@
   
 
   
-    <link rel="stylesheet" href="/css/archive.css" >
-  
   
   
 
@@ -63,7 +72,7 @@
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   
@@ -86,7 +95,7 @@
             
               <a class="brand" style="
                  margin-top: 0px;"  
-                 >
+                href="#" data-toggle="modal" data-target="#myModal" >
                   <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
               </a>
             
@@ -155,189 +164,137 @@
             
       <div id="content" class="outer">
         
-          <section id="main">
-  <div class="archives-tags-wrap"><blockquote><span>嗯，目前共计28篇文章</span></blockquote>
-
-
-<!-- 分页显示 -->
-
-	
-	
-		
-		
-		  
-		  
-		  <section class="archives-wrap">
-		    <div class="archive-year-wrap">
-		      <h1><a href="/archives/2016" class="archive-year">2016</a></h1>
-		    </div>
-		    <div class="archives">
-		
-		<article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-	<a href="/2016/04/19/简单强大的Markdown/" class="archive-article-date">
-	  <time datetime="2016-04-19T15:53:56.000Z" itemprop="datePublished">2016-04-19</time>
-	</a>
-
-      
+          <section id="main" style="float:none;"><article id="post-物体识别" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2016/04/19/简单强大的Markdown/">简单强大的Markdown</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      物体识别
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/14/物体识别/" class="article-date">
+	  <time datetime="2017-10-14T15:53:56.000Z" itemprop="datePublished">2017-10-14</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="物体识别"><a href="#物体识别" class="headerlink" title="物体识别"></a>物体识别</h2><p>目标检测中衡量识别精度的指标是:</p>
+<p>Precision其实就是在识别出来的图片中，True positives所占的比率：   正确率</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0011.gif" alt="105153511931.png"></p>
+<p>其中的n代表的是(True positives + False positives)，也就是系统一共识别出来多少照片 。 </p>
+<p>在这一例子中，True positives为3，False positives为1，所以Precision值是 3/（3+1）=0.75。 </p>
+<p>意味着在识别出的结果中，飞机的图片占75%。</p>
+<p>Recall 是被正确识别出来的飞机个数与测试集中所有飞机的个数的比值：   召回率</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image002.gif" alt="105153607573.png"></p>
+<p>Recall的分母是(True positives +False negatives)，这两个值的和，可以理解为一共有多少张飞机的照片。 </p>
+<p>在这一例子中，True positives为3，False negatives为2，那么Recall值是 3/（3+2）=0.6。 </p>
+<p>意味着在所有的飞机图片中，60%的飞机被正确的识别成飞机.。</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0014.gif" alt="clipboard.png"></p>
+<p>mAP（mean average precision）。</p>
+<p>多个类别物体检测中，每一个类别都可以根据recall和precision绘制一条曲线，AP就是该曲线下的面积，mAP是多个类别AP的平均值</p>
+<p>ap averageprecision    平均正确率</p>
+<p><a href="https://www.zhihu.com/question/41540197" target="_blank" rel="noopener">https://www.zhihu.com/question/41540197</a>   map </p>
+<p>MAP(MeanAverage Precision)：单个主题的平均准确率是每篇相关文档检索出后的准确率的平均值。主集合的平均准确率(MAP)是每个主题的平均准确率的平均值。</p>
+<p> MAP 是反映系统在全部相关文档上性能的单值指标。系统检索出来的相关文档越靠前(rank 越高)，MAP就可能越高。如果系统没有返回相关文档，则准确率默认为0。</p>
+<p>在图像中，尤其是分类问题中应用AP，是一种评价ranking方式好不好的指标：</p>
+<p>举例来说，我有一个两类分类问题，分别5个样本，如果这个分类器性能达到完美的话，ranking结果应该是+1，+1，+1，+1，+1，-1，-1，-1，-1，-1.</p>
+<p>但是分类器预测的label，和实际的score肯定不会这么完美。按照从大到小来打分，我们可以计算两个指标：precision和recall。比如分类器认为打分由高到低选择了前四个，实际上这里面只有两个是正样本。此时的recall就是2（你能包住的正样本数）/5（总共的正样本数）=0.4，precision是2（你选对了的）/4（总共选的）=0.5.</p>
+<p>图像分类中，这个打分score可以由SVM得到：s=w^Tx+b就是每一个样本的分数。</p>
+<p>从上面的例子可以看出，其实precision，recall都是选多少个样本k的函数，很容易想到，如果我总共有1000个样本，那么我就可以像这样计算1000对P-R，并且把他们画出来，这就是PR曲线：</p>
+<p>这里有一个趋势，recall越高，precision越低。这是很合理的，因为假如说我把1000个全拿进来，那肯定正样本都包住了，recall=1，但是此时precision就很小了，因为我全部认为他们是正样本。recall=1时的precision的数值，等于正样本所占的比例。</p>
+<p>所以AP，average precision(平均正确率），就是这个曲线下的面积，这里average，等于是对recall取平均。</p>
+<p>而mean average precision的mean，是对所有类别取平均（每一个类当做一次二分类任务）。</p>
+<p>现在的图像分类论文基本都是用mAP作为标准。</p>
+<p>上图中有一个AP11，这是把recall从0,0.1,0.2.一直到1.0的11个点的precision取平均得到的结果。VOC08之后AP11已经被抛弃了。</p>
+<p>貌似从VOC08之后要求PR曲线必须单调下降了？这个不太确定。</p>
+<p>================================================</p>
+<p>1.使用AP会比accuracy要合理。对于accuracy，如果有9个负样本和一个正样本，那么即使分类器什么都不做全部判定为负样本accuracy也有90%。但是对于AP，recall=1那个点precision会掉到0.1.曲线下面积就会反映出来。</p>
+<p>2.在实际中计算AP时，如果是matlab的话，可以直接调用vl_feat中的vl_pr：<a href="https://link.zhihu.com/?target=http%3A//www.vlfeat.org/overview/plots-rank.html" target="_blank" rel="noopener">VLFeat - Tutorials</a></p>
+<p>这里面详细地给出了概念的解释以及计算方式。45)/2=0.64。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/15/faster -rcnn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          faster-rcnn
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/12/RCNN/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">RCNN</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-	
-	
-		</div></section>
-	
 
-	<!-- 页数指示器 -->
-	
+<!-- Table of Contents -->
 
-
-
-
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#物体识别"><span class="nav-number">1.</span> <span class="nav-text">物体识别</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">关注我</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/shackling" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://github.com/shackling" title="Flickr"><i class="fa fa-flickr" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:cuimaowei@gmail.com?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web安全/">Web安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/other/">other</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/渗透/">渗透</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/物联网安全/">物联网安全</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CTF/" style="font-size: 16.67px;">CTF</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Web安全/" style="font-size: 10px;">Web安全</a> <a href="/tags/other/" style="font-size: 10px;">other</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/机器学习/" style="font-size: 20px;">机器学习</a> <a href="/tags/渗透/" style="font-size: 13.33px;">渗透</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/物联网安全/" style="font-size: 13.33px;">物联网安全</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/03/30/ctf-web/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/15/faster -rcnn/">faster-rcnn</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/14/物体识别/">物体识别</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/12/RCNN/">RCNN</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/05/人工神经网络/">人工神经网络</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
         
       </div>
       
@@ -433,6 +390,8 @@
 
 
 
+  <script src="/js/dialog.js"></script>
+
 
 
 
@@ -516,6 +475,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>
