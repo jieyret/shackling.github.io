@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>pyhon 模块 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Python" />
+  
+  
+  
+  
+  <meta name="description" content="Pyhon 模块学习正则12345678910111213re.compile(pattern[, flags])    re.compile 函数    compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。    语法格式为：re.match(pattern, string, flags=0 # patt">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pyhon 模块">
+<meta property="og:url" content="https://shackles.top/2016/07/05/Pyhon 模块学习/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="Pyhon 模块学习正则12345678910111213re.compile(pattern[, flags])    re.compile 函数    compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。    语法格式为：re.match(pattern, string, flags=0 # patt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-31T15:19:53.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pyhon 模块">
+<meta name="twitter:description" content="Pyhon 模块学习正则12345678910111213re.compile(pattern[, flags])    re.compile 函数    compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。    语法格式为：re.match(pattern, string, flags=0 # patt">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo1.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo1.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Pyhon 模块学习" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Pyhon 模块
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/07/05/Pyhon 模块学习/" class="article-date">
+	  <time datetime="2016-07-05T15:53:56.000Z" itemprop="datePublished">2016-07-05</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Pyhon-模块学习"><a href="#Pyhon-模块学习" class="headerlink" title="Pyhon 模块学习"></a>Pyhon 模块学习</h1><h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">re.compile(pattern[, flags])</span><br><span class="line"></span><br><span class="line">    re.compile 函数</span><br><span class="line">    compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</span><br><span class="line">    语法格式为：</span><br><span class="line"></span><br><span class="line">re.match(pattern, string, flags=0 # pattern	匹配的正则表达式</span><br><span class="line"></span><br><span class="line">re.search(pattern, string, flags=0)</span><br><span class="line">#re.search 扫描整个字符串并返回第一个成功的匹配。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">import re</span><br><span class="line">line = &quot;Cats are smarter than dogs&quot;</span><br><span class="line">matchObj = re.match( r&apos;(.*) are (.*?) .*&apos;, line, re.M|re.I)</span><br><span class="line">if matchObj:</span><br><span class="line">    print &quot;matchObj.group() : &quot;, matchObj.group()</span><br><span class="line">    print &quot;matchObj.group(1) : &quot;, matchObj.group(1)</span><br><span class="line">    print &quot;matchObj.group(2) : &quot;, matchObj.group(2)</span><br><span class="line">else:   </span><br><span class="line">    print &quot;No match!!&quot;</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.runoob.com/python/python-reg-expressions.html" target="_blank" rel="noopener">http://www.runoob.com/python/python-reg-expressions.html</a></p>
+<h3 id="1-urllib-urllib2"><a href="#1-urllib-urllib2" class="headerlink" title="1. urllib  urllib2"></a>1. urllib  urllib2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">user_agent = &apos;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&apos;# 将user_agent写入头信息</span><br><span class="line">values = &#123;&apos;name&apos; : &apos;Michael Foord&apos;,</span><br><span class="line">          	&apos;location&apos; : &apos;Northampton&apos;,</span><br><span class="line">          	&apos;language&apos; : &apos;Python&apos; </span><br><span class="line">&#125;</span><br><span class="line">headers = &#123; &apos;User-Agent&apos; : user_agent &#125;</span><br><span class="line">data = urllib.urlencode(values)</span><br><span class="line"></span><br><span class="line">req = urllibs2.request(url,data=data,headers)	</span><br><span class="line">response = urllib2.urlopen(req)	</span><br><span class="line"></span><br><span class="line">the_page = response.read()</span><br></pre></td></tr></table></figure>
+<h3 id="2-requests"><a href="#2-requests" class="headerlink" title="2.requests"></a>2.requests</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">r = requests.post(&apos;https://api.github.com/some/endpoint&apos;, data=json.dumps(&#123;&apos;some&apos;: &apos;data&apos;&#125;))</span><br><span class="line">print r.json()</span><br><span class="line">print r.text</span><br><span class="line">print r.json()</span><br><span class="line">print r.read()</span><br><span class="line"></span><br><span class="line">r.content()</span><br><span class="line"></span><br><span class="line">tag</span><br></pre></td></tr></table></figure>
+<h4 id="基于gevent开发的requests库"><a href="#基于gevent开发的requests库" class="headerlink" title="基于gevent开发的requests库"></a>基于gevent开发的requests库</h4><h3 id="lxml"><a href="#lxml" class="headerlink" title="lxml"></a>lxml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">lxml库,用C语言实现的，性能比BeauitfulSoup库快。</span><br><span class="line">lxml 库：xpath，         BrautifulSoup 库 ： 遍历DOM；</span><br><span class="line"></span><br><span class="line">result[0].tag  // 标签</span><br><span class="line">result[0].text // 文本内容</span><br><span class="line">result[0].tail  // string对象，表示element闭合之后的尾迹。</span><br><span class="line">result[0].attrib // dictionary对象，表示附有的属性。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">strip()  //python 函数去除字符</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Element 为主要的类； from lxml import etree </li>
+<li><p>​</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lxml.etree的方法：</span><br><span class="line">fromstring() // 用于解析字符串</span><br><span class="line">HTML() // 用于解析HTML对象</span><br><span class="line">XML()  // 解析XML 对象</span><br><span class="line">parse() // 解析 文件呢类型的对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from lxml import etree</span><br><span class="line">r = requests.post(url, params=params).text</span><br><span class="line">response = etree.HTML(r)</span><br><span class="line">result = response.xpath(&apos;//li/text()&apos;)</span><br><span class="line">print result</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="3-BeautifulSoup"><a href="#3-BeautifulSoup" class="headerlink" title="3.BeautifulSoup"></a>3.BeautifulSoup</h3><p>最主要的功能是从网页抓取数据。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Beautiful Soup 将复杂 HTML 文档转换成一个复杂的树形结构,每个节点都是 Python 对象,所有对象可以归纳为 4 种:</span><br><span class="line">    </span><br><span class="line">Tag ：</span><br><span class="line">NavigableString ： </span><br><span class="line">BeautifulSoup ：</span><br><span class="line">Comment：</span><br></pre></td></tr></table></figure>
+<p><a href="http://beautifulsoup.readthedocs.io/zh_CN/latest/#id18" target="_blank" rel="noopener">http://beautifulsoup.readthedocs.io/zh_CN/latest/#id18</a> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">再谈BeautifulSoup</span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line">html = BeautifulSoup(html,&apos;lxml&apos;)</span><br><span class="line">html.select(&apos;选择器&apos;)</span><br><span class="line">html.find_all(&quot;tag&quot;, attrs=&#123;&quot;key&quot;: &quot;value&quot;&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.get_text().split(&apos;\n&apos;)  ##split()函数分割字符串为列表，然后通过list[n]选择。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find()函数：  tag,attribuutes (属性） 参数常用</span><br><span class="line">find(tag,attributes,resursive,text,limit,keywords)</span><br><span class="line">findAll(tag,attribuutes,recusive,text,keywords)</span><br></pre></td></tr></table></figure>
+<h3 id="json"><a href="#json" class="headerlink" title="json"></a>json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">load()  json.loads() :json模块解码</span><br><span class="line"></span><br><span class="line">dump()  json.dump() : json模块编码 过jshon的dumps的模块可以把特定的对象序列化处理为字符串</span><br></pre></td></tr></table></figure>
+<h3 id="4-sys"><a href="#4-sys" class="headerlink" title="4. sys"></a>4. sys</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">args = sys.argv</span><br><span class="line">url = &quot;&quot;  ##命令行输入</span><br><span class="line">if len (args)==2:</span><br><span class="line">    url = args [1]</span><br><span class="line">    verify(url)</span><br><span class="line">else:</span><br><span class="line">    print &quot;use :python %s url &quot; %(args[0])</span><br></pre></td></tr></table></figure>
+<h3 id="hashlib-涉及安全散列和消息摘要"><a href="#hashlib-涉及安全散列和消息摘要" class="headerlink" title="hashlib 涉及安全散列和消息摘要"></a>hashlib 涉及安全散列和消息摘要</h3><ol>
+<li>常用属性</li>
+</ol>
+<p>hashlib.algorithms<br>列出所有加密算法</p>
+<p>h.digest_size<br>产生的散列字节大小。</p>
+<p>h.block_size<br>哈希内部块的大小</p>
+<ol start="2">
+<li>常用方法</li>
+</ol>
+<p>hash.new([arg])<br>创建指定加密模式的hash对象</p>
+<p>hash.update(arg)<br>更新哈希对象以字符串参数。如果同一个hash对象重复调用该方法，m.update(a); m.update(b) 等价于 m.update(a+b)</p>
+<p>hash.digest()<br>返回摘要，作为二进制数据字符串值。</p>
+<p>hash.hexdigest()<br>返回摘要，作为十六进制数据字符串值</p>
+<p>hash.copy()<br>复制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line">md5 = hashlib.md5() </span><br><span class="line">md5.update(&quot;I am Sin_Geek&quot;)  </span><br><span class="line">print md5.digest()  </span><br><span class="line">print md5.hexdigest() </span><br><span class="line">print &apos;block_size:&apos;, md5.block_size</span><br><span class="line">print &apos;digest_size:&apos;, md5.digest_size</span><br></pre></td></tr></table></figure>
+<h3 id="openpyxlb-excel文档-操作"><a href="#openpyxlb-excel文档-操作" class="headerlink" title="openpyxlb excel文档 操作"></a>openpyxlb excel文档 操作</h3><p><a href="https://www.cnblogs.com/anpengapple/p/6399304.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">https://www.cnblogs.com/anpengapple/p/6399304.html?utm_source=itdadao&amp;utm_medium=referral</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from openpyxl import Workbook</span><br><span class="line">wb = Workbook()</span><br><span class="line">sheet = wb.active</span><br><span class="line">sheet.title = &quot;New Shit&quot;</span><br><span class="line">sheet[&apos;C3&apos;] = &apos;Hello world!&apos;</span><br><span class="line">for i in range(10):</span><br><span class="line">  sheet[&quot;A%d&quot; % (i+1)].value = i + 1</span><br><span class="line">sheet[&quot;E1&quot;].value = &quot;=SUM(A:A)&quot;</span><br><span class="line"></span><br><span class="line">wb.save(&apos;保存一个新的excel.xlsx&apos;)</span><br></pre></td></tr></table></figure>
+<h3 id="线程库-threadpool-多进程"><a href="#线程库-threadpool-多进程" class="headerlink" title="线程库 threadpool  多进程"></a>线程库 threadpool  多进程</h3><p>多线程和多进程：一个是 thread 库，一个是 multiprocessing 库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import threadpool  </span><br><span class="line">def sayhello(str):</span><br><span class="line">    print &quot;Hello &quot;,str</span><br><span class="line">    time.sleep(2)</span><br><span class="line"></span><br><span class="line">name_list =[&apos;xiaozi&apos;,&apos;aa&apos;,&apos;bb&apos;,&apos;cc&apos;]</span><br><span class="line">start_time = time.time()</span><br><span class="line">pool = threadpool.ThreadPool(10) </span><br><span class="line">requests = threadpool.makeRequests(sayhello, name_list) </span><br><span class="line">[pool.putRequest(req) for req in requests] </span><br><span class="line">pool.wait() </span><br><span class="line">print &apos;%d second&apos;% (time.time()-start_time)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pool = ThreadPool(poolsize)  </span><br><span class="line">requests = makeRequests(some_callable, list_of_args, callback)  </span><br><span class="line">[pool.putRequest(req) for req in requests]  </span><br><span class="line">pool.wait()  </span><br><span class="line">第一行定义了一个线程池，表示最多可以创建poolsize这么多线程；</span><br><span class="line"></span><br><span class="line">第二行是调用makeRequests创建了要开启多线程的函数，以及函数相关参数和回调函数，其中回调函数可以不写，default是无，也就是说makeRequests只需要2个参数就可以运行；</span><br><span class="line"></span><br><span class="line">第三行用法比较奇怪，是将所有要运行多线程的请求扔进线程池，[pool.putRequest(req) for req in requests]等同于</span><br><span class="line"></span><br><span class="line">　　for req in requests:  </span><br><span class="line"></span><br><span class="line">　　　　 pool.putRequest(req) </span><br><span class="line"></span><br><span class="line">第四行是等待所有的线程完成工作后退出。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import urllib2 </span><br><span class="line">from multiprocessing.dummy import Pool as ThreadPool </span><br><span class="line"></span><br><span class="line">urls = [</span><br><span class="line">    &apos;http://www.python.org&apos;, </span><br><span class="line">    &apos;http://www.python.org/about/&apos;,</span><br><span class="line">    &apos;http://www.onlamp.com/pub/a/python/2003/04/17/metaclasses.html&apos;,</span><br><span class="line">    &apos;http://www.python.org/doc/&apos;,</span><br><span class="line">    &apos;http://www.python.org/download/&apos;,</span><br><span class="line">    &apos;http://www.python.org/getit/&apos;,</span><br><span class="line">    &apos;http://www.python.org/community/&apos;,</span><br><span class="line">    &apos;https://wiki.python.org/moin/&apos;,</span><br><span class="line">    &apos;http://planet.python.org/&apos;,</span><br><span class="line">    &apos;https://wiki.python.org/moin/LocalUserGroups&apos;,</span><br><span class="line">    &apos;http://www.python.org/psf/&apos;,</span><br><span class="line">    &apos;http://docs.python.org/devguide/&apos;,</span><br><span class="line">    &apos;http://www.python.org/community/awards/&apos;</span><br><span class="line">    # etc.. </span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"># Make the Pool of workers</span><br><span class="line">pool = ThreadPool(4) </span><br><span class="line"># Open the urls in their own threads</span><br><span class="line"># and return the results</span><br><span class="line">results = pool.map(urllib2.urlopen, urls)</span><br><span class="line">#close the pool and wait for the work to finish </span><br><span class="line">pool.close() </span><br><span class="line">pool.join() </span><br><span class="line">​```</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/05/Python 爬虫/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Python 爬虫
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/05/Python科学计算相关模块学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Python科学计算相关模块学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pyhon-模块学习"><span class="nav-number">1.</span> <span class="nav-text">Pyhon 模块学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则"><span class="nav-number">1.0.1.</span> <span class="nav-text">正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-urllib-urllib2"><span class="nav-number">1.0.2.</span> <span class="nav-text">1. urllib  urllib2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-requests"><span class="nav-number">1.0.3.</span> <span class="nav-text">2.requests</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于gevent开发的requests库"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">基于gevent开发的requests库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lxml"><span class="nav-number">1.0.4.</span> <span class="nav-text">lxml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-BeautifulSoup"><span class="nav-number">1.0.5.</span> <span class="nav-text">3.BeautifulSoup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json"><span class="nav-number">1.0.6.</span> <span class="nav-text">json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-sys"><span class="nav-number">1.0.7.</span> <span class="nav-text">4. sys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashlib-涉及安全散列和消息摘要"><span class="nav-number">1.0.8.</span> <span class="nav-text">hashlib 涉及安全散列和消息摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openpyxlb-excel文档-操作"><span class="nav-number">1.0.9.</span> <span class="nav-text">openpyxlb excel文档 操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程库-threadpool-多进程"><span class="nav-number">1.0.10.</span> <span class="nav-text">线程库 threadpool  多进程</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

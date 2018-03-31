@@ -1032,6 +1032,94 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-行为识别"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/08/05/行为识别/">人体行为识别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/08/05/行为识别/" class="article-date">
+	  <time datetime="2017-08-05T15:53:56.000Z" itemprop="datePublished">2017-08-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="人体行为识别"><a href="#人体行为识别" class="headerlink" title="人体行为识别"></a>人体行为识别</h1><p>空间复杂度，时间复杂度。</p>
+<p>1）将人体动作行为识别划分为几个相互联系的子过程， 根据过程划分方式的不同对相应技术进行分析分类;</p>
+<p>2) 典型问题方式，即选取人体动作行为识别中的部分典型问题作为对象，针对这些对象研究中涉及的方法进行分析<br>分类;<br>3) 空间时域方式， 即根据时域和空间上各项<br>研究方法的差别对相应技术进行分析分类．  </p>
+<h2 id="传统行为识别"><a href="#传统行为识别" class="headerlink" title="传统行为识别"></a>传统行为识别</h2><p>运动目标检测：</p>
+<ol>
+<li>图像分割</li>
+</ol>
+<ul>
+<li>基于区域的方法，基于边界的方法和数学形态学方法。其中， 基于区域的方法又分为阈值分割法，区域生长法和区域分裂合并法。</li>
+</ul>
+<ol start="2">
+<li>人体动作识别研究对于人体区进行分割</li>
+</ol>
+<ul>
+<li>直接利用或结合图像分割法对于人体区域分割</li>
+<li>构建人体模型–》结合图像分割方法通过人体区域进行分割</li>
+</ul>
+<h2 id="动作分割"><a href="#动作分割" class="headerlink" title="动作分割"></a>动作分割</h2><p> 局部分割法选取部分动作序列作为分析目标或<br>提取局部特征以实现整个行为的分割． 边界检测法<br>是一种常用而经典的局部动作分割方法。</p>
+<p>人体动作数据库</p>
+<h2 id="动作特征提取"><a href="#动作特征提取" class="headerlink" title="动作特征提取"></a>动作特征提取</h2><p><img src="http://osuq6jhys.bkt.clouddn.com/ML/动作行为识别流程.png" alt="动作行为识别流程"></p>
+<ol>
+<li><p>第一种是基于<strong>图像局部特征检测</strong>的方法。<br>例如有些学者使用方向梯度直方图<br>或尺度不变检测子来提取视频中的<strong>形状信息</strong>， 并 用 光 流 直 方 图（ ＨＯＦ） 或 运 动边界直 方 图 （ ＭＢＨ） 特 征 提 取 视 频 中 的 运动信息，然后用词包的形式进行编码， 并 训 练 分<br>类器识别人体行为。然而这种获取行为识别特<br>征的方法是将视频图像中提取的局部特征通过手<br>工制造得到高维的特征， 因此针对性较强， 通用性<br>较差。</p>
+</li>
+<li><p>有一些学者通过<strong>构建多级体系结构分级 </strong>进 行 行 为 识 别， 例 如 有 些 算 法 采 用 第一级结构对视频进行多种时空分割并得到所有可能的包含人体区域的分割结果， 再在第二级中利用时空信息对分割结果进行推理， 从而获得有效的人体行为特征。虽然这种分层级的方法能够更好地融合时间与空间信息， 但在每个层级中的处<br>理仍然依赖于手工制造的特征</p>
+</li>
+</ol>
+<ol start="3">
+<li>有一些学 者 提 出 使 用 <strong>深 度 神 经 网 络 进 行 行 为 识别</strong>，例 如 有 学 者 提 出 使 用 卷 积 神 经 网 络<strong>获取视频的表观特征与运动特征并将得到的特征进行分 析 与融 合</strong>，从 而 获 得 有 效的 行 为 识 别 特征。</li>
+</ol>
+<p>传统的方式      <strong>模板匹配</strong>  <strong>状态空间法</strong><br>法<br>特征提取和分类这两个步骤完成:</p>
+<ul>
+<li>首先是进行特征提取，常见的<br>特征包括 LBP ( Local Binary Patterns) ， SIFT ( Scale-Invariant<br>Feature Transform) 和 HOG( Histogram of Oriented Gradients)<br>等;</li>
+<li>分类则采用 SVM( Support Vector Machine) 和贝叶斯等机<br>器学习中常用的分类器． </li>
+</ul>
+<h2 id="行为识别–机器学习"><a href="#行为识别–机器学习" class="headerlink" title="行为识别–机器学习"></a>行为识别–机器学习</h2><p>参考：<a href="http://blog.sina.com.cn/s/blog_4caedc7a0102wrkz.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4caedc7a0102wrkz.html</a></p>
+<p>人体特征值提取: 人体骨架—人体关键点(Skeleton) </p>
+<ol>
+<li>通过RGB图像进行关节点估计（Pose Estimation）获得。</li>
+<li>是通过深度摄像机直接获得（例如Kinect）。每一时刻（帧）骨架对应人体的K个关节点所在的坐标位置信息，一个时间序列由若干帧组成。行为识别就是对时域预先分割好的序列判定其所属行为动作的类型，即“读懂行为”。但在现实应用中更容易遇到的情况是序列尚未在时域分割（Untrimmed），因此需要同时对行为动作进行时域定位（分割）和类型判定，这类任务一般称为行为检测。</li>
+<li>主要问题：一方面是如何设计鲁棒和有强判别性的特征，另一方面是如何利用时域相关性来对行为动作的动态变化进行建模。</li>
+<li></li>
+</ol>
+<p>LSTM（Long-Short Term Memory）和循环神经系统（RNN）来搭建基础框架。</p>
+<p>基于 ＣＮＮ 的时空轨迹特征提取方法</p>
+<p>基于骨架序列的行为识别      </p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><a href="http://blog.csdn.net/qq_36165459/article/details/78332172" target="_blank" rel="noopener">http://blog.csdn.net/qq_36165459/article/details/78332172</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-路由器安全"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1158,63 +1246,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web安全/">Web安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Violent Python"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/07/Violent Python/">Violent Python</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/07/Violent Python/" class="article-date">
-	  <time datetime="2017-04-07T15:53:56.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Violent-Python"><a href="#Violent-Python" class="headerlink" title="Violent Python"></a>Violent Python</h1><p><a href="http://shackles.top/2017/04/07/violent%20python%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%8C%E7%AB%A0/"> 2017-04-07</a></p>
-<h1 id="用pyhon进行渗透测试"><a href="#用pyhon进行渗透测试" class="headerlink" title="用pyhon进行渗透测试"></a>用pyhon进行渗透测试</h1><h2 id="2-1-编写端口扫描"><a href="#2-1-编写端口扫描" class="headerlink" title="2.1 编写端口扫描"></a>2.1 编写端口扫描</h2><h3 id="2-1-1-TCP全连接扫描"><a href="#2-1-1-TCP全连接扫描" class="headerlink" title="2.1.1 TCP全连接扫描"></a>2.1.1 TCP全连接扫描</h3><ol>
-<li>TCP 全连接扫描：socket 和 optpares</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.gethostbyname(hostname) \\</span><br><span class="line">socket.gethostbyaddr(ip addreess) \\</span><br><span class="line">socket.socket(\[family\[,type\[,proto]]])\\</span><br><span class="line">socket.create_connection(addrees\[,timeout\[,surece_address]])</span><br></pre></td></tr></table></figure>
-<ol>
-<li>​</li>
-</ol>
-<p>optparse 模块是python的内建模块应用于处理命令行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from optparse import OptionParser  </span><br><span class="line">[...]  </span><br><span class="line"></span><br><span class="line">parser = OptionParser()  </span><br><span class="line"></span><br><span class="line">parser.add_option(&quot;-f&quot;, &quot;--file&quot;, dest=&quot;filename&quot;,  </span><br><span class="line">                  help=&quot;write report to FILE&quot;, metavar=&quot;FILE&quot;)  </span><br><span class="line">parser.add_option(&quot;-q&quot;, &quot;--quiet&quot;,  </span><br><span class="line">                  action=&quot;store_false&quot;, dest=&quot;verbose&quot;, default=True,  </span><br><span class="line">                  help=&quot;don&apos;t print status messages to stdout&quot;)  </span><br><span class="line">  </span><br><span class="line">(options, args) = parser.parse_args()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">故命令行可以使用：</span><br><span class="line"></span><br><span class="line">usage: &lt;yourscript&gt; [options]  </span><br><span class="line">  </span><br><span class="line">options:  </span><br><span class="line">  -h, --help            show this help message and exit  </span><br><span class="line">  -f FILE, --file=FILE  write report to FILE  </span><br><span class="line">  -q, --quiet           don&apos;t print status messages to stdout</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-2-抓取应用的Banner"><a href="#2-2-2-抓取应用的Banner" class="headerlink" title="2.2.2 抓取应用的Banner"></a>2.2.2 抓取应用的Banner</h3><h3 id="2-2-3-线程扫描"><a href="#2-2-3-线程扫描" class="headerlink" title="2.2.3 线程扫描"></a>2.2.3 线程扫描</h3><p>python-nmap 利用python 调用nmap</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TCP SYN 扫描 ：又称为半开放扫描，这种类型的扫描发送一个SYN的TCP连接数包等待响应，当返回RST数据包表示端口关闭，返回ACK数据包表示端口开放。</span><br><span class="line"></span><br><span class="line">TCP NULL 扫描 ：TCP空扫描设置TCP的标志头为零。如果返回一个RST数据包则表示这个端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP FIN 扫描 : TCP FIN扫描发送一个FIN数据包，主动关闭连接，等待一个圆满的终止，如果返回RST数据包则表示端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP XMAS 扫描 ：TCP XMAS扫描设置 PSH, FIN,和URG TCP标志位，如返回RST数据包则表示这个端口是关闭的。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-</span><br><span class="line">#  输入主机名与端口-&gt;主机名变为IPV4地址-&gt;</span><br><span class="line">import optparse</span><br><span class="line">import socket</span><br><span class="line">import  threading</span><br><span class="line"></span><br><span class="line">###</span><br><span class="line"># 建立socket连接</span><br><span class="line">def connScan(tgtHost,tgtPort):</span><br><span class="line">    try:</span><br><span class="line">        connSkt = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        connSkt.connect((tgtHost,tgtPort))</span><br><span class="line">        print &apos;[+]%d/tcp open&apos;%tgtPort</span><br><span class="line">        connSkt.close()</span><br><span class="line">    except:</span><br><span class="line">        print &apos;[-]%d/tcp closed &apos;% tgtPort</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 定义端口扫描函数</span><br><span class="line">def portScan(tgtHost, tgtPorts):</span><br><span class="line">    try:</span><br><span class="line">        tgtIP = socket.gethostbyname(tgtHost)</span><br><span class="line"></span><br><span class="line">    except: </span><br><span class="line">        print &quot;[-] Cannot resolve &apos;%s&apos;: Unknown host&quot; % tgtHost</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        tgtName = socket.gethostbyaddr(tgtIP)</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtName[0]</span><br><span class="line">    except:</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtIP</span><br><span class="line">    socket.setdefaulttimeout(1)</span><br><span class="line">    ### 多线程，多端口</span><br><span class="line">    for tgtPort in tgtPorts:</span><br><span class="line">        print(&apos;Scanning port &apos; + str(tgtPort))</span><br><span class="line">        t = threading.Thread(target=connScan, args=(tgtHost, int(tgtPort)))</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;use:  –H &lt;target host&gt; -P &lt;target port&gt;&apos;)  # 新建paser对象</span><br><span class="line">    parser.add_option(&apos;-H&apos;, &apos;--host&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;taget host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, &apos;--port&apos;, dest=&apos;tgtPort&apos;, type=&apos;int&apos;, help=&apos;taget port&apos;)</span><br><span class="line"></span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    # 已经定义好了所有的命令行参数，调用 parse_args() 来解析程序的命令行：</span><br><span class="line">    # options，它是一个对象（optpars.Values），保存有命令行参数值。只要知道命令行参数名，如 file，就可以访问其对应的值： options.file 。</span><br><span class="line">    # args，它是一个由 positional arguments 组成的列表。</span><br><span class="line"></span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)  # 设置端口列表</span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print parser.usage</span><br><span class="line">        exit(0)</span><br><span class="line">    portScan(tgtHost,args)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h3 id="2-2-4-利用NMAP"><a href="#2-2-4-利用NMAP" class="headerlink" title="2.2.4 利用NMAP"></a>2.2.4 利用NMAP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-\</span><br><span class="line">#  调用 nmap</span><br><span class="line"></span><br><span class="line">import optparse</span><br><span class="line">import nmap</span><br><span class="line"></span><br><span class="line">def nmapScan(tgtHost, tgtPort):</span><br><span class="line">    nmScan = nmap.PortScanner()</span><br><span class="line">    results = nmScan.scan(tgtHost, tgtPort)</span><br><span class="line">    state = results[&apos;scan&apos;][tgtHost][&apos;tcp&apos;][int(tgtPort)][&apos;state&apos;]</span><br><span class="line">    print(&quot; [*] &quot; + tgtHost + &quot; tcp/&quot; + tgtPort + &quot; &quot; + state)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;usage %prog –H &lt;target host&gt; -P &lt;target port&gt;&apos;)</span><br><span class="line">    parser.add_option(&apos;-H&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;specify target host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, dest=&apos;tgtPort&apos;, type=&apos;string&apos;, help=&apos;specify target port&apos;)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)    </span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print(&apos;[-] You must specify a target host and port[s]!&apos;)</span><br><span class="line">        exit(0)</span><br><span class="line">    for tgport in args:</span><br><span class="line">        nmapScan(tgtHost, tgport)</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
   </div>
