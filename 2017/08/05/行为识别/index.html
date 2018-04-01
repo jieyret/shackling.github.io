@@ -19,12 +19,10 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="人体行为识别空间复杂度，时间复杂度。 1）将人体动作行为识别划分为几个相互联系的子过程， 根据过程划分方式的不同对相应技术进行分析分类; 2) 典型问题方式，即选取人体动作行为识别中的部分典型问题作为对象，针对这些对象研究中涉及的方法进行分析分类;3) 空间时域方式， 即根据时域和空间上各项研究方法的差别对相应技术进行分析分类．   传统行为识别运动目标检测：  图像分割   基于区域的方法，基于">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://osuq6jhys.bkt.clouddn.com/ML/动作行为识别流程.png">
-<meta property="og:updated_time" content="2018-03-31T15:20:11.112Z">
+<meta property="og:updated_time" content="2018-04-01T01:07:26.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人体行为识别">
 <meta name="twitter:description" content="人体行为识别空间复杂度，时间复杂度。 1）将人体动作行为识别划分为几个相互联系的子过程， 根据过程划分方式的不同对相应技术进行分析分类; 2) 典型问题方式，即选取人体动作行为识别中的部分典型问题作为对象，针对这些对象研究中涉及的方法进行分析分类;3) 空间时域方式， 即根据时域和空间上各项研究方法的差别对相应技术进行分析分类．   传统行为识别运动目标检测：  图像分割   基于区域的方法，基于">
-<meta name="twitter:image" content="http://osuq6jhys.bkt.clouddn.com/ML/动作行为识别流程.png">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -208,8 +206,7 @@
 </ul>
 <h2 id="动作分割"><a href="#动作分割" class="headerlink" title="动作分割"></a>动作分割</h2><p> 局部分割法选取部分动作序列作为分析目标或<br>提取局部特征以实现整个行为的分割． 边界检测法<br>是一种常用而经典的局部动作分割方法。</p>
 <p>人体动作数据库</p>
-<h2 id="动作特征提取"><a href="#动作特征提取" class="headerlink" title="动作特征提取"></a>动作特征提取</h2><p><img src="http://osuq6jhys.bkt.clouddn.com/ML/动作行为识别流程.png" alt="动作行为识别流程"></p>
-<ol>
+<h2 id="动作特征提取"><a href="#动作特征提取" class="headerlink" title="动作特征提取"></a>动作特征提取</h2><ol>
 <li><p>第一种是基于<strong>图像局部特征检测</strong>的方法。<br>例如有些学者使用方向梯度直方图<br>或尺度不变检测子来提取视频中的<strong>形状信息</strong>， 并 用 光 流 直 方 图（ ＨＯＦ） 或 运 动边界直 方 图 （ ＭＢＨ） 特 征 提 取 视 频 中 的 运动信息，然后用词包的形式进行编码， 并 训 练 分<br>类器识别人体行为。然而这种获取行为识别特<br>征的方法是将视频图像中提取的局部特征通过手<br>工制造得到高维的特征， 因此针对性较强， 通用性<br>较差。</p>
 </li>
 <li><p>有一些学者通过<strong>构建多级体系结构分级 </strong>进 行 行 为 识 别， 例 如 有 些 算 法 采 用 第一级结构对视频进行多种时空分割并得到所有可能的包含人体区域的分割结果， 再在第二级中利用时空信息对分割结果进行推理， 从而获得有效的人体行为特征。虽然这种分层级的方法能够更好地融合时间与空间信息， 但在每个层级中的处<br>理仍然依赖于手工制造的特征</p>

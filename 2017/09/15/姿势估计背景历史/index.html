@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>深度神经网络的设计理念 | shackle</title>
+  <title>状态估计背景历史 | shackle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="机器学习" />
@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。 多人姿态估计的两种研究方法—— 1自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现； 自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。 二维图像姿态估计基于cnn的单人姿">
+  <meta name="description" content="2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。 多人姿态估计的两种研究方法：  自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现；   自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。  基于cnn的多人姿态估计方法">
 <meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度神经网络的设计理念">
+<meta property="og:title" content="状态估计背景历史">
 <meta property="og:url" content="https://shackles.top/2017/09/15/姿势估计背景历史/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。 多人姿态估计的两种研究方法—— 1自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现； 自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。 二维图像姿态估计基于cnn的单人姿">
+<meta property="og:description" content="2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。 多人姿态估计的两种研究方法：  自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现；   自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。  基于cnn的多人姿态估计方法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-03-31T16:13:18.596Z">
+<meta property="og:updated_time" content="2018-04-01T01:36:25.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深度神经网络的设计理念">
-<meta name="twitter:description" content="2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。 多人姿态估计的两种研究方法—— 1自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现； 自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。 二维图像姿态估计基于cnn的单人姿">
+<meta name="twitter:title" content="状态估计背景历史">
+<meta name="twitter:description" content="2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。 多人姿态估计的两种研究方法：  自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现；   自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。  基于cnn的多人姿态估计方法">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -168,7 +168,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      深度神经网络的设计理念
+      状态估计背景历史
     </h1>
   
 
@@ -188,27 +188,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。</p>
-<p>多人姿态估计的两种研究方法——</p>
-<p>1自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现；</p>
-<p>自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。</p>
+<p>多人姿态估计的两种研究方法：</p>
+<ul>
+<li>自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现；</li>
+</ul>
+<ul>
+<li>自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。</li>
+</ul>
+<p>基于cnn的多人姿态估计方法</p>
+<p>多人估计方法一般分为两大类，即自顶向下和自底向上，</p>
+<p>其中自顶向下是指先把人框出来，然后再用单人的方法去定位人的关节，</p>
+<p>而自底向上的方法是先把所有关节位置弄出来，然后再区分关节属于谁。</p>
 <p>二维图像姿态估计基于cnn的单人姿态估计方法</p>
 <p>2014 deeppose                 直接回归关节的坐标        ：  深度姿势直接回归关节的坐标</p>
 <p>2015 flowconvnet               回归heatmap，间接得到坐标      ：使用卷积神经网络回归热图，间接得到坐标。      </p>
 <p>2016 很多方法了 CPM，hourglass， 以及一票改结构的方法</p>
 <p>2017 依旧改结构，感觉很无趣，xiaogang组的wei wang和xiaochu基于hourglass改的一个网络目前是第一，91.5%</p>
-<p>总体感觉，单人姿态估计领域被cnn占领的差不多啦，cpm这个模型的鲁棒性相当好，遮挡很多都能推断出来，真的让人很震惊。</p>
-<p>基于cnn的多人姿态估计方法</p>
-<p>多人估计方法一般分为两大类，即自顶向下和自底向上，</p>
-<p>其中自顶向下是指先把人框出来，然后再用单人的方法去定位人的关节，</p>
-<p>而自底向上的方法是先把所有关节位置弄出来，然后再区分关节属于谁。</p>
 <p>2016 mpii的deep cut和deeper cut</p>
-<p>2017 partaffine field方法，cmu的，效果很赞。目前开源的就是这个方法，openpose。</p>
-<p>-—————————————-</p>
-<p>说说目前姿态估计的面临的一些问题</p>
-<p>(1)遮挡问题，这个问题恐怕是最难的，也是必须要解决的</p>
-<p>(2)速度过慢，当前的所有方法，都是需要像titanx才能做到准实时的，15fps，说白了，距离实用还是有一段距离，不过不远了。</p>
-<p>(3)仅仅有二维的姿态是不够的，目前也有这一类的研究，关于直接从2d到3d的姿态进行直接估计。这一点才是未来的趋势。</p>
-<p>有空再更。</p>
+<p>2017 partaffine field方法，cmu的，效果很赞。openpose。</p>
 <p>一、   多人 ：  2D Pose estimation：</p>
 <p>\1. open-Pose：<strong><realtime multi-person2d="" pose="" estimation="" using="" part="" affinity="" fields=""></realtime></strong>（CVPR 2017 Oral, CMU）</p>
 <p>性能：COCO: 61%MPII:75%   自下而上的方法</p>
@@ -241,7 +238,7 @@
 <p>其中：</p>
 <p><strong>1. Bottom-up approach</strong>      自下而上的方法：     先检测joints（关节）和 limbs（四肢），然后将他们group  （组）成一个人。             代表文章<1><4> 。</4></1></p>
 <p>优点：整个图像只需要处理一遍，速度不随人数增加而变化；</p>
-<p><strong>2. Top-Down approach</strong>     自上而下的方法：     先检测单个人，再针对单个人做single-person poseestimation。 代表文章 <2> <3> <5></5></3></2></p>
+<p><strong>2. Top-Down approach</strong>     自上而下的方法：     先检测单个人，再针对单个人做single-person poseestimation。 代表文章</p>
 <p>先检测单个人，逐步对于每个进行 检测</p>
 <p>优点：思路直观，自然，被绝大部分人所青睐，且单人估计精度非常高。</p>
 <p>相关数据集/ 竞赛</p>
@@ -257,8 +254,6 @@
 <li><strong>Posetrack</strong></li>
 </ol>
 <p><a href="https://posetrack.net/" target="_blank" rel="noopener">https://posetrack.net/</a></p>
-<p>- Baseline 尝试</p>
-<p>\1. 选定openpose作为baseline方法，先不训练，直接套用MPI的模型。由于MPI的关键点数量和AI Challenger完全一致，所以模型可以直接套用。第一个双周提交至竞赛网站，结果仅为26%。Baseline性能比较令人意外，毕竟这个模型在MPI这个最老牌的竞赛集上可是有75%的性能。</p>
 
       
     </div>

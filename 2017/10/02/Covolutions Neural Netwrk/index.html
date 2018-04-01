@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>rcnn | shackle</title>
+  <title>covolutions neural netwrk | shackle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="机器学习" />
@@ -11,22 +11,28 @@
   
   
   
-  <meta name="description" content="RCNNRCNN算法分为4个步骤  - 一张图像生成1K~2K个候选区域  - 对每个候选区域，使用深度网络提取特征  - 特征送入每一类的SVM 分类器，判别是否属于该类  - 使用回归器精细修正候选框位置  a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类  http://blog.csdn.net/hjimce/article/details/50187029 RC">
+  <meta name="description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的一">
 <meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RCNN">
-<meta property="og:url" content="https://shackles.top/2017/10/12/RCNN/index.html">
+<meta property="og:title" content="Covolutions Neural Netwrk">
+<meta property="og:url" content="https://shackles.top/2017/10/02/Covolutions Neural Netwrk/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="RCNNRCNN算法分为4个步骤  - 一张图像生成1K~2K个候选区域  - 对每个候选区域，使用深度网络提取特征  - 特征送入每一类的SVM 分类器，判别是否属于该类  - 使用回归器精细修正候选框位置  a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类  http://blog.csdn.net/hjimce/article/details/50187029 RC">
+<meta property="og:description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg">
 <meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif">
 <meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif">
-<meta property="og:updated_time" content="2018-03-31T15:35:28.040Z">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif">
+<meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif">
+<meta property="og:updated_time" content="2018-04-01T01:34:48.282Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RCNN">
-<meta name="twitter:description" content="RCNNRCNN算法分为4个步骤  - 一张图像生成1K~2K个候选区域  - 对每个候选区域，使用深度网络提取特征  - 特征送入每一类的SVM 分类器，判别是否属于该类  - 使用回归器精细修正候选框位置  a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类  http://blog.csdn.net/hjimce/article/details/50187029 RC">
-<meta name="twitter:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif">
+<meta name="twitter:title" content="Covolutions Neural Netwrk">
+<meta name="twitter:description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的一">
+<meta name="twitter:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -164,7 +170,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-RCNN" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Covolutions Neural Netwrk" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -172,7 +178,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      RCNN
+      Covolutions Neural Netwrk
     </h1>
   
 
@@ -180,8 +186,8 @@
     
     <div class="article-meta">
       
-	<a href="/2017/10/12/RCNN/" class="article-date">
-	  <time datetime="2017-10-12T15:53:56.000Z" itemprop="datePublished">2017-10-12</time>
+	<a href="/2017/10/02/Covolutions Neural Netwrk/" class="article-date">
+	  <time datetime="2017-10-02T15:53:56.000Z" itemprop="datePublished">2017-10-02</time>
 	</a>
 
       
@@ -191,32 +197,53 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h2><p>RCNN算法分为4个步骤 </p>
-<p>- 一张图像生成1K~2K个候选区域 </p>
-<p>- 对每个候选区域，使用深度网络提取特征 </p>
-<p>- 特征送入每一类的SVM 分类器，判别是否属于该类 </p>
-<p>- 使用回归器精细修正候选框位置 </p>
-<p>a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif" alt="clipboard.png"></p>
-<p><a href="http://blog.csdn.net/hjimce/article/details/50187029" target="_blank" rel="noopener">http://blog.csdn.net/hjimce/article/details/50187029</a></p>
-<p>RCNN 解决的是，“为什么不用CNN做classification呢？”</p>
-<p>（但是这个方法相当于过一遍network出bounding box，再过另一个出label，原文写的很不“elegant”</p>
-<p>Fast-RCNN 解决的是，“为什么不一起输出bounding box和label呢？”</p>
-<p>（但是这个时候用selectivesearch generate regional proposal的时间实在太长了</p>
-<p>Faster-RCNN 解决的是，“为什么还要用selective search呢？”</p>
-<p>于是就达到了real-time。开山之作确实是开山之作，但是也是顺应了“Deep learning 搞一切vision”这一潮流吧。</p>
+        <h3 id="Covolutions-Neural-Netwrk"><a href="#Covolutions-Neural-Netwrk" class="headerlink" title="Covolutions Neural Netwrk"></a>Covolutions Neural Netwrk</h3><p>​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。 </p>
+<p>[INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分</p>
+<p>卷积神经网络是计算机自主学习的一种方式。（自学习） 卷积神经网络（CNN）</p>
+<p>由Huabel与Wiesel在研究猫的脑皮层中用局部敏感和方法选择的神经元时发现其独特的网络结构可以有效的降低反馈神经网络的复杂性提出。</p>
+<p>DCNN（Deep ConvolutionalNeural Network，深度卷积网络）与LSTM（LongShort Term Memory，长短时记忆网络）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据-》自学习-》结果</span><br><span class="line"></span><br><span class="line">输入-》 算法 -》输出</span><br></pre></td></tr></table></figure>
+<p><strong>空间共享</strong></p>
+<p>​    计算机视觉里经常使卷积神经网络，即CNN，是一种对人脑比较精准的模拟。</p>
+<p>​    什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</p>
+<p>​    比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</p>
+<p>从LeNet到AlexNet</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="32919ad4d34.jpeg"></p>
+<p>物体检测问题</p>
+<p>Region CNN YOLO</p>
+<p>FACEBOOK提出来的YOLO网络，物体检测，</p>
 <p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
-<p>作者：Oh233</p>
-<p>链接：<a href="https://www.zhihu.com/question/35887527/answer/72884459" target="_blank" rel="noopener">https://www.zhihu.com/question/35887527/answer/72884459</a></p>
-<p>来源：知乎</p>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>   本篇博文主要讲解2014年CVPR上的经典paper：《Richfeature hierarchies for Accurate Object Detection and Segmentation》，这篇文章的算法思想又被称之为：R-CNN（Regions with Convolutional NeuralNetwork Features），是物体检测领域曾经获得state-of-art精度的经典文献。</p>
-<p>   这篇paper的思想，改变了物体检测的总思路，现在好多文献关于深度学习的物体检测的算法，基本上都是继承了这个思想，比如：《Spatial Pyramid Pooling in Deep Convolutional Networks forVisual Recognition》，所以学习经典算法，有助于我们以后搞物体检测的其它paper。</p>
-<p>fast-rcnn</p>
 <p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
-<p>图1.快速R-CNN架构</p>
-<p>​     输入图像和多个感兴趣区域（RoI）被输入到完全卷积网络。 每个RoI被汇集到一个固定大小的特征映射中然后通过完全连接的层（FC）映射到特征向量。每个RoI网络有两个输出向量：softmax概率和每类边界框回归抵消。 架构是训练端到端的多任务丢失。</p>
-<p>Fast R-CNN输入为一张图像以及诸多的region proposals（RoI）。首先通过CNN提取到整幅图像的feature map  下采样层  （特征层），然后对于每一个RoI根据映射提取到自己的feature vector。然后输入到全连接层，输出为两个分支，一个为softmax层输出，输出的是K+1个类别的概率（包含一个背景类）。另一个输出是对于每类生成一个求精后的boundingbox。</p>
+<p>权重 W 与偏移量B  相同     不同的是输入的值</p>
+<p>ConvNet体系结构：<strong>卷积层</strong>，<strong>池层</strong>和<strong>完全连接层</strong>（正如在常规神经网络中所见）</p>
+<h3 id="ConvNet"><a href="#ConvNet" class="headerlink" title="ConvNet"></a><strong>ConvNet</strong></h3><p>C++中卷积神经网络的GPU实现</p>
+<p>一个示例ConvNet架构的激活。初始卷存储原始图像像素（左），最后一个卷存储类分数（右）。沿着处理路径的每个激活量显示为一列。由于难以将3D体积可视化，因此我们将行卷切成行。最后一层卷保留每个类的分数，但在这里我们只可视化排序的前5个分数，并打印每个分数的标签。完整<a href="http://cs231n.stanford.edu/" target="_blank" rel="noopener">的基于Web的演示文稿</a>显示在我们网站的标题中。这里所示的架构是一个小型的VGG网络，稍后将讨论。</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif" alt="clipboard.png"></p>
+<p>双曲正切函数是双曲函数中的一个函数。</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif" alt="clipboard.png"></p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif" alt="clipboard.png"></p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif" alt="clipboard.png"></p>
+<p><strong>输入图像I。</strong>为了减小复杂度，一般使用灰度图像。当然，也可以使用RGB彩色图像，此时输入图像有三张，分别为RGB分量。输入图像一般需要归一化，1、如果使用sigmoid激活函数，则归一化到[0,1]        2、 如果使用tanh激活函数，则归一化到[-1, 1]。</p>
+<p><strong>多个卷积（C）-下采样（S）层</strong>。将上一层的输出与本层权重W做卷积得到各个C层，然后下采样得到各个S层。怎么做以及为什么，下面会具体分析。这些层的输出称为FeatureMap。</p>
+<p><strong>光栅化（X）</strong>。是为了与传统的多层感知器全连接。即将上一层的所有Feature Map的每个像素依次展开，排成一列。</p>
+<p><strong>传统的多层感知器（N&amp;O）</strong>。最后的分类器一般使用Softmax，如果是二分类，当然也可以使用LR。</p>
+<h4 id="输入层-隐层："><a href="#输入层-隐层：" class="headerlink" title="输入层-隐层："></a><strong>输入层-隐层：</strong></h4><p>是一个全连接的网络，即每个输入节点都连接到所有的隐层节点上。更详细地说，可以把输入层视为一个向量 xx ，而隐层节点 jj 有一个权值向量 θjθj 以及偏置 bjbj ，激活函数使用 <em>sigmoid</em> 或 <em>tanh</em> ，那么这个隐层节点的输出应该是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fj(x)=act(θTjx+bj)fj(x)=act(θjTx+bj)</span><br></pre></td></tr></table></figure>
+<p>也就是每个隐层节点都相当于一个感知器。每个隐层节点产生一个输出，那么隐层所有节点的输出就成为一个向量，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(x)=act(Θx+b)f(x)=act(Θx+b)</span><br></pre></td></tr></table></figure>
+<p>若输入层有 mm 个节点，隐层有 nn 个节点，那么 Θ=[θT]Θ=[θT] 为 n×mn×m 的矩阵，xx 为长为 mm 的向量，bb 为长为 nn 的向量，激活函数作用在向量的每个分量上， f(x)f(x) 返回一个向量。</p>
+<h4 id="隐层-输出层"><a href="#隐层-输出层" class="headerlink" title="隐层-输出层:"></a><strong>隐层-输出层</strong>:</h4><p>可以视为级联在隐层上的一个感知器。若为二分类，则常用LogisticRegression；若为多分类，则常用Softmax Regression。</p>
+<p><strong>卷积、下采样、光栅化、多层感知器预测</strong></p>
+<h5 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h5><p>离散卷积运算。假设有二维离散函数 f(x,y),g(x,y) ， 那么它们的卷积定义为</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif" alt="clipboard.png"></p>
+<p>从这里，可以看到卷积的重要的物理意义是：一个函数（如：单位响应）在另一个函数（如：输入信号）上的<strong>加权叠加。</strong></p>
+<h5 id="下采样"><a href="#下采样" class="headerlink" title="下采样"></a>下采样</h5><p>下采样，即池化，目的是减小特征图，池化规模一般为2×2。常用的池化方法有：</p>
+<p>最大池化（Max Pooling）。取4个点的最大值。这是最常用的池化方法。</p>
+<p>均值池化（Mean Pooling）。取4个点的均值。</p>
+<p>高斯池化。借鉴高斯模糊的方法。不常用。具体过程不是很清楚。。。</p>
+<p>可训练池化。训练函数 f ，接受4个点为输入，出入1个点。不常用。</p>
+<h5 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h5><p>图像经过池化-下采样后，得到的是一系列的特征图，而多层感知器接受的输入是一个向量。因此需要将这些特征图中的像素依次取出，排列成一个向量。具体说，对特征图 X1,X2,…,Xj ，光栅化后得到的向量</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif" alt="clipboard.png"></p>
 
       
     </div>
@@ -257,19 +284,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/14/物体识别/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/05/人工神经网络/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          物体识别
+          人工神经网络
         
       </div>
     </a>
   
   
-    <a href="/2017/10/05/人工神经网络/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/01/机器学习重要算法/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">人工神经网络</div>
+      <div class="article-nav-title">机器学习重要算法</div>
     </a>
   
 </nav>
@@ -283,7 +310,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RCNN"><span class="nav-number">1.</span> <span class="nav-text">RCNN</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Covolutions-Neural-Netwrk"><span class="nav-number">1.</span> <span class="nav-text">Covolutions Neural Netwrk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConvNet"><span class="nav-number">2.</span> <span class="nav-text">ConvNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入层-隐层："><span class="nav-number">2.1.</span> <span class="nav-text">输入层-隐层：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隐层-输出层"><span class="nav-number">2.2.</span> <span class="nav-text">隐层-输出层:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积"><span class="nav-number">2.2.1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下采样"><span class="nav-number">2.2.2.</span> <span class="nav-text">下采样</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#光栅化"><span class="nav-number">2.2.3.</span> <span class="nav-text">光栅化</span></a></li></ol></li></ol></li></ol>
     
     </div>
   </aside>

