@@ -538,21 +538,20 @@
 <p>​    什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</p>
 <p>​    比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</p>
 <p>从LeNet到AlexNet</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="32919ad4d34.jpeg"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image001.jpg" alt="clip_image00"></p>
 <p>物体检测问题</p>
 <p>Region CNN YOLO</p>
 <p>FACEBOOK提出来的YOLO网络，物体检测，</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image004.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image006.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image004.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image006.gif" alt="clip_image00"></p>
 <p>权重 W 与偏移量B  相同     不同的是输入的值</p>
 <p>ConvNet体系结构：<strong>卷积层</strong>，<strong>池层</strong>和<strong>完全连接层</strong>（正如在常规神经网络中所见）</p>
 <h3 id="ConvNet"><a href="#ConvNet" class="headerlink" title="ConvNet"></a><strong>ConvNet</strong></h3><p>C++中卷积神经网络的GPU实现</p>
 <p>一个示例ConvNet架构的激活。初始卷存储原始图像像素（左），最后一个卷存储类分数（右）。沿着处理路径的每个激活量显示为一列。由于难以将3D体积可视化，因此我们将行卷切成行。最后一层卷保留每个类的分数，但在这里我们只可视化排序的前5个分数，并打印每个分数的标签。完整<a href="http://cs231n.stanford.edu/" target="_blank" rel="noopener">的基于Web的演示文稿</a>显示在我们网站的标题中。这里所示的架构是一个小型的VGG网络，稍后将讨论。</p>
 <p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif" alt="clipboard.png"></p>
 <p>双曲正切函数是双曲函数中的一个函数。</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image010.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image012.gif" alt="clipboard.png"></p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image014.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image010.gif" alt="clip_image01"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image012.gif" alt="clip_image01"><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image014.gif" alt="clip_image01"></p>
 <p><strong>输入图像I。</strong>为了减小复杂度，一般使用灰度图像。当然，也可以使用RGB彩色图像，此时输入图像有三张，分别为RGB分量。输入图像一般需要归一化，1、如果使用sigmoid激活函数，则归一化到[0,1]        2、 如果使用tanh激活函数，则归一化到[-1, 1]。</p>
 <p><strong>多个卷积（C）-下采样（S）层</strong>。将上一层的输出与本层权重W做卷积得到各个C层，然后下采样得到各个S层。怎么做以及为什么，下面会具体分析。这些层的输出称为FeatureMap。</p>
 <p><strong>光栅化（X）</strong>。是为了与传统的多层感知器全连接。即将上一层的所有Feature Map的每个像素依次展开，排成一列。</p>
@@ -565,7 +564,7 @@
 <h4 id="隐层-输出层"><a href="#隐层-输出层" class="headerlink" title="隐层-输出层:"></a><strong>隐层-输出层</strong>:</h4><p>可以视为级联在隐层上的一个感知器。若为二分类，则常用LogisticRegression；若为多分类，则常用Softmax Regression。</p>
 <p><strong>卷积、下采样、光栅化、多层感知器预测</strong></p>
 <h5 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h5><p>离散卷积运算。假设有二维离散函数 f(x,y),g(x,y) ， 那么它们的卷积定义为</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image016.gif" alt="clipboard.png"></p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/1clip_image016.gif" alt="clipboard.png"></p>
 <p>从这里，可以看到卷积的重要的物理意义是：一个函数（如：单位响应）在另一个函数（如：输入信号）上的<strong>加权叠加。</strong></p>
 <h5 id="下采样"><a href="#下采样" class="headerlink" title="下采样"></a>下采样</h5><p>下采样，即池化，目的是减小特征图，池化规模一般为2×2。常用的池化方法有：</p>
 <p>最大池化（Max Pooling）。取4个点的最大值。这是最常用的池化方法。</p>
@@ -573,7 +572,7 @@
 <p>高斯池化。借鉴高斯模糊的方法。不常用。具体过程不是很清楚。。。</p>
 <p>可训练池化。训练函数 f ，接受4个点为输入，出入1个点。不常用。</p>
 <h5 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h5><p>图像经过池化-下采样后，得到的是一系列的特征图，而多层感知器接受的输入是一个向量。因此需要将这些特征图中的像素依次取出，排列成一个向量。具体说，对特征图 X1,X2,…,Xj ，光栅化后得到的向量</p>
-<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image018.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image018.gif" alt="clip_image01"></p>
 
       
     </div>
