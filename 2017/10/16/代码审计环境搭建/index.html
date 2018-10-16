@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>php代码审计环境搭建 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="代码审计" />
+  
+  
+  
+  
+  <meta name="description" content="PHP代码审计环境搭建0x00 环境准备俗话说：工欲善其事必先利其器，高效的代码审计需要必要的工具支持。 1、PHP环境 PHP集成开发环境：phpStudy phpStudy是Windows下一个PHP调试环境的程序集成包。该程序包集成Apache+Nginx+LightTPD+PHP+MySQL+phpMyAdmin+Zend Optimizer+Zend Loader 一次性安装，无须配置即">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP代码审计环境搭建">
+<meta property="og:url" content="https://shackles.top/2017/10/16/代码审计环境搭建/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="PHP代码审计环境搭建0x00 环境准备俗话说：工欲善其事必先利其器，高效的代码审计需要必要的工具支持。 1、PHP环境 PHP集成开发环境：phpStudy phpStudy是Windows下一个PHP调试环境的程序集成包。该程序包集成Apache+Nginx+LightTPD+PHP+MySQL+phpMyAdmin+Zend Optimizer+Zend Loader 一次性安装，无须配置即">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/87ieiL8g3j.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/KimDb880Im.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/BAmHJidLah.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/mH77gccdDd.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/4fGIA49a47.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/3iJLCDmADg.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/EeDdE38jaF.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/eK75kaedJA.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/H4jahfLcFH.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/FFeKjJBb2k.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/aD9Cj8l3Ah.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/AcFCcD9Abf.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/g08JG1ceFB.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/3lDgaJIFk7.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/HD09BAJDmG.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/5IiBL2abBa.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/j53hcCmf3C.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/kLgJk1EGE4.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/b4I82F0ihk.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/6hgDDKGhm3.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/I2fme05i82.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/6LdEga51aB.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/h6DKHIBckE.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/Kc0cDck83e.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/74lh0558Ld.png?imageslim">
+<meta property="og:image" content="c:/Users/shackle/AppData/Local/Temp/1533271285872.png">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/H8kJi2bhii.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/aHjGm98JLm.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/eaEmJB5a5C.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/hH31cbgfaj.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/aEF5D5AG1I.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/834hK3bEGA.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/7f9imFEDm7.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/412i5FjcFm.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/aIIL4l0JfF.png?imageslim">
+<meta property="og:image" content="c:/Users/shackle/AppData/Local/Temp/1533364142489.png">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4DImBIa2bI.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/7LlC4geibh.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/8Ij1G0HLal.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/HF2EFdKB7J.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/lDblk9g17f.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/KlJl260a2d.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/2KLJ8kG1lm.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180805/2f1kGE510a.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180805/29f0B8Fkdc.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/6ej12BDa8K.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/l7cd8HJGkE.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/FmIEJDjjdC.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/LJECCJlmi2.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4gBj8B1Cgd.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/946hcD1fcK.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/BgaDBa9jdm.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/0hK31AGab6.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4DImBIa2bI.png?imageslim">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/Fi332d1jB7.png?imageslim">
+<meta property="og:updated_time" content="2018-10-16T10:02:39.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP代码审计环境搭建">
+<meta name="twitter:description" content="PHP代码审计环境搭建0x00 环境准备俗话说：工欲善其事必先利其器，高效的代码审计需要必要的工具支持。 1、PHP环境 PHP集成开发环境：phpStudy phpStudy是Windows下一个PHP调试环境的程序集成包。该程序包集成Apache+Nginx+LightTPD+PHP+MySQL+phpMyAdmin+Zend Optimizer+Zend Loader 一次性安装，无须配置即">
+<meta name="twitter:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/87ieiL8g3j.png?imageslim">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo1.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo1.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+/*    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}*/
+
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-代码审计环境搭建" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      PHP代码审计环境搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/16/代码审计环境搭建/" class="article-date">
+	  <time datetime="2017-10-16T09:52:08.000Z" itemprop="datePublished">2017-10-16</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="PHP代码审计环境搭建"><a href="#PHP代码审计环境搭建" class="headerlink" title="PHP代码审计环境搭建"></a>PHP代码审计环境搭建</h1><h2 id="0x00-环境准备"><a href="#0x00-环境准备" class="headerlink" title="0x00 环境准备"></a>0x00 环境准备</h2><p>俗话说：工欲善其事必先利其器，高效的代码审计需要必要的工具支持。</p>
+<h4 id="1、PHP环境"><a href="#1、PHP环境" class="headerlink" title="1、PHP环境"></a>1、PHP环境</h4><ul>
+<li>PHP集成开发环境：<a href="http://phpstudy.php.cn/" target="_blank" rel="noopener">phpStudy</a><ul>
+<li>phpStudy是Windows下一个PHP调试环境的程序集成包。该程序包集成Apache+Nginx+LightTPD+PHP+MySQL+phpMyAdmin+Zend Optimizer+Zend Loader 一次性安装，无须配置即可使用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、通用工具"><a href="#2、通用工具" class="headerlink" title="2、通用工具"></a>2、通用工具</h4><ul>
+<li><p>IDE ： <a href="http://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener">PhpStorm</a></p>
+<ul>
+<li>PhpStorm是 JetBrains 公司开发的一款商用 PHP 集成开发工具 。</li>
+</ul>
+</li>
+<li><p>代码编辑器 ：<a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a></p>
+<ul>
+<li>Sublime Text一个代码编辑器 ，由程序员Jon Skinner于2008年1月份所开发出来，Sublime Text 具有漂亮的用户界面和强大的功能。</li>
+</ul>
+</li>
+<li><p>网络调试工具： <a href="https://www.getpostman.com/" target="_blank" rel="noopener">Postman</a></p>
+<ul>
+<li>调试简单的css、html、脚本等简单的网页基本信息，发送所有类型的HTTP请求，调试WEB API的首选工具。</li>
+</ul>
+</li>
+<li><p>Xdebug工具 ：<a href="https://xdebug.org/" target="_blank" rel="noopener">xdebug</a></p>
+<ul>
+<li>Xdebug是PHP的扩展，用于协助调试和开发。它包含一个用于IDE 的单步调试器 。</li>
+</ul>
+</li>
+<li><p><a href="https://portswigger.net/burp/" target="_blank" rel="noopener">burpsuite </a>（神器不解释）</p>
+</li>
+</ul>
+<h4 id="3、自动化代码审计工具："><a href="#3、自动化代码审计工具：" class="headerlink" title="3、自动化代码审计工具："></a>3、自动化代码审计工具：</h4><ul>
+<li><p>Seay源代码审计系统（mysql 监控工具）</p>
+<ul>
+<li>国人开发的一套PHP源代码审计工具。</li>
+</ul>
+</li>
+<li><p><a href="http://cobra.feei.cn/installation" target="_blank" rel="noopener">cobra</a> ：支持多语言审计，暂时不支持Windows平台。</p>
+</li>
+<li><p><a href="http://rips-scanner.sourceforge.net/" target="_blank" rel="noopener">RIPS</a>：free PHP security scanner using static code analysis：</p>
+</li>
+</ul>
+<h2 id="0x01-PHP-环境安装"><a href="#0x01-PHP-环境安装" class="headerlink" title="0x01 PHP 环境安装"></a>0x01 PHP 环境安装</h2><p>1、选择解压目录为 C:\phpStudy。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/87ieiL8g3j.png?imageslim" alt="mark"></p>
+<p>2、如图所示，phpStudy的目录结构。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/KimDb880Im.png?imageslim" alt="mark"></p>
+<p>3 、如果需要Visual C++ 运行库（Visual C++ Redistributable），可到微软官网下载。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/BAmHJidLah.png?imageslim" alt="mark"></p>
+<p>下载Visual C++ Redistributable for Visual Studio 2015。选择操作系统对应的位数。</p>
+<p><a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=48145" target="_blank" rel="noopener">http://www.microsoft.com/zh-cn/download/details.aspx?id=48145</a></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/mH77gccdDd.png?imageslim" alt="mark"></p>
+<p>进行安装。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/4fGIA49a47.png?imageslim" alt="mark"></p>
+<p>4、点击启动按钮可以看到phpStudy 已经成功启动。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/3iJLCDmADg.png?imageslim" alt="mark"></p>
+<p>5、点击MySQL管理器，我们常用MySQL-Front管理Mysql数据库。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/EeDdE38jaF.png?imageslim" alt="mark"></p>
+<p>6、 可以根据需要切换PHP对应版本。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/eK75kaedJA.png?imageslim" alt="mark"></p>
+<p>7、在 “其他选项管理器”，可以看到常见的一些使用的工具与常见的快捷按钮。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/H4jahfLcFH.png?imageslim" alt="mark"></p>
+<p>8、 点击“ My HomePage”</p>
+<p>在浏览器中可看到，环境正常。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/FFeKjJBb2k.png?imageslim" alt="mark">9、点击程序后可以，phpStudy 后台运行服务。可在屏幕右下角找到。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/aD9Cj8l3Ah.png?imageslim" alt="mark"></p>
+<p>10、 成功安装phpStudy集成环境，下面安装配置PHP代码调试环境。</p>
+<h2 id="0x02-通用工具安装配置"><a href="#0x02-通用工具安装配置" class="headerlink" title="0x02 通用工具安装配置"></a>0x02 通用工具安装配置</h2><h3 id="1、安装配置PhpStorm"><a href="#1、安装配置PhpStorm" class="headerlink" title="1、安装配置PhpStorm"></a>1、安装配置<a href="http://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener">PhpStorm</a></h3><p>下载好phpstorm安装程序打开，根据提示，下一步即可安装。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/AcFCcD9Abf.png?imageslim" alt="mark"></p>
+<p>可以看到我们可以选择使用32位与64位版本的phpstorm。在这里要勾选下载JRE，可以自动下载安装JRE程序，点击下一步。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/g08JG1ceFB.png?imageslim" alt="mark"></p>
+<p>安装完成启动。</p>
+<p>可以选择激活和30试用,在这里我们选择30天试用。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/3lDgaJIFk7.png?imageslim" alt="mark"></p>
+<p>点击“Accept”</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/HD09BAJDmG.png?imageslim" alt="mark"></p>
+<p>可以看到PhpStorm正常启动。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/5IiBL2abBa.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/j53hcCmf3C.png?imageslim" alt="mark"></p>
+<h3 id="2、安装配置-Sublime-text"><a href="#2、安装配置-Sublime-text" class="headerlink" title="2、安装配置 Sublime text"></a>2、安装配置 <a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a></h3><p>安装 <a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a> ,一路next即可。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/kLgJk1EGE4.png?imageslim" alt="mark"></p>
+<p>这里需要Python环境。安装Python3.6</p>
+<p><a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">https://www.python.org/downloads/windows/</a></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/b4I82F0ihk.png?imageslim" alt="mark"></p>
+<p>安装 Python3.6，勾选添加Python环境变量，点击”Install Now “。即开始安装。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/6hgDDKGhm3.png?imageslim" alt="mark"></p>
+<p>可以看到成功安装Python环境。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/I2fme05i82.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/6LdEga51aB.png?imageslim" alt="mark"></p>
+<p>在<a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text </a>Package Control组件在线安装</p>
+<ul>
+<li>按Ctrl+`调出console（注：避免热键冲突）</li>
+<li>粘贴以下代码到命令行并回车：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), <span class="string">'wb'</span>).write(urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>,<span class="string">'%20'</span>)).read())</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/h6DKHIBckE.png?imageslim" alt="mark"></p>
+<p>​    重启Sublime Text 3。</p>
+<p>​    如果在Perferences-&gt;package settings中看到package control这一项，则安装成功。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/Kc0cDck83e.png?imageslim" alt="mark"></p>
+<p>接下来可以安装一些插件。</p>
+<h3 id="3、安装Postman"><a href="#3、安装Postman" class="headerlink" title="3、安装Postman"></a>3、安装Postman</h3><p>下一步下一步即可，没什么可注意的的地方。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/74lh0558Ld.png?imageslim" alt="mark"></p>
+<h2 id="0x03-本地代码调试环境搭建"><a href="#0x03-本地代码调试环境搭建" class="headerlink" title="0x03  本地代码调试环境搭建"></a>0x03  本地代码调试环境搭建</h2><h3 id="1、安装-xdebug"><a href="#1、安装-xdebug" class="headerlink" title="1、安装  xdebug"></a>1、安装  <a href="https://xdebug.org/" target="_blank" rel="noopener">xdebug</a></h3><p>xdebug 网站：<a href="https://xdebug.org/wizard.php" target="_blank" rel="noopener">https://xdebug.org/wizard.php</a></p>
+<h4 id="（1）下载对应操作系统和PHP版本的xdebug-库文件"><a href="#（1）下载对应操作系统和PHP版本的xdebug-库文件" class="headerlink" title="（1）下载对应操作系统和PHP版本的xdebug 库文件"></a>（1）下载对应操作系统和PHP版本的xdebug 库文件</h4><p><strong>需要特别注意的是需要下载对应操作系统和PHP版本的xdebug 库文件</strong>。phpStudy在查看phpinfo，可知php的各种参数。</p>
+<p><img src="C:\Users\shackle\AppData\Local\Temp\1533271285872.png" alt="1533271285872"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/H8kJi2bhii.png?imageslim" alt="mark"></p>
+<p>在官网上提供了一个推荐下载的方式。复制phpinfo 内容到以下这个网站粘贴上去。就可以得到链接下载。<a href="https://xdebug.org/wizard.php" target="_blank" rel="noopener">https://xdebug.org/wizard.php</a>   <strong>目前这种方法只支持PHP大于7的版本。</strong></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/aHjGm98JLm.png?imageslim" alt="mark"></p>
+<p>如下图所示，可以看到下载链接。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/eaEmJB5a5C.png?imageslim" alt="mark"></p>
+<p>我们再刷新一下phpinfo。 可以看到，搜索xdebug成功安装上去。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/hH31cbgfaj.png?imageslim" alt="mark"></p>
+<p>如果 PHP 版本小于7那么就要到<a href="https://xdebug.org/download.php，手动下载需要的版本文件。" target="_blank" rel="noopener">https://xdebug.org/download.php，手动下载需要的版本文件。</a></p>
+<h4 id="（2）编辑php-ini"><a href="#（2）编辑php-ini" class="headerlink" title="（2）编辑php-ini"></a>（2）编辑php-ini</h4><p>可通过快捷方式打开，也可以进去其目录编辑php.ini文件。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/aEF5D5AG1I.png?imageslim" alt="mark"></p>
+<p>在php.ini文件最后面加上xdebug配置内容。 需要根据自己的环境修改</p>
+<ul>
+<li>zend_extension设置自己环境的xdebug.dll文件绝对路径。</li>
+<li>这里设置的监听的端口（xdebug.remote_port）是9001，下面步骤中使用9001端口配置。 </li>
+<li>idekey为360college。其他默认即可。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[xdebug]</span><br><span class="line">；xdebug.dll文件路径</span><br><span class="line">zend_extension =&quot;C:\phpStudy\PHPTutorial\php\php-5.6.27-nts\ext\php_xdebug-2.5.5-5.6-vc11-nts.dll&quot;</span><br><span class="line"></span><br><span class="line">;运行远程调试</span><br><span class="line">xdebug.remote_enable = On</span><br><span class="line">;启用性能检测分析</span><br><span class="line">xdebug.profiler_enable = On</span><br><span class="line">;启用代码自动跟踪</span><br><span class="line">xdebug.auto_trace=On</span><br><span class="line">xdebug.profiler_enable_trigger = On</span><br><span class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;配置端口和监听的域名</span><br><span class="line">xdebug.remote_port=9001</span><br><span class="line">xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line"></span><br><span class="line">xdebug.idekey= &quot;360college&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="2、-PHPstorm配置"><a href="#2、-PHPstorm配置" class="headerlink" title="2、 PHPstorm配置"></a>2、 PHPstorm配置</h3><h4 id="（1）打开文件"><a href="#（1）打开文件" class="headerlink" title="（1）打开文件"></a>（1）打开文件</h4><p>点击open，打开需要调试的PHP文件。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/834hK3bEGA.png?imageslim" alt="mark"></p>
+<p>选择php文件目录。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/7f9imFEDm7.png?imageslim" alt="mark"></p>
+<h4 id="（2）设置PHP环境"><a href="#（2）设置PHP环境" class="headerlink" title="（2）设置PHP环境"></a>（2）设置PHP环境</h4><p>在File中打开Settings，配置设置。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/412i5FjcFm.png?imageslim" alt="mark"></p>
+<p>在设置界面中的PHP选项中添加PHP环境，即为我们之前设置的网站运行的PHP环境。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/aIIL4l0JfF.png?imageslim" alt="mark"></p>
+<p>编辑所需要的选项。</p>
+<p><img src="C:\Users\shackle\AppData\Local\Temp\1533364142489.png" alt="1533364142489"></p>
+<h4 id="（3）配置Debug"><a href="#（3）配置Debug" class="headerlink" title="（3）配置Debug"></a>（3）配置Debug</h4><p>在file-&gt;settings-&gt;Languages &amp; Frameworks-&gt;PHP ，选择Debug，设置监听的端口，要和之配置的端口一样。这里配置的是9001。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
+<p>还要设置DBGp Proxy 如下：端口同样为9001，key为之前设置的360college。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/7LlC4geibh.png?imageslim" alt="mark"></p>
+<h4 id="（4）配置-Server"><a href="#（4）配置-Server" class="headerlink" title="（4）配置 Server"></a>（4）配置 Server</h4><p>在File-&gt;settings-&gt;Languages Frameworks-&gt;PHP 中设置Server。新建Server，设置Name为需要名字，Host设置为localhost，端口等根据环境设置。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/8Ij1G0HLal.png?imageslim" alt="mark"></p>
+<h4 id="（5）配置调试选项"><a href="#（5）配置调试选项" class="headerlink" title="（5）配置调试选项"></a>（5）配置调试选项</h4><p>在Run/Debug Configurations中新建PHP web Page。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/HF2EFdKB7J.png?imageslim" alt="mark"></p>
+<p>设置Name，选择server 为之前设置的server，根据环境设置Start URL结构。</p>
+<p>点击箭头所示Validate验证配置是否正确。如下为正确。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/lDblk9g17f.png?imageslim" alt="mark"></p>
+<h4 id="（6）开始调试"><a href="#（6）开始调试" class="headerlink" title="（6）开始调试"></a>（6）开始调试</h4><p>​    在index.php文件中点击，打上断点。点击像小虫子一样的图标开始调试。可以看到弹出浏览器界面，调试开始。界面下方看到，调试参数。接下来可以进行代码走查，单步多部执行。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/KlJl260a2d.png?imageslim" alt="mark"></p>
+<p>执行调试，看到变量变化情况。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/2KLJ8kG1lm.png?imageslim" alt="mark"></p>
+<h3 id="3、-浏览器插件"><a href="#3、-浏览器插件" class="headerlink" title="3、 浏览器插件"></a>3、 浏览器插件</h3><p><a href="https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions" target="_blank" rel="noopener">https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions</a></p>
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/the-easiest-xdebug/" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/addon/the-easiest-xdebug/</a></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180805/2f1kGE510a.png?imageslim" alt="mark"></p>
+<p>编码设置：</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180805/29f0B8Fkdc.png?imageslim" alt="mark"></p>
+<h2 id="0x04-远程代码调试环境搭建"><a href="#0x04-远程代码调试环境搭建" class="headerlink" title="0x04  远程代码调试环境搭建"></a>0x04  远程代码调试环境搭建</h2><h4 id="1、-PHP中配置xdebug"><a href="#1、-PHP中配置xdebug" class="headerlink" title="1、 PHP中配置xdebug"></a>1、 PHP中配置xdebug</h4><p>下载xdebug文件。</p>
+<p>PHP.ini 文件根据环境添加以下内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension =&quot;D:\phpStudy2018\PHPTutorial\php\php-5.4.45-nts\ext\php_xdebug-2.4.1-5.4-vc9-nts-x86_64.dll&quot;</span><br><span class="line"></span><br><span class="line">;运行远程调试</span><br><span class="line">xdebug.remote_enable = On</span><br><span class="line">;启用性能检测分析</span><br><span class="line">xdebug.profiler_enable = On</span><br><span class="line">;启用代码自动跟踪</span><br><span class="line">xdebug.auto_trace=On</span><br><span class="line">xdebug.profiler_enable_trigger = On</span><br><span class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</span><br><span class="line"></span><br><span class="line">;如果配置该项就不需要配xdebug.remote_host</span><br><span class="line">xdebug.remote_connect_back=1</span><br><span class="line"></span><br><span class="line">;配置端口和监听的域名</span><br><span class="line">xdebug.remote_port=9101</span><br><span class="line"></span><br><span class="line">;xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line">;配置id key</span><br><span class="line">xdebug.idekey= &quot;360college&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="2、-PhpStorm配置"><a href="#2、-PhpStorm配置" class="headerlink" title="2、 PhpStorm配置"></a>2、 PhpStorm配置</h4><h4 id="（1）SFTP同步代码"><a href="#（1）SFTP同步代码" class="headerlink" title="（1）SFTP同步代码"></a>（1）SFTP同步代码</h4><p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/6ej12BDa8K.png?imageslim" alt="mark"></p>
+<p>通过FTP/SFTP/FTPS下载服务器需要调试的代码，按照下图提示，下一步下一步进行配置。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/l7cd8HJGkE.png?imageslim" alt="mark"></p>
+<p>创建新的工程，工程名字根据需求填写。选择工程的目录路径。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/FmIEJDjjdC.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/LJECCJlmi2.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4gBj8B1Cgd.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/946hcD1fcK.png?imageslim" alt="mark"></p>
+<p>看到正在下载代码。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/BgaDBa9jdm.png?imageslim" alt="mark"></p>
+<h4 id="（2）配置-Debug"><a href="#（2）配置-Debug" class="headerlink" title="（2）配置 Debug"></a>（2）配置 Debug</h4><p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/0hK31AGab6.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
+<h4 id="（2）配置-Server"><a href="#（2）配置-Server" class="headerlink" title="（2）配置 Server"></a>（2）配置 Server</h4><p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/Fi332d1jB7.png?imageslim" alt="mark"></p>
+<h4 id="（5）配置调试选项-1"><a href="#（5）配置调试选项-1" class="headerlink" title="（5）配置调试选项"></a>（5）配置调试选项</h4><p>待补充。</p>
+<h4 id="（6）开始调试-1"><a href="#（6）开始调试-1" class="headerlink" title="（6）开始调试"></a>（6）开始调试</h4><p>待补充。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/19/FengCms1.32 重装漏洞/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          FengCms1.32 重装漏洞
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/16/Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">PHP代码审计环境搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP代码审计环境搭建"><span class="nav-number">1.</span> <span class="nav-text">PHP代码审计环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、PHP环境"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1、PHP环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、通用工具"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2、通用工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、自动化代码审计工具："><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3、自动化代码审计工具：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-PHP-环境安装"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 PHP 环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-通用工具安装配置"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 通用工具安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、安装配置PhpStorm"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、安装配置PhpStorm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、安装配置-Sublime-text"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、安装配置 Sublime text</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、安装Postman"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、安装Postman</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-本地代码调试环境搭建"><span class="nav-number">1.4.</span> <span class="nav-text">0x03  本地代码调试环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、安装-xdebug"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、安装  xdebug</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）下载对应操作系统和PHP版本的xdebug-库文件"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">（1）下载对应操作系统和PHP版本的xdebug 库文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）编辑php-ini"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">（2）编辑php-ini</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、-PHPstorm配置"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、 PHPstorm配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）打开文件"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">（1）打开文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）设置PHP环境"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">（2）设置PHP环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）配置Debug"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">（3）配置Debug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）配置-Server"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">（4）配置 Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）配置调试选项"><span class="nav-number">1.4.2.5.</span> <span class="nav-text">（5）配置调试选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（6）开始调试"><span class="nav-number">1.4.2.6.</span> <span class="nav-text">（6）开始调试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、-浏览器插件"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、 浏览器插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-远程代码调试环境搭建"><span class="nav-number">1.5.</span> <span class="nav-text">0x04  远程代码调试环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-PHP中配置xdebug"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">1、 PHP中配置xdebug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、-PhpStorm配置"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">2、 PhpStorm配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）SFTP同步代码"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">（1）SFTP同步代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）配置-Debug"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">（2）配置 Debug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）配置-Server"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">（2）配置 Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）配置调试选项-1"><span class="nav-number">1.5.0.6.</span> <span class="nav-text">（5）配置调试选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（6）开始调试-1"><span class="nav-number">1.5.0.7.</span> <span class="nav-text">（6）开始调试</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

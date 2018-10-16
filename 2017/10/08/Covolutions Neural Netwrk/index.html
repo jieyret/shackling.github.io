@@ -11,13 +11,13 @@
   
   
   
-  <meta name="description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的一">
+  <meta name="description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU -x POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的">
 <meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Covolutions Neural Netwrk">
 <meta property="og:url" content="https://shackles.top/2017/10/08/Covolutions Neural Netwrk/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的一">
+<meta property="og:description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU -x POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image001.jpg">
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image004.gif">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image014.gif">
 <meta property="og:image" content="file:///C:/Users/shackle/AppData/Local/Temp/msohtmlclip1/01/1clip_image016.gif">
 <meta property="og:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image018.gif">
-<meta property="og:updated_time" content="2018-04-01T02:19:02.768Z">
+<meta property="og:updated_time" content="2018-05-23T08:22:04.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Covolutions Neural Netwrk">
-<meta name="twitter:description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的一">
+<meta name="twitter:description" content="Covolutions Neural Netwrk​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。  [INPUT - CONV - RELU -x POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分 卷积神经网络是计算机自主学习的">
 <meta name="twitter:image" content="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image001.jpg">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
@@ -197,15 +197,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Covolutions-Neural-Netwrk"><a href="#Covolutions-Neural-Netwrk" class="headerlink" title="Covolutions Neural Netwrk"></a>Covolutions Neural Netwrk</h3><p>​    卷积神经网络有三种层：卷积层、池化层和全连接层（Convolutional Layer, Pooling Layer, 及Fully-Connected Layer）。 </p>
-<p>[INPUT - CONV - RELU - POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分</p>
+<p>[INPUT - CONV - RELU -x POOL - FC]            也就是  [输入-卷积-激活-池化-分类得分</p>
 <p>卷积神经网络是计算机自主学习的一种方式。（自学习） 卷积神经网络（CNN）</p>
 <p>由Huabel与Wiesel在研究猫的脑皮层中用局部敏感和方法选择的神经元时发现其独特的网络结构可以有效的降低反馈神经网络的复杂性提出。</p>
 <p>DCNN（Deep ConvolutionalNeural Network，深度卷积网络）与LSTM（LongShort Term Memory，长短时记忆网络）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据-》自学习-》结果</span><br><span class="line"></span><br><span class="line">输入-》 算法 -》输出</span><br></pre></td></tr></table></figure>
 <p><strong>空间共享</strong></p>
 <p>​    计算机视觉里经常使卷积神经网络，即CNN，是一种对人脑比较精准的模拟。</p>
-<p>​    什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</p>
-<p>​    比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</p>
+<p>​    <strong>什么是卷积？卷积就是两个函数之间的相互关系，然后得出一个新的值，他是在连续空间做积分计算，然后在离散空间内求和的过程。实际上在计算机视觉里面，可以把卷积当做一个抽象的过程，就是把小区域内的信息统计抽象出来。</strong></p>
+<p><strong>    比如，对于一张爱因斯坦的照片，我可以学习n个不同的卷积和函数，然后对这个区域进行统计。可以用不同的方法统计，比如着重统计中央，也可以着重统计周围，这就导致统计的和函数的种类多种多样，为了达到可以同时学习多个统计的累积和。</strong></p>
 <p>从LeNet到AlexNet</p>
 <p><img src="http://oizzgpxb7.bkt.clouddn.com//ml/1clip_image001.jpg" alt="clip_image00"></p>
 <p>物体检测问题</p>
@@ -282,11 +282,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/19/FengCms1.32 重装漏洞/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/10/16/Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          FengCms1.32 重装漏洞
+          PHP代码审计环境搭建
         
       </div>
     </a>

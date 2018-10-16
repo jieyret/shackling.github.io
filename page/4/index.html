@@ -254,6 +254,447 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-MEAN--全栈WEB开发框架"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/11/29/MEAN--全栈WEB开发框架/">MEAN--全栈WEB开发框架</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/11/29/MEAN--全栈WEB开发框架/" class="article-date">
+	  <time datetime="2016-11-29T15:53:56.000Z" itemprop="datePublished">2016-11-29</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MEAN–全栈WEB开发框架"><a href="#MEAN–全栈WEB开发框架" class="headerlink" title="MEAN–全栈WEB开发框架"></a>MEAN–全栈WEB开发框架</h1><p><a href="http://shackles.top/2016/12/01/tags-%20%20Web%20%E6%A1%86%E6%9E%B6/"> 2016-12-01</a></p>
+<h1 id="MEAN-Mongode-Express-Angular-Node-js"><a href="#MEAN-Mongode-Express-Angular-Node-js" class="headerlink" title="MEAN Mongode + Express + Angular + Node.js"></a>MEAN Mongode + Express + Angular + Node.js</h1><blockquote>
+<p>##全Javascript的开发架构<strong>MEAN</strong>。<br><a href="https://meanjs.org/img/logo.png" target="_blank" rel="noopener"><img src="https://meanjs.org/img/logo.png" alt="img"></a><br>js语言运行在应用程序的所有层次上，前端后端服务端从客户端到服务器，再到持久层一种语言运行在应用程序的所有层次上。</p>
+</blockquote>
+<ol>
+<li><strong>(M</strong>)MongoDB——NoSQL的文档数据库，使用JSON风格来存储数据，查询较简单，甚至也是使用JS来进行sql查询；<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/mongodb.png" alt="m"></a>m</li>
+<li>(<strong>E</strong>)Express——较好的基于Node的Web开发框架，是一个最小的，灵活的Node.js Web应用程序框架，构建单页和多页，和混合Web应用程序提供了一套强大的功能；</li>
+<li>(<strong>A</strong>)Aagular——JS的前端开发框架，提供了声明式的双向数据绑定；<a href="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/angularjs.png" alt="A"></a>A</li>
+<li>(<strong>N</strong>)Node——跑在服务器的js，并发 异步 事件驱动，基于V8的运行时环境（JS语言开发），可以构建快速响应、可扩展的网络应用。<br><a href="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" target="_blank" rel="noopener"><img src="http://mean.io/wp-content/themes/twentysixteen-child/images/nodejs.png" alt="n"></a>n</li>
+</ol>
+<p><a href="https://raohuaming.github.io/images/mean-stack.png" target="_blank" rel="noopener"><img src="https://raohuaming.github.io/images/mean-stack.png" alt="img"></a><br><em>1.架构框图</em><br>采用MVC架构。模型-视图-控制器 (MVC)</p>
+<p><a href="http://simage.jdon.com/idea/meanarchitecture.png" target="_blank" rel="noopener"><img src="http://simage.jdon.com/idea/meanarchitecture.png" alt="img"></a><br>可以直接存储JSON格式的mongoDB数据库，</p>
+<h3 id="1-从-LAMP-到-MEAN"><a href="#1-从-LAMP-到-MEAN" class="headerlink" title="1. 从 LAMP 到 MEAN"></a>1. 从 <a href="http://baike.baidu.com/link?url=xxWtinT946K5F6Ur9Vzt0st7GyosP3TlaybV1fNkN7BFlDF9TFN0xaTePZbcMTPQHKL2mC_2w6igSGtTQeqIda" target="_blank" rel="noopener">LAMP</a> 到 MEAN</h3><p>MEAN 不仅仅是一次首字母缩写的简单重新安排与技术升级。将基础平台从操作系统 (Linux) 转变为 JavaScript 运行时 (Node.js) 让操作系统变得独立：Node.js 在 Windows® 与 OS X 上的运行情况和在 Linux 上一样优秀。跨平台强。</p>
+<h3 id="1-1"><a href="#1-1" class="headerlink" title="- 1.1"></a>- 1.1</h3><p>Node.js 同样取代了 LAMP 堆栈中的 Apache。但 Node.js 远远不止是一种简单的 Web 服务器。事实上，用户不会将完成后的应用程序部署到单机的 Web 服务器上；相反，Web 服务器已经包含在应用程序中，并已在 MEAN 堆栈中自动安装。结果，部署过程得到了极大简化，因为所需的 Web 服务器版本已经与余下的运行时依赖关系一起得到了明确定义。</p>
+<h3 id="1-2"><a href="#1-2" class="headerlink" title="- 1.2"></a>- 1.2</h3><p>从传统数据库（如 MySQL）–&gt;非关系数据库 (如NoSQL）–&gt;无架构的、以文档为导向的持久存储（如 MongoDB），这些代表着持久化策略发生了根本性的转变。用户花费在编写 SQL 上的时间将会减少，将会有更多的时间编写 JavaScript 中的映射/化简功能。用户还能省掉大量的转换逻辑，因为 MongoDB 可以在本地运行 JavaScript Object Notation (JSON)。因此，编写 RESTful Web 服务变得前所未有的容易。 从 LAMP 到MEAN的最大转变在于从传统的服务器端页面生成变为客户端 单页面应用程序 (SPA)。借助 Express仍然可以处理服务器端的路由与页面生成，但目前的重点在客户端视图上，而 AngularJS 可以实</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-大数据"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/10/05/大数据/">大数据初探</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/10/05/大数据/" class="article-date">
+	  <time datetime="2016-10-05T15:53:56.000Z" itemprop="datePublished">2016-10-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="大数据初探"><a href="#大数据初探" class="headerlink" title="大数据初探"></a>大数据初探</h2><p>FrontPage -Hadoop Wiki</p>
+<p><a href="https://wiki.apache.org/hadoop/" target="_blank" rel="noopener">https://wiki.apache.org/hadoop/</a></p>
+<p>Hadoop简介 | Hadoop Notebook</p>
+<p><a href="https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html" target="_blank" rel="noopener">https://pennywong.gitbooks.io/hadoop-notebook/content/introduction.html</a></p>
+<p>细细品味Hadoop- 随笔分类 - 虾皮 - 博客园</p>
+<p><a href="http://www.cnblogs.com/xia520pi/category/346943.html" target="_blank" rel="noopener">http://www.cnblogs.com/xia520pi/category/346943.html</a></p>
+<p>HDFS 原理、架构与特性介绍 - OPEN 开发经验库</p>
+<p><a href="http://www.open-open.com/lib/view/open1376228205209.html" target="_blank" rel="noopener">http://www.open-open.com/lib/view/open1376228205209.html</a></p>
+<p>free-programming-books/free-programming-books-zh.mdat master · vhf/free-programming-books</p>
+<p><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books-zh.md" target="_blank" rel="noopener">https://github.com/vhf/free-programming-books/blob/master/free-programming-books-zh.md</a></p>
+<p>Hadoop家族学习路线图| 粉丝日志</p>
+<p><a href="http://blog.fens.me/hadoop-family-roadmap/" target="_blank" rel="noopener">http://blog.fens.me/hadoop-family-roadmap/</a></p>
+<p>ApacheNutch™ -</p>
+<p><a href="http://nutch.apache.org/" target="_blank" rel="noopener">http://nutch.apache.org/</a>  nutch  开源搜索引擎</p>
+<p><a href="http://wiki.jikexueyuan.com/project/hadoop/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/hadoop/</a></p>
+<ul>
+<li>分布式：一个业务分拆多个子业务，部署在不同的服务器上</li>
+<li>集群：同一个业务，部署在多个服务器上</li>
+</ul>
+<p>集群是个物理形态，分布式是个工作方式。</p>
+<p>《大型网站技术架构》网站的高性能架构及优化 - passionfly</p>
+<p><a href="https://my.oschina.net/u/2260265/blog/501289" target="_blank" rel="noopener">https://my.oschina.net/u/2260265/blog/501289</a></p>
+<p>亿级PV超大型网站集群架构图形化深度揭秘讲解 - CSDN学院 - CSDN</p>
+<p><a href="http://edu.csdn.net/course/detail/2278?ref=blog&amp;loc=0" target="_blank" rel="noopener">http://edu.csdn.net/course/detail/2278?ref=blog&amp;loc=0</a></p>
+<p>负载均衡层次结构：LVS Nginx DNS CDN - 纸上得来终觉浅，绝知此事要躬行。 - 博客频道 - CSDN.NET</p>
+<p><a href="http://blog.csdn.net/boonya/article/details/51064482" target="_blank" rel="noopener">http://blog.csdn.net/boonya/article/details/51064482</a></p>
+<p>大型网站数据库架构演变</p>
+<p><a href="http://www.infoq.com/cn/presentations/large-website-databas-architecture-evolution" target="_blank" rel="noopener">http://www.infoq.com/cn/presentations/large-website-databas-architecture-evolution</a></p>
+<ul>
+<li>大数据</li>
+</ul>
+<ul>
+<li>云计算</li>
+</ul>
+<ul>
+<li>虚拟化</li>
+<li>物联网</li>
+</ul>
+<h3 id="Apache-家族"><a href="#Apache-家族" class="headerlink" title="Apache 家族"></a>Apache 家族</h3><p>l  <a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Apache Hadoop</a>：是Apache开源组织的一个分布式计算开源框架，提供了一个分布式文件系统子项目（HDFS）和支持MapReduce分布式计算的软件架构。</p>
+<p>l  <a href="http://hive.apache.org/" target="_blank" rel="noopener">Apache Hive</a>：是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，通过类MapReduce统计，不必开发专门的MapReduce应用，十分适合数据仓库的统计分析。</p>
+<p>l  <a href="http://pig.apache.org/" target="_blank" rel="noopener">Apache Pig</a>：是一个基于Hadoop的大规模数据分析工具，它提供的SQL-LIKE语言叫Pig Latin，该语言的编译器会把类SQL的数据分析请求转换为一系列经过优化处理的MapReduce运算。</p>
+<p>l  <a href="http://hbase.apache.org/" target="_blank" rel="noopener">Apache HBase</a>：是一个高可靠性，高性能，面向列，可伸缩的分布式存储系统，利用HBase技术可以在廉价PC服务器上搭建起大规模结构化存储集群。</p>
+<p>l  <a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Apache Sqoop</a>：是一个用来将Hadoop和关系型数据库中的数据相互转移的工具，可以将一个关系型数据库（MySQL，Oracle，Postgres等）中的数据导入到Hadoop的HDFS中，也可以将HDFS的数据导入到关系型数据库中。</p>
+<p>l  <a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Apache Zookeeper</a>：是一个为分布式应用所设计的分布的，开源的协调服务，它主要是用于解决分布式应用中经常遇到的一些数据管理问题，简化分布式应用协调及其管理的难度，提供高性能的分布式服务</p>
+<p>l  <a href="http://mahout.apache.org/" target="_blank" rel="noopener">Apache Mahout</a>：是基于Hadoop的机器学习和数据挖掘的一个分布式框架.Mahout用MapReduce实现了部分数据挖掘算法，解决了并行挖掘的问题。</p>
+<p>l  <a href="http://cassandra.apache.org/" target="_blank" rel="noopener">Apache Cassandra</a>：是一套开源分布式NoSQL数据库系统。它最初由Facebook开发，用于储存简单格式数据，集合Google BigTable的数据模型与Amazon Dynamo的完全分布式的架构于一身</p>
+<p>l  <a href="http://avro.apache.org/" target="_blank" rel="noopener">Apache Avro</a>：是一个数据序列化系统，设计用于支持数据密集型，大批量数据交换的应用.Avro是新的数据序列化格式与传输工具，将逐步取代Hadoop原有的IPC机制</p>
+<p>l  <a href="http://incubator.apache.org/ambari/" target="_blank" rel="noopener">Apache Ambari</a>：是一种基于Web的工具，支持Hadoop集群的供应，管理和监控。</p>
+<p>l  <a href="http://incubator.apache.org/chukwa/" target="_blank" rel="noopener">Apache Chukwa</a>：是一个开源的用于监控大型分布式系统的数据收集系统，它可以将各种各样类型的数据收集成适合Hadoop处理的文件保存在HDFS中供Hadoop进行各种MapReduce操作。</p>
+<p>l  <a href="http://hama.apache.org/" target="_blank" rel="noopener">Apache Hama</a>：是一个基于HDFS的BSP（Bulk Synchronous Parallel）并行计算框架，Hama可用于包括图，矩阵和网络算法在内的大规模，大数据计算。</p>
+<p>l  <a href="http://flume.apache.org/" target="_blank" rel="noopener">Apache Flume</a>：是一个分布的，可靠的，高可用的海量日志聚合的系统，可用于日志数据收集，日志数据处理，日志数据传输。</p>
+<p>l  <a href="http://giraph.apache.org/" target="_blank" rel="noopener">Apache Giraph</a>：是一个可伸缩的分布式迭代图处理系统，基于Hadoop平台，灵感来自BSP（批量同步并行）和Google的Pregel。</p>
+<p>l  <a href="http://oozie.apache.org/" target="_blank" rel="noopener">Apache Oozie</a>：是一个工作流引擎服务器，用于管理和协调运行在Hadoop平台上（HDFS，Pig和MapReduce）的任务。</p>
+<p>l  <a href="http://incubator.apache.org/crunch/" target="_blank" rel="noopener">Apache Crunch</a>：是基于Google的FlumeJava库编写的Java库，用于创建MapReduce程序。与Hive，Pig类似，Crunch提供了用于实现如连接数据，执行聚合和排序记录等常见任务的模式库</p>
+<p>l  <a href="http://whirr.apache.org/" target="_blank" rel="noopener">Apache Whirr</a>：是一套运行于云服务的类库（包括Hadoop），可提供高度的互补性.Whirr学支持Amazon EC2和Rackspace的服务。</p>
+<p>l  <a href="http://bigtop.apache.org/" target="_blank" rel="noopener">Apache Bigtop</a>：是一个对Hadoop及其周边生态进行打包，分发和测试的工具。</p>
+<p>l  <a href="http://incubator.apache.org/hcatalog/" target="_blank" rel="noopener">Apache HCatalog</a>：是基于Hadoop的数据表和存储管理，实现中央的元数据和模式管理，跨越Hadoop和RDBMS，利用Pig和Hive提供关系视图。</p>
+<p>l  <a href="http://cloudera.github.io/hue/" target="_blank" rel="noopener">Cloudera Hue</a>：是一个基于WEB的监控和管理系统，实现对HDFS，MapReduce / YARN，HBase，Hive，Pig的web化操作和管理。</p>
+<h3 id="Apache-Hadoop"><a href="#Apache-Hadoop" class="headerlink" title="Apache Hadoop"></a><strong>Apache Hadoop</strong></h3><p>​    Apache™Hadoop®项目开发用于可靠，可扩展，分布式计算的开源软件。</p>
+<p>Apache Hadoop软件库是一个框架，允许使用简单的编程模型跨计算机集群分布式处理大型数据集。它的设计是从单个服务器扩展到数千个机器，每个都提供本地计算和存储。不是依靠硬件来提供高可用性，库本身设计用于检测和处理应用程序层的故障，因此在计算机集群之上提供高可用性服务，每个计算机都可能容易出现故障。</p>
+<p>​    该项目包括以下模块：</p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\awefwafea.png" alt="wefwafe"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\waefwaf.png" alt="aefwa"></p>
+<p>l <strong>Hadoop Common</strong>：支持其他Hadoop模块的常用实用程序。</p>
+<p>l <strong>Hadoop**</strong>分布式文件系统<strong>**（HDFS™）</strong>：提供对应用程序数据的高吞吐量访问的分布式文件系统。  C盘 D盘</p>
+<p>l <strong>Hadoop YARN</strong>：作业调度和集群资源管理的框架。        分布式资源管理                  类似操作系统</p>
+<p>l <strong>Hadoop MapReduce</strong>：一种基于YARN的大数据集并行处理系统。               visual studio</p>
+<p><strong>云计算是一种服务;虚拟化和分布式系统都是用来实现云计算的关键技术之一。</strong></p>
+<p>目前来讲虚拟化主要常用两个核心技术：<strong>服务器虚拟化</strong>，与<strong>应用虚拟化</strong></p>
+<p>目前来讲分布式系统主要用到的两个核心技术：<strong>分布式存储</strong>，与<strong>分布式计算</strong></p>
+<h4 id="Apache的其他Hadoop相关项目包括："><a href="#Apache的其他Hadoop相关项目包括：" class="headerlink" title="Apache的其他Hadoop相关项目包括："></a>Apache的其他Hadoop相关项目包括：</h4><p>l <a href="http://incubator.apache.org/ambari/" target="_blank" rel="noopener"><strong>Ambari™</strong></a>：用于配置，管理和监控Apache Hadoop集群的基于Web的工具，其中包括支持Hadoop HDFS，Hadoop MapReduce，Hive，HCatalog，HBase，ZooKeeper，Oozie，Pig和Sqoop。Ambari还提供了一个用于查看集群健康的仪表板，如热图，以及以视觉方式查看MapReduce，Pig和Hive应用程序的功能，以便以用户友好的方式诊断其性能特征。</p>
+<p>l <a href="http://avro.apache.org/" target="_blank" rel="noopener"><strong>Avro™</strong></a>：数据串行化系统。</p>
+<p>l <a href="http://cassandra.apache.org/" target="_blank" rel="noopener"><strong>Cassandra™</strong></a>：可扩展的多主数据库，无单点故障。</p>
+<p>l <a href="http://incubator.apache.org/chukwa/" target="_blank" rel="noopener"><strong>Chukwa™</strong></a>：用于管理大型分布式系统的数据收集系统。</p>
+<p>l <a href="http://hbase.apache.org/" target="_blank" rel="noopener"><strong>HBase™</strong></a>：一个可扩展的分布式数据库，支持大型表的结构化数据存储。</p>
+<p>l <a href="http://hive.apache.org/" target="_blank" rel="noopener"><strong>Hive™</strong></a>：提供数据摘要和即席查询的数据仓库基础设施。   数据仓库</p>
+<p>l <a href="http://mahout.apache.org/" target="_blank" rel="noopener"><strong>Mahout™</strong></a>：可扩展的机器学习和数据挖掘库。</p>
+<p>l <a href="http://pig.apache.org/" target="_blank" rel="noopener"><strong>Pig™</strong></a>：用于并行计算的高级数据流语言和执行框架。</p>
+<p>l <a href="http://spark.incubator.apache.org/" target="_blank" rel="noopener"><strong>Spark™</strong></a>：用于Hadoop数据的快速和通用的计算引擎。Spark提供了一个简单和表达性的编程模型，支持各种应用程序，包括ETL，机器学习，流处理和图形计算。</p>
+<p>l Tez<a href="http://tez.incubator.apache.org/" target="_blank" rel="noopener"> <strong>™</strong></a>：一个基于Hadoop YARN的通用数据流编程框架，它提供了一个强大而灵活的引擎来执行任务的任意DAG，以便为批处理和交互式用例处理数据。Tez被Hive™，Pig™和Hadoop生态系统中的其他框架以及其他商业软件（如ETL工具）采用，以取代Hadoop™MapReduce作为底层执行引擎。</p>
+<p>l <a href="http://zookeeper.apache.org/" target="_blank" rel="noopener"><strong>ZooKeeper™</strong></a>：用于分布式应用程序的高性能协调服务。</p>
+<p> HDFS 体系结构</p>
+<p> <img src="http://oizzgpxb7.bkt.clouddn.com//ml\3555555555535.png" alt="55555555553"></p>
+<p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\533.png" alt="3"></p>
+<h4 id="HDFS-体系结构"><a href="#HDFS-体系结构" class="headerlink" title="HDFS 体系结构"></a>HDFS 体系结构</h4><p><img src="http://oizzgpxb7.bkt.clouddn.com//ml\ewafff5.png" alt="wafff"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-实验吧Misc题目"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/10/05/实验吧Misc题目/">实验吧Misc题目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/10/05/实验吧Misc题目/" class="article-date">
+	  <time datetime="2016-10-05T15:53:56.000Z" itemprop="datePublished">2016-10-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="实验吧Misc题目"><a href="#实验吧Misc题目" class="headerlink" title="实验吧Misc题目"></a>实验吧Misc题目</h1><p><a href="http://shackles.top/2016/10/08/%E5%AE%9E%E9%AA%8C%E5%90%A7MISC/"> 2016-10-08</a></p>
+<h3 id="1、-这就是一个坑"><a href="#1、-这就是一个坑" class="headerlink" title="1、 这就是一个坑"></a>1、 这就是一个坑</h3><p><strong>QUESTION:</strong> 密码是十位大小写字母、数字、特殊符号组成的，你爆破的开么？</p>
+<p><strong>TIP:</strong> ARCHPR对flag.zip进行<strong>明文攻击</strong>,CRP相同。</p>
+<p><strong>ANSWER:</strong> 我们打开压缩包的tips.txt，里面提示：密码是十位大小写字母、数字、特殊符号组成的，你爆破的开么？！<br>这个tip告诉我们爆破是基本不可能了<br>然后我们发现falg.zip里面也有个tips.txt，然后我猜想flag.zip里面的tips.txt和另外一个tips.txt是不是同一个文件<br>然后把tips.txt压缩后可以发现，他们两个的crc32是一样的.</p>
+<h3 id="2、CheatEngine"><a href="#2、CheatEngine" class="headerlink" title="2、CheatEngine"></a>2、CheatEngine</h3><p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong> CE工具的使用，Cheat Engine 是一款内存修改编辑工具 ，它允许你修改你的游戏或软件内存数据，以得到一些其他功能。它包括16进制编辑，反汇编程序，内存查找工具。与同类修改工具相比，它具有强大的反汇编功能，且自身附带了外挂制作工具，可以用它直接生成外挂。</p>
+<p><strong>ANSWER:</strong><br><a href="http://www.shiyanbar.com/ctf/writeup/1046/" target="_blank" rel="noopener">link</a></p>
+<h3 id="4、-图片里的动漫"><a href="#4、-图片里的动漫" class="headerlink" title="4、 图片里的动漫"></a>4、 图片里的动漫</h3><p><strong>QUESTION:</strong> 一恒河沙中有三千世界，一张图里也可以有很多东西。<br>答案是与一部动漫名字有关的小写英文字母。</p>
+<p><strong>TIP:</strong> 遇见此类型的题先binwak， 再 foremost； 文件隐藏，根据文件头判断。file命令;</p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="6、Canon"><a href="#6、Canon" class="headerlink" title="6、Canon"></a>6、Canon</h3><p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong> mp3文件和一个加密过的zip ，上MP3stego；<strong>MP3stego</strong>加密mp3，需要秘钥即为题目Cannon；得到base64，解密的CTF{}。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decode.exe -X -P Canon music.mp3 // 解密；</span><br></pre></td></tr></table></figure>
+<p><strong>ANSWER:</strong></p>
+<h3 id="7、ROT-13变身了"><a href="#7、ROT-13变身了" class="headerlink" title="7、ROT-13变身了"></a>7、ROT-13变身了</h3><p><strong>QUESTION:</strong> 提示：1、回旋13，回不回？ 2、有81,450,625种可能性</p>
+<p>格式：flag{}破解下面的密文：</p>
+<p>83 89 78 84 45 86 96 45 115 121 110 116 136 132 132 132 108 128 117 118 134 110 123 111 110 127 108 112 124 122 108 118 128 108 131 114 127 134 108 116 124 124 113 108 76 76 76 76 138 23 90 81 66 71 64 69 114 65 112 64 66 63 69 61 70 114 62 66 61 62 69 67 70 63 61 110 110 112 64 68 62 70 61 112 111 112</p>
+<p>flag格式flag{}</p>
+<p><strong>TIP:</strong> ROT13：只对字母进行编码，用当前字母往前数的第13个字母替换当前字母，例如当前为A，编码后变成N，当前为B，编码后变成O，以此类推顺序循环。<br><strong>先对每个数字减去13后，再chr（）转换成字符.</strong></p>
+<p><strong>ANSWER:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># rot13 -13 chr() 字符</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">lst=[83,89,78,84,45,86,96,45,115,121,110,116,136,132,132,132,108,128,117,118,134,110,123,111,110,127,108,112,124,122,108,118,128,108,131,114,127,134,108,116,124,124,113,108,76,76,76,76,138,23,90,81,66,71,64,69,114,65,112,64,66,63,69,61,70,114,62,66,61,62,69,67,70,63,61,110,110,112,64,68,62,70,61,112,111,112]</span><br><span class="line">	lst=[chr(i-13) for i in lst]</span><br><span class="line">	print &quot;&quot;.join(lst)</span><br></pre></td></tr></table></figure>
+<p>这样就会得到<br>FLAG IS flag{www_shiyanbar_com_is_very<em>good</em>????}<br>MD5:38e4c352809e150186920aac37190cbc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">#根据MD5爆破后四位</span><br><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line">a = &apos;38e4c352809e150186920aac37190cbc&apos;</span><br><span class="line"></span><br><span class="line">dic = r&quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&amp;()*+,-./:;&lt;=&gt;?@[\]^_`&#123;|&#125;~ &quot;</span><br><span class="line"></span><br><span class="line">for i1 in dic:</span><br><span class="line">	for i2 in dic:</span><br><span class="line">		for i3 in dic:</span><br><span class="line">			for i4 in dic:</span><br><span class="line">				md5 = hashlib.md5()</span><br><span class="line">				b = &apos;flag&#123;www_shiyanbar_com_is_very_good_&apos; +i1+i2+i3+i4+&apos;&#125;&apos;</span><br><span class="line">				md5.update(b)</span><br><span class="line">				if md5.hexdigest() == a:</span><br><span class="line">					print &apos;%s  %s&apos; %(md5.hexdigest(),b)</span><br></pre></td></tr></table></figure>
+<p>得flag{www_shiyanbar_com_is_very<em>good</em>@8Mu}</p>
+<h3 id="8、解码磁带"><a href="#8、解码磁带" class="headerlink" title="8、解码磁带"></a>8、解码磁带</h3><p><strong>QUESTION:</strong> <a href="http://ctf5.shiyanbar.com/misc/cidai.html" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/misc/cidai.html</a></p>
+<p><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="9、功夫秘籍"><a href="#9、功夫秘籍" class="headerlink" title="9、功夫秘籍"></a>9、功夫秘籍</h3><p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong><br>.png文件，找到key is VF95c0s5XzVyaGtfX3VGTXR9M0Vse251QEUg</p>
+<p>base64：T_ysK9_5rhk__uFMt}3El{nu@E //base64 为36位，这是个坑。解出来加上空格。</p>
+<p>栅栏：3位 Th3_kEy<em>ls</em>{Kun9Fu_M@5tEr}</p>
+<p><strong>ANSWER:</strong><br>Kun9Fu_M@5tEr 提交这个；</p>
+<h3 id="10、WTF"><a href="#10、WTF" class="headerlink" title="==10、WTF=="></a>==10、WTF==</h3><p><strong>QUESTION:</strong> <a href="http://ctf5.shiyanbar.com/423/misc/code.txt" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/423/misc/code.txt</a><br>通过奇怪的字符串发现其中隐藏的信息</p>
+<p><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="12、-有趣的文件"><a href="#12、-有趣的文件" class="headerlink" title="12、==有趣的文件=="></a>12、==有趣的文件==</h3><p><strong>QUESTION:</strong><br>这是一个有趣的文件，打开看看你能想到什么<br>格式：CTF{ }<br>解题链接： <a href="http://ctf5.shiyanbar.com/misc/funfile" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/misc/funfile</a><br><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong><br><a href="http://www.shiyanbar.com/ctf/writeup/513" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/writeup/513</a></p>
+<p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="13、Paint"><a href="#13、Paint" class="headerlink" title="13、Paint"></a>13、Paint</h3><p><strong>QUESTION:</strong><br>matplotlib画图<br><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Python 爬虫"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/05/Python 爬虫/">Python 爬虫</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/05/Python 爬虫/" class="article-date">
+	  <time datetime="2016-08-05T15:53:56.000Z" itemprop="datePublished">2016-08-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python-爬虫"><a href="#Python-爬虫" class="headerlink" title="Python 爬虫"></a>Python 爬虫</h1><h2 id="XPath-（lxml-库）"><a href="#XPath-（lxml-库）" class="headerlink" title="XPath  （lxml 库）"></a>XPath  （lxml 库）</h2><p>from lxml import etree</p>
+<p>selector=etree.HTML(源码) #将源码转化为能被XPath匹配的格式</p>
+<p>selector.xpath(表达式) #返回为一列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/	从根节点选取。</span><br><span class="line">nodename	选取此节点的所有子节点。</span><br><span class="line">//	从当前节点 选择 所有匹配文档中的节点</span><br><span class="line">.	选取当前节点。</span><br><span class="line">..	选取当前节点的父节点。</span><br><span class="line">@	选取属性。</span><br><span class="line">//title[@*]	选取所有带有属性的 title 元素。</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.contains ()： //div[contains(@id,&apos;in&apos;)] ,表示选择id中包含有’in’的div节点</span><br><span class="line">2.text()：由于一个节点的文本值不属于属性，比如“&lt;a class=”baidu“ href=”http://www.baidu.com“&gt;baidu&lt;/a&gt;”,所以，用text()函数来匹配节点：//a[text()=&apos;baidu&apos;]</span><br><span class="line">3.last()：前面已介绍</span><br><span class="line">4.starts-with()： //div[starts-with(@id,&apos;in&apos;)] ，表示选择以’in’开头的id属性的div节点</span><br><span class="line">5.not()函数，表示否定，//input[@name=‘identity’ and not(contains(@class,‘a’))] ，表示匹配出name为identity并且class的值中不包含a的input节点。 not()函数通常与返回值为true or false的函数组合起来用，比如contains(),starts-with()等，但有一种特别情况请注意一下：我们要匹配出input节点含有id属性的，写法如下：//input[@id]，如果我们要匹配出input节点不含用id属性的，则为：//input[not(@id)]</span><br><span class="line"></span><br><span class="line">    author = article.xpath(&apos;div/p/a/text()&apos;).extract()  多选文本</span><br><span class="line">···</span><br><span class="line"></span><br><span class="line">html/body/div[2]/div[3]/div/div[4]/ul/li[@class=&quot;lip selected&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[0].get(&apos;href&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">html = etree.HTML(resHtml)</span><br><span class="line">result = html.xpath(&apos;//tr[@class=&quot;odd&quot;] | //tr[@class=&quot;even&quot;]&apos;)</span><br></pre></td></tr></table></figure>
+<h2 id="scrapy：Python-爬虫框架"><a href="#scrapy：Python-爬虫框架" class="headerlink" title="scrapy：Python 爬虫框架"></a>scrapy：Python 爬虫框架</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1 引擎打开一个域名，时蜘蛛处理这个域名，并让蜘蛛获取第一个爬取的URL。</span><br><span class="line">2 引擎从蜘蛛那获取第一个需要爬取的URL，然后作为请求在调度中进行调度。</span><br><span class="line">3 引擎从调度那获取接下来进行爬取的页面。</span><br><span class="line">4 调度将下一个爬取的URL返回给引擎，引擎将它们通过下载中间件发送到下载器。</span><br><span class="line">5 当网页被下载器下载完成以后，响应内容通过下载中间件被发送到引擎。</span><br><span class="line">6 引擎收到下载器的响应并将它通过蜘蛛中间件发送到蜘蛛进行处理。</span><br><span class="line">7 蜘蛛处理响应并返回爬取到的项目，然后给引擎发送新的请求。</span><br><span class="line">7 引擎将抓取到的项目项目管道，并向调度发送请求。</span><br><span class="line">8 系统重复第二部后面的操作，直到调度中没有请求，然后断开引擎与域之间的联系。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sel = Selector(html_response)</span><br><span class="line">从HTML响应主体中提取所有的  元素，返回:class:Selector 对象(即 SelectorList 的一个对象)的列表:</span><br><span class="line"></span><br><span class="line">sel.xpath(&quot;//h1&quot;)</span><br><span class="line">从HTML响应主体上提取所有 </span><br><span class="line"></span><br><span class="line">元素的文字，返回一个unicode字符串的列表:</span><br></pre></td></tr></table></figure>
+<p>sel.xpath(“//h1”).extract()         # this includes the h1 tag<br>sel.xpath(“//h1/text()”).extract()  # this excludes the h1 tag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在所有 &lt;p&gt; 标签上迭代，打印它们的类属性:</span><br><span class="line"></span><br><span class="line">for node in sel.xpath(&quot;//p&quot;):</span><br><span class="line">    print node.xpath(&quot;@class&quot;).extract()</span><br></pre></td></tr></table></figure></p>
+<p> response.xpath()<br> response.css()</p>
+<h3 id="小Tip"><a href="#小Tip" class="headerlink" title="小Tip:"></a>小Tip:</h3><p>\n -&gt;  ‘,\n’<br>: -&gt;  ‘:’</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Python科学计算相关模块学习"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/06/05/Python科学计算相关模块学习/">Python科学计算相关模块学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/06/05/Python科学计算相关模块学习/" class="article-date">
+	  <time datetime="2016-06-05T15:53:56.000Z" itemprop="datePublished">2016-06-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python科学计算相关模块学习"><a href="#Python科学计算相关模块学习" class="headerlink" title="Python科学计算相关模块学习"></a>Python科学计算相关模块学习</h1><h2 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h2><p>NumPy的主要对象是同种元素的多维数组。这是一个所有的元素都是一种类型、通过一个正整数元组索引的元素表格(通常是元素是数字)。在NumPy中维度(dimensions)叫做轴(axes)，轴的个数叫做秩(rank)。</p>
+<p><strong>NumPy的数组类被称作ndarrayN维数组</strong></p>
+<p>NumPy的数组类被称作ndarray。通常被称作数组。注意numpy.array和标准Python库类array.array并不相同，后者只处理一维数组和提供少量功能。更多重要ndarray对象属性有：</p>
+<ul>
+<li>ndarray.ndim</li>
+</ul>
+<p>数组轴的个数，在python的世界中，轴的个数被称作秩</p>
+<ul>
+<li>ndarray.shape</li>
+</ul>
+<p>数组的维度。这是一个指示数组在每个维度上大小的整数元组。例如一个n排m列的矩阵，它的shape属性将是(2,3),这个元组的长度显然是秩，即维度或者ndim属性</p>
+<ul>
+<li>ndarray.size</li>
+</ul>
+<p>数组元素的总个数，等于shape属性中元组元素的乘积。</p>
+<ul>
+<li>ndarray.dtype</li>
+</ul>
+<p>一个用来描述数组中元素类型的对象，可以通过创造或指定dtype使用标准Python类型。另外NumPy提供它自己的数据类型。</p>
+<ul>
+<li>ndarray.itemsize</li>
+</ul>
+<p>数组中每个元素的字节大小。例如，一个元素类型为float64的数组itemsiz属性值为8(=64/8),又如，一个元素类型为complex32的数组item属性为4(=32/8).</p>
+<ul>
+<li>ndarray.data</li>
+</ul>
+<p>包含实际数组元素的缓冲区，通常我们不需要使用这个属性，因为我们总是通过索引来使用数组中的元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">Memory layout</span><br><span class="line"></span><br><span class="line">以下属性包含有关数组的内存布局的信息：</span><br><span class="line">ndarray--&gt;N-dimensional array </span><br><span class="line">ndarray.flags	有关数组的内存布局的信息。</span><br><span class="line">ndarray.shape	数组维数组。</span><br><span class="line">ndarray.strides	遍历数组时，在每个维度中步进的字节数组。</span><br><span class="line">ndarray.ndim	数组维数。</span><br><span class="line">ndarray.data	Python缓冲区对象指向数组的数据的开始。</span><br><span class="line">ndarray.size	数组中的元素数。</span><br><span class="line">ndarray.itemsize	一个数组元素的长度（以字节为单位）。</span><br><span class="line">ndarray.nbytes	数组的元素消耗的总字节数。</span><br><span class="line">ndarray.base	如果内存是来自某个其他对象的基本对象。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Item selection and manipulation</span><br><span class="line"></span><br><span class="line">对于采用轴关键字的数组方法，默认为None。如果axis None，则数组被视为1-D数组。axis的任何其他值表示操作应沿其进行的维度。</span><br><span class="line"></span><br><span class="line">ndarray.take（indices [，axis，out，mode]）	返回由给定索引处的a元素组成的数组。</span><br><span class="line">ndarray.put（indices，values [，mode]）	对于所有n，设置a.flat [n] = 在指数。</span><br><span class="line">ndarray.repeat（repeat[，axis]）	重复数组的元素。</span><br><span class="line">ndarray.choose（choices [，out，mode]）	使用索引数组从一组选择中构造新的数组。</span><br><span class="line">ndarray.sort（[axis，kind，order]）	就地对数组进行排序。</span><br><span class="line">ndarray.argsort（[axis，kind，order]）	返回将此数组排序的索引。</span><br><span class="line">ndarray.partition（kth [，axis，kind，order]）	重新排列数组中的元素，使得第k个位置的元素的值在排序数组中的位置。</span><br><span class="line">ndarray.argpartition（kth [，axis，kind，order]）	返回将对此数组进行分区的索引。</span><br><span class="line">ndarray.searchsorted（v [，side，sorter]）	查找索引，其中v的元素应插入到a以维持顺序。</span><br><span class="line">ndarray.nonzero()	返回非零元素的索引。</span><br><span class="line">ndarray.compress（condition [，axis，out]）	沿给定轴返回此数组的所选切片。</span><br><span class="line">ndarray.diagonal（[offset，axis1，axis2]）	返回指定的对角线。</span><br><span class="line"></span><br><span class="line">ndarray.argmax（[axis，out]）	沿给定轴的最大值的返回指数。</span><br><span class="line">ndarray.min（[axis，out，keepdims]）	沿给定轴返回最小值。</span><br><span class="line">ndarray.argmin（[axis，out]）	沿着a的给定轴的最小值的返回指数。</span><br><span class="line">ndarray.ptp（[axis，out]）	沿给定轴的峰到峰（最大 - 最小）值。</span><br><span class="line">ndarray.clip（[min，max，out]）	返回值限于[min， max]的数组。</span><br><span class="line">ndarray.conj()	复共轭所有元素。</span><br><span class="line">ndarray.round（[decimals，out]）	返回a，每个元素四舍五入为给定的小数位数。</span><br><span class="line">ndarray.trace（[offset，axis1，axis2，dtype，out]）	沿数组的对角线返回总和。</span><br><span class="line">ndarray.sum（[axis，dtype，out，keepdims]）	返回给定轴上的数组元素的总和。</span><br><span class="line">ndarray.cumsum（[axis，dtype，out]）	返回沿给定轴的元素的累积和。</span><br><span class="line">ndarray.mean（[axis，dtype，out，keepdims]）	返回沿给定轴的数组元素的平均值。</span><br><span class="line">ndarray.var（[axis，dtype，out，ddof，keepdims]）	沿给定轴返回数组元素的方差。</span><br><span class="line">ndarray.std（[axis，dtype，out，ddof，keepdims]）	返回给定轴上的数组元素的标准偏差。</span><br><span class="line">ndarray.prod（[axis，dtype，out，keepdims]）	返回给定轴上的数组元素的乘积</span><br><span class="line">ndarray.cumprod（[axis，dtype，out]）	返回沿给定轴的元素的累积乘积。</span><br><span class="line">ndarray.all（[axis，out，keepdims]）	如果所有元素均为True，则返回True。</span><br><span class="line">ndarray.any（[axis，out，keepdims]）	如果a的任何元素求值为True，则返回True。</span><br></pre></td></tr></table></figure>
+<p>函数和方法(method)总览</p>
+<p>这是个NumPy函数和方法分类排列目录。这些名字链接到NumPy示例,你可以看到这些函数起作用.</p>
+<ul>
+<li>创建数组</li>
+</ul>
+<p>arange, array, copy, empty, empty_like, eye, fromfile, fromfunction, identity, linspace, logspace, mgrid, ogrid, ones, ones_like, r , zeros, zeros_like </p>
+<ul>
+<li>转化</li>
+</ul>
+<p>astype, atleast 1d, atleast 2d, atleast 3d, mat </p>
+<ul>
+<li>操作</li>
+</ul>
+<p>array split, column stack, concatenate, diagonal, dsplit, dstack, hsplit, hstack, item, newaxis, ravel, repeat, reshape, resize, squeeze, swapaxes, take, transpose, vsplit, vstack </p>
+<ul>
+<li>询问</li>
+</ul>
+<p>all, any, nonzero, where </p>
+<ul>
+<li>排序</li>
+</ul>
+<p>argmax, argmin, argsort, max, min, ptp, searchsorted, sort </p>
+<ul>
+<li>运算</li>
+</ul>
+<p>choose, compress, cumprod, cumsum, inner, fill, imag, prod, put, putmask, real, sum </p>
+<ul>
+<li>基本统计  </li>
+</ul>
+<p>cov, mean, std, var </p>
+<ul>
+<li>基本线性代数</li>
+</ul>
+<p>cross, dot, outer, svd, vdot</p>
+<p>tile函数 :   进行重复<br>def tile(A, reps) Inferred type: (A: Union[ndarray, Iterable], reps: Union[ndarray, Iterable]) -&gt; ndarray</p>
+<h1 id="matplotlib"><a href="#matplotlib" class="headerlink" title="matplotlib"></a>matplotlib</h1><h2 id="2D图表"><a href="#2D图表" class="headerlink" title="2D图表"></a>2D图表</h2><p>Matplotlib中最基础的模块是pyplot。先从最简单的点图和线图开始，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib as mpl</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"># 通过rcParams设置全局横纵轴字体大小</span><br><span class="line">mpl.rcParams[&apos;xtick.labelsize&apos;] = 24</span><br><span class="line">mpl.rcParams[&apos;ytick.labelsize&apos;] = 24</span><br><span class="line"></span><br><span class="line">np.random.seed(42)</span><br><span class="line"></span><br><span class="line"># x轴的采样点</span><br><span class="line">x = np.linspace(0, 5, 100)</span><br><span class="line"></span><br><span class="line"># 通过下面曲线加上噪声生成数据，所以拟合模型就用y了……</span><br><span class="line">y = 2*np.sin(x) + 0.3*x**2</span><br><span class="line">y_data = y + np.random.normal(scale=0.3, size=100)</span><br><span class="line"></span><br><span class="line"># figure()指定图表名称</span><br><span class="line">plt.figure(&apos;data&apos;)</span><br><span class="line"></span><br><span class="line"># &apos;.&apos;标明画散点图，每个散点的形状是个圆</span><br><span class="line">plt.plot(x, y_data, &apos;.&apos;)</span><br><span class="line"></span><br><span class="line"># 画模型的图，plot函数默认画连线图</span><br><span class="line">plt.figure(&apos;model&apos;)</span><br><span class="line">plt.plot(x, y)</span><br><span class="line"></span><br><span class="line"># 两个图画一起</span><br><span class="line">plt.figure(&apos;data &amp; model&apos;)</span><br><span class="line"></span><br><span class="line"># 通过&apos;k&apos;指定线的颜色，lw指定线的宽度</span><br><span class="line"># 第三个参数除了颜色也可以指定线形，比如&apos;r--&apos;表示红色虚线</span><br><span class="line"># 更多属性可以参考官网：http://matplotlib.org/api/pyplot_api.html</span><br><span class="line">plt.plot(x, y, &apos;k&apos;, lw=3)</span><br><span class="line"></span><br><span class="line"># scatter可以更容易地生成散点图</span><br><span class="line">plt.scatter(x, y_data)</span><br><span class="line"></span><br><span class="line"># 将当前figure的图保存到文件result.png</span><br><span class="line">plt.savefig(&apos;result.png&apos;)</span><br><span class="line"></span><br><span class="line"># 一定要加上这句才能让画好的图显示在屏幕上</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<h2 id="柱状或饼状类型的图"><a href="#柱状或饼状类型的图" class="headerlink" title="柱状或饼状类型的图"></a>柱状或饼状类型的图</h2><p>点和线图表只是最基本的用法，有的时候我们获取了分组数据要做对比，柱状或饼状类型的图或许更合适：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib as mpl</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">mpl.rcParams[&apos;axes.titlesize&apos;] = 20</span><br><span class="line">mpl.rcParams[&apos;xtick.labelsize&apos;] = 16</span><br><span class="line">mpl.rcParams[&apos;ytick.labelsize&apos;] = 16</span><br><span class="line">mpl.rcParams[&apos;axes.labelsize&apos;] = 16</span><br><span class="line">mpl.rcParams[&apos;xtick.major.size&apos;] = 0</span><br><span class="line">mpl.rcParams[&apos;ytick.major.size&apos;] = 0</span><br><span class="line"></span><br><span class="line"># 包含了狗，猫和猎豹的最高奔跑速度，还有对应的可视化颜色</span><br><span class="line">speed_map = &#123;</span><br><span class="line">    &apos;dog&apos;: (48, &apos;#7199cf&apos;),</span><br><span class="line">    &apos;cat&apos;: (45, &apos;#4fc4aa&apos;),</span><br><span class="line">    &apos;cheetah&apos;: (120, &apos;#e1a7a2&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 整体图的标题</span><br><span class="line">fig = plt.figure(&apos;Bar chart &amp; Pie chart&apos;)</span><br><span class="line"></span><br><span class="line"># 在整张图上加入一个子图，121的意思是在一个1行2列的子图中的第一张</span><br><span class="line">ax = fig.add_subplot(121)</span><br><span class="line">ax.set_title(&apos;Running speed - bar chart&apos;)</span><br><span class="line"></span><br><span class="line"># 生成x轴每个元素的位置</span><br><span class="line">xticks = np.arange(3)</span><br><span class="line"></span><br><span class="line"># 定义柱状图每个柱的宽度</span><br><span class="line">bar_width = 0.5</span><br><span class="line"></span><br><span class="line"># 动物名称</span><br><span class="line">animals = speed_map.keys()</span><br><span class="line"></span><br><span class="line"># 奔跑速度</span><br><span class="line">speeds = [x[0] for x in speed_map.values()]</span><br><span class="line"></span><br><span class="line"># 对应颜色</span><br><span class="line">colors = [x[1] for x in speed_map.values()]</span><br><span class="line"></span><br><span class="line"># 画柱状图，横轴是动物标签的位置，纵轴是速度，定义柱的宽度，同时设置柱的边缘为透明</span><br><span class="line">bars = ax.bar(xticks, speeds, width=bar_width, edgecolor=&apos;none&apos;)</span><br><span class="line"></span><br><span class="line"># 设置y轴的标题</span><br><span class="line">ax.set_ylabel(&apos;Speed(km/h)&apos;)</span><br><span class="line"></span><br><span class="line"># x轴每个标签的具体位置，设置为每个柱的中央</span><br><span class="line">ax.set_xticks(xticks+bar_width/2)</span><br><span class="line"></span><br><span class="line"># 设置每个标签的名字</span><br><span class="line">ax.set_xticklabels(animals)</span><br><span class="line"></span><br><span class="line"># 设置x轴的范围</span><br><span class="line">ax.set_xlim([bar_width/2-0.5, 3-bar_width/2])</span><br><span class="line"></span><br><span class="line"># 设置y轴的范围</span><br><span class="line">ax.set_ylim([0, 125])</span><br><span class="line"></span><br><span class="line"># 给每个bar分配指定的颜色</span><br><span class="line">for bar, color in zip(bars, colors):</span><br><span class="line">    bar.set_color(color)</span><br><span class="line"></span><br><span class="line"># 在122位置加入新的图</span><br><span class="line">ax = fig.add_subplot(122)</span><br><span class="line">ax.set_title(&apos;Running speed - pie chart&apos;)</span><br><span class="line"></span><br><span class="line"># 生成同时包含名称和速度的标签</span><br><span class="line">labels = [&apos;&#123;&#125;\n&#123;&#125; km/h&apos;.format(animal, speed) for animal, speed in zip(animals, speeds)]</span><br><span class="line"></span><br><span class="line"># 画饼状图，并指定标签和对应颜色</span><br><span class="line">ax.pie(speeds, labels=labels, colors=colors)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="3D图表"><a href="#3D图表" class="headerlink" title="3D图表"></a>3D图表</h2><p>import matplotlib.pyplot as plt</p>
+<h1 id="matrix-plot-lib"><a href="#matrix-plot-lib" class="headerlink" title="matrix plot lib"></a>matrix plot lib</h1><ul>
+<li>plt.figure() 绘制多图，自定义画布大小 给图像标ID。</li>
+<li>plt.subplot() ：设置画布划分以及图像在画布上输出的位置</li>
+<li>plt.text()添加文字说明<ul>
+<li>text()可以在图中的任意位置添加文字，并支持LaTex语法</li>
+<li>xlable(), ylable()用于添加x轴和y轴标签</li>
+<li>title()用于添加图的题目</li>
+</ul>
+</li>
+<li>plt.annotate()文本注释</li>
+<li>plt.xticks()/plt.yticks()设置轴记号</li>
+<li>plt.legend()添加图例</li>
+<li>plt.axes()</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Pyhon 模块学习"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
