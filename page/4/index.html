@@ -254,6 +254,327 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-CVE-2016-5195（脏牛）内核提权"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/01/29/CVE-2016-5195（脏牛）内核提权/">CVE-2016-5195（脏牛）内核提权漏洞分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/01/29/CVE-2016-5195（脏牛）内核提权/" class="article-date">
+	  <time datetime="2017-01-29T15:53:56.000Z" itemprop="datePublished">2017-01-29</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="CVE-2016-5195（脏牛）内核提权漏洞分析"><a href="#CVE-2016-5195（脏牛）内核提权漏洞分析" class="headerlink" title="CVE-2016-5195（脏牛）内核提权漏洞分析"></a>CVE-2016-5195（脏牛）内核提权漏洞分析</h2><h3 id="脏牛漏洞-提权"><a href="#脏牛漏洞-提权" class="headerlink" title="脏牛漏洞 提权"></a>脏牛漏洞 提权</h3><p>Linux内核的内存子系统在处理写时拷贝（Copy-on-Write)时存在条件竞争漏洞，导致可以破坏私有只读内存映射。</p>
+<p>一个低权限的本地用户能够利用此漏洞获取其他只读内存映射的写权限，有可能进一步导致提权漏洞</p>
+<p><strong>漏洞危害：</strong>低权限用户利用该漏洞技术可以在全版本Linux系统上实现本地提权</p>
+<p><strong>影响范围：</strong>Linux内核&gt;=2.6.22（2007年发行）开始就受影响了，直到2016年10月18日才修复。</p>
+<p><strong>360 Vulpecker Team：</strong>Android 7.0最新的10月补丁安全级别的系统上测试过漏洞POC，确认Android受影响</p>
+<p>blog：Dirty COW (CVE-2016-5195)<br><a href="https://dirtycow.ninja/" target="_blank" rel="noopener">https://dirtycow.ninja/</a></p>
+<h4 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h4><h4 id="步骤1：编译POC"><a href="#步骤1：编译POC" class="headerlink" title="步骤1：编译POC"></a>步骤1：编译POC</h4><p>poc 地址：<a href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c" target="_blank" rel="noopener">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
+<p>执行以下命令进行gcc编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uanme -a </span><br><span class="line">whoami</span><br><span class="line"></span><br><span class="line">gcc -pthread dirtyc0w.c -o dirtyc0w   //编译</span><br></pre></td></tr></table></figure>
+<p><code>gcc</code>命令是一个编译器套件，可用于编译多种语言源码。</p>
+<blockquote>
+<ul>
+<li><strong>小i注解：</strong> 可见编译选项中指定<code>-pthread</code> 会附加一个宏定义 <code>-D_REENTRANT</code>该宏会导致 <code>libc</code> 头文件选择那些<code>thread-safe</code>的实现。<code>-o</code>参数为编译后输出文件名。</li>
+</ul>
+</blockquote>
+<h4 id="步骤2：验证漏洞"><a href="#步骤2：验证漏洞" class="headerlink" title="步骤2：验证漏洞"></a>步骤2：验证漏洞</h4><p>POC:</p>
+<table>
+<thead>
+<tr>
+<th>Link</th>
+<th>Usage</th>
+<th>Description</th>
+<th>Family</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c" target="_blank" rel="noopener">dirtyc0w.c</a></td>
+<td><code>./dirtyc0w file content</code></td>
+<td>Read-only write</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://gist.github.com/rverton/e9d4ff65d703a9084e85fa9df083c679" target="_blank" rel="noopener">cowroot.c</a></td>
+<td><code>./cowroot</code></td>
+<td>SUID-based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://gist.github.com/scumjr/17d91f20f73157c722ba2aea702985d2" target="_blank" rel="noopener">dirtycow-mem.c</a></td>
+<td><code>./dirtycow-mem</code></td>
+<td>libc-based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/dirtycow/dirtycow.github.io/blob/master/pokemon.c" target="_blank" rel="noopener">pokemon.c</a></td>
+<td><code>./d file content</code></td>
+<td>Read-only write</td>
+<td>PTRACE_POKEDATA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/xlucas/dirtycow.cr" target="_blank" rel="noopener">dirtycow.cr</a></td>
+<td><code>dirtycow --target --string --offset</code></td>
+<td>Read-only write</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/timwr/CVE-2016-5195" target="_blank" rel="noopener">dirtyc0w.c</a></td>
+<td><code>./dirtycow file content</code></td>
+<td>Read-only write (Android)</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/rapid7/metasploit-framework/pull/7476" target="_blank" rel="noopener">dirtycow.rb</a></td>
+<td><code>use exploit/linux/local/dirtycow</code> and <code>run</code></td>
+<td>SUID-based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/scumjr/dirtycow-vdso" target="_blank" rel="noopener">0xdeadbeef.c</a></td>
+<td><code>./0xdeadbeef</code></td>
+<td>vDSO-based root</td>
+<td>PTRACE_POKEDATA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://gist.github.com/mak/c36136ccdbebf5ecfefd80c0f2ed6747" target="_blank" rel="noopener">naughtyc0w.c</a></td>
+<td><code>./c0w suid</code></td>
+<td>SUID-based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://gist.github.com/KrE80r/42f8629577db95782d5e4f609f437a54" target="_blank" rel="noopener">c0w.c</a></td>
+<td><code>./c0w</code></td>
+<td>SUID-based root</td>
+<td>PTRACE_POKEDATA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://gist.github.com/ngaro/05e084ca638340723b309cd304be77b2" target="_blank" rel="noopener">dirty_pass[…].c</a></td>
+<td><code>./dirty_passwd_adjust_cow</code></td>
+<td>/etc/passwd based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://gist.github.com/chriscz/f1aca56cf15cfb7793db0141c15718cd" target="_blank" rel="noopener">mucow.c</a></td>
+<td><code>./mucow destination &lt; payload.exe</code></td>
+<td>Read-only write (multi page)</td>
+<td>PTRACE_POKEDATA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nowsecure/dirtycow" target="_blank" rel="noopener">cowpy.c</a></td>
+<td><code>r2pm -i dirtycow</code></td>
+<td>Read-only write (radare2)</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/sivizius/dirtycow.fasm" target="_blank" rel="noopener">dirtycow.fasm</a></td>
+<td><code>./main</code></td>
+<td>SUID-based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/gbonacini/CVE-2016-5195" target="_blank" rel="noopener">dcow.cpp</a></td>
+<td><code>./dcow</code></td>
+<td>/etc/passwd based root</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/mengzhuo/dirty-cow-golang/blob/master/dirtyc0w.go" target="_blank" rel="noopener">dirtyc0w.go</a></td>
+<td><code>go run dirtyc0w.go -f=file -c=content</code></td>
+<td>Read-only write</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/FireFart/dirtycow/blob/master/dirty.c" target="_blank" rel="noopener">dirty.c</a></td>
+<td><code>./dirty</code></td>
+<td>/etc/passwd based root</td>
+<td>PTRACE_POKEDATA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/sideeffect42/DirtyCOWTester" target="_blank" rel="noopener">Dirty COW Tester</a></td>
+<td><code>make &amp;&amp; ./bin/dct</code></td>
+<td>Read-only write</td>
+<td>/proc/self/mem</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/hyln9/VIKIROOT" target="_blank" rel="noopener">exploit.c</a></td>
+<td><code>./exploit</code></td>
+<td>vDSO-based root (Android)</td>
+<td>PTRACE_POKEDATA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/securifera/cowcron" target="_blank" rel="noopener">cowcron.c</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="分析与思考"><a href="#分析与思考" class="headerlink" title="分析与思考"></a>分析与思考</h4><blockquote>
+<ul>
+<li>Linux内核的内存子系统在处理写时拷贝（Copy-on-Write)时存在条件竞争漏洞，导致可以破坏私有只读内存映射。</li>
+<li>一个低权限的本地用户能够利用此漏洞获取其他只读内存映射的写权限，有可能进一步导致某些Linux版本提权漏洞。</li>
+<li>低权限用户可以利用该漏洞修改只读内存，进而执行任意代码获取Root权限。</li>
+<li>该漏洞影响所有目前运行Linux系统的设备，包含但不限于运行Linux系统的服务器，Docker容器/手机/路由器/智能设备等。</li>
+<li>Linux写时拷贝技术(copy-on-write)</li>
+</ul>
+<p>在Linux程序中，fork（）会产生一个和父进程完全相同的子进程，但子进程在此后多会exec系统调用，出于效率考虑，linux中引入了“写时复制“技术，也就是只有进程空间的各段的内容要发生变化时，才会将父进程的内容复制一份给子进程</p>
+<ul>
+<li><strong>竞态条件</strong></li>
+</ul>
+<p>竞态条件（race condition）是指设备或系统出现不恰当的执行时序，而得到不正确的结果。</p>
+<ul>
+<li><p>linux内存管理–缺页异常处理</p>
+<p>触发异常的线性地址处于用户空间的vma中，但还未分配物理页，如果访问权限OK的话内核就给进程分配相应的物理页。</p>
+<p>触发异常的线性地址不处于用户空间的vma中，这种情况得判断是不是因为用户进程的栈空间消耗完而触发的缺页异常。</p>
+<p>如果 是的话则在用户空间对栈区域进行扩展，并且分配相应的物理页，如果不是则作为一次非法地址访问来处理，内核将终结进程</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>缺页中断</strong></p>
+<p>缺页中断就是要访问的页不在主存，需要操作系统将其调入主存后再进行访问。在这个时候，被内存映射的文件实际上成了一个分页交换文件。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h4><ul>
+<li>更新最新Linux Kernel源码，并重新编译，也可直接升级最新版本。<ul>
+<li>修复相关代码</li>
+</ul>
+</li>
+</ul>
+<p><code>https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/？id=19be0eaffa3ac7d8eb6784ad9bdbc7d67ed8e619</code></p>
+<h5 id="免重启热修补"><a href="#免重启热修补" class="headerlink" title="免重启热修补"></a>免重启热修补</h5><p>由于该漏洞位于 Linux 内核，发行版官方的内核更新只有在重启后才能生效。</p>
+<ul>
+<li><p>如果您的线上业务不能中断，可以采用下面这种基于 SystemTap 的热修补方法，并在合适的时候更新系统内核。</p>
+<p>SystemTap 是监控和跟踪运行中的Linux 内核的操作的动态方法。这句话的关键词是动态，因为SystemTap 没有使用工具构建一个特殊的内核，而是允许您在运行时动态地安装该工具。</p>
+</li>
+</ul>
+<p>针对 CVE-2016-5195 的 SystemTap 热修补补丁最先出现在 Red Hat 公司 Bug 追踪系统的讨论区（出处），内容节选如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">probe kernel.function(&quot;mem_write&quot;).call ? &#123; $count = 0 &#125;</span><br><span class="line"></span><br><span class="line">robe syscall.ptrace &#123; $request = 0xfff &#125;`</span><br></pre></td></tr></table></figure>
+<p>通过阻止写入 /proc/self/mem 来达到阻止上述利用代码的目的。</p>
+<p>该补丁有较为明显的副作用：无法调试程序，还可能导致 RHEL/CentOS 6 和 Ubuntu 14.04 上使用的 upstart 服务管理机制不能正常工作。</p>
+<p>本文提供另一种热修补方式，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> probe kernel.function(&quot;sys_madvise&quot;) &#123;</span><br><span class="line">    if ($behavior == 4) &#123; $behavior = 0 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Ubuntu系统修复安装SystemTap相关步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gcc systemtap</span><br><span class="line"></span><br><span class="line">ddeb_filename=$(dpkg-query --show --showformat=&apos;$&#123;Package&#125;-dbgsym_$&#123;Version&#125;_$&#123;Architecture&#125;.ddeb&apos; linux-image-$(uname -r))</span><br><span class="line"></span><br><span class="line">wget http://ddebs.ubuntu.com/pool/main/l/linux/$&#123;ddeb_filename&#125;</span><br><span class="line"></span><br><span class="line">dpkg -i $&#123;ddeb_filename&#125;</span><br></pre></td></tr></table></figure>
+<p>测试SystemTap安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stap -e &apos;probe begin &#123; print(&quot;hello world\n&quot;); exit(); &#125;&apos;</span><br></pre></td></tr></table></figure>
+<p>执行热修补</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stap -Fge &apos;probe kernel.function(&quot;sys_madvise&quot;) &#123; if ($behavior == 4) &#123; $behavior = 0 &#125;&#125;&apos;</span><br><span class="line"></span><br><span class="line">Disconnecting from systemtap module.</span><br><span class="line">To reconnect, type &quot;staprun -A stap_9f8ce8307eb418da7c981b3223eec678_12644&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>修补完成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep stap</span><br><span class="line">stap_9f8ce8307eb418da7c981b3223eec678_12644    81920  0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以看到 SystemTap 编译出的内核模块已经成功加载。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><code>https://dirtycow.ninja/</code></p>
+<p><code>https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=19be0eaffa3ac7d8eb6784ad9bdbc7d67ed8e619</code></p>
+<p><code>http://mp.weixin.qq.com/s?__biz=MzIwNDA2NDk5OQ==&amp;mid=2651370571&amp;idx=1&amp;sn=68acf07ca2683a9c98fa52e900d97db3&amp;chksm=8d39c5c3ba4e4cd58c21d0a21ca337ded2132625987e174d286f8d175034267bd09807ea9a11&amp;scene=4#wechat_redirect</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-MEAN--全栈WEB开发框架"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -301,6 +622,90 @@
       
       
       
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-实验吧Misc题目"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/10/05/实验吧Misc题目/">实验吧Misc题目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/10/05/实验吧Misc题目/" class="article-date">
+	  <time datetime="2016-10-05T15:53:56.000Z" itemprop="datePublished">2016-10-05</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="实验吧Misc题目"><a href="#实验吧Misc题目" class="headerlink" title="实验吧Misc题目"></a>实验吧Misc题目</h1><p><a href="http://shackles.top/2016/10/08/%E5%AE%9E%E9%AA%8C%E5%90%A7MISC/"> 2016-10-08</a></p>
+<h3 id="1、-这就是一个坑"><a href="#1、-这就是一个坑" class="headerlink" title="1、 这就是一个坑"></a>1、 这就是一个坑</h3><p><strong>QUESTION:</strong> 密码是十位大小写字母、数字、特殊符号组成的，你爆破的开么？</p>
+<p><strong>TIP:</strong> ARCHPR对flag.zip进行<strong>明文攻击</strong>,CRP相同。</p>
+<p><strong>ANSWER:</strong> 我们打开压缩包的tips.txt，里面提示：密码是十位大小写字母、数字、特殊符号组成的，你爆破的开么？！<br>这个tip告诉我们爆破是基本不可能了<br>然后我们发现falg.zip里面也有个tips.txt，然后我猜想flag.zip里面的tips.txt和另外一个tips.txt是不是同一个文件<br>然后把tips.txt压缩后可以发现，他们两个的crc32是一样的.</p>
+<h3 id="2、CheatEngine"><a href="#2、CheatEngine" class="headerlink" title="2、CheatEngine"></a>2、CheatEngine</h3><p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong> CE工具的使用，Cheat Engine 是一款内存修改编辑工具 ，它允许你修改你的游戏或软件内存数据，以得到一些其他功能。它包括16进制编辑，反汇编程序，内存查找工具。与同类修改工具相比，它具有强大的反汇编功能，且自身附带了外挂制作工具，可以用它直接生成外挂。</p>
+<p><strong>ANSWER:</strong><br><a href="http://www.shiyanbar.com/ctf/writeup/1046/" target="_blank" rel="noopener">link</a></p>
+<h3 id="4、-图片里的动漫"><a href="#4、-图片里的动漫" class="headerlink" title="4、 图片里的动漫"></a>4、 图片里的动漫</h3><p><strong>QUESTION:</strong> 一恒河沙中有三千世界，一张图里也可以有很多东西。<br>答案是与一部动漫名字有关的小写英文字母。</p>
+<p><strong>TIP:</strong> 遇见此类型的题先binwak， 再 foremost； 文件隐藏，根据文件头判断。file命令;</p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="6、Canon"><a href="#6、Canon" class="headerlink" title="6、Canon"></a>6、Canon</h3><p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong> mp3文件和一个加密过的zip ，上MP3stego；<strong>MP3stego</strong>加密mp3，需要秘钥即为题目Cannon；得到base64，解密的CTF{}。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decode.exe -X -P Canon music.mp3 // 解密；</span><br></pre></td></tr></table></figure>
+<p><strong>ANSWER:</strong></p>
+<h3 id="7、ROT-13变身了"><a href="#7、ROT-13变身了" class="headerlink" title="7、ROT-13变身了"></a>7、ROT-13变身了</h3><p><strong>QUESTION:</strong> 提示：1、回旋13，回不回？ 2、有81,450,625种可能性</p>
+<p>格式：flag{}破解下面的密文：</p>
+<p>83 89 78 84 45 86 96 45 115 121 110 116 136 132 132 132 108 128 117 118 134 110 123 111 110 127 108 112 124 122 108 118 128 108 131 114 127 134 108 116 124 124 113 108 76 76 76 76 138 23 90 81 66 71 64 69 114 65 112 64 66 63 69 61 70 114 62 66 61 62 69 67 70 63 61 110 110 112 64 68 62 70 61 112 111 112</p>
+<p>flag格式flag{}</p>
+<p><strong>TIP:</strong> ROT13：只对字母进行编码，用当前字母往前数的第13个字母替换当前字母，例如当前为A，编码后变成N，当前为B，编码后变成O，以此类推顺序循环。<br><strong>先对每个数字减去13后，再chr（）转换成字符.</strong></p>
+<p><strong>ANSWER:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># rot13 -13 chr() 字符</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">lst=[83,89,78,84,45,86,96,45,115,121,110,116,136,132,132,132,108,128,117,118,134,110,123,111,110,127,108,112,124,122,108,118,128,108,131,114,127,134,108,116,124,124,113,108,76,76,76,76,138,23,90,81,66,71,64,69,114,65,112,64,66,63,69,61,70,114,62,66,61,62,69,67,70,63,61,110,110,112,64,68,62,70,61,112,111,112]</span><br><span class="line">	lst=[chr(i-13) for i in lst]</span><br><span class="line">	print &quot;&quot;.join(lst)</span><br></pre></td></tr></table></figure>
+<p>这样就会得到<br>FLAG IS flag{www_shiyanbar_com_is_very<em>good</em>????}<br>MD5:38e4c352809e150186920aac37190cbc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">#根据MD5爆破后四位</span><br><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line">a = &apos;38e4c352809e150186920aac37190cbc&apos;</span><br><span class="line"></span><br><span class="line">dic = r&quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&amp;()*+,-./:;&lt;=&gt;?@[\]^_`&#123;|&#125;~ &quot;</span><br><span class="line"></span><br><span class="line">for i1 in dic:</span><br><span class="line">	for i2 in dic:</span><br><span class="line">		for i3 in dic:</span><br><span class="line">			for i4 in dic:</span><br><span class="line">				md5 = hashlib.md5()</span><br><span class="line">				b = &apos;flag&#123;www_shiyanbar_com_is_very_good_&apos; +i1+i2+i3+i4+&apos;&#125;&apos;</span><br><span class="line">				md5.update(b)</span><br><span class="line">				if md5.hexdigest() == a:</span><br><span class="line">					print &apos;%s  %s&apos; %(md5.hexdigest(),b)</span><br></pre></td></tr></table></figure>
+<p>得flag{www_shiyanbar_com_is_very<em>good</em>@8Mu}</p>
+<h3 id="8、解码磁带"><a href="#8、解码磁带" class="headerlink" title="8、解码磁带"></a>8、解码磁带</h3><p><strong>QUESTION:</strong> <a href="http://ctf5.shiyanbar.com/misc/cidai.html" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/misc/cidai.html</a></p>
+<p><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="9、功夫秘籍"><a href="#9、功夫秘籍" class="headerlink" title="9、功夫秘籍"></a>9、功夫秘籍</h3><p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong><br>.png文件，找到key is VF95c0s5XzVyaGtfX3VGTXR9M0Vse251QEUg</p>
+<p>base64：T_ysK9_5rhk__uFMt}3El{nu@E //base64 为36位，这是个坑。解出来加上空格。</p>
+<p>栅栏：3位 Th3_kEy<em>ls</em>{Kun9Fu_M@5tEr}</p>
+<p><strong>ANSWER:</strong><br>Kun9Fu_M@5tEr 提交这个；</p>
+<h3 id="10、WTF"><a href="#10、WTF" class="headerlink" title="==10、WTF=="></a>==10、WTF==</h3><p><strong>QUESTION:</strong> <a href="http://ctf5.shiyanbar.com/423/misc/code.txt" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/423/misc/code.txt</a><br>通过奇怪的字符串发现其中隐藏的信息</p>
+<p><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="12、-有趣的文件"><a href="#12、-有趣的文件" class="headerlink" title="12、==有趣的文件=="></a>12、==有趣的文件==</h3><p><strong>QUESTION:</strong><br>这是一个有趣的文件，打开看看你能想到什么<br>格式：CTF{ }<br>解题链接： <a href="http://ctf5.shiyanbar.com/misc/funfile" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/misc/funfile</a><br><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong><br><a href="http://www.shiyanbar.com/ctf/writeup/513" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/writeup/513</a></p>
+<p><strong>QUESTION:</strong></p>
+<p><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+<h3 id="13、Paint"><a href="#13、Paint" class="headerlink" title="13、Paint"></a>13、Paint</h3><p><strong>QUESTION:</strong><br>matplotlib画图<br><strong>TIP:</strong></p>
+<p><strong>ANSWER:</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
+
     </footer>
   </div>
   
@@ -427,90 +832,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-实验吧Misc题目"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/10/05/实验吧Misc题目/">实验吧Misc题目</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/10/05/实验吧Misc题目/" class="article-date">
-	  <time datetime="2016-10-05T15:53:56.000Z" itemprop="datePublished">2016-10-05</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="实验吧Misc题目"><a href="#实验吧Misc题目" class="headerlink" title="实验吧Misc题目"></a>实验吧Misc题目</h1><p><a href="http://shackles.top/2016/10/08/%E5%AE%9E%E9%AA%8C%E5%90%A7MISC/"> 2016-10-08</a></p>
-<h3 id="1、-这就是一个坑"><a href="#1、-这就是一个坑" class="headerlink" title="1、 这就是一个坑"></a>1、 这就是一个坑</h3><p><strong>QUESTION:</strong> 密码是十位大小写字母、数字、特殊符号组成的，你爆破的开么？</p>
-<p><strong>TIP:</strong> ARCHPR对flag.zip进行<strong>明文攻击</strong>,CRP相同。</p>
-<p><strong>ANSWER:</strong> 我们打开压缩包的tips.txt，里面提示：密码是十位大小写字母、数字、特殊符号组成的，你爆破的开么？！<br>这个tip告诉我们爆破是基本不可能了<br>然后我们发现falg.zip里面也有个tips.txt，然后我猜想flag.zip里面的tips.txt和另外一个tips.txt是不是同一个文件<br>然后把tips.txt压缩后可以发现，他们两个的crc32是一样的.</p>
-<h3 id="2、CheatEngine"><a href="#2、CheatEngine" class="headerlink" title="2、CheatEngine"></a>2、CheatEngine</h3><p><strong>QUESTION:</strong></p>
-<p><strong>TIP:</strong> CE工具的使用，Cheat Engine 是一款内存修改编辑工具 ，它允许你修改你的游戏或软件内存数据，以得到一些其他功能。它包括16进制编辑，反汇编程序，内存查找工具。与同类修改工具相比，它具有强大的反汇编功能，且自身附带了外挂制作工具，可以用它直接生成外挂。</p>
-<p><strong>ANSWER:</strong><br><a href="http://www.shiyanbar.com/ctf/writeup/1046/" target="_blank" rel="noopener">link</a></p>
-<h3 id="4、-图片里的动漫"><a href="#4、-图片里的动漫" class="headerlink" title="4、 图片里的动漫"></a>4、 图片里的动漫</h3><p><strong>QUESTION:</strong> 一恒河沙中有三千世界，一张图里也可以有很多东西。<br>答案是与一部动漫名字有关的小写英文字母。</p>
-<p><strong>TIP:</strong> 遇见此类型的题先binwak， 再 foremost； 文件隐藏，根据文件头判断。file命令;</p>
-<p><strong>ANSWER:</strong></p>
-<h3 id="6、Canon"><a href="#6、Canon" class="headerlink" title="6、Canon"></a>6、Canon</h3><p><strong>QUESTION:</strong></p>
-<p><strong>TIP:</strong> mp3文件和一个加密过的zip ，上MP3stego；<strong>MP3stego</strong>加密mp3，需要秘钥即为题目Cannon；得到base64，解密的CTF{}。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decode.exe -X -P Canon music.mp3 // 解密；</span><br></pre></td></tr></table></figure>
-<p><strong>ANSWER:</strong></p>
-<h3 id="7、ROT-13变身了"><a href="#7、ROT-13变身了" class="headerlink" title="7、ROT-13变身了"></a>7、ROT-13变身了</h3><p><strong>QUESTION:</strong> 提示：1、回旋13，回不回？ 2、有81,450,625种可能性</p>
-<p>格式：flag{}破解下面的密文：</p>
-<p>83 89 78 84 45 86 96 45 115 121 110 116 136 132 132 132 108 128 117 118 134 110 123 111 110 127 108 112 124 122 108 118 128 108 131 114 127 134 108 116 124 124 113 108 76 76 76 76 138 23 90 81 66 71 64 69 114 65 112 64 66 63 69 61 70 114 62 66 61 62 69 67 70 63 61 110 110 112 64 68 62 70 61 112 111 112</p>
-<p>flag格式flag{}</p>
-<p><strong>TIP:</strong> ROT13：只对字母进行编码，用当前字母往前数的第13个字母替换当前字母，例如当前为A，编码后变成N，当前为B，编码后变成O，以此类推顺序循环。<br><strong>先对每个数字减去13后，再chr（）转换成字符.</strong></p>
-<p><strong>ANSWER:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># rot13 -13 chr() 字符</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">lst=[83,89,78,84,45,86,96,45,115,121,110,116,136,132,132,132,108,128,117,118,134,110,123,111,110,127,108,112,124,122,108,118,128,108,131,114,127,134,108,116,124,124,113,108,76,76,76,76,138,23,90,81,66,71,64,69,114,65,112,64,66,63,69,61,70,114,62,66,61,62,69,67,70,63,61,110,110,112,64,68,62,70,61,112,111,112]</span><br><span class="line">	lst=[chr(i-13) for i in lst]</span><br><span class="line">	print &quot;&quot;.join(lst)</span><br></pre></td></tr></table></figure>
-<p>这样就会得到<br>FLAG IS flag{www_shiyanbar_com_is_very<em>good</em>????}<br>MD5:38e4c352809e150186920aac37190cbc</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">#根据MD5爆破后四位</span><br><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line">a = &apos;38e4c352809e150186920aac37190cbc&apos;</span><br><span class="line"></span><br><span class="line">dic = r&quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&amp;()*+,-./:;&lt;=&gt;?@[\]^_`&#123;|&#125;~ &quot;</span><br><span class="line"></span><br><span class="line">for i1 in dic:</span><br><span class="line">	for i2 in dic:</span><br><span class="line">		for i3 in dic:</span><br><span class="line">			for i4 in dic:</span><br><span class="line">				md5 = hashlib.md5()</span><br><span class="line">				b = &apos;flag&#123;www_shiyanbar_com_is_very_good_&apos; +i1+i2+i3+i4+&apos;&#125;&apos;</span><br><span class="line">				md5.update(b)</span><br><span class="line">				if md5.hexdigest() == a:</span><br><span class="line">					print &apos;%s  %s&apos; %(md5.hexdigest(),b)</span><br></pre></td></tr></table></figure>
-<p>得flag{www_shiyanbar_com_is_very<em>good</em>@8Mu}</p>
-<h3 id="8、解码磁带"><a href="#8、解码磁带" class="headerlink" title="8、解码磁带"></a>8、解码磁带</h3><p><strong>QUESTION:</strong> <a href="http://ctf5.shiyanbar.com/misc/cidai.html" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/misc/cidai.html</a></p>
-<p><strong>TIP:</strong></p>
-<p><strong>ANSWER:</strong></p>
-<h3 id="9、功夫秘籍"><a href="#9、功夫秘籍" class="headerlink" title="9、功夫秘籍"></a>9、功夫秘籍</h3><p><strong>QUESTION:</strong></p>
-<p><strong>TIP:</strong><br>.png文件，找到key is VF95c0s5XzVyaGtfX3VGTXR9M0Vse251QEUg</p>
-<p>base64：T_ysK9_5rhk__uFMt}3El{nu@E //base64 为36位，这是个坑。解出来加上空格。</p>
-<p>栅栏：3位 Th3_kEy<em>ls</em>{Kun9Fu_M@5tEr}</p>
-<p><strong>ANSWER:</strong><br>Kun9Fu_M@5tEr 提交这个；</p>
-<h3 id="10、WTF"><a href="#10、WTF" class="headerlink" title="==10、WTF=="></a>==10、WTF==</h3><p><strong>QUESTION:</strong> <a href="http://ctf5.shiyanbar.com/423/misc/code.txt" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/423/misc/code.txt</a><br>通过奇怪的字符串发现其中隐藏的信息</p>
-<p><strong>TIP:</strong></p>
-<p><strong>ANSWER:</strong></p>
-<h3 id="12、-有趣的文件"><a href="#12、-有趣的文件" class="headerlink" title="12、==有趣的文件=="></a>12、==有趣的文件==</h3><p><strong>QUESTION:</strong><br>这是一个有趣的文件，打开看看你能想到什么<br>格式：CTF{ }<br>解题链接： <a href="http://ctf5.shiyanbar.com/misc/funfile" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/misc/funfile</a><br><strong>TIP:</strong></p>
-<p><strong>ANSWER:</strong><br><a href="http://www.shiyanbar.com/ctf/writeup/513" target="_blank" rel="noopener">http://www.shiyanbar.com/ctf/writeup/513</a></p>
-<p><strong>QUESTION:</strong></p>
-<p><strong>TIP:</strong></p>
-<p><strong>ANSWER:</strong></p>
-<h3 id="13、Paint"><a href="#13、Paint" class="headerlink" title="13、Paint"></a>13、Paint</h3><p><strong>QUESTION:</strong><br>matplotlib画图<br><strong>TIP:</strong></p>
-<p><strong>ANSWER:</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li></ul>
 
     </footer>
   </div>
