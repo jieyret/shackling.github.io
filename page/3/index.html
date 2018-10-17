@@ -254,103 +254,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-沙盒靶机渗透一"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/09/19/沙盒靶机渗透一/">靶机渗透一</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/09/19/沙盒靶机渗透一/" class="article-date">
-	  <time datetime="2017-09-19T15:53:56.000Z" itemprop="datePublished">2017-09-19</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip：192.168.1.106 //靶机ip</span><br></pre></td></tr></table></figure>
-<h4 id="nmap-sS-A-192-168-1-106"><a href="#nmap-sS-A-192-168-1-106" class="headerlink" title="nmap -sS -A 192.168.1.106"></a>nmap -sS -A 192.168.1.106</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# nmap -sS -A  192.168.1.106</span><br><span class="line">Nmap scan report for 192.168.1.106</span><br><span class="line">Host is up (0.31s latency).</span><br><span class="line">Not shown: 996 closed ports</span><br><span class="line">PORT     STATE    SERVICE VERSION</span><br><span class="line">22/tcp   open     ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.1 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 89:c2:ae:12:d6:c5:19:4e:68:4a:28:e9:06:bd:9c:19 (RSA)</span><br><span class="line">|_  256 f0:0c:ae:37:10:d3:6d:a2:85:3a:77:04:06:94:f8:0a (ECDSA)</span><br><span class="line">80/tcp   open     http    nginx</span><br><span class="line">|_http-server-header: nginx</span><br><span class="line">|_http-title: Welcome!</span><br><span class="line">514/tcp  filtered shell</span><br><span class="line">3260/tcp open     iscsi?</span><br><span class="line">|_iscsi-info: ERROR: Script execution failed (use -d to debug)</span><br><span class="line">Aggressive OS guesses: Actiontec MI424WR-GEN3I WAP (99%), DD-WRT v24-sp2 (Linux 2.4.37) (98%), Linux 3.2 (98%), Microsoft Windows XP SP3 or Windows 7 or Windows Server 2012 (96%), Linux 4.4 (96%), Microsoft Windows XP SP3 (96%), BlueArc Titan 2100 NAS device (91%)</span><br><span class="line">No exact OS matches for host (test conditions non-ideal).</span><br><span class="line">Network Distance: 2 hops</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br></pre></td></tr></table></figure>
-<p>22 80 port,326 port 是iscsi的端口。<br>参考：<a href="http://www.freebuf.com/articles/102500.htmlhttp://www.freebuf.com/articles/102500.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/102500.htmlhttp://www.freebuf.com/articles/102500.html</a><br><a href="https://www.pentestpartners.com/security-blog/an-interesting-route-to-domain-admin-iscsi/" target="_blank" rel="noopener">https://www.pentestpartners.com/security-blog/an-interesting-route-to-domain-admin-iscsi/</a></p>
-<ul>
-<li>iSCSI：Internet 小型计算机系统接口 （iSCSI：Internet Small Computer System Interface）。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iSCSI主要是透过TCP/IP的技术，将储存设备端透过iSCSI target (iSCSI目标端)功能，做成可以提供磁盘的服务器端，再透过iSCSI initiator (iSCSI初始化用户)功能，做成能够挂载使用iSCSI target的用户端，如此便能透过iSCSI设置来进行磁盘的应用了。</span><br><span class="line">也就是说，iSCSI 这个架构主要将储存装置与使用的主机分为两个部分，分别是： </span><br><span class="line">iSCSI target：就是储存设备端，存放磁盘或RAID的设备，目前也能够将Linux主机模拟成iSCSI target了！ 目的在提供其他主机使用的『磁盘』；</span><br><span class="line">iSCSI initiator：就是能够使用target的用户端，通常是服务器。 也就是说，想要连接到iSCSI target的服务器，也必须要安装iSCSI initiator的相关功能后才能够使用iSCSI target提供的磁盘。</span><br></pre></td></tr></table></figure>
-<h4 id="dirb-http-192-168-1-106-扫目录"><a href="#dirb-http-192-168-1-106-扫目录" class="headerlink" title="dirb http://192.168.1.106 #扫目录"></a>dirb <a href="http://192.168.1.106/" target="_blank" rel="noopener">http://192.168.1.106</a> #扫目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.106/smblogin/custom-log/refer/del/arquivos/_archive/autodeploy/Links/pdf/portals/images3/forgotpassword/tuscany/send-password/catalog/tell_friend/queues/month/checking/mode/trap/affiliates/dba/program/font/index.html</span><br></pre></td></tr></table></figure>
-<p>####</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import base6</span><br><span class="line">&gt;&gt;&gt; a = &apos;SGVsbG8sIGlzIGl0IGZsYWdzIHlvdSdyZSBsb29raW5nIGZvcj8KSSBjYW4gc2VlIGl0IGluIHlvdXIgZXllcwpJIGNhbiBzZWUgaXQgaW4geW91ciBzbWlsZQpGbGFncyBhcmUgYWxsIEkndmUgZXZlciB3YW50ZWQgYW5kIG15IHBvcnRzIGFyZSBvcGVuIHdpZGUgCkNhdXNlIHlvdSBrbm93IGp1c3Qgd2hhdCB0byBzYXkgYW5kIHlvdSBrbm93IGp1c3Qgd2hhdCB0byBkbwpBbmQgSSB3YW50IHRvIHRlbGwgeW91IHNvIG11Y2gsIG5vIGZsYWdzIGZvciB5b3UuLi4K&apos;</span><br><span class="line">&gt;&gt;&gt; print base64.b64decode(a)</span><br><span class="line">Hello, is it flags you&apos;re looking for?</span><br><span class="line">I can see it in your eyes</span><br><span class="line">I can see it in your smile</span><br><span class="line">Flags are all I&apos;ve ever wanted and my ports are open wide </span><br><span class="line">Cause you know just what to say and you know just what to do</span><br><span class="line">And I want to tell you so much, no flags for you...</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# nikto -h  192.168.1.106</span><br><span class="line">- Nikto v2.1.6</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">+ Target IP:          192.168.1.106</span><br><span class="line">+ Target Hostname:    192.168.1.106</span><br><span class="line">+ Target Port:        80</span><br><span class="line">+ Start Time:         2017-09-19 22:27:41 (GMT8)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">+ Server: nginx</span><br><span class="line">+ Server leaks inodes via ETags, header found with file /, fields: 0x58b7fa74 0x511 </span><br><span class="line">+ The anti-clickjacking X-Frame-Options header is not present.</span><br><span class="line">+ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS</span><br><span class="line">+ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type</span><br><span class="line">+ No CGI Directories found (use &apos;-C all&apos; to force check all possible dirs)</span><br><span class="line">+ 7535 requests: 0 error(s) and 4 item(s) reported on remote host</span><br><span class="line">+ End Time:           2017-09-19 22:27:59 (GMT8) (18 seconds)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# iscsiadm -m discovery -t st -p 192.168.1.106:3260  #连接</span><br><span class="line">192.168.1.106:3260,1 iqn.2017-02.local.skuzzy:storage.sys0</span><br><span class="line"></span><br><span class="line">root@shackle:~# iscsiadm --m node -p 192.168.1.106 --login --target  </span><br><span class="line">#登录</span><br><span class="line">iqn.2017-02.local.skuzzy:storage.sys0</span><br><span class="line">Logging in to [iface: default, target: iqn.2017-02.local.skuzzy:storage.sys0, portal: 192.168.1.106,3260] (multiple)</span><br><span class="line">Login to [iface: default, target: iqn.2017-02.local.skuzzy:storage.sys0, portal: 192.168.1.106,3260] successful.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">root@shackle:~# fdisk  -l</span><br><span class="line">Disk /dev/sda: 60 GiB, 64424509440 bytes, 125829120 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: dos</span><br><span class="line">Disk identifier: 0x5acbe586</span><br><span class="line"></span><br><span class="line">Device     Boot     Start       End   Sectors  Size Id Type</span><br><span class="line">/dev/sda1  *         2048 124780543 124778496 59.5G 83 Linux</span><br><span class="line">/dev/sda2       124782590 125827071   1044482  510M  5 Extended</span><br><span class="line">/dev/sda5       124782592 125827071   1044480  510M 82 Linux swap / Solaris</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 1 GiB, 1073741824 bytes, 2097152 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">root@shackle:~# mount /dev/sdb  /mnt/  # 挂载</span><br><span class="line">root@shackle:~# cd /mnt/</span><br><span class="line">root@shackle:/mnt# cat flag1.txt</span><br><span class="line">Congratulations! You&apos;ve discovered the first flag!</span><br><span class="line"></span><br><span class="line">flag1&#123;c0abc15976b98a478150c900ebb0c86f0327f4dd&#125;</span><br><span class="line"></span><br><span class="line">Let&apos;s see how you go with the next one...</span><br></pre></td></tr></table></figure>
-<h2 id="Nikto-v2-1-6"><a href="#Nikto-v2-1-6" class="headerlink" title="- Nikto v2.1.6"></a>- Nikto v2.1.6</h2><ul>
-<li>Target IP: 210.44.112.115</li>
-<li>Target Hostname: cs.lcu.edu.cn</li>
-<li>Target Port: 80</li>
-<li>Start Time: 2017-09-19 23:44:55 (GMT8)</li>
-</ul>
-<hr>
-<ul>
-<li>Server: Apache</li>
-<li>Retrieved x-powered-by header: PHP/5.4.29</li>
-<li>The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS</li>
-<li>Uncommon header ‘link’ found, with contents: <a href="http://cs.lcu.edu.cn/" target="_blank" rel="noopener">http://cs.lcu.edu.cn/</a>; rel=shortlink</li>
-<li>The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type</li>
-<li>Entry ‘/wp-admin/‘ in robots.txt returned a non-forbidden or redirect HTTP code (302)</li>
-<li>“robots.txt” contains 2 entries which should be manually viewed.</li>
-<li>Uncommon header ‘tcn’ found, with contents: list</li>
-<li>Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. See <a href="http://www.wisec.it/sectou.php?id=4698ebdc59d15" target="_blank" rel="noopener">http://www.wisec.it/sectou.php?id=4698ebdc59d15</a>. The following alternatives for ‘index’ were found: index.php</li>
-<li>Web Server returns a valid response with junk HTTP methods, this may cause false positives.</li>
-<li>Server leaks inodes via ETags, header found with file /sitemap.xml, fields: 0x0 0x4fc7e6798f940</li>
-<li>OSVDB-12184: /?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
-<li>OSVDB-12184: /?=PHPE9568F36-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
-<li>OSVDB-12184: /?=PHPE9568F34-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
-<li>OSVDB-12184: /?=PHPE9568F35-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.</li>
-<li>OSVDB-3092: /news: This might be interesting…</li>
-<li>/test/test.php: Output from the phpinfo() function was found.</li>
-<li>OSVDB-3233: /test/test.php: PHP is installed, and a test script which runs phpinfo() was found. This gives a lot of system information.</li>
-<li>OSVDB-3092: /LICENSE.txt: License file found may identify site software.</li>
-<li>OSVDB-3092: /xmlrpc.php: xmlrpc.php was found.</li>
-<li>OSVDB-3092: /ci/: This might be interesting… potential country code (CÔte D’ivoire)</li>
-<li>/wp-content/plugins/akismet/readme.txt: The WordPress Akismet plugin ‘Tested up to’ version usually matches the WordPress version</li>
-<li>/readme.html: This WordPress file reveals the installed version.</li>
-<li>/wp-links-opml.php: This WordPress script reveals the installed version.</li>
-<li>OSVDB-3092: /license.txt: License file found may identify site software.</li>
-<li>OSVDB-3092: /LICENSE.TXT: License file found may identify site software.</li>
-<li>Cookie wordpress_test_cookie created without the httponly flag</li>
-<li>/wp-login/: Admin login page/section found.</li>
-<li>/wordpress/: A Wordpress installation was found.</li>
-<li>8369 requests: 0 error(s) and 28 item(s) reported on remote host</li>
-<li>End Time: 2017-09-20 00:59:39 (GMT8) (4484 seconds)</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/渗透/">渗透</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-姿势估计背景历史"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1460,11 +1363,68 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-Violent Python"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/04/07/Violent Python/">Violent Python</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/04/07/Violent Python/" class="article-date">
+	  <time datetime="2017-04-07T15:53:56.000Z" itemprop="datePublished">2017-04-07</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Violent-Python"><a href="#Violent-Python" class="headerlink" title="Violent Python"></a>Violent Python</h1><p><a href="http://shackles.top/2017/04/07/violent%20python%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E7%AC%AC%E4%BA%8C%E7%AB%A0/"> 2017-04-07</a></p>
+<h1 id="用pyhon进行渗透测试"><a href="#用pyhon进行渗透测试" class="headerlink" title="用pyhon进行渗透测试"></a>用pyhon进行渗透测试</h1><h2 id="2-1-编写端口扫描"><a href="#2-1-编写端口扫描" class="headerlink" title="2.1 编写端口扫描"></a>2.1 编写端口扫描</h2><h3 id="2-1-1-TCP全连接扫描"><a href="#2-1-1-TCP全连接扫描" class="headerlink" title="2.1.1 TCP全连接扫描"></a>2.1.1 TCP全连接扫描</h3><ol>
+<li>TCP 全连接扫描：socket 和 optpares</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.gethostbyname(hostname) \\</span><br><span class="line">socket.gethostbyaddr(ip addreess) \\</span><br><span class="line">socket.socket(\[family\[,type\[,proto]]])\\</span><br><span class="line">socket.create_connection(addrees\[,timeout\[,surece_address]])</span><br></pre></td></tr></table></figure>
+<ol>
+<li>​</li>
+</ol>
+<p>optparse 模块是python的内建模块应用于处理命令行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from optparse import OptionParser  </span><br><span class="line">[...]  </span><br><span class="line"></span><br><span class="line">parser = OptionParser()  </span><br><span class="line"></span><br><span class="line">parser.add_option(&quot;-f&quot;, &quot;--file&quot;, dest=&quot;filename&quot;,  </span><br><span class="line">                  help=&quot;write report to FILE&quot;, metavar=&quot;FILE&quot;)  </span><br><span class="line">parser.add_option(&quot;-q&quot;, &quot;--quiet&quot;,  </span><br><span class="line">                  action=&quot;store_false&quot;, dest=&quot;verbose&quot;, default=True,  </span><br><span class="line">                  help=&quot;don&apos;t print status messages to stdout&quot;)  </span><br><span class="line">  </span><br><span class="line">(options, args) = parser.parse_args()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">故命令行可以使用：</span><br><span class="line"></span><br><span class="line">usage: &lt;yourscript&gt; [options]  </span><br><span class="line">  </span><br><span class="line">options:  </span><br><span class="line">  -h, --help            show this help message and exit  </span><br><span class="line">  -f FILE, --file=FILE  write report to FILE  </span><br><span class="line">  -q, --quiet           don&apos;t print status messages to stdout</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-2-抓取应用的Banner"><a href="#2-2-2-抓取应用的Banner" class="headerlink" title="2.2.2 抓取应用的Banner"></a>2.2.2 抓取应用的Banner</h3><h3 id="2-2-3-线程扫描"><a href="#2-2-3-线程扫描" class="headerlink" title="2.2.3 线程扫描"></a>2.2.3 线程扫描</h3><p>python-nmap 利用python 调用nmap</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TCP SYN 扫描 ：又称为半开放扫描，这种类型的扫描发送一个SYN的TCP连接数包等待响应，当返回RST数据包表示端口关闭，返回ACK数据包表示端口开放。</span><br><span class="line"></span><br><span class="line">TCP NULL 扫描 ：TCP空扫描设置TCP的标志头为零。如果返回一个RST数据包则表示这个端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP FIN 扫描 : TCP FIN扫描发送一个FIN数据包，主动关闭连接，等待一个圆满的终止，如果返回RST数据包则表示端口是关闭的。</span><br><span class="line"></span><br><span class="line">TCP XMAS 扫描 ：TCP XMAS扫描设置 PSH, FIN,和URG TCP标志位，如返回RST数据包则表示这个端口是关闭的。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-</span><br><span class="line">#  输入主机名与端口-&gt;主机名变为IPV4地址-&gt;</span><br><span class="line">import optparse</span><br><span class="line">import socket</span><br><span class="line">import  threading</span><br><span class="line"></span><br><span class="line">###</span><br><span class="line"># 建立socket连接</span><br><span class="line">def connScan(tgtHost,tgtPort):</span><br><span class="line">    try:</span><br><span class="line">        connSkt = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">        connSkt.connect((tgtHost,tgtPort))</span><br><span class="line">        print &apos;[+]%d/tcp open&apos;%tgtPort</span><br><span class="line">        connSkt.close()</span><br><span class="line">    except:</span><br><span class="line">        print &apos;[-]%d/tcp closed &apos;% tgtPort</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 定义端口扫描函数</span><br><span class="line">def portScan(tgtHost, tgtPorts):</span><br><span class="line">    try:</span><br><span class="line">        tgtIP = socket.gethostbyname(tgtHost)</span><br><span class="line"></span><br><span class="line">    except: </span><br><span class="line">        print &quot;[-] Cannot resolve &apos;%s&apos;: Unknown host&quot; % tgtHost</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        tgtName = socket.gethostbyaddr(tgtIP)</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtName[0]</span><br><span class="line">    except:</span><br><span class="line">        print &apos;\n[+] Scan Results for: &apos; + tgtIP</span><br><span class="line">    socket.setdefaulttimeout(1)</span><br><span class="line">    ### 多线程，多端口</span><br><span class="line">    for tgtPort in tgtPorts:</span><br><span class="line">        print(&apos;Scanning port &apos; + str(tgtPort))</span><br><span class="line">        t = threading.Thread(target=connScan, args=(tgtHost, int(tgtPort)))</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;use:  –H &lt;target host&gt; -P &lt;target port&gt;&apos;)  # 新建paser对象</span><br><span class="line">    parser.add_option(&apos;-H&apos;, &apos;--host&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;taget host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, &apos;--port&apos;, dest=&apos;tgtPort&apos;, type=&apos;int&apos;, help=&apos;taget port&apos;)</span><br><span class="line"></span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    # 已经定义好了所有的命令行参数，调用 parse_args() 来解析程序的命令行：</span><br><span class="line">    # options，它是一个对象（optpars.Values），保存有命令行参数值。只要知道命令行参数名，如 file，就可以访问其对应的值： options.file 。</span><br><span class="line">    # args，它是一个由 positional arguments 组成的列表。</span><br><span class="line"></span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)  # 设置端口列表</span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print parser.usage</span><br><span class="line">        exit(0)</span><br><span class="line">    portScan(tgtHost,args)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-4-利用NMAP"><a href="#2-2-4-利用NMAP" class="headerlink" title="2.2.4 利用NMAP"></a>2.2.4 利用NMAP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># -*- by shackle -*-\</span><br><span class="line">#  调用 nmap</span><br><span class="line"></span><br><span class="line">import optparse</span><br><span class="line">import nmap</span><br><span class="line"></span><br><span class="line">def nmapScan(tgtHost, tgtPort):</span><br><span class="line">    nmScan = nmap.PortScanner()</span><br><span class="line">    results = nmScan.scan(tgtHost, tgtPort)</span><br><span class="line">    state = results[&apos;scan&apos;][tgtHost][&apos;tcp&apos;][int(tgtPort)][&apos;state&apos;]</span><br><span class="line">    print(&quot; [*] &quot; + tgtHost + &quot; tcp/&quot; + tgtPort + &quot; &quot; + state)</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    parser = optparse.OptionParser(&apos;usage %prog –H &lt;target host&gt; -P &lt;target port&gt;&apos;)</span><br><span class="line">    parser.add_option(&apos;-H&apos;, dest=&apos;tgtHost&apos;, type=&apos;string&apos;, help=&apos;specify target host&apos;)</span><br><span class="line">    parser.add_option(&apos;-P&apos;, dest=&apos;tgtPort&apos;, type=&apos;string&apos;, help=&apos;specify target port&apos;)</span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    tgtHost = options.tgtHost</span><br><span class="line">    tgtPort = options.tgtPort</span><br><span class="line">    args.append(tgtPort)    </span><br><span class="line">    if (tgtHost == None) | (tgtPort == None):</span><br><span class="line">        print(&apos;[-] You must specify a target host and port[s]!&apos;)</span><br><span class="line">        exit(0)</span><br><span class="line">    for tgport in args:</span><br><span class="line">        nmapScan(tgtHost, tgport)</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
   </nav>
 
 </section>
