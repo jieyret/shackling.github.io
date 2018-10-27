@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>域内信息收集 | shackle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="内网渗透" />
+  
+  
+  
+  
+  <meta name="description" content="域内信息收集 ​    记录下域内信息收集的技巧总结  SRV记录（标明主机服务信息）SRV是DNS中的一种资源记录。SRV记录用于将服务的名称映射到提供该服务的服务器的DNS计算机名称。 简单来说，它标明了哪台主机提供哪种服务的信息。 Windows域中的服务会注册下列格式的srv记录： ​     _Service._Protocol.DnsDomainName 在windows域中，活动目录">
+<meta name="keywords" content="内网渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域内信息收集">
+<meta property="og:url" content="https://shackles.top/2018/04/11/域内信息收集/index.html">
+<meta property="og:site_name" content="shackle">
+<meta property="og:description" content="域内信息收集 ​    记录下域内信息收集的技巧总结  SRV记录（标明主机服务信息）SRV是DNS中的一种资源记录。SRV记录用于将服务的名称映射到提供该服务的服务器的DNS计算机名称。 简单来说，它标明了哪台主机提供哪种服务的信息。 Windows域中的服务会注册下列格式的srv记录： ​     _Service._Protocol.DnsDomainName 在windows域中，活动目录">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/181027/889FJF18ie.png?imageslim">
+<meta property="og:updated_time" content="2018-10-27T08:03:15.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="域内信息收集">
+<meta name="twitter:description" content="域内信息收集 ​    记录下域内信息收集的技巧总结  SRV记录（标明主机服务信息）SRV是DNS中的一种资源记录。SRV记录用于将服务的名称映射到提供该服务的服务器的DNS计算机名称。 简单来说，它标明了哪台主机提供哪种服务的信息。 Windows域中的服务会注册下列格式的srv记录： ​     _Service._Protocol.DnsDomainName 在windows域中，活动目录">
+<meta name="twitter:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/181027/889FJF18ie.png?imageslim">
+  
+    <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo1.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo1.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+/*    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}*/
+
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo1.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-域内信息收集" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      域内信息收集
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/04/11/域内信息收集/" class="article-date">
+	  <time datetime="2018-04-11T13:03:56.000Z" itemprop="datePublished">2018-04-11</time>
+	</a>
+
+      
+      
+
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="域内信息收集"><a href="#域内信息收集" class="headerlink" title="域内信息收集"></a>域内信息收集</h1><blockquote>
+<p>​    记录下域内信息收集的技巧总结</p>
+</blockquote>
+<h3 id="SRV记录（标明主机服务信息）"><a href="#SRV记录（标明主机服务信息）" class="headerlink" title="SRV记录（标明主机服务信息）"></a>SRV记录（标明主机服务信息）</h3><p>SRV是DNS中的一种资源记录。SRV记录用于<strong>将服务的名称映射到提供该服务的服务器的DNS计算机</strong>名称。</p>
+<p>简单来说，它<strong>标明了哪台主机提供哪种服务的信息</strong>。</p>
+<p>Windows域中的服务会注册下列格式的srv记录：</p>
+<p>​     _Service._Protocol.DnsDomainName</p>
+<p>在windows域中，活动目录的正常工作依赖于DNS。</p>
+<p>活动目录服务器通过tcp协议提供LDAP服务，因此它注册的srv记录类似于：</p>
+<p>​     _ldap._tcp.example.com</p>
+<p>域控制器则会以下面的形式注册srv记录：</p>
+<p>​    _Service._Protocol.DCType._msdcs.DomainName, 这里的DCType可以是dc(域控制器),gc(全局编录),pdc(主域控制器)等。</p>
+<p>例如：_ldap._tcp.dc._msdcs.example.com</p>
+<h4 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h4><p>nslookup是一种网络管理工具，用于查询域名系统（DNS）以获取域名或IP地址映射或任何其他特定的DNS记录。</p>
+<p>域控制器会注册一个srv记录，因此可以通过使用nslookup来查询这个srv记录，定位域控制器。</p>
+<p>交互式命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nslookup                             # 进入交互式界面</span><br><span class="line"></span><br><span class="line">set type=all                     # 设置记录类型，可以设置为srv</span><br><span class="line"></span><br><span class="line">ldap.tcp.dc._msdcs.exist.local    # 执行查询</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/181027/889FJF18ie.png?imageslim" alt="mark"></p>
+<p>nslookup输出</p>
+<p>nslookup</p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">服务器:  UnKnown</span><br><span class="line"></span><br><span class="line">Address:  172.17.0.128</span><br><span class="line"></span><br><span class="line">ldap.tcp.dc._msdcs.exist.com  SRV service location:</span><br><span class="line"></span><br><span class="line">          priority       = 0</span><br><span class="line"></span><br><span class="line">          weight       = 100</span><br><span class="line"></span><br><span class="line">          port           = 389</span><br><span class="line"></span><br><span class="line">          svr hostname   = win-dc.example.com</span><br><span class="line"></span><br><span class="line">win-dc.example.com       internet address = 172.17.0.128               # 这里就是域控的地址</span><br></pre></td></tr></table></figure>
+<h3 id="SPN-服务主体名称"><a href="#SPN-服务主体名称" class="headerlink" title="SPN(服务主体名称)"></a>SPN(服务主体名称)</h3><p>SPN全名服务主体名称，作用是对服务进行<strong>唯一的标识</strong>。</p>
+<p>在windows域中，服务实例需要注册一个spn，这样才能使用kerberos身份验证。SPN的注册格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServiceName/FQDN:&lt;port | servicename&gt;</span><br></pre></td></tr></table></figure>
+<p>FQDN是指完全限定域名。它可以标识出主机的逻辑位置。FQDN的格式为：主机名.域名，例如，一台搭载webserver的服务器主机名为webserver，域名为example.com，则FQDN为<strong>webserver.example.com</strong></p>
+<p>SPN扫描</p>
+<p>​    在windows域环境中，spn扫描是发现服务最好的一种方式，因为spn扫描的原理是使用ldap来向域控查询，因此不需要扫描内网中的每一台主机，流量不仅较小而且也很正常（kerberos认证依赖spn）。</p>
+<p>下列是一些spn服务名的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TERMSERV   -  RDP</span><br><span class="line"></span><br><span class="line">HOST  -  主机</span><br><span class="line"></span><br><span class="line">VNC    -   VNC服务器</span><br><span class="line"></span><br><span class="line">MSSQL  -  sql  server</span><br></pre></td></tr></table></figure>
+<p>更多的spn服务名称，可以参考：<a href="https://adsecurity.org/?page_id=183" target="_blank" rel="noopener">https://adsecurity.org/?page_id=183</a></p>
+<h4 id="Setspn使用"><a href="#Setspn使用" class="headerlink" title="Setspn使用"></a>Setspn使用</h4><p>Setspn.exe</p>
+<p>Setspn是一款管理spn的命令行软件。我们可以用它来查看某台主机或账户的spn</p>
+<p>示例：</p>
+<p>查看netbios名称为DM1主机的spn</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setspn –L  DM1</span><br></pre></td></tr></table></figure>
+<p>查看账户example的spn</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setspn –L example</span><br></pre></td></tr></table></figure>
+<p>查看当前域中的所有spn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setspn –T ＊  -Q  /</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\shackle&gt;Setspn</span><br><span class="line">缺少参数: accountname。</span><br><span class="line"></span><br><span class="line">用法: Setspn [modifiers switch] [accountname]</span><br><span class="line">  其中 "accountname" 可以是目标计算机或</span><br><span class="line">  用户帐户的名称或域\名称</span><br><span class="line"></span><br><span class="line">  编辑模式开关:</span><br><span class="line">   -R = 重置 HOST ServicePrincipalName</span><br><span class="line">    用法:   setspn -R accountname</span><br><span class="line">   -S = 验证不存在重复项之后，添加任意 SPN</span><br><span class="line">    用法:   setspn -S SPN accountname</span><br><span class="line">   -D = 删除任意 SPN</span><br><span class="line">    用法:   setspn -D SPN accountname</span><br><span class="line">   -L = 列出在目标帐户中注册的 SPN</span><br><span class="line">    用法:   setspn [-L] accountname</span><br><span class="line"></span><br><span class="line">  编辑模式修饰符:</span><br><span class="line">   -C = 指定 accountname 是计算机帐户</span><br><span class="line">   -U = 指定 accountname 是用户帐户</span><br><span class="line"></span><br><span class="line">    注意: -C 和 -U 具有排他性。如果两者均未指定，</span><br><span class="line">     则工具在存在此类计算机时将 accountname 解释为计算机名，</span><br><span class="line">     不存在时解释为用户名。</span><br><span class="line"></span><br><span class="line">  查询模式开关:</span><br><span class="line">   -Q = 查询 SPN 是否存在</span><br><span class="line">    用法:   setspn -Q SPN</span><br><span class="line">   -X = 搜索重复的 SPN</span><br><span class="line">    用法:   setspn -X</span><br><span class="line"></span><br><span class="line">    注意: 搜索重复项(尤其在林范围内)可能需要</span><br><span class="line">     较长的时间，并占用大量内存。 -Q 将在</span><br><span class="line">     每个目标域/林上执行。-X 将返回存在于所有目标中的</span><br><span class="line">     重复项。不要求 SPN 在各个林之间是唯一的，</span><br><span class="line">     但重复项可能会导致在跨林进行身份验证时</span><br><span class="line">     出现身份验证问题。</span><br><span class="line"></span><br><span class="line">  查询模式修饰符:</span><br><span class="line">   -P = 抑制控制台的进度，可在将输出重定向到</span><br><span class="line">    文件时或在无人参与脚本中使用时使用。</span><br><span class="line">    直到命令完成后，才会输出内容。</span><br><span class="line">   -F = 在林级别而不是域级别执行查询</span><br><span class="line">   -T = 在指定的域或林(同时使用 -F 时)上执行查询</span><br><span class="line">    用法:   setspn -T domain (开关和其他参数)</span><br><span class="line">     可以使用 "" 或 * 表示当前域或林。</span><br><span class="line"></span><br><span class="line">    注意: 可以将这些修饰符与 -S 开关一起使用，</span><br><span class="line">     以便在添加 SPN 之前指定应在何处执行重复检查。</span><br><span class="line">    注意: 可以多次指定 -T。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">setspn -R daserver1</span><br><span class="line">   它将注册 SPN "HOST/daserver1" 和 "HOST/&#123;DNS of daserver1&#125;"</span><br><span class="line">setspn -S http/daserver daserver1</span><br><span class="line">   如果域中不存在 SPN "http/daserver"，</span><br><span class="line">    它将为计算机 "daserver1" 注册此类 SPN</span><br><span class="line">setspn -D http/daserver daserver1</span><br><span class="line">   它将删除计算机 "daserver1" 的 SPN "http/daserver"</span><br><span class="line">setspn -F -S http/daserver daserver1</span><br><span class="line">   如果林中不存在 SPN "http/daserver"，</span><br><span class="line">    它将为计算机 "daserver1" 注册此类 SPN</span><br><span class="line">setspn -U -S http/daserver dauser</span><br><span class="line">   如果域中不存在 SPN "http/daserver"，</span><br><span class="line">     它将为用户帐户 "dauser" 注册此类 SPN</span><br><span class="line">setspn -T * -T bar -X</span><br><span class="line">   它将报告此域和 bar 中的所有重复 SPN 注册</span><br><span class="line">setspn -T bar -F -Q */daserver</span><br><span class="line">   它将查找在 bar 所属的林中以 */daserver 形式</span><br><span class="line">    注册的所有 SPN</span><br></pre></td></tr></table></figure>
+<h3 id="Netview使用（收集域内主机共享、ip、是否为域控等信息）"><a href="#Netview使用（收集域内主机共享、ip、是否为域控等信息）" class="headerlink" title="Netview使用（收集域内主机共享、ip、是否为域控等信息）"></a>Netview使用（收集域内主机共享、ip、是否为域控等信息）</h3><p>Netview.exe</p>
+<p>Netview 能够收集域内主机共享、ip、是否为域控等信息。</p>
+<p>Github项目地址：<a href="https://github.com/mubix/netview" target="_blank" rel="noopener">https://github.com/mubix/netview</a></p>
+<p>​    将主机名（或ip地址）列表保存在文件host.txt中，使用netview –f  host.txt来信息收集</p>
+<p>Netsess.exe    </p>
+<p>工具能够列举目标主机上的NetBIOS session，通常不依赖于管理员权限（-full参数列出所有会话需要管理权限）。</p>
+<p>下载地址：<a href="http://www.joeware.net/freetools/tools/netsess/index.htm" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/netsess/index.htm</a></p>
+<p>示例：</p>
+<p>​    如果有一台域成员（192.168.1.128）机器net view了本机的共享（192.168.1.130），那么它与本机之间会存在一个netbios会话，可以使用下列命令来查看会话用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsess  -h  192.168.1.130  -c \192.168.1.128</span><br></pre></td></tr></table></figure>
+<p>这里的-h参数指定了服务器的地址，-c参数则指定了客户端的地址 </p>
+<h3 id="Nltest（测试域间的信任关系）"><a href="#Nltest（测试域间的信任关系）" class="headerlink" title="Nltest（测试域间的信任关系）"></a>Nltest（测试域间的信任关系）</h3><p>Nltest.exe</p>
+<p><strong>Nltest可以用来测试域间的信任关系。</strong></p>
+<p>示例：</p>
+<p>Nltest /domain_trusts</p>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List of domain trusts:</span><br><span class="line"></span><br><span class="line">    0: TURING turing.com (NT 5) (Forest Tree Root) (Direct Outbound) (Direct Inbound) ( Attr: 0x20 )</span><br><span class="line"></span><br><span class="line">    1: SUBDOMAIN subdomain.turing.com (NT 5) (Forest: 0) (Primary Domain) (Native)</span><br></pre></td></tr></table></figure>
+<p>Nltest.exe</p>
+<p>以域A做参照域（Primary Domain），另一个域为域B。</p>
+<p>①Direct Inbound（内传）</p>
+<p>域B为信任域，域A为可信域。信任方向B -》A</p>
+<p>②Direct Outbound（外传）</p>
+<p>域A为信任域，域B为可信域。信任方向A -》 B</p>
+<h3 id="ADFind（活动目录查询工具）"><a href="#ADFind（活动目录查询工具）" class="headerlink" title="ADFind（活动目录查询工具）"></a>ADFind（活动目录查询工具）</h3><p>Adfind是一款活动目录查询工具。</p>
+<p>下载地址：<a href="http://www.joeware.net/freetools/tools/adfind/" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/adfind/</a></p>
+<p>用户手册：<a href="http://www.joeware.net/freetools/tools/adfind/usage.htm" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/adfind/usage.htm</a></p>
+<p>示例：</p>
+<p>查询域中活动的主机,输出主机名和域名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind –sc computers_active name dnshostname</span><br></pre></td></tr></table></figure>
+<p>列出域控列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind –sc dclist</span><br></pre></td></tr></table></figure>
+<p>根据email查询域用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind –sc email:exist@example.com</span><br></pre></td></tr></table></figure>
+<p>ADFind示例</p>
+<p>示例：</p>
+<p>查询域中主机的spn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind -b cn=computers,dc=example,dc=com servicePrincipalName</span><br></pre></td></tr></table></figure>
+<p>查询域管理员账户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind -b cn=&quot;Domain admins&quot;,cn=users,dc=example,dc=com member</span><br></pre></td></tr></table></figure>
+<p>获取dns记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b DC=exist.com,CN=MicrosoftDNS,DC=DomainDnsZones,DC=example,DC=com dn</span><br></pre></td></tr></table></figure>
+<h3 id="PVEFindADUser-定位用户登录位置"><a href="#PVEFindADUser-定位用户登录位置" class="headerlink" title="PVEFindADUser(定位用户登录位置)"></a>PVEFindADUser(定位用户登录位置)</h3><p>PVEFindADUser.exe</p>
+<p>用来定位用户登录的位置，依赖管理员权限，输出会保存在一个csv文件中。</p>
+<p>Github地址：<a href="https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe" target="_blank" rel="noopener">https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe</a></p>
+<p>示例：</p>
+<p>显示每台计算机上登录的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindaduser –current  -noping</span><br></pre></td></tr></table></figure>
+<p>查看172.17.0.132主机上登录的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADuser  -current  -target 172.17.0.132</span><br></pre></td></tr></table></figure>
+<p>查看每台计算机上次登录的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADuser  -last</span><br></pre></td></tr></table></figure>
+<h3 id="PowerSploit"><a href="#PowerSploit" class="headerlink" title="PowerSploit"></a>PowerSploit</h3><p>PowerSploit是一款powershell后渗透框架</p>
+<p>项目地址：<a href="https://github.com/PowerShellMafia/PowerSploit" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit</a></p>
+<p>框架一共分为下面几大块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CodeExecution  - 代码执行，用来执行代码、dll注入、shellcode注入等</span><br><span class="line"></span><br><span class="line">AntivirusBypass  - 用来检测杀软特征码</span><br><span class="line"></span><br><span class="line">Exfiltration  -  主要用来窃取敏感数据，比如sam数据库，窃取用户密码、记录键盘等</span><br><span class="line"></span><br><span class="line">Mayhem  -  可以使目标蓝屏等</span><br><span class="line"></span><br><span class="line">Persistence  -  用于持久控制</span><br><span class="line"></span><br><span class="line">Privesc  - 用于帮助提权</span><br><span class="line"></span><br><span class="line">Recon   -  信息收集模块</span><br><span class="line"></span><br><span class="line">ScriptModification    -  脚本加密、混淆等</span><br></pre></td></tr></table></figure>
+<p>PowerSploit中的脚本可以单独拿出来使用。</p>
+<p>通常的使用方法是：</p>
+<p>1.首先Powershell –ep bypass</p>
+<p>2.然后Import-Module 脚本名</p>
+<p>3.最后调用脚本中的函数名，比如import了invoke-shellcode.ps1,则执行可以输入invoke-shellcode arg1  arg2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line"></span><br><span class="line">Invoke-Mimikatz是Mimikatz的powershell版。有些功能需要bypass uac。</span><br><span class="line"></span><br><span class="line">获取内存中的凭证：</span><br><span class="line"></span><br><span class="line">     invoke-mimikatz –dumpcreds</span><br><span class="line"></span><br><span class="line">执行mimikatz命令</span><br><span class="line"></span><br><span class="line">     invoke-mimikatz  -command “token::whoami exit”</span><br></pre></td></tr></table></figure>
+<h3 id="PowerView工具"><a href="#PowerView工具" class="headerlink" title="PowerView工具"></a>PowerView工具</h3><p>PowerView</p>
+<p>Powerview是一款域渗透工具。它包含了部分adfind拥有的功能，同时增加了一些新的功能。</p>
+<p>工具使用powershell开发，配合cobalt strike等工具使用十分方便。</p>
+<p>下载地址：<a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1" target="_blank" rel="noopener">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1</a></p>
+<p>项目的README在<a href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon</a>， 里面有Powerview中的函数说明。</p>
+<p>参考文章：</p>
+<p><a href="https://www.harmj0y.net/blog/powershell/the-powerview-powerusage-series-1/" target="_blank" rel="noopener">https://www.harmj0y.net/blog/powershell/the-powerview-powerusage-series-1/</a></p>
+<p>遇到不知道如何使用的函数时，记得使用get-help</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.Get-NetDomain  -  获取域信息</span><br><span class="line"></span><br><span class="line">2.Get-NetForest    -  获取林信息</span><br><span class="line"></span><br><span class="line">3.Get-NetDomainController  -  获取域控制器信息</span><br><span class="line"></span><br><span class="line">4.Get-Proxy – 获取代理信息</span><br><span class="line"></span><br><span class="line">5.Invoke-ProcessHunter   -  获取进程信息，可以指定用户名搜索，也可以指定进程名搜索</span><br><span class="line"></span><br><span class="line">6.Get-NetShare  -  获取共享信息</span><br></pre></td></tr></table></figure>
+<h3 id="CSVDE-amp-LDIFDE工具"><a href="#CSVDE-amp-LDIFDE工具" class="headerlink" title="CSVDE&amp;LDIFDE工具"></a>CSVDE&amp;LDIFDE工具</h3><p>Csvde和ldifde的功能基本相同，都是从ad ds中导入/导出数据，区别在于前者处理csv格式的数据，后者处理ldif格式的数据。Csvde参数与ldifde参数基本相同，这里仅举csvde的几个例子：</p>
+<p>在安装了ad ds/lds服务的计算机上才会启用此工具，工具位于%windir%\system32\csvde.exe</p>
+<p>从活动目录中导出用户信息：</p>
+<p>   csvde  -d “cn=users,dc=example,dc=com” –r “objectclass=user” –f output.csv</p>
+<p>从活动目录中导出域控信息：</p>
+<p>   csvde  -d “ou=domain\20controllers,dc=example,dc=com”  -r “objectclass=computer” –f output.csv</p>
+<p>-d 参数用来设置rootdn，说简单点就是目录树搜索开始的地方， -r参数指定过滤器</p>
+<h3 id="ADExplorer-exe工具"><a href="#ADExplorer-exe工具" class="headerlink" title="ADExplorer.exe工具"></a>ADExplorer.exe工具</h3><p>ADExplorer.exe</p>
+<p>一款查看域结构的工具。</p>
+<p>下载地址：<a href="https://download.sysinternals.com/files/AdExplorer.zip" target="_blank" rel="noopener">https://download.sysinternals.com/files/AdExplorer.zip</a></p>
+<h3 id="LDAPSearch工具"><a href="#LDAPSearch工具" class="headerlink" title="LDAPSearch工具"></a>LDAPSearch工具</h3><p>LDAPSearch</p>
+<p>Ldapsearch是linux下的ldap客户端。</p>
+<p>示例：</p>
+<p>​        ldapsearch -x -h 172.17.0.128 -b “cn=computers,dc=example,dc=com” -D “<a href="mailto:exist@example.com" target="_blank" rel="noopener">exist@example.com</a>“ –w “123456” “(!(dnshostname=DOMAIN1DM1.example.com))“</p>
+<p>参数解释：</p>
+<p>​       -x  进行认证</p>
+<p>​       -h  设置主机</p>
+<p>​       -b  设置basedn</p>
+<p>​       -D  设置用户名</p>
+<p>​       -w  设置密码</p>
+<p>​       “(!(dnshostname=DOMAIN1DM1.example.com))“    对结果进行过滤，使用ldap语法</p>
+<h2 id="横向拓展常见漏洞利用"><a href="#横向拓展常见漏洞利用" class="headerlink" title="横向拓展常见漏洞利用"></a>横向拓展常见漏洞利用</h2><h3 id="GPP漏洞"><a href="#GPP漏洞" class="headerlink" title="GPP漏洞"></a>GPP漏洞</h3><p>组策略</p>
+<blockquote>
+<p>组策略是windows操作系统中的一种基础架构，用来帮助管理员对用户及计算机实施特定的配置。</p>
+</blockquote>
+<p>组策略分为两种类型：本地组策略和域组策略。本地组策略适用于未加入域和已加入域但未登录到域的计算机。域组策略存储在域控制器上，只能在活动目录环境中使用。</p>
+<ul>
+<li>组策略对象</li>
+</ul>
+<p>组策略对象（GPO）是一组组策略设置的集合。</p>
+<ul>
+<li>组策略首选项</li>
+</ul>
+<p>组策略首选项（Group Policy Preference, GPP）借助组策略对象（Group Policy Object, GPO）实现了对域中所有资源的管理。</p>
+<p>组策略对象包含两部分：组策略容器（GPC）和组策略模板（GPT）。组策略容器存储在ad数据库中，主要记录gpo的版本和属性等信息，而组策略模板则是一个文件夹，位置默认在%systemroot%\sysvol\sysvol\domainname\Policies{GUID}   </p>
+<p>SYSVOL文件夹</p>
+<p>默认位置在%systemroot%\sysvol，用来存储组策略配置及脚本等文件，其子文件夹sysvol对应于DC上的SYSVOL共享，域成员均有权限读取此共享。</p>
+<p>GPP漏洞</p>
+<p>1.管理员常用组策略首选项功能： 为所有域成员主机添加本地用户。</p>
+<p>2.添加此组策略首选项后，当域成员更新组策略时，会从域控的sysvol共享中下载一个groups.xml文件，里面有新建用户的信息，其中包含了加密的密码</p>
+<p>3.Xml文件内容示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Groups</span> <span class="attr">clsid</span>=<span class="string">"&#123;3125E937-EB16-4b4c-9934-544FC6D24D26&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">User</span> <span class="attr">clsid</span>=<span class="string">"&#123;DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1&#125;"</span> <span class="attr">name</span>=<span class="string">"example"</span> <span class="attr">image</span>=<span class="string">"2"</span> <span class="attr">changed</span>=<span class="string">"2018-03-05 13:40:42"</span> <span class="attr">uid</span>=<span class="string">"&#123;0C50F05E-D3D5-4C91-B5FE-8991CD22231D&#125;"</span> <span class="attr">userContext</span>=<span class="string">"0"</span> <span class="attr">removePolicy</span>=<span class="string">"0"</span>&gt;</span><span class="tag">&lt;<span class="name">Properties</span> <span class="attr">action</span>=<span class="string">"U"</span> <span class="attr">newName</span>=<span class="string">""</span> <span class="attr">fullName</span>=<span class="string">"example"</span> <span class="attr">description</span>=<span class="string">""</span> <span class="attr">cpassword</span>=<span class="string">"SZ/RdrwxoUkV5Gv+C5cYmdW7XWbSfA6WFaY+7xTlIU8"</span> <span class="attr">changeLogon</span>=<span class="string">"0"</span> <span class="attr">noChange</span>=<span class="string">"0"</span> <span class="attr">neverExpires</span>=<span class="string">"1"</span> <span class="attr">acctDisabled</span>=<span class="string">"0"</span> <span class="attr">subAuthority</span>=<span class="string">""</span> <span class="attr">userName</span>=<span class="string">"example"</span>/&gt;</span><span class="tag">&lt;/<span class="name">User</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Groups</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>微软公开了它的对称AES密钥，因此我们可以对其进行解密。</p>
+<ul>
+<li>介绍一款漏洞利用的工具：Get-GPPPassword</li>
+</ul>
+<p>这个powershell脚本包含在powersploit框架中。使用时需要import-module后调用get-gpppassword这个cmdlet。</p>
+<p>如果出现下列错误：</p>
+<p>Get-DecryptedCpassword : 找不到类型 [System.Security.Cryptography.AesCryptoServiceProvider]: 请确保已加载包含此类型的程序集。</p>
+<p>可以在运行前执行下列命令：Add-Type -AssemblyName System.Core</p>
+<h3 id="MS14-068漏洞"><a href="#MS14-068漏洞" class="headerlink" title="MS14-068漏洞"></a>MS14-068漏洞</h3><p>MS14-068</p>
+<p>Ms14-068漏洞可以使任意一个普通域用户提升至</p>
+<p>域管理员权限。</p>
+<p>利用工具：</p>
+<p>Kekeo 项目地址：</p>
+<p><a href="https://github.com/gentilkiwi/kekeo" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo</a></p>
+<p>示例：</p>
+<p>在拿到一个域用户的密码后，使用下列命令生成票据：</p>
+<p>Exploit::ms14068  /domain:example.com  /user:example  /password:Welcometoexample</p>
+<p>这会在kekeo目录下生成一张票据。之后使用kerberos::purge来清除内存中已有的票据，等待数秒后，使用</p>
+<p>Kerberos::ptt  票据文件名 来导入票据。如果上述操作没有问题的话，现在已经拥有域管理员权限，可以使用dir \域控主机名\c$来测试一下权限，能列出目录则说明已是域管理员权限。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTMwOS8xMTg0NQ">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网渗透/">内网渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/13/Drupal远程代码执行漏洞(CVE-2018-7600)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Drupal远程代码执行漏洞CVE-2018-7600
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/09/BSides Vancouver/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Vulnhub 靶机渗透初见</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#域内信息收集"><span class="nav-number">1.</span> <span class="nav-text">域内信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SRV记录（标明主机服务信息）"><span class="nav-number">1.0.1.</span> <span class="nav-text">SRV记录（标明主机服务信息）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nslookup"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">nslookup</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPN-服务主体名称"><span class="nav-number">1.0.2.</span> <span class="nav-text">SPN(服务主体名称)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Setspn使用"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">Setspn使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Netview使用（收集域内主机共享、ip、是否为域控等信息）"><span class="nav-number">1.0.3.</span> <span class="nav-text">Netview使用（收集域内主机共享、ip、是否为域控等信息）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nltest（测试域间的信任关系）"><span class="nav-number">1.0.4.</span> <span class="nav-text">Nltest（测试域间的信任关系）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADFind（活动目录查询工具）"><span class="nav-number">1.0.5.</span> <span class="nav-text">ADFind（活动目录查询工具）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PVEFindADUser-定位用户登录位置"><span class="nav-number">1.0.6.</span> <span class="nav-text">PVEFindADUser(定位用户登录位置)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PowerSploit"><span class="nav-number">1.0.7.</span> <span class="nav-text">PowerSploit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PowerView工具"><span class="nav-number">1.0.8.</span> <span class="nav-text">PowerView工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSVDE-amp-LDIFDE工具"><span class="nav-number">1.0.9.</span> <span class="nav-text">CSVDE&amp;LDIFDE工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADExplorer-exe工具"><span class="nav-number">1.0.10.</span> <span class="nav-text">ADExplorer.exe工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LDAPSearch工具"><span class="nav-number">1.0.11.</span> <span class="nav-text">LDAPSearch工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#横向拓展常见漏洞利用"><span class="nav-number">1.1.</span> <span class="nav-text">横向拓展常见漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GPP漏洞"><span class="nav-number">1.1.1.</span> <span class="nav-text">GPP漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MS14-068漏洞"><span class="nav-number">1.1.2.</span> <span class="nav-text">MS14-068漏洞</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1261091520&web_id=1261091520" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            shackle
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 shackle All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

