@@ -131,7 +131,7 @@
 <meta property="og:image" content="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-TS-MultiRDP.png">
 <meta property="og:image" content="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-TS-Sessions.png">
 <meta property="og:image" content="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Vault-List.png">
-<meta property="og:updated_time" content="2018-10-16T13:36:27.767Z">
+<meta property="og:updated_time" content="2018-11-14T13:10:53.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mimikatz">
 <meta name="twitter:description" content="Mimikatz常见命令 cls—————————–清屏 exit—————————-退出 version————查看mimikatz的版本 system::user—–查看当前登录的系统用户 system::computer——-查看计算机名称 process::list——————列出进程 process::suspend 进程名称 —–暂停进程 process::stop 进程名称———结束">
@@ -324,7 +324,7 @@
 <li>sekurlsa::tspkg——获取tspkg用户信息及密码</li>
 <li>sekurlsa::logonPasswords–获登陆用户信息及密码</li>
 </ul>
-<p>来自：<a href="https://adsecurity.org/?page_id=1821" target="_blank" rel="noopener">https://adsecurity.org/?page_id=1821</a></p>
+<p><strong>翻译来自</strong>：<a href="https://adsecurity.org/?page_id=1821" target="_blank" rel="noopener">https://adsecurity.org/?page_id=1821</a></p>
 <h5 id=""><a href="#" class="headerlink" title=""></a><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-LoadScreen-211-2017-11-28.png" alt="img"></h5><h3 id="Mimikatz概述："><a href="#Mimikatz概述：" class="headerlink" title="Mimikatz概述："></a><strong>Mimikatz概述：</strong></h3><p>Mimikatz是从Windows系统收集凭据数据的最佳工具之一。事实上，我认为Mimikatz是Windows凭证的“瑞士军刀”（或多工具） - 这是一个可以做任何事情的工具。由于Mimikatz，Benjamin Delpy的作者是法语，大多数描述Mimikatz使用的资源都是法语，至少在<a href="http://blog.gentilkiwi.com/" target="_blank" rel="noopener">他的博客上</a>。该<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">Mimikatz GitHub的库</a>是英文的，包括命令使用的有用信息。</p>
 <p><strong>Mimikatz</strong>是一个Windows x32 / x64程序，由Benjamin Delpy（@gentilkiwi）于2007年编写，用于了解有关Windows凭据（以及作为概念证明）的更多信息。有两个可选组件提供附加功能，<em>mimidrv</em>（与Windows内核交互的驱动程序）和<em>mimilib</em>（AppLocker旁路，Auth软件包/ SSP，密码过滤器和WinDBG的sekurlsa）。Mimikatz需要管理员或SYSTEM并经常debug权限以执行某些操作并与LSASS进程交互（取决于所请求的操作）。Mimikatz.exe包含或至少应包含其中指出的所有功能。</p>
 <p>Mimikatz功能可以通过<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">编译和运行您自己的版本</a>，运行<a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz可执行文件</a>，利用<a href="https://www.offensive-security.com/metasploit-unleashed/mimikatz/" target="_blank" rel="noopener">MetaSploit脚本</a>，<a href="https://github.com/PowerShellMafia/PowerSploit" target="_blank" rel="noopener">官方Invoke-Mimikatz PowerShell版本</a>或十几种Mimikatz PowerShell变体（我碰巧偏向<a href="https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1" target="_blank" rel="noopener">PowerShell Empire</a>，因为帝国很棒！）。</p>
@@ -1101,19 +1101,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/02/03/中间件安全-Tomcat 系列漏洞利用与安全加固/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Tomcat 系列漏洞利用与安全加固
+          Weblogic漏洞利用与安全加固
         
       </div>
     </a>
   
   
-    <a href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/12/01/Office远程代码执行漏洞（CVE-2017-11882）/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Weblogic漏洞利用与安全加固</div>
+      <div class="article-nav-title">Office远程代码执行漏洞（CVE-2017-11882）</div>
     </a>
   
 </nav>

