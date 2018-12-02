@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="PHP 代码审计_知识点来源于某大神~  感谢！ 1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x">
+  <meta name="description" content="PHP 代码审计_知识点1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x02漏洞代码及分析 漏洞代">
 <meta name="keywords" content="代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP 代码审计_知识点">
 <meta property="og:url" content="https://shackles.top/2017/10/20/PHP 代码审计_知识点/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="PHP 代码审计_知识点来源于某大神~  感谢！ 1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x">
+<meta property="og:description" content="PHP 代码审计_知识点1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x02漏洞代码及分析 漏洞代">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-04T13:03:53.687Z">
+<meta property="og:updated_time" content="2018-11-20T06:50:11.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP 代码审计_知识点">
-<meta name="twitter:description" content="PHP 代码审计_知识点来源于某大神~  感谢！ 1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x">
+<meta name="twitter:description" content="PHP 代码审计_知识点1.XSS1.1反射型XSS0x01漏洞背景XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。 0x02漏洞代码及分析 漏洞代">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -186,8 +186,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="PHP-代码审计-知识点"><a href="#PHP-代码审计-知识点" class="headerlink" title="PHP 代码审计_知识点"></a>PHP 代码审计_知识点</h1><p>来源于某大神~  感谢！</p>
-<h2 id="1-XSS"><a href="#1-XSS" class="headerlink" title="1.XSS"></a>1.XSS</h2><h3 id="1-1反射型XSS"><a href="#1-1反射型XSS" class="headerlink" title="1.1反射型XSS"></a>1.1反射型XSS</h3><h4 id="0x01漏洞背景"><a href="#0x01漏洞背景" class="headerlink" title="0x01漏洞背景"></a>0x01漏洞背景</h4><p>XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。<br>非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。</p>
+        <h1 id="PHP-代码审计-知识点"><a href="#PHP-代码审计-知识点" class="headerlink" title="PHP 代码审计_知识点"></a>PHP 代码审计_知识点</h1><h2 id="1-XSS"><a href="#1-XSS" class="headerlink" title="1.XSS"></a>1.XSS</h2><h3 id="1-1反射型XSS"><a href="#1-1反射型XSS" class="headerlink" title="1.1反射型XSS"></a>1.1反射型XSS</h3><h4 id="0x01漏洞背景"><a href="#0x01漏洞背景" class="headerlink" title="0x01漏洞背景"></a>0x01漏洞背景</h4><p>XSS攻击全称跨站脚本攻击，是为不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故将跨站脚本攻击缩写为XSS，XSS是一种在web应用中的计 算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。<br>非持久型跨站：反射型跨站脚本漏洞，最普遍的类型。</p>
 <h4 id="0x02漏洞代码及分析"><a href="#0x02漏洞代码及分析" class="headerlink" title="0x02漏洞代码及分析"></a>0x02漏洞代码及分析</h4><ul>
 <li>漏洞代码：</li>
 </ul>

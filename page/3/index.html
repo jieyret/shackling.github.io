@@ -254,6 +254,128 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-机器学习重要算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/10/01/机器学习重要算法/">机器学习重要算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/01/机器学习重要算法/" class="article-date">
+	  <time datetime="2017-10-01T15:53:56.000Z" itemprop="datePublished">2017-10-01</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="机器学习重要算法"><a href="#机器学习重要算法" class="headerlink" title="机器学习重要算法"></a>机器学习重要算法</h1><p>监督学习和非监督学习。</p>
+<p>监督学习： 分类和回归；</p>
+<p>监督学习： 聚类算法，密度估计算法。</p>
+<h2 id="分类-需已知样本特征"><a href="#分类-需已知样本特征" class="headerlink" title="分类 :需已知样本特征"></a>分类 :需已知样本特征</h2><ul>
+<li><strong>Classification (分类)</strong>，一个 classifier 会从它得到的训练集中进行“学习”，从而具备对未知数据进行分类的能力，这种提供训练数据的过程通常叫做 supervised learning (监督学习)（样本有标签），</li>
+<li>所谓分类，简单来说，就是根据文本的特征或属性，划分到已有的类别中。如在自然语言处理NLP中，我们经常提到的文本分类便就是一个分类问题，一般的模式分类方法都可用于文本分类研究。<ul>
+<li>常用的分类算法包括：<ul>
+<li>k-最近邻法(k-nearest neighbor，kNN)，</li>
+<li>决策树分类法，</li>
+<li>朴素的贝叶斯分类算法(native Bayesian classifier)(NBC)、</li>
+<li>基于支持向量机(SVM)的分类器，</li>
+<li>神经网络法(SNN)，  神经网络（CNN)</li>
+<li>模糊分类法等等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>分类作为一种监督学习方法，要求必须事先明确知道各个类别的信息，并且断言所有待分类项都有一个类别与之对应。但是很多时候上述条件得不到满足，尤其是在处理海量数据的时候，如果通过预处理使得数据满足分类算法的要求，则代价非常大，这时候可以考虑使用聚类算法。</p>
+<h2 id="聚类：把相似的对象聚合"><a href="#聚类：把相似的对象聚合" class="headerlink" title="聚类：把相似的对象聚合"></a>聚类：把相似的对象聚合</h2><ul>
+<li><strong>Clustering(聚类)</strong>，简单地说就是把<strong>相似</strong>的东西分到一组，聚类的时候，我们并不关心某一类是什么，我们需要实现的目标只是把相似的东西聚到一起，因此，一个聚类算法通常只需要知道如何计算相似 度就可以开始工作了，因此 clustering 通常并不需要使用训练数据进行学习，这在 Machine Learning 中被称作 unsupervised learning (无监督学习).</li>
+</ul>
+<p>聚类分析指将物理或抽象对象的集合分组为由类似的对象组成的多个类的分析过程。</p>
+<ul>
+<li>常用的分类算法包括：<ul>
+<li>而<strong>K均值</strong>(K-meansclustering)聚类则是最典型的聚类算法</li>
+<li>除此之外，还有很多诸如 属于划分法K-MEDOIDS算法、CLARANS算法；属于层次法的BIRCH算法、CURE算法、CHAMELEON算法等；基于密度的方法：DBSCAN算法、OPTICS算法、DENCLUE算法等；基于网格的方法：STING算法、CLIQUE算法、WAVE-CLUSTER算法；基于模型的方法，本系列后续会介绍其中几种。</li>
+</ul>
+</li>
+</ul>
+<p>参考大神博客：<a href="http://blog.csdn.net/v_july_v/article/details/7577684" target="_blank" rel="noopener">http://blog.csdn.net/v_july_v/article/details/7577684</a></p>
+<h1 id="分类算法"><a href="#分类算法" class="headerlink" title="分类算法"></a>分类算法</h1><h2 id="kNN-K-邻近算法"><a href="#kNN-K-邻近算法" class="headerlink" title="kNN K-邻近算法"></a>kNN K-邻近算法</h2><p>采用测量不同特征值之间的距离方法。进行分类。<br><strong>目标样本</strong>与<strong>存在标签的样本集</strong>作<strong>对比</strong>。 取前K个最为相似的数据，选择K最多的目标的新分类。</p>
+<p>给定训练数据样本和标签，对于某测试的一个样本数据，选择距离其最近的k个训练样本，这k个训练样本中所属类别最多的类即为该测试样本的预测标签。简称kNN。</p>
+<p>通常k是不大于20的整数，这里的距离一般是欧式距离。</p>
+<h3 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据（距离计算所需要的数值，最好是结构化的数据格式）</li>
+<li>分析数据：可以使用任何方法</li>
+<li>训练算法：此步骤不适合K-邻近算法</li>
+<li>测试算法：计算错误率</li>
+<li>使用算法：输入样本数据+结构化输出结果 —》然后运行k-近邻算法判定输入数据属于哪个分类-=-》最后应用对计算出的分类执行后续操作。</li>
+</ol>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><p>决策树学习采用的是自顶向下的递归方法，其基本思想是以信息熵为度量构造一棵熵值下降最快的树，到叶子节点处的熵值为零，此时每个叶节点中的实例都属于同一类。<br>以树的形式划分数据集(ID3算法)。</p>
+<h3 id="一般流程-1"><a href="#一般流程-1" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据(树构造算法只适用于标称型数据、数据必须离散化)</li>
+<li>分析数据：检查图形是否符合规范</li>
+<li>训练算法:构造<strong>树</strong>的<strong>数据结构</strong>(ID3算法等等)</li>
+<li>测试算法：使用经验树计算错误率</li>
+<li>使用算法:此步骤可以适用于任何监督学习算法，而使用决策树可以更好的理解数据的内在含义。</li>
+</ol>
+<h2 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h2><p>在给定目标值时属性之间相互条件独立的前提下，贝叶斯决策理论的核心思想：即选择具有最高概率的决策。 （基于条件概率）</p>
+<h3 id="一般流程-2"><a href="#一般流程-2" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据（需要数值型或者布尔型）</li>
+<li>分析数据</li>
+<li>训练算法：计算不同的独立特征的<strong>条件概率</strong></li>
+<li>测试算法：计算错误率</li>
+<li>使用算法：文档分类居多</li>
+</ol>
+<h1 id="回归（预测）"><a href="#回归（预测）" class="headerlink" title="回归（预测）"></a>回归（预测）</h1><h2 id="Logistic-回归"><a href="#Logistic-回归" class="headerlink" title="Logistic 回归"></a>Logistic 回归</h2><p>最优化算法。 logistic函数<br>根据现有的数据对于分类边界线建立回归公式。<br>参考：<a href="https://www.zhihu.com/question/36714044?sort=created" target="_blank" rel="noopener">https://www.zhihu.com/question/36714044?sort=created</a></p>
+<h3 id="一般流程-3"><a href="#一般流程-3" class="headerlink" title="一般流程"></a>一般流程</h3><ol>
+<li>收集数据（需要进行距离计算，数值型，结构化数据最佳）</li>
+<li>训练数据：大部分时间进行训练，训练的目的是为了找到最佳的分类回归系数。</li>
+<li>测试数据</li>
+<li>使用数据：输入数据–》结构化处理–》分类判定–》基于已经训练好的回归系数就可以对于这些数值进行简单的回归计算，判定它们属于哪个分类–》进一步处理</li>
+<li>​</li>
+</ol>
+<h2 id="support-vector-machine-SVM"><a href="#support-vector-machine-SVM" class="headerlink" title="support vector machine (SVM)"></a>support vector machine (SVM)</h2><p>支持向量机，因其英文名为support vector machine，故一般简称SVM，通俗来讲，它是一种<strong>二类分类</strong>模型，其基本模型定义为特征空间上的间隔最大的线性分类器，其学习策略便是间隔最大化，最终可转化为一个凸二次规划问题的求解。</p>
+<p>参考：<a href="http://blog.csdn.net/v_july_v/article/details/7624837" target="_blank" rel="noopener">http://blog.csdn.net/v_july_v/article/details/7624837</a></p>
+<p><a href="https://www.zhihu.com/question/21094489" target="_blank" rel="noopener">https://www.zhihu.com/question/21094489</a><br><a href="https://zhuanlan.zhihu.com/p/21932911?refer=baina" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21932911?refer=baina</a></p>
+<ul>
+<li>SVM通过核函数视图非线性的问题的数据集转变为核空间中一个<strong>线性</strong>可分的数据集。</li>
+<li>神经网络是通过多个感知器(Perceptron)的组合叠加来解决<strong>非线性</strong>的分类问题。</li>
+</ul>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>CNN(卷积神经网络)<br>CNN：<a href="https://www.zhihu.com/question/52668301" target="_blank" rel="noopener">https://www.zhihu.com/question/52668301</a></p>
+<h3 id="一般流程-4"><a href="#一般流程-4" class="headerlink" title="一般流程"></a>一般流程</h3><h1 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h1><p>#</p>
+<h2 id="隐马可夫模型-HMM"><a href="#隐马可夫模型-HMM" class="headerlink" title="隐马可夫模型(HMM)"></a>隐马可夫模型(HMM)</h2><h3 id="马可夫模型"><a href="#马可夫模型" class="headerlink" title="马可夫模型"></a>马可夫模型</h3><p>参考：<a href="https://www.zhihu.com/question/20962240" target="_blank" rel="noopener">https://www.zhihu.com/question/20962240</a></p>
+<p>马尔可夫模型可以看做是一个转移弧上有概率的非确定的有限状态自动机。<br><a href="http://osuq6jhys.bkt.clouddn.com/1337433786_7958.jpg" target="_blank" rel="noopener"><img src="http://osuq6jhys.bkt.clouddn.com/1337433786_7958.jpg" alt="image"></a>image</p>
+<p>在上图中，圆圈表示状态，状态之间的转移用带箭头的弧表示，弧上的数字为状态转移的概率，初始状态用标记为start的输入箭头表示，假设任何状态都可作为终止状态。图中零概率的转移弧省略，且每个节点上所有发出弧的概率之和等于1。</p>
+<h3 id="隐马可夫模型-HMM-1"><a href="#隐马可夫模型-HMM-1" class="headerlink" title="隐马可夫模型(HMM)"></a>隐马可夫模型(HMM)</h3><p>每个状态代表了一个可观察的事件，所以，马可夫模型有时又称作视马可夫模型(VMM)，这在某种程度上限制了模型的适应性。而在我们的隐马可夫模型(HMM)中，我们不知道模型所经过的状态序列，只知道状态的概率函数，也就是说，观察到的事件是状态的随机函数，因此改模型是一个双重的随机过程。其中，模型的状态转换是不可观察的，即隐蔽的，可观察事件的随机过程是隐蔽的状态过程的随机函数。</p>
+<h2 id="k-均值"><a href="#k-均值" class="headerlink" title="k-均值"></a>k-均值</h2><p>算法过程：Kmeans中文称为k-均值，步骤为：</p>
+<p>(1)它事先选定k个聚类中心，<br>(2)然后看每个样本点距离那个聚类中心最近，则该样本就属于该聚类中心。<br>(3)求每个聚类中心的样本的均值来替换该聚类中心(更新聚类中心)。<br>(4)不断迭代(2)和(3), 直到收敛。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-沙盒靶机渗透一"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -522,21 +644,21 @@
 <li><p>车载网络 C类网络</p>
 </li>
 </ol>
+<p><strong>攻击思路：</strong></p>
 <ol>
 <li>录制重放</li>
 <li>隔离重放</li>
 <li>实时</li>
 <li>man-in-the-middle</li>
 </ol>
-<p>###</p>
-<p>手机卡</p>
-<p>HMI 与车内 网络<br>软件操作系统的安全性、通讯安全、对于安全持续度量。</p>
+<p>##手机卡</p>
+<p>​    HMI 与车内 网络<br>软件操作系统的安全性、通讯安全、对于安全持续度量。</p>
 <h4 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h4><p>自动驾驶安全性问题</p>
 <ol>
-<li>方程式 Al</li>
+<li>方程式 Al  </li>
 <li>内部攻击</li>
 <li><ol>
-<li>传感信号伪造​</li>
+<li>传感信号伪造</li>
 </ol>
 </li>
 <li>自动驾驶以及车联网的整体安全架构<ol>
@@ -1046,7 +1168,6 @@
 <li>通过RGB图像进行关节点估计（Pose Estimation）获得。</li>
 <li>是通过深度摄像机直接获得（例如Kinect）。每一时刻（帧）骨架对应人体的K个关节点所在的坐标位置信息，一个时间序列由若干帧组成。行为识别就是对时域预先分割好的序列判定其所属行为动作的类型，即“读懂行为”。但在现实应用中更容易遇到的情况是序列尚未在时域分割（Untrimmed），因此需要同时对行为动作进行时域定位（分割）和类型判定，这类任务一般称为行为检测。</li>
 <li>主要问题：一方面是如何设计鲁棒和有强判别性的特征，另一方面是如何利用时域相关性来对行为动作的动态变化进行建模。</li>
-<li></li>
 </ol>
 <p>LSTM（Long-Short Term Memory）和循环神经系统（RNN）来搭建基础框架。</p>
 <p>基于 ＣＮＮ 的时空轨迹特征提取方法</p>
@@ -1194,263 +1315,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web安全/">Web安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-51单片机"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/05/06/51单片机/">51单片机基础知识</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/05/06/51单片机/" class="article-date">
-	  <time datetime="2017-05-06T15:53:56.000Z" itemprop="datePublished">2017-05-06</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>51单片机基础知识5个中断源（2个外部中断3个内部中断）</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180412/KFFkJEd8f3.png?imageslim" alt="mark"></p>
-<p><img src="http://www.elecfans.com/uploads/allimg/171220/0H6354531-0.jpg" alt="img"></p>
-<h3 id="1、外部中断0-INT0-、中断请求信号由P3-2输入。"><a href="#1、外部中断0-INT0-、中断请求信号由P3-2输入。" class="headerlink" title="1、外部中断0  INT0  、中断请求信号由P3.2输入。"></a>1、外部中断0  INT0  、中断请求信号由P3.2输入。</h3><p>请求方式有两种：电平方式；脉冲方式。</p>
-<p>通过TCON的IT0、IT1选择，</p>
-<p>电平方式（IT0（IT1）=0）：低电平有效</p>
-<p>脉冲方式（IT0（IT1）=1）：脉冲负跳变有效</p>
-<p>中断允许位寄存器 IE</p>
-<p>EX0 = 1;//中断允许开关<br>   IT0 = 0;//下降沿触发方式<br>   EA = 1;//总开关</p>
-<h3 id="2、外部中断1、中断请求信号由P3-3输入。（INT0-1）"><a href="#2、外部中断1、中断请求信号由P3-3输入。（INT0-1）" class="headerlink" title="2、外部中断1、中断请求信号由P3.3输入。（INT0 1）"></a>2、外部中断1、中断请求信号由P3.3输入。（INT0 1）</h3><h3 id="3、定时-计数器0中断（T0）"><a href="#3、定时-计数器0中断（T0）" class="headerlink" title="3、定时/计数器0中断（T0）"></a>3、定时/计数器0中断（T0）</h3><p>   EA = 1;//总开关</p>
-<p>  ET0 = 1;//启动计数器中断开关</p>
-<p>   定时器的核心在这<br>   TMOD = 0x09;<br>   TH0 = 0x0D8;     // 初始化  定时/计数器寄存器 高八位<br>   TL0 = 0x0F0;     // 初始化  定时/计数器寄存器 低八位<br>   TR0 = 1;//启动定时器</p>
-<h3 id="4、定时-计数器1中断（T1）"><a href="#4、定时-计数器1中断（T1）" class="headerlink" title="4、定时/计数器1中断（T1）"></a>4、定时/计数器1中断（T1）</h3><h3 id="5、串行口发送或接受中断"><a href="#5、串行口发送或接受中断" class="headerlink" title="5、串行口发送或接受中断"></a>5、串行口发送或接受中断</h3><h3 id="五个中断寄存器"><a href="#五个中断寄存器" class="headerlink" title="五个中断寄存器"></a>五个中断寄存器</h3><h3 id="1、中断允许寄存器IE-Time-Interrupt"><a href="#1、中断允许寄存器IE-Time-Interrupt" class="headerlink" title="1、中断允许寄存器IE　　　　　　　　　　　　　Time　Interrupt"></a><strong>1、中断允许寄存器IE　　　　　　　　　　　　　Time　Interrupt</strong></h3><table>
-<thead>
-<tr>
-<th>IE</th>
-<th>D7</th>
-<th>D6</th>
-<th>D5</th>
-<th>D4</th>
-<th>D3</th>
-<th>D2</th>
-<th>D1</th>
-<th>D0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>位名称</td>
-<td><strong>EA</strong></td>
-<td>—</td>
-<td>—</td>
-<td>ES</td>
-<td>ET1</td>
-<td>EX1</td>
-<td>ET0</td>
-<td>EX0</td>
-</tr>
-<tr>
-<td>位地址</td>
-<td>AFH</td>
-<td>—</td>
-<td>—</td>
-<td>ACH</td>
-<td>ABH</td>
-<td>AAH</td>
-<td>A9H</td>
-<td>A8H</td>
-</tr>
-<tr>
-<td>中断源</td>
-<td>CPU</td>
-<td>—</td>
-<td>—</td>
-<td>串行口</td>
-<td>T1</td>
-<td></td>
-<td>T0</td>
-</tr>
-</tbody>
-</table>
-<p> EA=1       中断总允许  ；ET0  =1 启动计数器中断开关</p>
-<h3 id="2、定时器控制寄存器TCON-8位寄存器"><a href="#2、定时器控制寄存器TCON-8位寄存器" class="headerlink" title="2、定时器控制寄存器TCON          8位寄存器**"></a>2、定时器控制寄存器TCON          8位寄存器**</h3><table>
-<thead>
-<tr>
-<th>TCON</th>
-<th>D7</th>
-<th>D6</th>
-<th>D5</th>
-<th>D4</th>
-<th>D3</th>
-<th>D2</th>
-<th>D1</th>
-<th>D0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>位名称</td>
-<td>TF1</td>
-<td>TR1</td>
-<td>TF0</td>
-<td>TR0</td>
-<td>IE1</td>
-<td>IT1</td>
-<td>IE0</td>
-<td>IT0</td>
-</tr>
-<tr>
-<td>位地址</td>
-<td>8FH</td>
-<td>8EH</td>
-<td>8DH</td>
-<td>8CH</td>
-<td>8BH</td>
-<td>8AH</td>
-<td>89H</td>
-<td>88H</td>
-</tr>
-<tr>
-<td>功能</td>
-<td>T1       中断  标志</td>
-<td>T1       触发 标志</td>
-<td>T0  中断  标志</td>
-<td>T0  触发  标志</td>
-<td>INT01           中断  标志</td>
-<td>INT1              触发  方式</td>
-<td>INT0         中断  标志</td>
-<td>INT0  触发  方式</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">IT0（IT1）——外中断请求信号方式控制位</span><br><span class="line">IT0（IT1）=1              脉冲方式（负跳变有效）；</span><br><span class="line">IT0（IT1）=0              电平方式（低电平有效）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TF0（TF1）——定时/计数溢出标志</span><br><span class="line">硬件置位——当定时/计数器产生溢出时。</span><br><span class="line">转向中断服务程序时，硬件自动清零。</span><br></pre></td></tr></table></figure>
-<h3 id="3、中断优先级寄存器IP（不常用）"><a href="#3、中断优先级寄存器IP（不常用）" class="headerlink" title="3、中断优先级寄存器IP（不常用）"></a><strong>3、中断优先级寄存器IP（不常用）</strong></h3><table>
-<thead>
-<tr>
-<th>IE</th>
-<th>D7</th>
-<th>D6</th>
-<th>D5</th>
-<th>D4</th>
-<th>D3</th>
-<th>D2</th>
-<th>D1</th>
-<th>D0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>位名称</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>PS</td>
-<td>PT1</td>
-<td>PX1</td>
-<td>PT0</td>
-<td>PX0</td>
-</tr>
-<tr>
-<td>位地址</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>BCH</td>
-<td>BBH</td>
-<td>BAH</td>
-<td>B9H</td>
-<td>B8H</td>
-</tr>
-<tr>
-<td>中断源</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>串行口</td>
-<td>T1</td>
-<td>INT1</td>
-<td>T0</td>
-<td>INT0</td>
-</tr>
-</tbody>
-</table>
-<h3 id="4、定时器方式寄存器TMOD"><a href="#4、定时器方式寄存器TMOD" class="headerlink" title="4、定时器方式寄存器TMOD"></a><strong>4、定时器方式寄存器TMOD</strong></h3><h3 id="5、串行口控制寄存器SCON"><a href="#5、串行口控制寄存器SCON" class="headerlink" title="5、串行口控制寄存器SCON"></a><strong>5、串行口控制寄存器SCON</strong></h3><table>
-<thead>
-<tr>
-<th>TCON</th>
-<th>D7</th>
-<th>D6</th>
-<th>D5</th>
-<th>D4</th>
-<th>D3</th>
-<th>D2</th>
-<th>D1</th>
-<th>D0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>位名称</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>TI</td>
-<td>RI</td>
-</tr>
-<tr>
-<td>位地址</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>99H</td>
-<td>98H</td>
-</tr>
-<tr>
-<td>功能</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-<td>串行发送  中断标志</td>
-<td>串行接收  中断标志</td>
-</tr>
-</tbody>
-</table>
-<h4 id="中断优先级："><a href="#中断优先级：" class="headerlink" title="中断优先级："></a>中断优先级：</h4><p> 内部查询次序：   外部中断0®定时中断0®外部中断1®定时中断1®串行中断。</p>
-<p>中断请求、中断响应、中断服务、中断返回</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物联网/">物联网</a></li></ul>
 
     </footer>
   </div>

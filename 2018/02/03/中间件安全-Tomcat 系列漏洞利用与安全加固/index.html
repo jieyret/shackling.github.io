@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="Tomcat 系列漏洞利用与安全加固0x00 前言Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Ap">
+  <meta name="description" content="Tomcat 系列漏洞利用与安全加固0x00 前言​    Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 ​    由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 T">
 <meta name="keywords" content="Web应用安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tomcat 系列漏洞利用与安全加固">
 <meta property="og:url" content="https://shackles.top/2018/02/03/中间件安全-Tomcat 系列漏洞利用与安全加固/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="Tomcat 系列漏洞利用与安全加固0x00 前言Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Ap">
+<meta property="og:description" content="Tomcat 系列漏洞利用与安全加固0x00 前言​    Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 ​    由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 T">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-16T16:06:31.034Z">
+<meta property="og:updated_time" content="2018-11-15T03:34:06.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tomcat 系列漏洞利用与安全加固">
-<meta name="twitter:description" content="Tomcat 系列漏洞利用与安全加固0x00 前言Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Ap">
+<meta name="twitter:description" content="Tomcat 系列漏洞利用与安全加固0x00 前言​    Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。 ​    由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 T">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -186,8 +186,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Tomcat-系列漏洞利用与安全加固"><a href="#Tomcat-系列漏洞利用与安全加固" class="headerlink" title="Tomcat 系列漏洞利用与安全加固"></a>Tomcat 系列漏洞利用与安全加固</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Apache HTTP 服务器混淆，Apache HTTP 服务器是一个用 C 语言实现的 HTTP Web 服务器；这两个 HTTP web server 不是捆绑在一起的。Tomcat 包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
+        <h1 id="Tomcat-系列漏洞利用与安全加固"><a href="#Tomcat-系列漏洞利用与安全加固" class="headerlink" title="Tomcat 系列漏洞利用与安全加固"></a>Tomcat 系列漏洞利用与安全加固</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>​    Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>​    由于 Tomcat 本身也内含了一个 HTTP 服务器，它也可以被视作一个单独的 Web 服务器。但是，不能将 Tomcat 和 Apache HTTP 服务器混淆，Apache HTTP 服务器是一个用 C 语言实现的 HTTP Web 服务器；这两个 HTTP web server 不是捆绑在一起的。Tomcat 包含了一个配置管理工具，也可以通过编辑XML格式的配置文件来进行配置。</p>
 <h3 id="Tomcat-重要目录"><a href="#Tomcat-重要目录" class="headerlink" title="Tomcat 重要目录"></a>Tomcat 重要目录</h3><ul>
 <li><strong>/bin</strong> - Tomcat 脚本存放目录（如启动、关闭脚本）。 <code>*.sh</code> 文件用于 Unix 系统； <code>*.bat</code> 文件用于 Windows 系统。</li>
 <li><strong>/conf</strong> - Tomcat 配置文件目录。</li>
@@ -362,9 +362,9 @@
     </a>
   
   
-    <a href="/2018/01/13/Mimikatz/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Mimikatz</div>
+      <div class="article-nav-title">Weblogic漏洞利用与安全加固</div>
     </a>
   
 </nav>
