@@ -19,16 +19,16 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，感觉内网渗透，只要英语好，一切都不是事。老外们的技术与分享精神好多干货，学无止境。  不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PH">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/UqKswX6rtV34.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/558WMKnNVaYQ.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/zwIq1GaC13ke.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/IlOV34AFS20x.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/59MxERtRsAzf.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/wrfQjtc5bam7.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/FobbiBWwAvyX.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/4WR9tTEc46Wr.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/0nCBot3LSOtW.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/UqKswX6rtV34.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/558WMKnNVaYQ.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/zwIq1GaC13ke.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/IlOV34AFS20x.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/59MxERtRsAzf.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/wrfQjtc5bam7.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/FobbiBWwAvyX.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/4WR9tTEc46Wr.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/0nCBot3LSOtW.png?imageslim">
 <meta property="og:image" content="https://user-images.githubusercontent.com/27856212/29992549-12d45854-8f6c-11e7-95c7-c2892582f56f.PNG">
 <meta property="og:image" content="https://cloud.githubusercontent.com/assets/27856212/26449039/2b43a742-411e-11e7-8ac4-f003c8060654.PNG">
 <meta property="og:image" content="https://cloud.githubusercontent.com/assets/27856212/26449045/2e4a13c2-411e-11e7-83e4-2b57babdbbdd.PNG">
@@ -38,15 +38,15 @@
 <meta property="og:image" content="https://cloud.githubusercontent.com/assets/27856212/26449228/14f41a48-411f-11e7-8690-3ce3c1541738.PNG">
 <meta property="og:image" content="https://user-images.githubusercontent.com/27856212/28122833-5bee8d72-66ed-11e7-8d0b-332f32627c62.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/27856212/40030114-f1bb39d2-57a5-11e8-9b99-ea076a852503.png">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181203/dER5wL6wIqnI.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181203/fnOHIfb9jyJO.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181203/lkvggvnySPdd.png?imageslim">
-<meta property="og:image" content="http://wfwewefw.yuxuni.cn/myimages/20181203/vC5HeUcUtu5b.png?imageslim">
-<meta property="og:updated_time" content="2018-12-08T11:56:37.768Z">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/dER5wL6wIqnI.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/fnOHIfb9jyJO.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/lkvggvnySPdd.png?imageslim">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/vC5HeUcUtu5b.png?imageslim">
+<meta property="og:updated_time" content="2019-02-19T03:34:02.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透实战简要总结">
 <meta name="twitter:description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，感觉内网渗透，只要英语好，一切都不是事。老外们的技术与分享精神好多干货，学无止境。  不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PH">
-<meta name="twitter:image" content="http://wfwewefw.yuxuni.cn/myimages/20181202/UqKswX6rtV34.png?imageslim">
+<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/UqKswX6rtV34.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -222,28 +222,28 @@
 <h5 id="一篇文章精通PowerShell-Empire-2-3（上）"><a href="#一篇文章精通PowerShell-Empire-2-3（上）" class="headerlink" title="一篇文章精通PowerShell Empire 2.3（上）"></a>一篇文章精通PowerShell Empire 2.3（上）</h5><p><a href="https://www.anquanke.com/post/id/87328" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87328</a></p>
 <h5 id="一篇文章精通PowerShell-Empire-2-3（下）"><a href="#一篇文章精通PowerShell-Empire-2-3（下）" class="headerlink" title="一篇文章精通PowerShell Empire 2.3（下）"></a>一篇文章精通PowerShell Empire 2.3（下）</h5><p><a href="https://www.anquanke.com/post/id/87333" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87333</a></p>
 <p>如下安装命令，官方提供了一键脚本，linux下kali与ubuntu都是支持的。项目原理是类似Metasploit、先建立Listeners，这里话简单看一写它的架构。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/UqKswX6rtV34.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/UqKswX6rtV34.png?imageslim" alt="mark"></p>
 <p>​    安装很简单，apt下载些包，pip安装python依赖。自动安装，最后需要设置数据库密码。也可以用data，目录下的rest.sh重置数据库。项目结构很清晰。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/EmpireProject/Empire.git</span><br><span class="line"></span><br><span class="line">cd Empire</span><br><span class="line"></span><br><span class="line">cd setup</span><br><span class="line"></span><br><span class="line">sudo ./install.sh</span><br><span class="line"></span><br><span class="line">python empire --rest --username admin --password password</span><br></pre></td></tr></table></figure>
 <p>启动  开启1337端口，rest api。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim" alt="mark"></p>
 <h5 id="常用命令-直接help"><a href="#常用命令-直接help" class="headerlink" title="常用命令  直接help"></a>常用命令  直接help</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listenters</span><br><span class="line">help</span><br></pre></td></tr></table></figure>
 <p>​    这里的module，分python版和powershell，不用多说啦，powershell只是用在windows平台下面，modules下面的文件只是python入口文件最后调用的还是data文件夹下面的powershell payload。python版的用在，linux与osx下面。大概分为下面几个大类。需要看到的时候在help就可以了。</p>
 <h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><blockquote>
 <p><a href="https://github.com/SadProcessor/Cheats/blob/master/RedTrooperFM.md" target="_blank" rel="noopener">https://github.com/SadProcessor/Cheats/blob/master/RedTrooperFM.md</a></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">code_execution	代码执行</span><br><span class="line">collection		信息收集</span><br><span class="line">credentials		凭证	</span><br><span class="line">exfiltration	数据窃取</span><br><span class="line">exploitation</span><br><span class="line">lateral_movement 横向</span><br><span class="line">management		管理</span><br><span class="line">persistence		权限维持</span><br><span class="line">privesc		提权</span><br><span class="line">recon		侦查</span><br><span class="line">situational_awareness</span><br><span class="line">trollsploit</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/558WMKnNVaYQ.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/558WMKnNVaYQ.png?imageslim" alt="mark"></p>
 <p>usestager</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/zwIq1GaC13ke.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/IlOV34AFS20x.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/zwIq1GaC13ke.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/IlOV34AFS20x.png?imageslim" alt="mark"></p>
 <p>​    </p>
 <p>​    用Base64解码。看到发送的Python payload，大概的原理是客户端先判断有没有Little Snitch，直接用python2中原生urllib2库请求我们Empire 的http listener，的ip地址端口，这里的listener是由flask提供server，验证客户端来的cookie，相当于模拟正常的web流量。加密混淆建立个长连接。同样Powershell也这个原理。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/59MxERtRsAzf.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/59MxERtRsAzf.png?imageslim" alt="mark"></p>
 <p>payload执行后，还要rm。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/wrfQjtc5bam7.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/wrfQjtc5bam7.png?imageslim" alt="mark"></p>
 <p>客户端执行后，agent上线。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/FobbiBWwAvyX.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/FobbiBWwAvyX.png?imageslim" alt="mark"></p>
 <p>接下来就可以进行后渗透攻击。</p>
 <h3 id="PSattack：一个渗透测试中使用的万能框架"><a href="#PSattack：一个渗透测试中使用的万能框架" class="headerlink" title="PSattack：一个渗透测试中使用的万能框架"></a>PSattack：一个渗透测试中使用的万能框架</h3><h3 id="CrackMapExec"><a href="#CrackMapExec" class="headerlink" title="CrackMapExec"></a>CrackMapExec</h3><blockquote>
 <p><a href="https://github.com/byt3bl33d3r/CrackMapExec" target="_blank" rel="noopener">https://github.com/byt3bl33d3r/CrackMapExec</a></p>
@@ -280,8 +280,8 @@
 <p>后续有时间再整理整理。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CertUtilWebDelivery.cna  </span><br><span class="line">Logging                       </span><br><span class="line">PowerLessShell        </span><br><span class="line">ProcessMonitor.ps1  </span><br><span class="line">SMBPayloadGenerator.cna</span><br><span class="line">ArtifactPayloadGenerator.cna </span><br><span class="line">DriverSearcher           </span><br><span class="line">logvis.cna                    </span><br><span class="line">PowerView3-Aggressor  </span><br><span class="line">UACBypass</span><br><span class="line">AVQuery.cna                   </span><br><span class="line">EDR.cna                  </span><br><span class="line">Persistence                   </span><br><span class="line">ProcessColor.cna     </span><br><span class="line">RedTeamRepo.cna     </span><br><span class="line">Beaconpire                    </span><br><span class="line">ElevateKit               </span><br><span class="line">persistence-aggressor-script  </span><br><span class="line">ProcessMonitor.cna    </span><br><span class="line">silver-tickets.cna</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/4WR9tTEc46Wr.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/0nCBot3LSOtW.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/4WR9tTEc46Wr.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/0nCBot3LSOtW.png?imageslim" alt="mark"></p>
 <ul>
 <li><p>ArtifactPayloadGenerator.cna</p>
 <ul>
@@ -479,14 +479,14 @@
 </ul>
 <p>1、扫描可以提权的uac列表，绿色是可以提权的payload。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python  winpwnage.py -scan  -uac</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/dER5wL6wIqnI.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/dER5wL6wIqnI.png?imageslim" alt="mark"></p>
 <p>2、扫描可以权限维持的persist列表，绿色是可以提权的payload。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python  winpwnage.py -scan  -persist</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/fnOHIfb9jyJO.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/fnOHIfb9jyJO.png?imageslim" alt="mark"></p>
 <pre><code>python  winpwnage.py    -use  -uac ID号 C:\Windows\System32\cmd.exe
-</code></pre><p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/lkvggvnySPdd.png?imageslim" alt="mark"></p>
+</code></pre><p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/lkvggvnySPdd.png?imageslim" alt="mark"></p>
 <p>3、弹出管理员cmd.exe</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/vC5HeUcUtu5b.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/vC5HeUcUtu5b.png?imageslim" alt="mark"></p>
 <h5 id="pupy"><a href="#pupy" class="headerlink" title="pupy"></a>pupy</h5><blockquote>
 <p>开源远控</p>
 </blockquote>

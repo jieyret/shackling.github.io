@@ -19,12 +19,12 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="域内信息收集 ​    记录下域内信息收集的技巧总结  SRV记录（标明主机服务信息）SRV是DNS中的一种资源记录。SRV记录用于将服务的名称映射到提供该服务的服务器的DNS计算机名称。 简单来说，它标明了哪台主机提供哪种服务的信息。 Windows域中的服务会注册下列格式的srv记录： ​     _Service._Protocol.DnsDomainName 在windows域中，活动目录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://pn49yk1z4.bkt.clouddn.com/181027/889FJF18ie.png?imageslim">
-<meta property="og:updated_time" content="2019-02-18T16:34:13.925Z">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/181027/889FJF18ie.png?imageslim">
+<meta property="og:updated_time" content="2019-02-19T03:32:08.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域内信息收集">
 <meta name="twitter:description" content="域内信息收集 ​    记录下域内信息收集的技巧总结  SRV记录（标明主机服务信息）SRV是DNS中的一种资源记录。SRV记录用于将服务的名称映射到提供该服务的服务器的DNS计算机名称。 简单来说，它标明了哪台主机提供哪种服务的信息。 Windows域中的服务会注册下列格式的srv记录： ​     _Service._Protocol.DnsDomainName 在windows域中，活动目录">
-<meta name="twitter:image" content="http://pn49yk1z4.bkt.clouddn.com/181027/889FJF18ie.png?imageslim">
+<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/181027/889FJF18ie.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -205,7 +205,7 @@
 <p>域控制器会注册一个srv记录，因此可以通过使用nslookup来查询这个srv记录，定位域控制器。</p>
 <p>交互式命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nslookup                             # 进入交互式界面</span><br><span class="line"></span><br><span class="line">set type=all                     # 设置记录类型，可以设置为srv</span><br><span class="line"></span><br><span class="line">ldap.tcp.dc._msdcs.exist.local    # 执行查询</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/181027/889FJF18ie.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/181027/889FJF18ie.png?imageslim" alt="mark"></p>
 <p>nslookup输出</p>
 <p>nslookup</p>
 <p>输出：</p>

