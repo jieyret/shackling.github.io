@@ -11,14 +11,15 @@
   
   
   
-  <meta name="description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。  不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但这">
+  <meta name="description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。   不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但">
 <meta name="keywords" content="内网渗透">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透实战简要总结">
 <meta property="og:url" content="https://shackles.top/2018/10/29/域渗透实战简要总结/index.html">
 <meta property="og:site_name" content="shackle">
-<meta property="og:description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。  不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但这">
+<meta property="og:description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。   不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/UqKswX6rtV34.png?imageslim">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/nrz5mH5Ah9Kl.png?imageslim">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/558WMKnNVaYQ.png?imageslim">
@@ -42,11 +43,11 @@
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/fnOHIfb9jyJO.png?imageslim">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/lkvggvnySPdd.png?imageslim">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181203/vC5HeUcUtu5b.png?imageslim">
-<meta property="og:updated_time" content="2019-02-19T05:12:23.358Z">
+<meta property="og:updated_time" content="2019-02-22T17:01:56.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透实战简要总结">
-<meta name="twitter:description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。  不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但这">
-<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/myimages/20181202/UqKswX6rtV34.png?imageslim">
+<meta name="twitter:description" content="域渗透实战简要总结 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。   不断更新ing~ Empire https://github.com/EmpireProject/Empire  ​    Empire是基于Powershell后渗透框架，之前NSA的武器库中就有这个神器。我这里的是2.5版本的，提供rest API，有PHP版本和官方node.js版的前端。但">
+<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -213,6 +214,7 @@
         <h1 id="域渗透实战简要总结"><a href="#域渗透实战简要总结" class="headerlink" title="域渗透实战简要总结"></a>域渗透实战简要总结</h1><blockquote>
 <p>本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。</p>
 </blockquote>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim" alt="mark"></p>
 <p>不断更新ing~</p>
 <h3 id="Empire"><a href="#Empire" class="headerlink" title="Empire"></a>Empire</h3><blockquote>
 <p><a href="https://github.com/EmpireProject/Empire" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire</a></p>
@@ -390,11 +392,11 @@
 </ol>
 <p>此工具包仅限于我用于开发和调试的操作，因此不会加载其余部分。</p>
 <ol>
-<li><strong>EnumKit</strong></li>
+<li><strong>EnumKit  </strong>网络枚举</li>
 </ol>
 <p>此工具包中的操作围绕主机和网络枚举。凭证枚举操作应该使用CredKit。</p>
 <ol>
-<li><strong>PersistKit</strong>  </li>
+<li><strong>PersistKit</strong>  权限维持</li>
 </ol>
 <p>此工具包中的操作围绕端点持久性。示例包括后门服务创建，后门进程创建等</p>
 <ol>
@@ -627,11 +629,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/01/21/Security management platform/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/12/20/常规内网攻击面与防御方法/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          中小企业安全管理平台
+          常规内网攻击面与防御方法
         
       </div>
     </a>

