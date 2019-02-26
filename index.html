@@ -295,7 +295,7 @@
 </ul>
 <p>本平台旨在解决周期巡检困难，安全能力低下，自动化程度低的中小企业，实现安全内部自动化安全管理，提升企业内部安全管理能力，对中小企业安全建设有一定意义。</p>
 <h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><p>​    项目采用前后端分离的架构，后端django rest farmework 提供RESTful API，前端基于Element VUE。数据库为稳定性强、性能高的PostgreSQL。架构采用Celery+RabbitMQ实现异步消息队列，redis提供扫描任务队列。整体采用RBAC认证方式，基于角色的权限访问控制实现用户权限等级划分。资产发现参考 <a href="https://github.com/ysrc/xunfeng" target="_blank" rel="noopener">xunfeng</a>的nascan模块对于IP/URL为唯一标识的资产，划分为HOST资产与WEB资产两种类型，分别对应主机与web应用，从而分别实现端口扫描、POC扫描、扫描器扫描与Web扫描。端口扫描基于masscan扫描端口、nmap扫描端口服务实现IP段批量扫描。基于多对多通过redis队列扫描任务，产生漏洞再进行漏洞报表与数据分析，并且关联业务漏洞跟踪，支持手工录入。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190219/8oS8kbVuLaIt.png?imageslim" alt="整体架构图"></p>
+<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190226/AGoMLwFdVK67.png?imageslim" alt="mark"></p>
 <h4 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h4><p>待完善</p>
 <p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190219/YygDKiRmFehh.png?imageslim" alt="数据库设计图"></p>
 <h4 id="部分截图"><a href="#部分截图" class="headerlink" title="部分截图"></a>部分截图</h4><p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190219/b9tzXLy3ypsk.png?imageslim" alt="mark"></p>
@@ -522,7 +522,6 @@
 <p>5、安装： 在目标建立堡垒；</p>
 <p>6、命令和控制（C2）： 远程控制和植入；</p>
 <p>7、目标达成；</p>
-<p>参看<a href="https://ti.360.net/blog/articles/apt-2018-report/" target="_blank" rel="noopener">全球高级持续性威胁（APT）2018年总结报告</a></p>
 <p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim" alt="mark"></p>
 <p>​                                    </p>
 <h4 id="内网渗透一般流程"><a href="#内网渗透一般流程" class="headerlink" title="内网渗透一般流程"></a>内网渗透一般流程</h4><p>​    对于内网渗透一般流程是通过鱼叉钓鱼邮件的方式、内网开放服务漏洞直接进入内网、或者利用外网漏洞控制DMZ区的机器从而迂回进入内网、当然0day/Nday漏洞也是重点关注的。获取一定的个人PC/服务器/IOT权限，再进行提权，此后再进行本地/外部信息收集，从而进行内网范围的横向扩展，此过程是循环往复的行为以达到攻击目标的最大化，已达成需要获取的信息为目标。之后进行权限维持，根据情况长期控制目标权限。下文也会根据这几条进入内网</p>

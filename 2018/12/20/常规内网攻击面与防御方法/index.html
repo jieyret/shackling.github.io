@@ -21,7 +21,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim">
 <meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim">
-<meta property="og:updated_time" content="2019-02-22T17:08:53.139Z">
+<meta property="og:updated_time" content="2019-02-22T17:12:23.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常规内网攻击面与防御方法">
 <meta name="twitter:description" content="常规内网攻击面与防御方法 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。  0x00 前言 记录内网环境下，一般常见的风险点/攻击面，以及对应的防御思路。  网络攻击杀伤链（Cyber-Kill-Chain）网络攻击杀伤链（Cyber-Kill-Chain）是由洛克希德-马丁公司提出的，俗称洛马七步杀： 1、RECONNAISSANCE 识别目标，信息收集； 2、WE">
@@ -203,7 +203,6 @@
 <p>5、安装： 在目标建立堡垒；</p>
 <p>6、命令和控制（C2）： 远程控制和植入；</p>
 <p>7、目标达成；</p>
-<p>参看<a href="https://ti.360.net/blog/articles/apt-2018-report/" target="_blank" rel="noopener">全球高级持续性威胁（APT）2018年总结报告</a></p>
 <p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim" alt="mark"></p>
 <p>​                                    </p>
 <h4 id="内网渗透一般流程"><a href="#内网渗透一般流程" class="headerlink" title="内网渗透一般流程"></a>内网渗透一般流程</h4><p>​    对于内网渗透一般流程是通过鱼叉钓鱼邮件的方式、内网开放服务漏洞直接进入内网、或者利用外网漏洞控制DMZ区的机器从而迂回进入内网、当然0day/Nday漏洞也是重点关注的。获取一定的个人PC/服务器/IOT权限，再进行提权，此后再进行本地/外部信息收集，从而进行内网范围的横向扩展，此过程是循环往复的行为以达到攻击目标的最大化，已达成需要获取的信息为目标。之后进行权限维持，根据情况长期控制目标权限。下文也会根据这几条进入内网</p>
