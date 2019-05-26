@@ -280,10 +280,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="中小企业安全管理平台"><a href="#中小企业安全管理平台" class="headerlink" title="中小企业安全管理平台"></a>中小企业安全管理平台</h1><p>Security management platform</p>
-<blockquote>
-<p>本项目目前还处于开发阶段中，还有不少BUG，没写完。</p>
-</blockquote>
-<p>对于中小企业内网安全信息孤岛现象、资产划分不清、各系统闭环导致安全能力低下之间一直是企业安全建设中的痛点，而其对于一个企业网络安全重要性与意义不容忽视。</p>
+<h4 id="0x00-需求分析"><a href="#0x00-需求分析" class="headerlink" title="0x00 需求分析"></a>0x00 需求分析</h4><p>对于中小企业内网安全信息孤岛现象、资产划分不清、各系统闭环导致安全能力低下之间一直是企业安全建设中的痛点，而其对于一个企业网络安全重要性与意义不容忽视。</p>
 <p>​    故本设计目标实现自动化、一体化安全管理与运营平台，可自定义用户类型及权限信息，有安全人员，运维人员，网络人员和业务人员四种不同等级权限划分。本中小企业内网安全管理平台，包括资产管理，安全扫描，漏洞管理，统一日志分析接口，监控报警接口，知识库共享六大模块。从资产，漏洞，日志，事件四个维度对发现资产进行安全分析可视化展示与管理运营。</p>
 <ul>
 <li>资产管理模块实现对目标范围进行探测，现其中存活的端口及资产，梳理资产分布情况，实现资产发现并分组管理并根据实现扩展。</li>
@@ -294,14 +291,24 @@
 <li>知识库共享实现知识库与漏洞库的管理与分享，提高安全人员安全软能力。</li>
 </ul>
 <p>本平台旨在解决周期巡检困难，安全能力低下，自动化程度低的中小企业，实现安全内部自动化安全管理，提升企业内部安全管理能力，对中小企业安全建设有一定意义。</p>
-<h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><p>​    项目采用前后端分离的架构，后端django rest farmework 提供RESTful API，前端基于Element VUE。数据库为稳定性强、性能高的PostgreSQL。架构采用Celery+RabbitMQ实现异步消息队列，redis提供扫描任务队列。整体采用RBAC认证方式，基于角色的权限访问控制实现用户权限等级划分。资产发现参考 <a href="https://github.com/ysrc/xunfeng" target="_blank" rel="noopener">xunfeng</a>的nascan模块对于IP/URL为唯一标识的资产，划分为HOST资产与WEB资产两种类型，分别对应主机与web应用，从而分别实现端口扫描、POC扫描、扫描器扫描与Web扫描。端口扫描基于masscan扫描端口、nmap扫描端口服务实现IP段批量扫描。基于多对多通过redis队列扫描任务，产生漏洞再进行漏洞报表与数据分析，并且关联业务漏洞跟踪，支持手工录入。</p>
-<p><img src="http://ps3bnv59u.bkt.clouddn.com/20190226/AGoMLwFdVK67.png?imageslim" alt="mark"></p>
-<h4 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h4><p>待完善</p>
-<p><img src="http://ps3bnv59u.bkt.clouddn.com/20190219/YygDKiRmFehh.png?imageslim" alt="数据库设计图"></p>
-<h4 id="部分截图"><a href="#部分截图" class="headerlink" title="部分截图"></a>部分截图</h4><p><img src="http://ps3bnv59u.bkt.clouddn.com/20190219/b9tzXLy3ypsk.png?imageslim" alt="mark"></p>
-<p><img src="http://ps3bnv59u.bkt.clouddn.com/20190219/G1Khur458k1X.png?imageslim" alt="mark"></p>
-<h4 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h4><p>待完善</p>
-<table>
+<h4 id="0x01-整体架构"><a href="#0x01-整体架构" class="headerlink" title="0x01 整体架构"></a>0x01 整体架构</h4><p>​    项目采用前后端分离的架构，后端django rest farmework 提供RESTful API，前端基于Element VUE。数据库为稳定性强、性能高的PostgreSQL。架构采用Celery+RabbitMQ实现异步消息队列，redis提供扫描任务队列。整体采用RBAC认证方式，基于角色的权限访问控制实现用户权限等级划分。资产发现参考 <a href="https://github.com/ysrc/xunfeng" target="_blank" rel="noopener">xunfeng</a>的nascan模块对于IP/URL为唯一标识的资产，划分为HOST资产与WEB资产两种类型，分别对应主机与web应用，从而分别实现端口扫描、POC扫描、扫描器扫描与Web扫描。端口扫描基于masscan扫描端口、nmap扫描端口服务实现IP段批量扫描。基于多对多通过redis队列扫描任务，产生漏洞再进行漏洞报表与数据分析，并且关联业务漏洞跟踪，支持手工录入。</p>
+<p>​    如下图整体功能图所示。资产管理模块实现对目标范围进行探测，现其中存活的端口及资产，梳理资产分布情况，实现资产发现并分组管理并根据实现扩展。安全扫描模块实现基于插件化的平台对发现资产进行安全检测，根据漏洞评估资产风险状况，保障资产安全性。漏洞管理模块实现较为完整的漏洞快速跟进和扫描器漏洞过滤。统一日志分析接口模块对接外部日志分析系统，实现平台日志管理运营。监控报警接口模块实现对接监控报警系统，实现监控报警运营。知识库共享实现知识库与漏洞库的管理与分享，提高安全人员安全软能力。</p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/Security%20management%20platform.png" alt="整体功能图"></p>
+<p>​    如图整体架构图所示。资产管理通过录入IP/URL资产分为HOST与WEB资产，可通过IP段发现实现IP资产的端口，同时支持手动批量手动录入。对于WEB资产基于Wappalyzer通过CMS识别和指纹识别。基于Celery与RabbiMQ实现消息队列实现漏洞扫描队列化。漏洞扫描分为扫描器扫描和POC扫描与WEB扫描方式，漏洞自动化存储，漏洞管理也可手动录入系统。数据库使用稳定性强、性能高PostgreSQL数据库存储信息，后端基于Django REST Framework框架提供RESTful API，前端基于Element UI框架开发。同时调用ELK Stack技术栈接口实现日志分析与告警。</p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/Overall%20structure.png" alt="整体架构图"></p>
+<h4 id="0x02-数据库设计"><a href="#0x02-数据库设计" class="headerlink" title="0x02 数据库设计"></a>0x02 数据库设计</h4><p>数据库设计如下图所示：</p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/Database%20Design.png" alt="数据库设计图"></p>
+<h4 id="0x01-部分截图"><a href="#0x01-部分截图" class="headerlink" title="0x01 部分截图"></a>0x01 部分截图</h4><h4 id="0x01-基本技术栈"><a href="#0x01-基本技术栈" class="headerlink" title="0x01 基本技术栈"></a>0x01 基本技术栈</h4><h5 id="Celery"><a href="#Celery" class="headerlink" title="Celery"></a>Celery</h5><p>本系统中需要使用任务队列和异步处理，选用Celery作为任务队列处理系统。Celery用于处理跨线程或网络节点的工作任务分配，用于处理大量耗时消息，提高响应速度。它使异步任务管理变得容易，将消息推送到像RabbitMQ这样的代理，Celery便会安排任务执行。针对特定的耗时任务使用Celery，可更好可快地响应用户请求。</p>
+<h5 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h5><p>目前在Python 语言开发的Web开发框架中市场占有率最高的便是Django框架，是全套解决方案。设计目标是快速与务实纯净开发，Django比其他许多框架更加全面。可扩展性强、且安全性强，关于Django的漏洞相对较少，同时文档全面、社区支持、灵活可靠。基于MVC核心架构、ORM（对象关系映射器）、Python单元测试框架。Django可以做为B2B CRM，文件管理系统、为移动端提供接口、内容管理系统，有着广泛而成熟的应用，许多互联网公司也使用其作为主要的开发框架。</p>
+<h5 id="Django-REST-Framework"><a href="#Django-REST-Framework" class="headerlink" title="Django REST Framework"></a>Django REST Framework</h5><p>本系统使用前后端分离开发技术，后台提供RESTful API。这意味着REST应用程序具有HTTP资源的标准集与结构，它基于所使用的HTTP方法从服务器向客户端提供数据。本系统使用前后端分离技术可以提高开发效率，提高代码可读性与质量。Django REST Framework是一个用于构建RESTful API的强大而又便利的开发框架[10]。有基于Oauth的身份验证和基于功能的视图。用Django REST Framework框架轻松地将REST API集成到现有的Django框架功能中，从而为前端提供API接口。</p>
+<h5 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h5><p>本系统使用PostgreSQL数据库，PostgreSQL是开源关系型数据库11]。本数据库采用ACID标准，支持热备份/流复制、双向复制、逻辑日志流复制与级联复制。且适合读/写速度要求高应用，支持本地SSL，还具有行级安全性。同时PostgreSQL支持JSON和其他NoSQL功能。</p>
+<h5 id="Vue-js"><a href="#Vue-js" class="headerlink" title="Vue.js"></a>Vue.js</h5><p>Vue.js是一个很受欢迎的开源JavaScript开发框架。基于数据驱动，基于响应式原理、Model-View-ViewModel框架。是渐进式框架、可扩展性强。资产双向数据绑定和虚拟DOM。服务器端渲染强，易于部署，高效灵活可不断适应开发人员的需求。</p>
+<h5 id="Element-UI"><a href="#Element-UI" class="headerlink" title="Element UI"></a>Element UI</h5><p>Element UI是国内前端团队开源的一套基于Vue2.0的组件库。本系统使用此组件库有利于快速开发和功能迭代。其是现在最为流行与活跃的Vue.js组件库。其定义布局、表单、表格、对话框等组件可提高前端开发效率，并优化Vue.js框架性能。</p>
+<h4 id="0x01-统一日志分析接口模块"><a href="#0x01-统一日志分析接口模块" class="headerlink" title="0x01 统一日志分析接口模块"></a>0x01 统一日志分析接口模块</h4><p>​    本系统基于Elastic Stack设计实现统一认证分析。Elastic Stack包括搜索分析的Elasticsearch、日志收集的Logstash和数据分析展示的Kibana三大技术，是一个端到端日志分析解决方案，可帮助深入搜索，分析和可视化从不同计算机生成的日志。同时Elastic Stack 提供了广泛用于威胁检测、可见性和事件响应的安全分析功能。Elasticsearch能够快速便捷的索引和搜索大量安全相关数据，帮助安全分析师更高效地工作，而 Kibana 仪表板提供了广泛的可见性，并支持交互式威胁搜索。</p>
+<p>​    目前较为留行的入侵检测系统(IDS)（如Wazuh或Suricata）使用基于签名的方法进行威胁检测。也就是说，它们将在文件、日志和网络流量中发现的模式与已知与恶意活动相关的模式数据库进行比较，并在发现匹配时发出警报。它们提供了有用的规则集用于分析和关联数据，通常会在生产环境中每天生成数千或数百万个警报。</p>
+<p>​    Wazuh是一个基于开源主机的入侵检测系统[16]。它提供日志分析、文件完整性监测、恶意软件和漏洞检测、配置评估和事件响应功能。Wazuh 解决方案架构基于运行在受监测系统上的多平台轻量型代理，向进行数据分析的中央服务器报告。此外，它为配置管理、状态监测、查询和警报数据可视化提供了完整的 Kibana 插件。另一方面，Suricata是目前比较流行的免费开源网络安全检测引擎项目，可匹配已知威胁、策略违规和恶意行为，基于有效的规则进行防御。</p>
+<p>​    本系统使用Bro通信协议从集群中的其余节点接收日志消息和通知。其结果是单个日志而不是许多离散日志，同时与后端处理组合。并借此机会去除重复的通知，因为它充当通知的阻塞点以及如何将通知处理成动作。故本系统Wazuh代理来读取Suricata JSON输出的网络流量威胁，同时通过Logstash收集主机的日志与网络设备日志。发送到Elasticsearch处理数据，再通过Kibana数据分析和数据可视化展示。</p>
+<h4 id="0x01-POC列表"><a href="#0x01-POC列表" class="headerlink" title="0x01 POC列表"></a>0x01 POC列表</h4><table>
 <thead>
 <tr>
 <th>WEB</th>
@@ -460,7 +467,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://github.com/We5ter/Scanners-Box" target="_blank" rel="noopener">https://github.com/We5ter/Scanners-Box</a></p>
+<h4 id="0x01-参考"><a href="#0x01-参考" class="headerlink" title="0x01 参考"></a>0x01 参考</h4><p><a href="https://github.com/We5ter/Scanners-Box" target="_blank" rel="noopener">https://github.com/We5ter/Scanners-Box</a></p>
 <p><a href="https://github.com/jeffzh3ng/Fuxi-Scanner" target="_blank" rel="noopener">https://github.com/jeffzh3ng/Fuxi-Scanner</a></p>
 <p><a href="https://github.com/ysrc/xunfeng" target="_blank" rel="noopener">https://github.com/ysrc/xunfeng</a></p>
 <p><a href="https://github.com/Xyntax/POC-T/" target="_blank" rel="noopener">https://github.com/Xyntax/POC-T/</a></p>
