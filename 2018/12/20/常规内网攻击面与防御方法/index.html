@@ -19,13 +19,13 @@
 <meta property="og:site_name" content="shackle">
 <meta property="og:description" content="常规内网攻击面与防御方法 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。  0x00 前言 记录内网环境下，一般常见的风险点/攻击面，以及对应的防御思路。  网络攻击杀伤链（Cyber-Kill-Chain）网络攻击杀伤链（Cyber-Kill-Chain）是由洛克希德-马丁公司提出的，俗称洛马七步杀： 1、RECONNAISSANCE 识别目标，信息收集； 2、WE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim">
-<meta property="og:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim">
-<meta property="og:updated_time" content="2019-02-22T17:12:23.508Z">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim">
+<meta property="og:image" content="http://ps3bnv59u.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim">
+<meta property="og:updated_time" content="2019-05-26T03:12:30.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常规内网攻击面与防御方法">
 <meta name="twitter:description" content="常规内网攻击面与防御方法 本文记录域渗透的一些Tip与坑点，老外们的技术与分享精神好多干货，学无止境。  0x00 前言 记录内网环境下，一般常见的风险点/攻击面，以及对应的防御思路。  网络攻击杀伤链（Cyber-Kill-Chain）网络攻击杀伤链（Cyber-Kill-Chain）是由洛克希德-马丁公司提出的，俗称洛马七步杀： 1、RECONNAISSANCE 识别目标，信息收集； 2、WE">
-<meta name="twitter:image" content="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim">
+<meta name="twitter:image" content="http://ps3bnv59u.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim">
   
     <link rel="alternate" href="/atom.xml" title="shackle" type="application/atom+xml">
   
@@ -203,10 +203,10 @@
 <p>5、安装： 在目标建立堡垒；</p>
 <p>6、命令和控制（C2）： 远程控制和植入；</p>
 <p>7、目标达成；</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/newblog/20190223/QR8JJKBGYo9F.jpg?imageslim" alt="mark"></p>
 <p>​                                    </p>
 <h4 id="内网渗透一般流程"><a href="#内网渗透一般流程" class="headerlink" title="内网渗透一般流程"></a>内网渗透一般流程</h4><p>​    对于内网渗透一般流程是通过鱼叉钓鱼邮件的方式、内网开放服务漏洞直接进入内网、或者利用外网漏洞控制DMZ区的机器从而迂回进入内网、当然0day/Nday漏洞也是重点关注的。获取一定的个人PC/服务器/IOT权限，再进行提权，此后再进行本地/外部信息收集，从而进行内网范围的横向扩展，此过程是循环往复的行为以达到攻击目标的最大化，已达成需要获取的信息为目标。之后进行权限维持，根据情况长期控制目标权限。下文也会根据这几条进入内网</p>
-<p><img src="http://pn5jn1i1e.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim" alt="mark"></p>
+<p><img src="http://ps3bnv59u.bkt.clouddn.com/newblog/20190223/6r7Iqw55rG7y.png?imageslim" alt="mark"></p>
 <h3 id="0x01-进入内网"><a href="#0x01-进入内网" class="headerlink" title="0x01 进入内网"></a>0x01 进入内网</h3><h4 id="1-1-社工方向"><a href="#1-1-社工方向" class="headerlink" title="1.1    社工方向"></a>1.1    社工方向</h4><h5 id="U盘社工攻击"><a href="#U盘社工攻击" class="headerlink" title="U盘社工攻击"></a>U盘社工攻击</h5><p>Badusb 低成本Arduino ， 树莓派zero ，Attiny85微型 USB接口开发板 Digispark kickstarter扩展板开发板</p>
 <p>橡皮鸭 模拟键盘。</p>
 <p>（1）Teensy是HID键盘攻击，出现cmd窗口。</p>
